@@ -2149,7 +2149,7 @@ function printFullAuthorization() {
   const authorizationContainer = document.getElementById('authorizationContainer');
   const printContent = authorizationContainer.innerHTML.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/,'');
   const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>Autorisierung ZfP - Schaeffler</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
+  w.document.write(`<!DOCTYPE html><html><head><title>Autorisierung ZfP - Schaeffler</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=0.86"><style>
 *{margin:0;padding:0;box-sizing:border-box;}
 @page{
   size:A4 portrait;
