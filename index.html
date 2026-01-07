@@ -2064,7 +2064,7 @@ function printFullReport() {
   let printContent = reportContainer.innerHTML;
   printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/,'');
   const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>ZfP Audit Bericht - Schaeffler</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>${/iPhone|iPad|iPod/.test(navigator.userAgent)?'html{zoom:0.86;}@page{size:A4 portrait;margin:16mm !important;}':''}
+  w.document.write(`<!DOCTYPE html><html><head><title>ZfP Audit Bericht - Schaeffler</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>${/iPhone|iPad|iPod/.test(navigator.userAgent)?'html{zoom:0.84;}@page{size:A4 portrait;margin:16mm !important;}':''}
 *{margin:0;padding:0;box-sizing:border-box;}
 @page{
   size:A4 portrait;
@@ -2147,70 +2147,217 @@ hr{border:none;border-top:1px solid #000;margin:6px 0 8px 0;}
 
 function printFullAuthorization() {
   const authorizationContainer = document.getElementById('authorizationContainer');
-  const printContent = authorizationContainer.innerHTML.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/,'');
+  let printContent = authorizationContainer.innerHTML;
+  printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
+  
+  const isiPhone = /iPhone|iPad|iPod/.test(navigator.userAgent);
   const w = window.open('', '_blank');
+  
   w.document.write(`<!DOCTYPE html><html><head><title>Autorisierung ZfP - Schaeffler</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
-*{margin:0;padding:0;box-sizing:border-box;}
-@page{
-  size:A4 portrait;
-  margin:12mm !important; /* kleinerer Rand */
+${isiPhone ? `
+/* iPhone/iPad spezifische Skalierung */
+html { zoom: 0.84; }
+@page { size: A4 portrait; margin: 16mm !important; }
+` : ''}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@page {
+  size: A4 portrait;
+  margin: 12mm !important; /* kleinerer Rand für mehr Platz */
 }
-body{
-  font-family:Arial,sans-serif!important;
-  margin:0!important;padding:0!important;
-  color:#000!important;font-size:10.5pt!important; /* größer */
-  line-height:1.32;
-  background:#fff!important;
-  -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+
+body {
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #000 !important;
+  font-size: 10.5pt !important; /* Etwas größer für bessere Lesbarkeit */
+  line-height: 1.32;
+  background: #fff !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }
-.print-container{
-  margin:0 auto;padding:0;
-  max-width:180mm;
-  display:flex;                 /* Flex-Spalte */
-  flex-direction:column;
-  min-height:calc(297mm - 24mm); /* 297mm Höhe - 2 * 12mm Rand */
+
+.print-container {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 180mm;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(297mm - 24mm); /* 297mm Höhe - 2 * 12mm Rand */
 }
-.authorization-header{
-  text-align:center;border-bottom:1.5px solid #000;
-  padding-bottom:6px;margin-bottom:12px;
+
+.authorization-header {
+  position: relative;
+  text-align: center;
+  border-bottom: 1.5px solid #000 !important;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
 }
-.authorization-header h1{font-size:16pt;margin:0 0 4px 0;color:#000;} /* etwas größer */
-.company-info{font-size:10pt;color:#000;margin-top:2px;}
-.authorization-info{
-  margin:10px 0;padding:10px;border:1px solid #ccc;background:#f9f9f9;
-  font-size:10.5pt; /* größer */
+
+.authorization-header h1 {
+  font-size: 16pt !important;
+  margin: 0 0 4px 0;
+  color: #000 !important;
+  line-height: 1.2;
 }
-.authorization-info p{margin:5px 0;}
-.authorization-text-box{
-  border:1.5px solid #000;padding:12px;margin:12px 0;font-size:10.5pt;line-height:1.35;background:#f9f9f9;min-height:80px;
+
+.company-info {
+  font-size: 10pt !important;
+  color: #000 !important;
+  margin-top: 2px;
 }
-.authorization-details{
-  margin:12px 0;padding:10px;border:1px solid #ccc;background:#fff;font-size:10.5pt;
+
+.authorization-info {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #f9f9f9 !important;
+  font-size: 10.5pt;
 }
-.authorization-details p{margin:5px 0;}
-.authorization-details div div{margin-bottom:3px;}
-.authorization-signatures{
-  margin-top:18px;padding-top:10px;border-top:1px solid #000;
-  display:flex;justify-content:space-between;gap:12px;
+
+.authorization-info p {
+  margin: 5px 0;
 }
-.authorization-signature-field{flex:1;text-align:center;}
-.authorization-signature-line{margin-top:24px;min-height:30px;height:45px;border-top:1px solid transparent;}
-.authorization-stamp-box{
-  text-align:center;margin:12px auto;padding:10px;border:1.5px solid #000;border-radius:6px;background:#fff;width:65%;max-width:160mm;
-  font-size:10.5pt;
+
+.authorization-text-box {
+  border: 1.5px solid #000 !important;
+  padding: 12px;
+  margin: 12px 0;
+  font-size: 10.5pt;
+  line-height: 1.35;
+  background: #f9f9f9 !important;
+  min-height: 80px;
 }
+
+.authorization-details {
+  margin: 12px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fff !important;
+  font-size: 10.5pt;
+}
+
+.authorization-details p {
+  margin: 5px 0;
+}
+
+.authorization-details div div {
+  margin-bottom: 3px;
+}
+
+.authorization-signatures {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #000 !important;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.authorization-signature-field {
+  flex: 1;
+  text-align: center;
+}
+
+.authorization-signature-line {
+  margin-top: 24px;
+  min-height: 30px;
+  height: 45px;
+  border-top: 1px solid transparent;
+}
+
+.authorization-stamp-box {
+  text-align: center;
+  margin: 12px auto;
+  padding: 10px;
+  border: 1.5px solid #000 !important;
+  border-radius: 6px;
+  background: #fff !important;
+  width: 65%;
+  max-width: 160mm;
+  font-size: 10.5pt;
+}
+
 /* Footer fix ans Seitenende per Flex-Push */
-.auth-footer{
-  margin-top:auto;
-  font-size:9pt;color:#444;text-align:center;
-  border:none!important;
+.auth-footer {
+  margin-top: auto;
+  font-size: 9pt;
+  color: #444;
+  text-align: center;
+  border: none !important;
 }
-@media print{
-  html,body{height:auto;}
+
+.auth-footer table {
+  width: 100% !important;
+  border: none !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.auth-footer td {
+  border: none !important;
+  padding: 0 3px !important;
+  margin: 0 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  background: none !important;
+}
+
+/* Trennlinie vor Footer */
+hr {
+  border: none;
+  border-top: 1px solid #000 !important;
+  margin: 6px 0 8px 0;
+}
+
+/* Responsive für Druck */
+@media print {
+  html, body {
+    height: auto !important;
+    width: 210mm !important;
+  }
+  
+  .print-container {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Verhindert Seitenumbrüche in wichtigen Elementen */
+  .authorization-header,
+  .authorization-signatures {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* Bildoptimierung für Druck */
+.authorization-header img {
+  height: 7mm !important;
+  width: auto !important;
+  max-width: 35mm !important;
+}
+
+/* Ausblenden von Übersetzungen für Druck */
+.english-translation {
+  display: none !important;
 }
 </style></head><body><div class="print-container">${printContent}</div></body></html>`);
+  
   w.document.close();
-  setTimeout(()=>{ w.focus(); w.print(); },250);
+  
+  // Kurze Verzögerung für korrektes Laden des Inhalts
+  setTimeout(() => {
+    w.focus();
+    w.print();
+    
+    // Automatisches Schließen nach 3 Sekunden (wenn nicht vom Benutzer geschlossen)
+    setTimeout(() => {
+      if (!w.closed) w.close();
+    }, 3000);
+  }, isiPhone ? 400 : 250); // Längere Verzögerung auf iOS
 }
 
 // === HEADER TOGGLE FUNKTIONEN ===
@@ -3579,4 +3726,3 @@ async function deleteEmployee(id) {
 </script>
 </body>
 </html>
-
