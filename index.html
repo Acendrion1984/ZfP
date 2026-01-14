@@ -107,12 +107,21 @@ padding: 20px;
 border-radius: 8px;
 max-width: 90%;
 width: 500px;
+max-height: 80vh;
+overflow-y: auto;
 box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 .employee-modal h3 {
 margin-bottom: 15px;
 color: #2c3e50;
 text-align: center;
+font-weight: 700; /* Besser lesbar */
+}
+.employee-form {
+max-height: 400px;
+overflow-y: auto;
+padding-right: 10px;
+margin-bottom: 15px;
 }
 .employee-form-group {
 margin-bottom: 10px;
@@ -139,6 +148,97 @@ display: flex;
 gap: 10px;
 justify-content: flex-end;
 margin-top: 20px;
+position: sticky;
+bottom: 0;
+background: white;
+padding-top: 15px;
+}
+
+/* AUDIT LISTE MODAL */
+.audit-list-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.7);
+z-index: 2000;
+align-items: center;
+justify-content: center;
+}
+.audit-list-content {
+background: white;
+padding: 20px;
+border-radius: 8px;
+max-width: 90%;
+width: 700px;
+max-height: 80vh;
+overflow-y: auto;
+box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.audit-list-content h3 {
+margin-bottom: 15px;
+color: #2c3e50;
+text-align: center;
+font-weight: 700; /* Besser lesbar */
+}
+.audit-item {
+border: 1px solid #ddd;
+border-radius: 4px;
+padding: 12px;
+margin-bottom: 10px;
+background: #f9f9f9;
+}
+.audit-item.has-deviations {
+background: #fff0f0;
+border-color: #e74c3c;
+}
+.audit-item-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 8px;
+}
+.audit-item-title {
+font-weight: bold;
+font-size: 1em;
+}
+.audit-item-date {
+color: #666;
+font-size: 0.85em;
+}
+.audit-item-details {
+font-size: 0.85em;
+margin-bottom: 8px;
+}
+.audit-item-deviations {
+color: #e74c3c;
+font-weight: bold;
+margin-top: 5px;
+}
+.audit-item-actions {
+display: flex;
+gap: 8px;
+margin-top: 8px;
+}
+.mark-reviewed-btn {
+padding: 4px 8px;
+background: #3498db;
+color: white;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+font-size: 0.8em;
+}
+.mark-reviewed-btn.reviewed {
+background: #27ae60;
+}
+.no-audits-message {
+text-align: center;
+padding: 20px;
+color: #666;
+font-style: italic;
 }
 
 /* AUDIT AUSWAHL */
@@ -150,6 +250,7 @@ margin: 15px 0;
 color: #2c3e50;
 margin-bottom: 12px;
 font-size: 1.1em;
+font-weight: 700; /* Besser lesbar */
 }
 .audit-buttons {
 display: grid;
@@ -373,7 +474,12 @@ display: flex; gap: 6px; flex-wrap: wrap; margin-top: 15px; margin-bottom: 10px;
 background: #f8f9fa; padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd;
 min-width: 100px; text-align: center;
 }
-.stat-value { font-weight: 700; font-size: 1.2em; margin-bottom: 3px; }
+.stat-value { 
+font-weight: 700; 
+font-size: 1.2em; 
+margin-bottom: 3px; 
+color: #000!important; /* Für bessere Lesbarkeit */
+}
 
 /* Mitarbeiterliste Buttonzeile EIN ZEILE */
 #employeeListView .controls-row-1 {
@@ -389,6 +495,7 @@ margin-bottom: 10px; transition: all 0.3s ease;
 .header-section h3 {
 color: #2c3e50; margin: 0; padding: 8px 10px; text-align: center; font-size: 0.85em;
 display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+font-weight: 600; /* Besser lesbar */
 }
 .toggle-header-btn {
 background: #3498db; color: white; border: none; border-radius: 3px; padding: 4px 8px;
@@ -421,7 +528,7 @@ background: #34495e; color: white; padding: 10px 12px; cursor: pointer;
 display: flex; justify-content: space-between; align-items: center; user-select: none;
 }
 .section-header:hover { background: #2c3e50; }
-.section-header h2 { margin: 0; font-size: 1em; }
+.section-header h2 { margin: 0; font-size: 1em; font-weight: 600; }
 .section-header span { transition: transform 0.3s; }
 .section.expanded .section-header span { transform: rotate(90deg); }
 .section-content { padding: 10px; display: none; }
@@ -614,19 +721,62 @@ color: #7f8c8d; font-size: 0.85em;
 .creator-info { font-weight: bold; color: #2c3e50; margin-top: 4px; font-size: 0.9em; }
 .version-info { margin-top: 2px; font-size: 0.8em; color: #7f8c8d; }
 
-/* DARK MODE */
+/* DARK MODE - VERBESSERTE LESBARKEIT */
 @media (prefers-color-scheme: dark) {
-body { background-color: #121212; color: #e0e0e0; }
-.container { background: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+body { 
+  background-color: #121212; 
+  color: #e0e0e0 !important;
+}
+.container { 
+  background: #1e1e1e; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  color: #e0e0e0 !important;
+}
 header { border-bottom-color: #444; }
-h1 { color: #ffffff; }
-.subtitle { color: #b0b0b0; }
+h1 { 
+  color: #ffffff !important; /* Besser lesbar */
+}
+.subtitle { 
+  color: #cccccc !important; /* Besser lesbar */
+}
 
-/* MODAL DARK MODE */
-.custom-modal-content { background: #2d2d2d; color: #e0e0e0; }
+/* MODAL DARK MODE - BESSERE LESBARKEIT */
+.custom-modal-content, 
+.employee-modal-content, 
+.audit-list-content { 
+  background: #2d2d2d; 
+  color: #ffffff !important; /* Besser lesbar */
+}
 
-/* MITARBEITER MODAL DARK MODE */
-.employee-modal-content { background: #2d2d2d; color: #e0e0e0; }
+.custom-modal-content .custom-modal-btn,
+.employee-modal-content .employee-form-group label,
+.audit-list-content h3,
+.employee-modal h3 {
+  color: #ffffff !important;
+}
+
+/* Mitarbeiterformular Dark Mode */
+.employee-form-group label {
+  color: #ffffff !important;
+}
+
+.employee-form-group input,
+.employee-form-group select,
+.employee-form-group textarea {
+  background: #333;
+  border-color: #555;
+  color: #ffffff !important;
+}
+
+.employee-form-group input::placeholder,
+.employee-form-group textarea::placeholder {
+  color: #888;
+}
+
+/* AUDIT AUSWAHL - BESSERE LESBARKEIT */
+.audit-selection h2 {
+  color: #ffffff !important; /* Besser lesbar */
+}
 
 /* AUDIT BUTTONS DARK MODE */
 .audit-btn.wirbelstrom { background: #2980b9; color: white; }
@@ -637,115 +787,309 @@ h1 { color: #ffffff; }
 .audit-btn .btn-progress { background: rgba(255,255,255,0.1); }
 
 /* MITARBEITERLISTE BUTTON DARK MODE */
-.employee-list-btn { background: linear-gradient(135deg, #d35400, #e67e22) !important; }
+.employee-list-btn { 
+  background: linear-gradient(135deg, #d35400, #e67e22) !important; 
+  color: white !important;
+}
 
-/* CONTROLS DARK MODE */
-.btn-back { background: #666; color: white; }
-.btn-export { background: #219653; color: white; }
-.btn-audit-load { background: #2980b9; color: white; }
-.btn-authorization { background: #8e44ad; color: white; }
-.btn-report { background: #d35400; color: white; }
-.btn-desktop { background: #7f8c8d; color: white; }
-.btn-danger { background: #c0392b; color: white; }
-.btn-success { background: #27ae60; color: white; }
-.btn-secondary { background: #666; color: white; }
+/* CONTROLS DARK MODE - BESSERE LESBARKEIT */
+.btn-back, .btn-export, .btn-audit-load, .btn-authorization,
+.btn-report, .btn-desktop, .btn-danger, .btn-success,
+.btn-secondary {
+  color: white !important;
+}
+.btn-back { background: #666; }
+.btn-export { background: #219653; }
+.btn-audit-load { background: #2980b9; }
+.btn-authorization { background: #8e44ad; }
+.btn-report { background: #d35400; }
+.btn-desktop { background: #7f8c8d; }
+.btn-danger { background: #c0392b; }
+.btn-success { background: #27ae60; }
+.btn-secondary { background: #666; }
 
-/* STATUSLEISTE DARK MODE */
-.audit-status { background: #2d2d2d; border-color: #444; }
-.status-text { color: #ffffff; }
-.status-text strong { color: #3498db; }
+/* STATUSLEISTE DARK MODE - BESSERE LESBARKEIT */
+.audit-status { 
+  background: #2d2d2d; 
+  border-color: #444;
+  color: #ffffff !important;
+}
+.status-text { 
+  color: #ffffff !important;
+}
+.status-text strong { 
+  color: #3498db !important;
+}
 .progress-bar { background: #333; }
 .progress-text { color: #b0b0b0; }
 
-/* MITARBEITERLISTE DARK MODE */
-.employee-table th { background: #2c3e50; color: white; }
-.employee-table td { border-bottom-color: #444; }
+/* MITARBEITERLISTE DARK MODE - BESSERE LESBARKEIT */
+.employee-table th { 
+  background: #2c3e50; 
+  color: white !important;
+}
+.employee-table td { 
+  border-bottom-color: #444;
+  color: #ffffff !important;
+}
 .employee-table tr:hover { background: #2d2d2d; }
-.employee-table tr.expired { background: rgba(231, 76, 60, 0.1); }
-.employee-table tr.valid { background: rgba(39, 174, 96, 0.1); }
-.employee-table tr.warning { background: rgba(243, 156, 18, 0.1); }
-.employee-table tr.missing { background: rgba(149, 165, 166, 0.1); }
+.employee-table tr.expired { background: rgba(231, 76, 60, 0.2); }
+.employee-table tr.valid { background: rgba(39, 174, 96, 0.2); }
+.employee-table tr.warning { background: rgba(243, 156, 18, 0.2); }
+.employee-table tr.missing { background: rgba(149, 165, 166, 0.2); }
 
-.employee-search, .employee-filter { background: #333; border-color: #555; color: #e0e0e0; }
-.stat-box { background: #2d2d2d; border-color: #444; color: #e0e0e0; }
-.employee-action-btn { background: #444; color: #e0e0e0; }
-.employee-action-btn:hover { background: #555; }
+.employee-search, .employee-filter { 
+  background: #333; 
+  border-color: #555; 
+  color: #ffffff !important;
+}
+.employee-search::placeholder {
+  color: #888;
+}
 
-/* Dark Mode – Statistik gut lesbar */
-.stats-container .stat-box { color: #111 !important; }
-.stats-container .stat-box .stat-value { color: #000 !important; }
+/* Statistik Dark Mode - VERBESSERTE LESBARKEIT */
+.stat-box { 
+  background: #2d2d2d; 
+  border-color: #444; 
+}
+.stat-value { 
+  color: #000000 !important; /* SCHWARZE SCHRIFT FÜR ZAHLEN */
+  font-weight: bold;
+}
+.stat-box div:not(.stat-value) {
+  color: #000000 !important; /* SCHWARZE SCHRIFT FÜR "Gültig", "Abgelaufen", etc. */
+}
 
-/* KOPFDATEN SECTION DARK MODE */
-.header-section { background: #2d2d2d; border-color: #2980b9; }
-.header-section h3 { color: #ffffff !important; font-weight: 600; }
-.header-group { background: #252525; border-color: #444; }
-.header-group h4 { color: #ffffff; border-bottom-color: #444; }
-.header-input { background: #333; border-color: #555; color: #e0e0e0; }
-.header-input::placeholder { color: #888; }
+/* KOPFDATEN SECTION DARK MODE - BESSERE LESBARKEIT */
+.header-section { 
+  background: #2d2d2d; 
+  border-color: #2980b9;
+}
+.header-section h3 { 
+  color: #ffffff !important; 
+  font-weight: 600;
+}
+.header-group { 
+  background: #252525; 
+  border-color: #444;
+}
+.header-group h4 { 
+  color: #ffffff !important; 
+  border-bottom-color: #444;
+}
+.header-input { 
+  background: #333; 
+  border-color: #555; 
+  color: #ffffff !important;
+}
+.header-input::placeholder { 
+  color: #888;
+}
 
-/* FRAGEN UND SECTIONS DARK MODE */
+/* FRAGEN UND SECTIONS DARK MODE - BESSERE LESBARKEIT */
 .section { border-color: #444; }
-.section-header { background: #2c3e50; }
+.section-header { 
+  background: #2c3e50;
+  color: #ffffff !important;
+}
 .section-header:hover { background: #34495e; }
-.question { background: #252525; border-left-color: #666; }
-.question.ok { border-left-color: #27ae60; background: rgba(39, 174, 96, 0.1); }
-.question.not-ok { border-left-color: #e74c3c; background: rgba(231, 76, 60, 0.1); }
-.question-id { background: #3498db; color: white !important; }
-.english-translation { color: #b0b0b0; border-left-color: #666; }
+.question { 
+  background: #252525; 
+  border-left-color: #666;
+  color: #ffffff !important;
+}
+.question.ok { 
+  border-left-color: #27ae60; 
+  background: rgba(39, 174, 96, 0.15);
+  color: #ffffff !important;
+}
+.question.not-ok { 
+  border-left-color: #e74c3c; 
+  background: rgba(231, 76, 60, 0.15);
+  color: #ffffff !important;
+}
+.question-id { 
+  background: #3498db; 
+  color: white !important;
+}
+.english-translation { 
+  color: #b0b0b0 !important; 
+  border-left-color: #666;
+}
 
-/* JA/NEIN BUTTONS DARK MODE */
-.verdict-btn.ok { background: rgba(39, 174, 96, 0.1); color: #2ecc71; border-color: #27ae60; }
-.verdict-btn.ok.selected { background: #27ae60; color: white; }
-.verdict-btn.not-ok { background: rgba(231, 76, 60, 0.1); color: #e74c3c; border-color: #e74c3c; }
-.verdict-btn.not-ok.selected { background: #e74c3c; color: white; }
+/* JA/NEIN BUTTONS DARK MODE - BESSERE LESBARKEIT */
+.verdict-btn.ok { 
+  background: rgba(39, 174, 96, 0.15); 
+  color: #2ecc71 !important; 
+  border-color: #27ae60;
+}
+.verdict-btn.ok.selected { 
+  background: #27ae60; 
+  color: white !important;
+}
+.verdict-btn.not-ok { 
+  background: rgba(231, 76, 60, 0.15); 
+  color: #e74c3c !important; 
+  border-color: #e74c3c;
+}
+.verdict-btn.not-ok.selected { 
+  background: #e74c3c; 
+  color: white !important;
+}
 
-/* KOMMENTARFELDER DARK MODE */
-.comment-label { color: #ffffff; }
-.comment { background: #333; border-color: #555; color: #e0e0e0; }
-.comment::placeholder { color: #888; }
+/* KOMMENTARFELDER DARK MODE - BESSERE LESBARKEIT */
+.comment-label { 
+  color: #ffffff !important;
+}
+.comment { 
+  background: #333; 
+  border-color: #555; 
+  color: #ffffff !important;
+}
+.comment::placeholder { 
+  color: #888;
+}
 
-/* BILD-UPLOAD DARK MODE */
-.image-upload-section { background: rgba(52, 152, 219, 0.05); border-color: #3498db; }
-.image-upload-section h4 { color: #ffffff; }
-.file-input-label { background: #2980b9; color: white; }
-.image-preview-item { border-color: #666; background: #333; }
-.remove-image { background: #c0392b; color: white; }
+/* BILD-UPLOAD DARK MODE - BESSERE LESBARKEIT */
+.image-upload-section { 
+  background: rgba(52, 152, 219, 0.05); 
+  border-color: #3498db;
+}
+.image-upload-section h4 { 
+  color: #ffffff !important;
+}
+.file-input-label { 
+  background: #2980b9; 
+  color: white !important;
+}
+.image-preview-item { 
+  border-color: #666; 
+  background: #333;
+}
+.remove-image { 
+  background: #c0392b; 
+  color: white !important;
+}
 
-/* GESAMTERGEBNIS DARK MODE */
-.final-result.passed { background: rgba(39, 174, 96, 0.2); color: #2ecc71; border-color: #27ae60; }
-.final-result.failed { background: rgba(231, 76, 60, 0.2); color: #ff6b6b; border-color: #e74c3c; }
-.final-result.warning { background: rgba(243, 156, 18, 0.2); color: #f1c40f; border-color: #f39c12; }
+/* GESAMTERGEBNIS DARK MODE - BESSERE LESBARKEIT */
+.final-result.passed { 
+  background: rgba(39, 174, 96, 0.2); 
+  color: #2ecc71 !important; 
+  border-color: #27ae60;
+}
+.final-result.failed { 
+  background: rgba(231, 76, 60, 0.2); 
+  color: #ff6b6b !important; 
+  border-color: #e74c3c;
+}
+.final-result.warning { 
+  background: rgba(243, 156, 18, 0.2); 
+  color: #f1c40f !important; 
+  border-color: #f39c12;
+}
 
 /* MOBILE NAVIGATION DARK MODE */
 .mobile-nav { border-top-color: #444; }
-.mobile-nav button { background: #666; color: white; }
-#mobileCounter { color: #ffffff; }
+.mobile-nav button { 
+  background: #666; 
+  color: white !important;
+}
+#mobileCounter { 
+  color: #ffffff !important;
+}
 
 /* KATEGORIEN-BUTTONS MOBILE DARK MODE */
 .mobile-section-selector { background: #2d2d2d; }
-.section-btn { background: #2980b9; color: white; }
-.section-btn.active { background: #3498db; font-weight: bold; }
+.section-btn { 
+  background: #2980b9; 
+  color: white !important;
+}
+.section-btn.active { 
+  background: #3498db; 
+  font-weight: bold;
+}
 
 /* BERICHTSANZEIGE DARK MODE */
 .report-overlay { background: rgba(0,0,0,0.95); }
-.report-container, #authorizationContainer { background: white !important; color: #000 !important; }
-.report-action-btn { background: #2980b9 !important; color: white !important; }
+.report-container, #authorizationContainer { 
+  background: white !important; 
+  color: #000 !important;
+}
+.report-action-btn { 
+  background: #2980b9 !important; 
+  color: white !important;
+}
 .report-action-btn.print-btn { background: #219653 !important; }
 .report-action-btn.close-btn { background: #c0392b !important; }
-.report-header h2 { color: #000 !important; }
-.company-info { color: #333 !important; }
-.person-table th { background: #f0f0f0 !important; }
-.details-table td:first-child { background: #f9f9f9 !important; }
-.question-item.ok { background: #f0fff0 !important; }
-.question-item.not-ok { background: #fff0f0 !important; }
-.question-id { color: #000 !important; }
-.authorization-header h1 { color: #000 !important; }
-.authorization-text-box { background: #f9f9f9 !important; }
 
 /* FOOTER DARK MODE */
-footer { border-top-color: #444; color: #b0b0b0; }
-.creator-info { color: #ffffff; }
-.version-info { color: #888; }
+footer { 
+  border-top-color: #444; 
+  color: #cccccc !important; /* Besser lesbar */
+}
+.creator-info { 
+  color: #ffffff !important;
+}
+.version-info { 
+  color: #aaaaaa; /* Besser lesbar */
+}
+
+/* AUDIT ITEM DARK MODE */
+.audit-item {
+  background: #2d2d2d;
+  border-color: #444;
+  color: #ffffff !important;
+}
+.audit-item.has-deviations {
+  background: rgba(231, 76, 60, 0.15);
+  border-color: #e74c3c;
+}
+.audit-item-title {
+  color: #ffffff !important;
+}
+.audit-item-date {
+  color: #b0b0b0 !important;
+}
+.audit-item-details {
+  color: #d0d0d0 !important;
+}
+.audit-item-deviations {
+  color: #ff6b6b !important;
+}
+.mark-reviewed-btn {
+  color: white !important;
+}
+
+/* STATUS-BADGES DARK MODE - BESSERE LESBARKEIT */
+.status-valid { 
+  background: #155724 !important; 
+  color: #ffffff !important; 
+}
+.status-expired { 
+  background: #721c24 !important; 
+  color: #ffffff !important; 
+}
+.status-warning { 
+  background: #856404 !important; 
+  color: #ffffff !important; 
+}
+.status-missing { 
+  background: #383d41 !important; 
+  color: #ffffff !important; 
+}
+/* PROCEDURE BADGES DARK MODE MIT SCHWARZER SCHRIFT UND HELLEREM HINTERGRUND */
+.procedure-valid { 
+  background: #d4edda !important; /* HELLGRÜN statt #155724 (dunkelgrün) */
+  color: #000000 !important;
+}
+.procedure-expired { 
+  background: #f8d7da !important; /* HELLROT statt #721c24 (dunkelrot) */
+  color: #000000 !important;
+}
+.procedure-warning { 
+  background: #fff3cd !important; /* HELLGELB statt #856404 (dunkelgelb) */
+  color: #000000 !important;
+}
 }
 
 /* MOBILE OPTIMIERUNGEN */
@@ -773,9 +1117,31 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
 .audit-btn .btn-icon { font-size: 1.4em; margin-right: 10px; margin-bottom: 0; }
 .audit-btn .btn-progress { margin-left: auto; margin-top: 0; font-size: 0.7em; }
 
-/* MITARBEITERLISTE MOBILE */
-.employee-table { font-size: 0.7em; }
-.employee-table th, .employee-table td { padding: 6px 4px; }
+/* MITARBEITERLISTE MOBILE - KORREKTUR SCROLLBAR */
+.employee-table { 
+  font-size: 0.7em; 
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+}
+.employee-table thead,
+.employee-table tbody,
+.employee-table tr,
+.employee-table th,
+.employee-table td {
+  display: block;
+}
+.employee-table th, .employee-table td { 
+  padding: 6px 4px; 
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+}
+.employee-table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
 .employee-controls { flex-direction: column; align-items: stretch; }
 .employee-search, .employee-filter { width: 100%; margin-bottom: 5px; }
 .stats-container { flex-direction: column; }
@@ -876,6 +1242,18 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
         <input type="text" id="employeeNumber" placeholder="z.B. 123456">
       </div>
       <div class="employee-form-group">
+        <label for="employeeBirthdate">Geburtsdatum:</label>
+        <input type="text" id="employeeBirthdate" placeholder="TT.MM.JJJJ (optional)">
+      </div>
+      <div class="employee-form-group">
+        <label for="employeeEyeTest">Letzter Sehtest:</label>
+        <input type="text" id="employeeEyeTest" placeholder="TT.MM.JJJJ (optional)">
+      </div>
+      <div class="employee-form-group">
+        <label for="employeeCertNumber">Identifikationsnummer:</label>
+        <input type="text" id="employeeCertNumber" placeholder="(optional)">
+      </div>
+      <div class="employee-form-group">
         <label for="employeeGlasses">Brille benötigt:</label>
         <select id="employeeGlasses">
           <option value="yes">Ja</option>
@@ -896,9 +1274,21 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
         <input type="text" id="employeeNotes" placeholder="Optionale Notizen">
       </div>
     </div>
+    
     <div class="employee-modal-buttons">
       <button id="employeeModalCancel" class="custom-modal-btn cancel">Abbrechen</button>
       <button id="employeeModalSave" class="custom-modal-btn confirm">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUDIT LISTE MODAL -->
+<div id="auditListModal" class="audit-list-modal">
+  <div class="audit-list-content">
+    <h3 id="auditListTitle">Audits für Mitarbeiter</h3>
+    <div id="auditListContainer"></div>
+    <div class="employee-modal-buttons">
+      <button id="auditListClose" class="custom-modal-btn cancel">Schließen</button>
     </div>
   </div>
 </div>
@@ -1110,18 +1500,20 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
     </select>
     <button class="btn-secondary" id="clearFiltersBtn">Filter löschen</button>
   </div>
-  <div style="overflow-x: auto; margin-top: 10px;">
+  <div style="overflow-x: auto; margin-top: 10px; width: 100%;">
     <table id="employeeTable" class="employee-table">
       <thead>
         <tr>
           <th style="width: 80px;">Status</th>
-          <th style="width: 150px;">Name</th>
-          <th style="width: 100px;">Personal-Nr.</th>
+          <th style="width: 120px;">Name</th>
+          <th style="width: 90px;">Personal-Nr.</th>
           <th style="width: 70px;">Brille</th>
+          <th style="width: 90px;">Ident.-Nr.</th>
+          <th style="width: 90px;">Datum Sehtest</th>
           <th style="width: 100px;">Letztes Audit</th>
           <th style="width: 100px;">Nächstes Audit</th>
-          <th style="min-width: 150px;">Verfahren</th>
-          <th style="width: 100px;">Aktionen</th>
+          <th style="min-width: 120px;">Verfahren</th>
+          <th style="width: 150px;">Aktionen</th> <!-- Breiter für neue Autorisierungsaktion -->
         </tr>
       </thead>
       <tbody id="employeeTableBody"></tbody>
@@ -1327,9 +1719,13 @@ let customModalResolve = null;
 let employees = [];
 let employeeAudits = [];
 let currentEmployeeEditId = null;
+let currentAuditListEmployeeId = null;
 let employeeSearchFilter = '';
 let statusFilter = 'all';
 let glassesFilter = 'all';
+
+// Audit-Überprüfungsstatus
+let auditReviews = {};
 
 // === UTILITY FUNKTIONEN ===
 function daysBetween(d1, d2) {
@@ -1337,6 +1733,27 @@ function daysBetween(d1, d2) {
   const a = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
   const b = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
   return Math.floor((b - a) / msPerDay);
+}
+
+function parseGermanDate(dateStr) {
+  if (!dateStr) return null;
+  const parts = dateStr.split('.');
+  if (parts.length === 3) {
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+  }
+  return null;
+}
+
+function formatGermanDate(date) {
+  if (!date) return '';
+  const d = new Date(date);
+  const day = d.getDate().toString().padStart(2, '0');
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}.${month}.${year}`;
 }
 
 // === MODAL FUNKTIONEN ===
@@ -1371,6 +1788,14 @@ function loadEmployees() {
   try {
     const saved = localStorage.getItem('zfpEmployees');
     employees = saved ? JSON.parse(saved) : [];
+    // Migriere alte Mitarbeiterstruktur
+    employees.forEach(emp => {
+      if (!emp.birthdate) emp.birthdate = '';
+      if (!emp.eyeTestDate) emp.eyeTestDate = '';
+      if (!emp.certNumber) emp.certNumber = '';
+      // Initialisiere Autorisierungsdaten
+      if (!emp.authorizations) emp.authorizations = [];
+    });
   } catch (e) {
     console.error('Fehler beim Laden der Mitarbeiter:', e);
     employees = [];
@@ -1385,7 +1810,41 @@ function saveEmployees() {
   }
 }
 
-// Nur ein Audit je Verfahren und Mitarbeiter; immer das neueste
+function loadAuditReviews() {
+  try {
+    const saved = localStorage.getItem('zfpAuditReviews');
+    auditReviews = saved ? JSON.parse(saved) : {};
+  } catch (e) {
+    console.error('Fehler beim Laden der Audit-Reviews:', e);
+    auditReviews = {};
+  }
+}
+
+function saveAuditReviews() {
+  try {
+    localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
+  } catch (e) {
+    console.error('Fehler beim Speichern der Audit-Reviews:', e);
+  }
+}
+
+function markAuditAsReviewed(auditId) {
+  auditReviews[auditId] = {
+    reviewed: true,
+    reviewedDate: new Date().toISOString()
+  };
+  saveAuditReviews();
+}
+
+function unmarkAuditAsReviewed(auditId) {
+  delete auditReviews[auditId];
+  saveAuditReviews();
+}
+
+function isAuditReviewed(auditId) {
+  return auditReviews[auditId]?.reviewed || false;
+}
+
 function addAuditToEmployee(employee, audit) {
   const auditDate = audit.meta?.created ? new Date(audit.meta.created) : new Date();
   const expiryDate = new Date(auditDate);
@@ -1402,11 +1861,13 @@ function addAuditToEmployee(employee, audit) {
     date: auditDate,
     expiry: expiryDate,
     status: auditStatus,
-    daysUntilExpiry
+    daysUntilExpiry,
+    instanceId: audit.meta?.instanceId,
+    hasDeviations: hasAuditDeviations(audit)
   };
 
   employee.audits = employee.audits || [];
-  const idx = employee.audits.findIndex(a => a.type === entry.type);
+  const idx = employee.audits.findIndex(a => a.instanceId === entry.instanceId);
 
   if (idx >= 0) {
     const existing = employee.audits[idx];
@@ -1418,11 +1879,16 @@ function addAuditToEmployee(employee, audit) {
   }
 }
 
+function hasAuditDeviations(audit) {
+  if (!audit.questions || !Array.isArray(audit.questions)) return false;
+  return audit.questions.some(q => q.verdict === 'not-ok');
+}
+
 function updateEmployeeStatusFromAudits(employee) {
   if (employee.audits && employee.audits.length > 0) {
     employee.audits.sort((a, b) => b.date - a.date);
     employee.latestAudit = employee.audits[0];
-    employee.nextAudit = expiries = employee.audits.map(a => a.expiry).filter(Boolean);
+    const expiries = employee.audits.map(a => a.expiry).filter(Boolean);
     employee.nextAudit = expiries.length ? new Date(Math.min(...expiries.map(d => d.getTime()))) : null;
 
     const hasExpired = employee.audits.some(a => a.status === 'expired');
@@ -1569,7 +2035,8 @@ function renderEmployeeList() {
     const searchLower = employeeSearchFilter.toLowerCase();
     filteredEmployees = filteredEmployees.filter(emp =>
       (emp.name || '').toLowerCase().includes(searchLower) ||
-      (emp.number || '').toLowerCase().includes(searchLower)
+      (emp.number || '').toLowerCase().includes(searchLower) ||
+      (emp.certNumber || '').toLowerCase().includes(searchLower)
     );
   }
   if (statusFilter !== 'all') {
@@ -1595,8 +2062,8 @@ function renderEmployeeList() {
     if (employee.glasses === 'yes') glassesIcon = '👓';
     else if (employee.glasses === 'no') glassesIcon = '❌';
 
-    const lastAuditText = employee.latestAudit ? employee.latestAudit.date.toLocaleDateString('de-DE') : '–';
-    const nextAuditText = employee.nextAudit ? employee.nextAudit.toLocaleDateString('de-DE') : '–';
+    const lastAuditText = employee.latestAudit ? formatGermanDate(employee.latestAudit.date) : '–';
+    const nextAuditText = employee.nextAudit ? formatGermanDate(employee.nextAudit) : '–';
 
     let proceduresHTML = '<div class="audit-procedures">';
     const seen = new Set();
@@ -1617,26 +2084,45 @@ function renderEmployeeList() {
       <td><strong>${employee.name || ''}</strong>${employee.department ? `<br><small>${employee.department}</small>` : ''}</td>
       <td>${employee.number || ''}</td>
       <td class="glasses-icon">${glassesIcon}</td>
+      <td>${employee.certNumber || ''}</td>
+      <td>${employee.eyeTestDate || ''}</td>
       <td>${lastAuditText}</td>
       <td>${nextAuditText}</td>
       <td>${proceduresHTML}</td>
       <td>
-        <div class="employee-actions">
-          <button class="employee-action-btn edit" data-id="${employee.id}">✏️</button>
-          <button class="employee-action-btn delete" data-id="${employee.id}">🗑️</button>
+        <div class="employee-actions" style="display: flex; gap: 5px; flex-wrap: wrap;">
+          <button class="employee-action-btn edit" data-id="${employee.id}" style="padding: 4px 8px; background: #3498db; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em; white-space: nowrap;">✏️</button>
+          <button class="employee-action-btn audits" data-id="${employee.id}" style="padding: 4px 8px; background: #9b59b6; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em; white-space: nowrap;">📊</button>
+          <button class="employee-action-btn authorization" data-id="${employee.id}" style="padding: 4px 8px; background: #2ecc71; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em; white-space: nowrap;">📋</button>
+          <button class="employee-action-btn delete" data-id="${employee.id}" style="padding: 4px 8px; background: #e74c3c; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em; white-space: nowrap;">🗑️</button>
         </div>
       </td>
     `;
     tbody.appendChild(row);
   });
 
-  // Aktionen
+  // Event Listener für die neuen Buttons
   tbody.querySelectorAll('.employee-action-btn.edit').forEach(btn => {
     btn.onclick = (e) => {
       const id = e.currentTarget.dataset.id;
       if (id) editEmployee(id);
     };
   });
+  
+  tbody.querySelectorAll('.employee-action-btn.audits').forEach(btn => {
+    btn.onclick = (e) => {
+      const id = e.currentTarget.dataset.id;
+      if (id) showAuditListForEmployee(id);
+    };
+  });
+  
+  tbody.querySelectorAll('.employee-action-btn.authorization').forEach(btn => {
+    btn.onclick = (e) => {
+      const id = e.currentTarget.dataset.id;
+      if (id) createAuthorizationFromEmployee(id);
+    };
+  });
+  
   tbody.querySelectorAll('.employee-action-btn.delete').forEach(btn => {
     btn.onclick = async (e) => {
       const id = e.currentTarget.dataset.id;
@@ -1647,7 +2133,366 @@ function renderEmployeeList() {
   });
 }
 
-// === AUTO-MITARBEITER & AUDIT-LISTEN-UPSERT ===
+// === AUTORISIERUNG AUS MITARBEITERDATEN ERSTELLEN ===
+function createAuthorizationFromEmployee(employeeId) {
+  const employee = employees.find(e => e.id === employeeId);
+  if (!employee) {
+    showInfoModal('❌ Mitarbeiter nicht gefunden!');
+    return;
+  }
+
+  // Finde alle gültigen Audits für diesen Mitarbeiter
+  const validAudits = [];
+  const empNum = employee.number?.trim().toLowerCase() || '';
+  const empName = employee.name?.toLowerCase() || '';
+
+  employeeAudits.forEach(audit => {
+    const auditOperatorName = audit.headerData?.operatorName?.toLowerCase() || '';
+    const auditOperatorNumber = audit.headerData?.operatorNumber?.trim().toLowerCase() || '';
+    
+    const matches =
+      (auditOperatorNumber && empNum && auditOperatorNumber === empNum) ||
+      (auditOperatorName && empName && auditOperatorName === empName);
+    
+    if (matches) {
+      // Prüfe ob Audit gültig ist (vollständig bestanden mit Tätigkeitsnachweis)
+      const questions = audit.questions || [];
+      const total = questions.length;
+      const answered = questions.filter(q => q.verdict !== null).length;
+      const notOk = questions.filter(q => q.verdict === 'not-ok').length;
+      const activityProofQuestion = questions.find(q => q.isActivityProof);
+      const activityProofOk = activityProofQuestion && activityProofQuestion.verdict === 'ok';
+
+      if (answered === total && notOk === 0 && activityProofOk) {
+        validAudits.push(audit);
+      }
+    }
+  });
+
+  if (validAudits.length === 0) {
+    showInfoModal('❌ Keine gültigen Audits für diesen Mitarbeiter gefunden!\n\nEin Audit muss:\n1. Vollständig beantwortet sein\n2. Keine "Nicht OK" Bewertungen haben\n3. Einen bestandenen Tätigkeitsnachweis enthalten');
+    return;
+  }
+
+  // Erstelle temporäre Header-Daten aus Mitarbeiterdaten und dem neuesten Audit
+  const latestAudit = validAudits.sort((a, b) => {
+    const dateA = a.meta?.created ? new Date(a.meta.created) : new Date(0);
+    const dateB = b.meta?.created ? new Date(b.meta.created) : new Date(0);
+    return dateB - dateA;
+  })[0];
+
+  const tempHeaderData = {
+    operatorName: employee.name || '',
+    operatorNumber: employee.number || '',
+    operatorDept: employee.department || '',
+    operatorCert: employee.certificate || '',
+    auditorName: latestAudit.headerData?.auditorName || '',
+    auditorDept: latestAudit.headerData?.auditorDept || '',
+    auditorCert: latestAudit.headerData?.auditorCert || '',
+    auditorPhone: latestAudit.headerData?.auditorPhone || '',
+    approverName: latestAudit.headerData?.approverName || '',
+    approverDept: latestAudit.headerData?.approverDept || '',
+    approverCert: latestAudit.headerData?.approverCert || '',
+    approverPhone: latestAudit.headerData?.approverPhone || '',
+    reportNumber: latestAudit.headerData?.reportNumber || `AUTO-${employee.number || 'EMP'}-${new Date().toISOString().slice(0,10)}`,
+    partType: latestAudit.headerData?.partType || '',
+    externalStandard: latestAudit.headerData?.externalStandard || '',
+    sStandard: latestAudit.headerData?.sStandard || '',
+    workInstruction: latestAudit.headerData?.workInstruction || ''
+  };
+
+  // Erstelle Liste der autorisierbaren Verfahren aus den gültigen Audits
+  const authorizedProcedures = [];
+  validAudits.forEach(audit => {
+    if (!authorizedProcedures.some(p => p.type === audit.auditType)) {
+      authorizedProcedures.push({
+        type: audit.auditType,
+        title: AUDIT_TYPES[audit.auditType]?.title || audit.auditType,
+        short: AUDIT_TYPES[audit.auditType]?.short || audit.auditType.slice(0,2).toUpperCase(),
+        auditDate: audit.meta?.created ? new Date(audit.meta.created) : new Date()
+      });
+    }
+  });
+
+  // Zeige Autorisierung nur mit den gültigen Verfahren
+  showAuthorizationFromEmployeeData(employee, tempHeaderData, authorizedProcedures);
+}
+
+function showAuthorizationFromEmployeeData(employee, headerData, authorizedProcedures) {
+  if (authorizedProcedures.length === 0) {
+    showInfoModal('❌ Keine autorisierbaren Verfahren gefunden!');
+    return;
+  }
+
+  // Erstelle Autorisierung nur für die gültigen Verfahren
+  const uniqueCerts = employee.certificate ? employee.certificate.split(',').map(c => c.trim()).filter(c => c) : [];
+  
+  let werk = '';
+  if (employee.department) {
+    if (employee.department.includes('SW1') || employee.department.includes('WI/SW1')) {
+      werk = 'Werk 1';
+    } else if (employee.department.includes('SW2') || employee.department.includes('WI/SW2')) {
+      werk = 'Werk 2';
+    }
+  }
+
+  // Finde das neueste Audit-Datum für die Gültigkeitsberechnung
+  const latestAuditDate = authorizedProcedures.reduce((latest, proc) => {
+    return proc.auditDate > latest ? proc.auditDate : latest;
+  }, authorizedProcedures[0].auditDate);
+
+  const authorizationDate = new Date();
+  const expiryDate = new Date(latestAuditDate);
+  expiryDate.setMonth(expiryDate.getMonth() + 12);
+
+  const authorizationText = `<strong>Die genannte Person hat nachweislich die in der Verfahrensanweisung
+INFSW17008 beschriebenen Voraussetzungen für Ausbildung, Schulung
+Berufserfahrung, fortlaufende Tätigkeit und Prüfung erfüllt und ist damit für die
+Durchführung der Prüfung in den oben gelisteten ZfP-Verfahren autorisiert. Die Autorisierung gilt nur in Verbindung mit einem gültigen Zertifikat und hat
+eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demonstrably fulfilled the requirements for training, education, professional experience, ongoing activity, and examination described in the procedure instruction INFSW17008 and is therefore authorized to conduct the examination in the NDT procedures listed below. This authorization is valid only in conjunction with a valid certificate and is valid for 12 months.</em>`;
+
+  let authorizationHTML = `
+<div class="authorization-header">
+  <div style="position: absolute; top: -5px; right: 1px; text-align: right;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"
+      alt="Schaeffler Logo"
+      style="height: 7mm; width: auto; max-width: 40mm;">
+  </div>
+  <h1>AUTORISIERUNG</h1>
+  <div class="company-info">für zerstörungsfreie Prüfungen</div>
+</div>
+
+<div class="authorization-info">
+  <p><strong>Name:</strong> ${employee.name || '---'}</p>
+  <p><strong>Personalnummer:</strong> ${employee.number || '---'}</p>
+  ${employee.birthdate ? `<p><strong>Geburtsdatum:</strong> ${employee.birthdate}</p>` : ''}
+  ${employee.eyeTestDate ? `<p><strong>Letzter Sehtest:</strong> ${employee.eyeTestDate}</p>` : ''}
+  ${employee.certNumber ? `<p><strong>Identifikationsnummer:</strong> ${employee.certNumber}</p>` : ''}
+  <p><strong>Abteilung:</strong> ${employee.department || '---'}</p>
+  <p><strong>Zertifikate:</strong> ${uniqueCerts.length > 0 ? uniqueCerts.join(', ') : '---'}</p>
+</div>
+
+<div class="authorization-text-box">
+  ${authorizationText}
+</div>
+
+<div class="authorization-details">
+  <p><strong>Befugnisse:</strong> Autorisierung zur Durchführung folgender Verfahren:</p>
+  <div style="margin-left: 20px; margin-top: 5px;">
+    ${authorizedProcedures.map(proc =>
+      `<div style="margin-bottom: 3px;">• ${proc.title} (${proc.short})</div>`
+    ).join('')}
+  </div>
+
+  <p style="margin-top: 8px;"><strong>Ort:</strong> ${werk || 'Dem zuständigen Werk'}</p>
+  <p><strong>Autorisierungsdatum:</strong> ${authorizationDate.toLocaleDateString('de-DE')}</p>
+  <p><strong>Gültig bis:</strong> ${expiryDate.toLocaleDateString('de-DE')} (12 Monate nach letztem Audit)</p>
+</div>
+
+<div class="authorization-signatures">
+  <div class="authorization-signature-field">
+    <div style="font-weight: bold; margin-bottom: 6px; font-size: 11px;">Autorisierter Mitarbeiter (bzw. Führungskraft)</div>
+    <div class="authorization-signature-line"></div>
+  </div>
+
+  <div class="authorization-signature-field">
+    <div style="font-weight: bold; margin-bottom: 6px; font-size: 11px;">NDT Supervisor</div>
+    <div class="authorization-signature-line"></div>
+  </div>
+</div>
+
+<div class="authorization-stamp-box">
+  <div>AUTORISIERUNG ERTEILT</div>
+  <div>${authorizationDate.toLocaleDateString('de-DE')}</div>
+</div>
+
+<hr style="border: 0; border-top: 1px solid #000; margin: 6px 0 8px 0;">
+
+<div class="auth-footer">
+  <table style="width: 100%;">
+    <tr>
+      <td style="text-align: left; width: 33%;">Daniel Häusner, WI/SW2-PQT</td>
+      <td style="text-align: center; width: 34%;">FBL_INFSW17008_05_Autorisierungen_ZfP_Prüfungen</td>
+      <td style="text-align: right; width: 33%;">Version AA, 10.01.2026</td>
+    </tr>
+  </table>
+</div>
+`;
+
+  // Speichere Autorisierung im Mitarbeiter
+  if (!employee.authorizations) employee.authorizations = [];
+  employee.authorizations.push({
+    date: authorizationDate.toISOString(),
+    expiry: expiryDate.toISOString(),
+    procedures: authorizedProcedures.map(p => p.type),
+    createdFrom: 'valid_audits',
+    headerData: headerData,
+    auditDates: authorizedProcedures.reduce((dates, proc) => {
+      dates[proc.type] = proc.auditDate;
+      return dates;
+    }, {})
+  });
+  saveEmployees();
+
+  document.getElementById('authorizationContainer').innerHTML = `
+<div class="report-action-buttons">
+  <button class="report-action-btn print-btn" onclick="printFullAuthorization()">🖨️</button>
+  <button class="report-action-btn close-btn" onclick="closeAuthorization()">✕</button>
+</div>
+${authorizationHTML}
+`;
+  document.getElementById('authorizationOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  
+  showInfoModal(`✅ Autorisierung für ${authorizedProcedures.length} Verfahren erstellt!`);
+}
+
+function showAuditListForEmployee(employeeId) {
+  const employee = employees.find(e => e.id === employeeId);
+  if (!employee) return;
+  
+  currentAuditListEmployeeId = employeeId;
+  
+  // Finde alle Audits für diesen Mitarbeiter
+  const employeeAuditsList = [];
+  const empNum = employee.number?.trim().toLowerCase() || '';
+  const empName = employee.name?.toLowerCase() || '';
+  
+  employeeAudits.forEach(audit => {
+    const auditOperatorName = audit.headerData?.operatorName?.toLowerCase() || '';
+    const auditOperatorNumber = audit.headerData?.operatorNumber?.trim().toLowerCase() || '';
+    
+    const matches =
+      (auditOperatorNumber && empNum && auditOperatorNumber === empNum) ||
+      (auditOperatorName && empName && auditOperatorName === empName);
+    
+    if (matches) {
+      employeeAuditsList.push(audit);
+    }
+  });
+  
+  // Sortiere nach Datum (neueste zuerst)
+  employeeAuditsList.sort((a, b) => {
+    const dateA = a.meta?.created ? new Date(a.meta.created) : new Date(0);
+    const dateB = b.meta?.created ? new Date(b.meta.created) : new Date(0);
+    return dateB - dateA;
+  });
+  
+  renderAuditListModal(employee, employeeAuditsList);
+}
+
+function renderAuditListModal(employee, audits) {
+  const container = document.getElementById('auditListContainer');
+  const title = document.getElementById('auditListTitle');
+  
+  title.textContent = `Audits für ${employee.name}`;
+  
+  if (audits.length === 0) {
+    container.innerHTML = '<div class="no-audits-message">Keine Audits für diesen Mitarbeiter gefunden.</div>';
+  } else {
+    let html = '';
+    
+    audits.forEach((audit, index) => {
+      const auditDate = audit.meta?.created ? new Date(audit.meta.created) : new Date();
+      const formattedDate = formatGermanDate(auditDate);
+      const totalQuestions = audit.questions?.length || 0;
+      const answeredQuestions = audit.questions?.filter(q => q.verdict !== null).length || 0;
+      const okQuestions = audit.questions?.filter(q => q.verdict === 'ok').length || 0;
+      const notOkQuestions = audit.questions?.filter(q => q.verdict === 'not-ok').length || 0;
+      const hasDeviations = notOkQuestions > 0;
+      const isReviewed = isAuditReviewed(audit.meta?.instanceId);
+      const reviewStatus = isReviewed ? 'reviewed' : '';
+      
+      html += `
+        <div class="audit-item ${hasDeviations && !isReviewed ? 'has-deviations' : ''}">
+          <div class="audit-item-header">
+            <div class="audit-item-title">${audit.info.title} (${audit.info.short})</div>
+            <div class="audit-item-date">${formattedDate}</div>
+          </div>
+          <div class="audit-item-details">
+            <div>Prüfbericht: ${audit.headerData?.reportNumber || '---'}</div>
+            <div>Ergebnis: ${okQuestions}/${totalQuestions} OK, ${notOkQuestions} Nicht OK</div>
+            ${hasDeviations ? `<div class="audit-item-deviations">⚠️ ${notOkQuestions} Abweichung(en) vorhanden</div>` : ''}
+          </div>
+          <div class="audit-item-actions">
+            <button class="mark-reviewed-btn ${reviewStatus}" data-audit-id="${audit.meta?.instanceId}">
+              ${isReviewed ? '✅ Geprüft' : '📝 Als geprüft markieren'}
+            </button>
+            <button class="export-audit-btn" data-audit-index="${index}" style="padding: 4px 8px; background: #27ae60; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em;">
+              📁 Exportieren
+            </button>
+          </div>
+        </div>
+      `;
+    });
+    
+    container.innerHTML = html;
+    
+    // Event Listener für die Buttons
+    container.querySelectorAll('.mark-reviewed-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        const auditId = e.currentTarget.dataset.auditId;
+        if (isAuditReviewed(auditId)) {
+          unmarkAuditAsReviewed(auditId);
+          e.currentTarget.textContent = '📝 Als geprüft markieren';
+          e.currentTarget.classList.remove('reviewed');
+          
+          // Entferne die has-deviations Klasse, wenn Abweichungen vorhanden sind
+          const auditItem = e.currentTarget.closest('.audit-item');
+          if (auditItem.classList.contains('has-deviations')) {
+            // Prüfe ob noch ungeprüfte Abweichungen vorhanden sind
+            const auditIndex = Array.from(auditItem.parentNode.children).indexOf(auditItem);
+            const audit = audits[auditIndex];
+            if (audit && hasAuditDeviations(audit)) {
+              auditItem.classList.add('has-deviations');
+            } else {
+              auditItem.classList.remove('has-deviations');
+            }
+          }
+        } else {
+          markAuditAsReviewed(auditId);
+          e.currentTarget.textContent = '✅ Geprüft';
+          e.currentTarget.classList.add('reviewed');
+          
+          // Entferne die has-deviations Klasse
+          e.currentTarget.closest('.audit-item').classList.remove('has-deviations');
+        }
+      };
+    });
+    
+    container.querySelectorAll('.export-audit-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        const auditIndex = parseInt(e.currentTarget.dataset.auditIndex);
+        const audit = audits[auditIndex];
+        if (audit) {
+          exportSingleAudit(audit);
+        }
+      };
+    });
+  }
+  
+  document.getElementById('auditListModal').style.display = 'flex';
+}
+
+function exportSingleAudit(audit) {
+  const exportSnapshot = cloneAuditForExport(audit);
+  const reportNoRaw = (exportSnapshot.headerData?.reportNumber || '').trim();
+  const reportNoSafe = reportNoRaw ? reportNoRaw.replace(/[^\w\-]+/g, '_') : 'Pruefbericht';
+  const fileName = `${reportNoSafe}_${audit.info.short}_${new Date().toISOString().slice(0,10)}.json`;
+  
+  const jsonBlob = new Blob([JSON.stringify(exportSnapshot, null, 2)], { type: 'application/json' });
+  const jsonUrl = URL.createObjectURL(jsonBlob);
+  const jsonLink = document.createElement('a');
+  jsonLink.href = jsonUrl;
+  jsonLink.download = fileName;
+  document.body.appendChild(jsonLink);
+  jsonLink.click();
+  document.body.removeChild(jsonLink);
+  URL.revokeObjectURL(jsonUrl);
+  
+  showInfoModal(`✅ Audit "${audit.info.title}" exportiert!`);
+}
+
 function ensureEmployeeFromHeader(headerData) {
   if (!headerData) return null;
   const name = (headerData.operatorName || '').trim();
@@ -1676,6 +2521,9 @@ function ensureEmployeeFromHeader(headerData) {
     id: Date.now().toString() + Math.random().toString(36).slice(2,7),
     name: name || '(Ohne Name)',
     number: number || '',
+    birthdate: '',
+    eyeTestDate: '',
+    certNumber: '',
     glasses: 'unknown',
     department: headerData.operatorDept || '',
     certificate: headerData.operatorCert || '',
@@ -1683,6 +2531,7 @@ function ensureEmployeeFromHeader(headerData) {
     created: new Date().toISOString(),
     updated: new Date().toISOString(),
     audits: [],
+    authorizations: [],
     status: 'missing'
   };
   employees.push(newEmp);
@@ -1710,7 +2559,6 @@ function upsertAuditInList(auditData) {
 
     localStorage.setItem(key, JSON.stringify(list));
 
-    // KEINE automatische Mitarbeiteranlage hier
     loadAuditFiles();
     renderEmployeeList();
   } catch (e) {
@@ -1718,7 +2566,6 @@ function upsertAuditInList(auditData) {
   }
 }
 
-// === IMPORT FUNKTIONEN (nur Mitarbeiterliste) ===
 function importEmployeeListData(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -1736,6 +2583,9 @@ function importEmployeeListData(e) {
         id: emp.id || (Date.now().toString() + Math.random().toString(36).slice(2,8)),
         name: emp.name || '',
         number: emp.number || '',
+        birthdate: emp.birthdate || '',
+        eyeTestDate: emp.eyeTestDate || '',
+        certNumber: emp.certNumber || '',
         glasses: emp.glasses || 'unknown',
         department: emp.department || '',
         certificate: emp.certificate || '',
@@ -1743,6 +2593,7 @@ function importEmployeeListData(e) {
         created: emp.created || new Date().toISOString(),
         updated: new Date().toISOString(),
         audits: emp.audits || [],
+        authorizations: emp.authorizations || [],
         status: emp.status || 'missing'
       }));
       saveEmployees();
@@ -1758,7 +2609,6 @@ function importEmployeeListData(e) {
   reader.readAsText(file);
 }
 
-// === SNAPSHOT FÜR EXPORT ===
 function cloneAuditForExport(auditData) {
   const snapshot = JSON.parse(JSON.stringify(auditData));
   snapshot.meta = {
@@ -1781,13 +2631,12 @@ function initializeApp() {
   loadAllAuditData();
   updateAuditProgressDisplays();
 
-  // Mitarbeiter laden
   loadEmployees();
+  loadAuditReviews();
   loadAuditFiles();
   renderEmployeeList();
   updateEmployeeStatus();
 
-  // Modal Event Listener
   document.getElementById('modalConfirmBtn').addEventListener('click', function() {
     if (customModalResolve) customModalResolve(true);
     closeCustomModal();
@@ -1798,7 +2647,6 @@ function initializeApp() {
     closeCustomModal();
   });
 
-  // Mitarbeiter Modal Event Listener
   document.getElementById('employeeModalCancel').addEventListener('click', () => {
     document.getElementById('employeeModal').style.display = 'none';
     currentEmployeeEditId = null;
@@ -1807,6 +2655,9 @@ function initializeApp() {
   document.getElementById('employeeModalSave').addEventListener('click', () => {
     const name = document.getElementById('employeeName').value.trim();
     const number = document.getElementById('employeeNumber').value.trim();
+    const birthdate = document.getElementById('employeeBirthdate').value.trim();
+    const eyeTestDate = document.getElementById('employeeEyeTest').value.trim();
+    const certNumber = document.getElementById('employeeCertNumber').value.trim();
     const glasses = document.getElementById('employeeGlasses').value;
     const department = document.getElementById('employeeDepartment').value.trim();
     const certificate = document.getElementById('employeeCertificate').value.trim();
@@ -1815,12 +2666,16 @@ function initializeApp() {
       showInfoModal('Bitte Name und Personalnummer eingeben!');
       return;
     }
+    
     if (currentEmployeeEditId) {
       const index = employees.findIndex(e => e.id === currentEmployeeEditId);
       if (index !== -1) {
         employees[index] = {
           ...employees[index],
           name, number, glasses, department, certificate, notes,
+          birthdate,
+          eyeTestDate,
+          certNumber,
           updated: new Date().toISOString()
         };
       }
@@ -1828,9 +2683,13 @@ function initializeApp() {
       const newEmployee = {
         id: Date.now().toString(),
         name, number, glasses, department, certificate, notes,
+        birthdate,
+        eyeTestDate,
+        certNumber,
         created: new Date().toISOString(),
         updated: new Date().toISOString(),
         audits: [],
+        authorizations: [],
         status: 'missing'
       };
       employees.push(newEmployee);
@@ -1843,16 +2702,18 @@ function initializeApp() {
     showInfoModal('✅ Mitarbeiter gespeichert!');
   });
 
-  // Header Toggle Buttons
+  document.getElementById('auditListClose').addEventListener('click', () => {
+    document.getElementById('auditListModal').style.display = 'none';
+    currentAuditListEmployeeId = null;
+  });
+
   document.getElementById('desktopToggleHeader').addEventListener('click', toggleDesktopHeader);
   document.getElementById('mobileToggleHeader').addEventListener('click', toggleMobileHeader);
 
-  // Sync Header Daten
   syncHeaderData();
 }
 
 function setupEventListeners() {
-  // Audit-Auswahl
   document.querySelectorAll('.audit-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       if (this.classList.contains('disabled')) return;
@@ -1860,20 +2721,17 @@ function setupEventListeners() {
     });
   });
 
-  // Mitarbeiterliste Button
   document.getElementById('employeeListBtn').addEventListener('click', () => {
     document.getElementById('auditSelection').classList.remove('active');
     document.getElementById('employeeListView').classList.add('active');
     document.getElementById('auditContent').classList.remove('active');
   });
 
-  // Zurück von Mitarbeiterliste
   document.getElementById('backFromEmployeesBtn').addEventListener('click', () => {
     document.getElementById('employeeListView').classList.remove('active');
     document.getElementById('auditSelection').classList.add('active');
   });
 
-  // Controls
   document.getElementById('backBtn').addEventListener('click', goBackToSelection);
   document.getElementById('exportBtn').addEventListener('click', exportAudit);
   document.getElementById('auditLoadBtn').addEventListener('click', loadAudit);
@@ -1883,7 +2741,6 @@ function setupEventListeners() {
   document.getElementById('resetBtn').addEventListener('click', resetAudit);
   document.getElementById('uploadQuestionsBtn').addEventListener('click', () => document.getElementById('questionsLoader').click());
 
-  // Mitarbeiterliste Controls
   document.getElementById('addEmployeeBtn').addEventListener('click', () => showEmployeeModal());
   document.getElementById('refreshAuditsBtn').addEventListener('click', () => {
     loadAuditFiles();
@@ -1895,9 +2752,13 @@ function setupEventListeners() {
       meta: { exported: new Date().toISOString(), count: employees.length },
       employees: employees.map(emp => ({
         id: emp.id, name: emp.name, number: emp.number,
+        birthdate: emp.birthdate,
+        eyeTestDate: emp.eyeTestDate,
+        certNumber: emp.certNumber,
         glasses: emp.glasses, department: emp.department,
         certificate: emp.certificate, notes: emp.notes,
-        status: emp.status, audits: emp.audits || []
+        status: emp.status, audits: emp.audits || [],
+        authorizations: emp.authorizations || []
       }))
     };
     const jsonBlob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
@@ -1912,13 +2773,11 @@ function setupEventListeners() {
     showInfoModal('✅ Mitarbeiterliste exportiert!');
   });
 
-  // Mitarbeiterlisten-Import
   document.getElementById('importEmployeeListBtn').addEventListener('click', () => {
     document.getElementById('employeeListLoader').click();
   });
   document.getElementById('employeeListLoader').addEventListener('change', importEmployeeListData);
 
-  // Mitarbeiterliste Filter
   document.getElementById('employeeSearch').addEventListener('input', (e) => {
     employeeSearchFilter = e.target.value;
     renderEmployeeList();
@@ -1941,11 +2800,9 @@ function setupEventListeners() {
     renderEmployeeList();
   });
 
-  // File Loader
   document.getElementById('fileLoader').addEventListener('change', loadAuditData);
   document.getElementById('questionsLoader').addEventListener('change', loadQuestionsData);
 
-  // Mobile Navigation
   document.getElementById('prevBtn').addEventListener('click', function() {
     if (currentMobileQuestion > 0) {
       currentMobileQuestion--;
@@ -1962,17 +2819,15 @@ function setupEventListeners() {
     }
   });
 
-  // Responsive
   window.addEventListener('resize', handleResize);
 
-  // Global Event Listener
   setupGlobalEventListeners();
 
-  // Escape-Taste für Modal schließen
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const customModalEl = document.getElementById('customModal');
       const employeeModalEl = document.getElementById('employeeModal');
+      const auditListModalEl = document.getElementById('auditListModal');
       const reportOverlay = document.getElementById('reportOverlay');
       const authorizationOverlay = document.getElementById('authorizationOverlay');
       if (customModalEl.style.display === 'flex') {
@@ -1982,6 +2837,10 @@ function setupEventListeners() {
       if (employeeModalEl && employeeModalEl.style.display === 'flex') {
         employeeModalEl.style.display = 'none';
       }
+      if (auditListModalEl && auditListModalEl.style.display === 'flex') {
+        auditListModalEl.style.display = 'none';
+        currentAuditListEmployeeId = null;
+      }
       if (reportOverlay.style.display === 'block') closeReport();
       if (authorizationOverlay.style.display === 'block') closeAuthorization();
     }
@@ -1989,7 +2848,6 @@ function setupEventListeners() {
 }
 
 function setupGlobalEventListeners() {
-  // Section Header Klicks (Desktop)
   document.addEventListener('click', function(e) {
     if (e.target.closest('.section-header') &&
         document.getElementById('desktopView').style.display === 'block') {
@@ -2010,7 +2868,6 @@ function setupGlobalEventListeners() {
     }
   });
 
-  // Verdict Buttons
   document.addEventListener('click', function(e) {
     if (e.target.closest('.verdict-btn')) {
       const btn = e.target.closest('.verdict-btn');
@@ -2022,7 +2879,7 @@ function setupGlobalEventListeners() {
       updateQuestionData(questionId, 'verdict', verdict);
 
       questionElement.classList.remove('ok', 'not-ok');
-      questionElement.classList.add(verdict === 'ok' ? 'ok' : 'not-ok');
+      questionElement.classList.add(verdict === 'ok' ? 'ok' : verdict === 'not-ok' ? 'not-ok' : 'not-ok');
 
       questionElement.querySelectorAll('.verdict-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
@@ -2037,18 +2894,16 @@ function setupGlobalEventListeners() {
     }
   });
 
-  // Kommentare & Header-Daten
   document.addEventListener('input', function(e) {
     if (e.target.classList.contains('comment')) {
       const questionId = e.target.closest('.question').dataset.id;
       updateQuestionData(questionId, 'comment', e.target.value);
     }
     if (e.target.classList.contains('header-input')) {
-      saveCurrentAuditData(); // normales Speichern (ohne Upsert)
+      saveCurrentAuditData();
     }
   });
 
-  // Bild-Uploads
   document.addEventListener('change', function(e) {
     if (e.target.classList.contains('image-input')) {
       const questionId = e.target.dataset.question;
@@ -2058,7 +2913,6 @@ function setupGlobalEventListeners() {
   });
 }
 
-// === DRUCK/REPORT ===
 function printFullReport() {
   const reportContainer = document.getElementById('reportContainer');
   let printContent = reportContainer.innerHTML;
@@ -2068,12 +2922,12 @@ function printFullReport() {
 *{margin:0;padding:0;box-sizing:border-box;}
 @page{
   size:A4 portrait;
-  margin:12mm !important; /* kleinerer Rand -> Seite „fülliger“ */
+  margin:12mm !important;
 }
 body{
   font-family:Arial,sans-serif!important;
   margin:0!important;padding:0!important;
-  color:#000!important;font-size:10.5pt!important; /* größer */
+  color:#000!important;font-size:10.5pt!important;
   line-height:1.32;
   background:#fff!important;
   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
@@ -2081,9 +2935,9 @@ body{
 .print-content{
   margin:0 auto;padding:0;
   max-width:180mm;
-  display:flex;                 /* Flex-Spalte für Footer-Push */
+  display:flex;
   flex-direction:column;
-  min-height:calc(297mm - 24mm); /* 297mm Höhe - 2 * 12mm Rand */
+  min-height:calc(297mm - 24mm);
 }
 .report-header{
   border-bottom:1.5px solid #000!important;
@@ -2118,7 +2972,6 @@ body{
 .question-item img{
   max-width:160px;max-height:160px;object-fit:contain;display:block;
 }
-/* Trennlinie vor Fußzeile */
 hr{border:none;border-top:1px solid #000;margin:6px 0 8px 0;}
 .signature-area{
   margin-top:20px;padding-top:10px;border-top:1px solid #000;
@@ -2126,9 +2979,8 @@ hr{border:none;border-top:1px solid #000;margin:6px 0 8px 0;}
 }
 .signature-box{flex:1;text-align:center;}
 .signature-line{margin-top:28px;min-height:28px;height:40px;}
-/* Footer fix am unteren Ende durch Flex-Push */
 .report-footer{
-  margin-top:auto;              /* schiebt Footer nach unten */
+  margin-top:auto;
   font-size:10pt;color:#444;text-align:center;
 }
 .report-footer-table{
@@ -2155,7 +3007,6 @@ function printFullAuthorization() {
   
   w.document.write(`<!DOCTYPE html><html><head><title>Autorisierung ZfP - Schaeffler</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
 ${isiPhone ? `
-/* iPhone/iPad spezifische Skalierung */
 html { zoom: 0.84; }
 @page { size: A4 portrait; margin: 16mm !important; }
 ` : ''}
@@ -2163,7 +3014,7 @@ html { zoom: 0.84; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 @page {
   size: A4 portrait;
-  margin: 12mm !important; /* kleinerer Rand für mehr Platz */
+  margin: 12mm !important;
 }
 
 body {
@@ -2171,7 +3022,7 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   color: #000 !important;
-  font-size: 10.5pt !important; /* Etwas größer für bessere Lesbarkeit */
+  font-size: 10.5pt !important;
   line-height: 1.32;
   background: #fff !important;
   -webkit-print-color-adjust: exact !important;
@@ -2184,7 +3035,7 @@ body {
   max-width: 180mm;
   display: flex;
   flex-direction: column;
-  min-height: calc(297mm - 24mm); /* 297mm Höhe - 2 * 12mm Rand */
+  min-height: calc(297mm - 24mm);
 }
 
 .authorization-header {
@@ -2249,7 +3100,7 @@ body {
 .authorization-signatures {
   margin-top: 18px;
   padding-top: 10px;
-  border-top: 1px solid #000 !important;
+  border-top: 2px solid #000 !important;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -2279,7 +3130,6 @@ body {
   font-size: 10.5pt;
 }
 
-/* Footer fix ans Seitenende per Flex-Push */
 .auth-footer {
   margin-top: auto;
   font-size: 9pt;
@@ -2306,14 +3156,12 @@ body {
   background: none !important;
 }
 
-/* Trennlinie vor Footer */
 hr {
   border: none;
   border-top: 1px solid #000 !important;
   margin: 6px 0 8px 0;
 }
 
-/* Responsive für Druck */
 @media print {
   html, body {
     height: auto !important;
@@ -2325,7 +3173,6 @@ hr {
     max-width: 100% !important;
   }
   
-  /* Verhindert Seitenumbrüche in wichtigen Elementen */
   .authorization-header,
   .authorization-signatures {
     break-inside: avoid;
@@ -2333,14 +3180,12 @@ hr {
   }
 }
 
-/* Bildoptimierung für Druck */
 .authorization-header img {
   height: 7mm !important;
   width: auto !important;
   max-width: 35mm !important;
 }
 
-/* Ausblenden von Übersetzungen für Druck */
 .english-translation {
   display: none !important;
 }
@@ -2348,19 +3193,16 @@ hr {
   
   w.document.close();
   
-  // Kurze Verzögerung für korrektes Laden des Inhalts
   setTimeout(() => {
     w.focus();
     w.print();
     
-    // Automatisches Schließen nach 3 Sekunden (wenn nicht vom Benutzer geschlossen)
     setTimeout(() => {
       if (!w.closed) w.close();
     }, 3000);
-  }, isiPhone ? 400 : 250); // Längere Verzögerung auf iOS
+  }, isiPhone ? 400 : 250);
 }
 
-// === HEADER TOGGLE FUNKTIONEN ===
 function toggleDesktopHeader() {
   const content = document.getElementById('desktopHeaderContent');
   const btn = document.getElementById('desktopToggleHeader');
@@ -2382,7 +3224,6 @@ function toggleMobileHeader() {
   }
 }
 
-// === HEADER DATEN SYNC ===
 function syncHeaderData() {
   const mobileIds = [
     'mobileOperatorName', 'mobileOperatorNumber', 'mobileOperatorCert', 'mobileOperatorDept',
@@ -2421,7 +3262,6 @@ function syncHeaderData() {
   });
 }
 
-// === RESET HEADER-FELDER ===
 function resetAllHeaderFields() {
   const allIds = [
     'operatorName', 'operatorNumber', 'operatorCert', 'operatorDept',
@@ -2439,7 +3279,6 @@ function resetAllHeaderFields() {
   });
 }
 
-// === AUDIT MANAGEMENT ===
 function loadAllAuditData() {
   Object.keys(AUDIT_TYPES).forEach(auditType => {
     const saved = localStorage.getItem(`zfpAudit_${auditType}`);
@@ -2561,7 +3400,6 @@ function startAudit(auditType) {
   document.querySelector('h1').textContent = `ZfP Audit - ${auditInfo.title}`;
   document.querySelector('.subtitle').textContent = `Prüfverfahren: ${auditInfo.title}`;
 
-  // Reset Header States
   document.getElementById('desktopHeaderContent').classList.remove('collapsed');
   document.getElementById('desktopToggleHeader').textContent = 'Ausblenden';
   document.getElementById('mobileHeaderSection').classList.add('collapsed');
@@ -2647,7 +3485,6 @@ function saveCurrentAuditData() {
 
   localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
 
-  // Kein Upsert beim Speichern
   updateAuditProgressDisplays();
   updateCurrentAuditProgress();
   checkAndShowFinalResult();
@@ -2672,7 +3509,6 @@ async function goBackToSelection() {
   document.querySelector('.subtitle').textContent = 'Zerstörungsfreie Prüfverfahren - Operator Qualifizierung';
 }
 
-// === FORTSCHRITTSANZEIGEN ===
 function updateAuditProgressDisplays() {
   Object.keys(AUDIT_TYPES).forEach(auditType => {
     const progress = calculateAuditProgress(auditType);
@@ -2743,7 +3579,6 @@ function updateCurrentAuditProgress() {
   }
 }
 
-// === RENDERING FUNKTIONEN ===
 function renderAuditSections() {
   const container = document.getElementById('auditSections');
   container.innerHTML = '';
@@ -2833,7 +3668,6 @@ function renderImagePreviews(images, questionId, isMobile) {
 `).join('');
 }
 
-// === MOBILE FUNKTIONEN ===
 function renderMobileQuestion() {
   if (allQuestions.length === 0) return;
 
@@ -2922,7 +3756,6 @@ function renderMobileSectionSelector() {
   });
 }
 
-// === HELPER FUNKTIONEN ===
 function updateQuestionData(questionId, field, value) {
   const question = allQuestions.find(q => q.id === questionId);
   if (question) {
@@ -2950,7 +3783,6 @@ function updateQuestionData(questionId, field, value) {
   }
 }
 
-// === HELFER FUNKTIONEN FÜR FOOTER ===
 function getDocumentNameForAudit(auditType) {
   const documentMap = {
     'wirbelstrom': 'FBL_INFSW17008_01_NDT_Personal_ET',
@@ -2962,7 +3794,6 @@ function getDocumentNameForAudit(auditType) {
 }
 function getVersionForAudit(auditType) { return 'Version AA, 16.12.2025'; }
 
-// === BILDVERARBEITUNG ===
 async function processAndLimitImage(file) {
   return new Promise((resolve, reject) => {
     const maxSize = 5 * 1024 * 1024;
@@ -3073,7 +3904,6 @@ function removeImage(questionId, imageIndex, isMobile = false) {
   }
 }
 
-// === ERGEBNISANZEIGE ===
 function checkAndShowFinalResult() {
   if (!allQuestions.length) return;
 
@@ -3267,7 +4097,6 @@ function renderQuestionImagesInReport(question) {
 }
 
 async function showAuthorization() {
-  // Speichere erst das aktuelle Audit
   saveCurrentAuditData();
 
   const passedAudits = [];
@@ -3325,11 +4154,11 @@ async function showAuthorization() {
     return;
   }
 
-  const oldestAuditDate = passedAudits.reduce((oldest, audit) => {
-    return audit.auditDate < oldest ? audit.auditDate : oldest;
+  const latestAuditDate = passedAudits.reduce((latest, audit) => {
+    return audit.auditDate > latest ? audit.auditDate : latest;
   }, passedAudits[0].auditDate);
 
-  const overallExpiryDate = new Date(oldestAuditDate);
+  const overallExpiryDate = new Date(latestAuditDate);
   overallExpiryDate.setMonth(overallExpiryDate.getMonth() + 12);
 
   const headerData = passedAudits[0].data.headerData || {};
@@ -3343,6 +4172,9 @@ async function showAuthorization() {
       werk = 'Werk 2';
     }
   }
+
+  const employee = ensureEmployeeFromHeader(headerData);
+  const employeeData = employee || {};
 
   const authorizationText = `<strong>Die genannte Person hat nachweislich die in der Verfahrensanweisung
 INFSW17008 beschriebenen Voraussetzungen für Ausbildung, Schulung
@@ -3364,10 +4196,11 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
 <div class="authorization-info">
   <p><strong>Name:</strong> ${headerData.operatorName || '---'}</p>
   <p><strong>Personalnummer:</strong> ${headerData.operatorNumber || '---'}</p>
+  ${employeeData.birthdate ? `<p><strong>Geburtsdatum:</strong> ${employeeData.birthdate}</p>` : ''}
+  ${employeeData.eyeTestDate ? `<p><strong>Letzter Sehtest:</strong> ${employeeData.eyeTestDate}</p>` : ''}
+  ${employeeData.certNumber ? `<p><strong>Identifikationsnummer:</strong> ${employeeData.certNumber}</p>` : ''}
   <p><strong>Abteilung:</strong> ${headerData.operatorDept || '---'}</p>
   <p><strong>Zertifikate:</strong> ${uniqueCerts.length > 0 ? uniqueCerts.join(', ') : '---'}</p>
-  <p><strong>Autorisierte Verfahren:</strong> ${passedAudits.map(a => `${a.info.title} (${a.info.short})`).join(', ')}</p>
-  <p><strong>Sektor:</strong> is</p>
 </div>
 
 <div class="authorization-text-box">
@@ -3427,7 +4260,6 @@ ${authorizationHTML}
   document.body.style.overflow = 'hidden';
 }
 
-// === RESET FUNKTION ===
 async function resetAudit() {
   if (!currentAuditType) return;
 
@@ -3480,31 +4312,24 @@ async function resetAudit() {
   showCustomModal('✅ Audit wurde zurückgesetzt\nALLE Felder wurden geleert.');
 }
 
-// === EXPORT FUNKTION ===
 async function exportAudit() {
   if (!currentAuditType || !currentAuditData) return;
 
-  // Speichern OHNE Upsert (keine Überschreibung in der Liste)
   saveCurrentAuditData();
 
-  // Snapshot mit neuer instanceId erzeugen
   const exportSnapshot = cloneAuditForExport(currentAuditData);
 
-  // Snapshot in Sammelliste ablegen
   upsertAuditInList(exportSnapshot);
 
-  // NUR beim Export: Mitarbeiter aus Kopfdaten automatisch anlegen/ergänzen
   ensureEmployeeFromHeader(exportSnapshot.headerData);
   loadAuditFiles();
   updateEmployeeAudits();
   renderEmployeeList();
 
-  // Dateiname mit Prüfberichtsnummer
   const reportNoRaw = (exportSnapshot.headerData?.reportNumber || '').trim();
   const reportNoSafe = reportNoRaw ? reportNoRaw.replace(/[^\w\-]+/g, '_') : 'Pruefbericht';
   const fileName = `${reportNoSafe}_ZfP_Audit_${AUDIT_TYPES[currentAuditType].short}_${new Date().toISOString().slice(0,10)}.json`;
 
-  // JSON herunterladen
   const jsonBlob = new Blob([JSON.stringify(exportSnapshot, null, 2)], { type: 'application/json' });
   const jsonUrl = URL.createObjectURL(jsonBlob);
   const jsonLink = document.createElement('a');
@@ -3515,7 +4340,6 @@ async function exportAudit() {
   document.body.removeChild(jsonLink);
   URL.revokeObjectURL(jsonUrl);
 
-  // Bilder exportieren (optional)
   const imageCount = Object.keys(imageStorage).length;
   if (imageCount > 0) {
     try {
@@ -3557,7 +4381,6 @@ async function exportAudit() {
   }
 }
 
-// === AUDIT LADEN FUNKTION ===
 function loadAudit() {
   document.getElementById('fileLoader').click();
 }
@@ -3598,7 +4421,6 @@ function loadAuditData(event) {
 
       localStorage.setItem(`zfpAudit_${auditType}`, JSON.stringify(currentAuditData));
 
-      // Upsert des geladenen Audits in Sammelliste (bewusster Vorgang)
       upsertAuditInList(currentAuditData);
 
       if (window.innerWidth <= 768) { currentMobileQuestion = 0; renderMobileQuestion(); }
@@ -3677,7 +4499,6 @@ function loadQuestionsData(event) {
   event.target.value = '';
 }
 
-// === OVERLAY CLOSE FUNKTIONEN ===
 function closeReport() {
   document.getElementById('reportOverlay').style.display = 'none';
   document.body.style.overflow = 'auto';
@@ -3687,7 +4508,6 @@ function closeAuthorization() {
   document.body.style.overflow = 'auto';
 }
 
-// === Mitarbeiter-Modal ===
 function showEmployeeModal(editId = null) {
   currentEmployeeEditId = editId;
   const modal = document.getElementById('employeeModal');
@@ -3697,6 +4517,9 @@ function showEmployeeModal(editId = null) {
     if (employee) {
       document.getElementById('employeeName').value = employee.name || '';
       document.getElementById('employeeNumber').value = employee.number || '';
+      document.getElementById('employeeBirthdate').value = employee.birthdate || '';
+      document.getElementById('employeeEyeTest').value = employee.eyeTestDate || '';
+      document.getElementById('employeeCertNumber').value = employee.certNumber || '';
       document.getElementById('employeeGlasses').value = employee.glasses || 'unknown';
       document.getElementById('employeeDepartment').value = employee.department || '';
       document.getElementById('employeeCertificate').value = employee.certificate || '';
@@ -3706,6 +4529,9 @@ function showEmployeeModal(editId = null) {
     document.getElementById('employeeModalTitle').textContent = 'Mitarbeiter hinzufügen';
     document.getElementById('employeeName').value = '';
     document.getElementById('employeeNumber').value = '';
+    document.getElementById('employeeBirthdate').value = '';
+    document.getElementById('employeeEyeTest').value = '';
+    document.getElementById('employeeCertNumber').value = '';
     document.getElementById('employeeGlasses').value = 'unknown';
     document.getElementById('employeeDepartment').value = '';
     document.getElementById('employeeCertificate').value = '';
