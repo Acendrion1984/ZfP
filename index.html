@@ -1123,25 +1123,43 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
   width: 100%;
   display: block;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.employee-table thead,
-.employee-table tbody,
-.employee-table tr,
-.employee-table th,
-.employee-table td {
-  display: block;
-}
-.employee-table th, .employee-table td { 
-  padding: 6px 4px; 
-  box-sizing: border-box;
+.employee-table thead {
+  display: table;
   width: 100%;
-  text-align: left;
+  table-layout: fixed;
+}
+.employee-table tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 .employee-table tr {
   display: table;
   width: 100%;
   table-layout: fixed;
 }
+.employee-table th, .employee-table td { 
+  padding: 6px 4px; 
+  box-sizing: border-box;
+  min-width: 80px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 80px; } /* Status */
+.employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 120px; } /* Name */
+.employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 90px; } /* Personal-Nr */
+.employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 70px; } /* Brille */
+.employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 90px; } /* Ident-Nr */
+.employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 90px; } /* Sehtest */
+.employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 100px; } /* Letztes Audit */
+.employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 100px; } /* Nächstes Audit */
+.employee-table th:nth-child(9), .employee-table td:nth-child(9) { min-width: 120px; max-width: 150px; } /* Verfahren */
+.employee-table th:nth-child(10), .employee-table td:nth-child(10) { width: 150px; } /* Aktionen */
+
 .employee-controls { flex-direction: column; align-items: stretch; }
 .employee-search, .employee-filter { width: 100%; margin-bottom: 5px; }
 .stats-container { flex-direction: column; }
@@ -1500,7 +1518,7 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
     </select>
     <button class="btn-secondary" id="clearFiltersBtn">Filter löschen</button>
   </div>
-  <div style="overflow-x: auto; margin-top: 10px; width: 100%;">
+  <div style="overflow-x: auto; margin-top: 10px; width: 100%; -webkit-overflow-scrolling: touch;">
     <table id="employeeTable" class="employee-table">
       <thead>
         <tr>
@@ -2286,7 +2304,7 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
 
   <p style="margin-top: 8px;"><strong>Ort:</strong> ${werk || 'Dem zuständigen Werk'}</p>
   <p><strong>Autorisierungsdatum:</strong> ${authorizationDate.toLocaleDateString('de-DE')}</p>
- <p><strong>Gültig bis:</strong> ${expiryDate.toLocaleDateString('de-DE')}</p>
+  <p><strong>Gültig bis:</strong> ${expiryDate.toLocaleDateString('de-DE')}</p>
 </div>
 
 <div class="authorization-signatures">
@@ -4216,7 +4234,8 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
   </div>
 
   <p style="margin-top: 8px;"><strong>Ort:</strong> ${werk || 'Dem zuständigen Werk'}</p>
-  <p><strong>Gesamtgültigkeit:</strong> ${overallExpiryDate.toLocaleDateString('de-DE')}</p>
+  <p><strong>Autorisierungsdatum:</strong> ${new Date().toLocaleDateString('de-DE')}</p>
+  <p><strong>Gültig bis:</strong> ${overallExpiryDate.toLocaleDateString('de-DE')}</p>
 </div>
 
 <div class="authorization-signatures">
