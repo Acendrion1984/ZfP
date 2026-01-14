@@ -1144,10 +1144,10 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
   padding: 6px 4px; 
   box-sizing: border-box;
   min-width: 80px;
-  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal; /* GEÄNDERT: nowrap zu normal */
+  vertical-align: top; /* HINZUGEFÜGT für bessere Ausrichtung */
 }
 .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 80px; } /* Status */
 .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 120px; } /* Name */
@@ -1157,8 +1157,33 @@ flex-direction: row; justify-content: flex-start; text-align: left; padding-left
 .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 90px; } /* Sehtest */
 .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 100px; } /* Letztes Audit */
 .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 100px; } /* Nächstes Audit */
-.employee-table th:nth-child(9), .employee-table td:nth-child(9) { min-width: 120px; max-width: 150px; } /* Verfahren */
-.employee-table th:nth-child(10), .employee-table td:nth-child(10) { width: 150px; } /* Aktionen */
+.employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
+  min-width: 120px; 
+  max-width: 150px;
+  white-space: normal !important; /* WICHTIG: Textumbruch erlauben */
+  overflow: visible !important; /* WICHTIG: Überlauf sichtbar machen */
+  text-overflow: clip !important; /* KEIN Ellipsis */
+} /* Verfahren */
+.employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
+  width: 150px; 
+  white-space: nowrap; /* Für Aktionsbuttons */
+} /* Aktionen */
+
+/* SPEZIELLE STILE FÜR VERFAHREN-SPALTE AUF MOBILE */
+.employee-table td:nth-child(9) .audit-procedures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 2px;
+}
+.employee-table td:nth-child(9) .procedure-badge {
+  padding: 2px 5px;
+  font-size: 0.65em;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 1px;
+  white-space: nowrap;
+}
 
 .employee-controls { flex-direction: column; align-items: stretch; }
 .employee-search, .employee-filter { width: 100%; margin-bottom: 5px; }
