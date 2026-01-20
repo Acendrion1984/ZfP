@@ -234,15 +234,6 @@ font-size: 0.8em;
 .mark-reviewed-btn.reviewed {
 background: #27ae60;
 }
-.delete-audit-btn {
-padding: 4px 8px;
-background: #e74c3c;
-color: white;
-border: none;
-border-radius: 3px;
-cursor: pointer;
-font-size: 0.8em;
-}
 .no-audits-message {
 text-align: center;
 padding: 20px;
@@ -1066,9 +1057,6 @@ footer {
   color: #ff6b6b !important;
 }
 .mark-reviewed-btn {
-  color: white !important;
-}
-.delete-audit-btn {
   color: white !important;
 }
 
@@ -2462,11 +2450,8 @@ function renderAuditListModal(employee, audits) {
             <button class="mark-reviewed-btn ${reviewStatus}" data-audit-id="${audit.meta?.instanceId}">
               ${isReviewed ? '✅ Geprüft' : '📝 Als geprüft markieren'}
             </button>
-            <button class="export-audit-btn" data-audit-index="${index}">
+            <button class="export-audit-btn" data-audit-index="${index}" style="padding: 4px 8px; background: #27ae60; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em;">
               📁 Exportieren
-            </button>
-            <button class="delete-audit-btn" data-audit-id="${audit.meta?.instanceId}">
-              🗑️ Löschen
             </button>
           </div>
         </div>
@@ -2513,41 +2498,6 @@ function renderAuditListModal(employee, audits) {
         const audit = audits[auditIndex];
         if (audit) {
           exportSingleAudit(audit);
-        }
-      };
-    });
-    
-    container.querySelectorAll('.delete-audit-btn').forEach(btn => {
-      btn.onclick = async (e) => {
-        const auditId = e.currentTarget.dataset.auditId;
-        const shouldDelete = await showCustomModal('Dieses Audit wirklich löschen?\nDie Aktion kann nicht rückgängig gemacht werden.');
-        
-        if (shouldDelete) {
-          // Alle Audit-Typen durchsuchen und löschen
-          Object.keys(AUDIT_TYPES).forEach(auditType => {
-            const key = STORAGE_LIST_KEY(auditType);
-            const savedList = localStorage.getItem(key);
-            
-            if (savedList) {
-              try {
-                let list = JSON.parse(savedList) || [];
-                list = list.filter(audit => audit?.meta?.instanceId !== auditId);
-                localStorage.setItem(key, JSON.stringify(list));
-              } catch (e) {
-                console.error('Fehler beim Löschen:', e);
-              }
-            }
-          });
-          
-          // Audit-Reviews auch entfernen
-          if (auditReviews[auditId]) {
-            delete auditReviews[auditId];
-            saveAuditReviews();
-          }
-          
-          // UI aktualisieren
-          showAuditListForEmployee(currentAuditListEmployeeId);
-          showInfoModal('✅ Audit gelöscht!');
         }
       };
     });
@@ -2987,7 +2937,7 @@ function setupGlobalEventListeners() {
   });
 
   document.addEventListener('change', function(e) {
-    if (e.target.classList.contains('.image-input')) {
+    if (e.target.classList.contains('image-input')) {
       const questionId = e.target.dataset.question;
       const isMobile = window.innerWidth <= 768;
       handleImageUpload(e, questionId, isMobile);
@@ -3728,7 +3678,7 @@ function renderSectionQuestions(questions, isMobile) {
   <div class="image-upload-section">
     <h4>📸 Bildnachweise (optional)</h4>
     <div class="file-input-wrapper">
-      <input type="file" accept="image/*" class="file-input image-input" multiple data-question="${question.id}" onchange="handleImageUpload(event, '${question.id}', true)">
+      <input type="file" accept="image/*" class="file-input image-input" multiple data-question="${question.id}">
       <span class="file-input-label">Bilder auswählen</span>
     </div>
     <div class="image-preview-container" id="preview-${question.id}">
@@ -3787,7 +3737,7 @@ function renderMobileQuestion() {
   <div class="image-upload-section">
     <h4>📸 Bilder (optional)</h4>
     <div class="file-input-wrapper">
-      <input type="file" accept="image/*" class="file-input image-input" multiple data-question="${question.id}" onchange="handleImageUpload(event, '${question.id}', false)">
+      <input type="file" accept="image/*" class="file-input image-input" multiple data-question="${question.id}">
       <span class="file-input-label">Bilder auswählen</span>
     </div>
     <div class="image-preview-container" id="mobile_preview-${question.id}">
@@ -3880,7 +3830,7 @@ async function processAndLimitImage(file) {
   return new Promise((resolve, reject) => {
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
-      reject(new Error(`Bild zu groß (${(file.size / 1200 / 1200).toFixed(1)}MB). Max: 10MB`));
+      reject(new Error(`Bild zu groß (${(file.size / 1024 / 1024).toFixed(1)}MB). Max: 5MB`));
       return;
     }
 
@@ -4261,7 +4211,7 @@ async function showAuthorization() {
   const authorizationText = `<strong>Die genannte Person hat nachweislich die in der Verfahrensanweisung
 INFSW17008 beschriebenen Voraussetzungen für Ausbildung, Schulung
 Berufserfahrung, fortlaufende Tätigkeit und Prüfung erfüllt und ist damit für die
-Durchführung der Prüfung in den oben gelisteten ZfP-Verfahren autorisiert. Die Autorisierung gilt nur in Verbination mit einem gültigen Zertifikat und hat
+Durchführung der Prüfung in den oben gelisteten ZfP-Verfahren autorisiert. Die Autorisierung gilt nur in Verbindung mit einem gültigen Zertifikat und hat
 eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demonstrably fulfilled the requirements for training, education, professional experience, ongoing activity, and examination described in the procedure instruction INFSW17008 and is therefore authorized to conduct the examination in the NDT procedures listed below. This authorization is valid only in conjunction with a valid certificate and is valid for 12 months.</em>`;
 
   let authorizationHTML = `
