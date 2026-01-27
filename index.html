@@ -1345,6 +1345,26 @@ min-width: 180px !important;
 </style>
 </head>
 <body>
+   <div id="mobile-top-space" style="display: none;"></div>
+
+<style>
+/* NUR auf mobilen Geräten */
+@media (max-width: 768px) {
+    #mobile-top-space {
+        display: block !important;
+        height: 40px;
+        width: 100%;
+    }
+}
+
+/* Sicherstellen dass es auf Desktop unsichtbar ist */
+@media (min-width: 769px) {
+    #mobile-top-space {
+        display: none !important;
+        height: 0;
+    }
+}
+</style>
 <!-- CUSTOM MODAL -->
 <div id="customModal" class="custom-modal">
 <div class="custom-modal-content">
