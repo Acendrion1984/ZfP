@@ -363,34 +363,25 @@ min-width: 100px;
 flex-shrink: 0;
 }
 
-/* EXISTIERENDE BUTTON-KLASSEN AUS DEM AUDIT-BEREICH */
 .btn-back { background: #7f8c8d; color: white; }
-.btn-success { background: #27ae60; color: white; }
-.btn-export { background: #3498db; color: white; }
+.btn-export { background: #27ae60; color: white; }
 .btn-report { background: #f39c12; color: white; }
 .btn-desktop { background: #95a5a6; color: white; }
 .btn-danger { background: #e74c3c; color: white; }
-.btn-secondary { background: #bdc3c7; color: white; }
-
-/* DIESE REGEL MUSS AUF ALLE BUTTONS ANWENDBAR SEIN */
-.controls-row-audit button {
-    padding: 8px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.75em;
-    height: 32px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 100px;
-    flex-shrink: 0;
+.btn-success { background: #27ae60; color: white; }
+.btn-secondary {
+background: #bdc3c7;
+color: white;
+border: none;
+border-radius: 3px;
+padding: 5px 8px;
+font-weight: bold;
+cursor: pointer;
+height: 32px;
+font-size: 0.75em;
 }
+button:hover { opacity: 0.9; }
 
-.controls-row-audit button:hover {
-    opacity: 0.9;
-}
 /* STATUSLEISTE */
 .audit-status {
 margin-bottom: 6px;
@@ -907,73 +898,6 @@ color: white !important;
 .btn-danger { background: #c0392b; }
 .btn-success { background: #27ae60; }
 .btn-secondary { background: #666; }
-/* KLEINE BUTTONS FÜR MITARBEITERLISTE - WIE IN AUDITS */
-.controls-row-employees {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 8px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 5px;
-    scrollbar-width: thin;
-    scrollbar-color: #3498db #f0f0f0;
-}
-
-.controls-row-employees::-webkit-scrollbar {
-    height: 6px;
-}
-
-.controls-row-employees::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 3px;
-}
-
-.controls-row-employees::-webkit-scrollbar-thumb {
-    background: #3498db;
-    border-radius: 3px;
-}
-
-.controls-row-employees button {
-    padding: 8px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.75em;
-    height: 32px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 100px;
-    flex-shrink: 0;
-    color: white !important;
-}
-
-.controls-row-employees button:hover {
-    opacity: 0.9;
-}
-
-/* Spezifische Button-Farben */
-#backFromEmployeesBtn { background: #7f8c8d; }
-#addEmployeeBtn { background: #27ae60; }
-#refreshAuditsBtn { background: #3498db; }
-#importEmployeeListBtn { background: #9b59b6; }
-#syncCloudBtn { background: #f39c12; }
-
-/* Mobile Anpassungen */
-@media (max-width: 768px) {
-    .controls-row-employees {
-        gap: 3px;
-        padding-bottom: 3px;
-    }
-    
-    .controls-row-employees button {
-        padding: 6px 8px;
-        font-size: 0.7em;
-        height: 30px;
-        min-width: 90px;
-    }
-}
 
 .audit-status { 
 background: #2d2d2d; 
@@ -1570,7 +1494,7 @@ Zeigt alle geprüften Mitarbeiter und deren Audit-Status
 <button class="btn-report" id="reportBtn">📊 Auditbericht</button>
 <button class="btn-desktop" id="toggleViewBtn">📱 Mobile</button>
 <button class="btn-danger" id="resetBtn">🗑️ Reset Audit</button>
-<!-- button class="btn-success" id="uploadQuestionsBtn">📄 Fragenkatalog</button -->
+<button class="btn-success" id="uploadQuestionsBtn">📄 Fragenkatalog</button>
 </div>
 
 <!-- CLOUD SYNC INDICATOR -->
@@ -1700,14 +1624,13 @@ Status: <strong id="auditStatusText">In Bearbeitung</strong>
 
 <!-- MITARBEITERLISTE SEITE -->
 <div id="employeeListView" class="employee-view">
-    <!-- EXAKT GLEICHE BUTTONS WIE IN AUDITS -->
-    <div class="controls-row-audit" style="margin-bottom: 10px;">
-        <button class="btn-back" id="backFromEmployeesBtn">← Zurück</button>
-        <button class="btn-success" id="addEmployeeBtn">➕ Hinzufügen</button>
-        <button class="btn-export" id="refreshAuditsBtn">🔄 Aktualisieren</button>
-        <button class="btn-report" id="importEmployeeListBtn">📥 Importieren</button>
-        <button class="btn-desktop" id="syncCloudBtn">☁️ Cloud Sync</button>
-    </div>
+<div class="controls-row-1">
+<button class="btn-back" id="backFromEmployeesBtn">← Zurück</button>
+<button class="btn-success" id="addEmployeeBtn">➕ Mitarbeiter hinzufügen</button>
+<button class="btn-export" id="refreshAuditsBtn">🔄 Audits aktualisieren</button>
+<button class="btn-export" id="importEmployeeListBtn">📥 Liste importieren</button>
+<button class="btn-authorization" id="syncCloudBtn">☁️ Cloud Sync</button>
+</div>
 <div class="employee-controls" style="display:flex; gap:6px; align-items:center; flex-wrap: wrap;">
 <input type="text" id="employeeSearch" class="employee-search" placeholder="🔍 Name oder Personalnummer suchen..." style="flex:1; min-width:200px; padding:6px; border:1px solid #ccc; border-radius:4px;">
 <select id="auditStatusFilter" class="employee-filter" style="padding:6px; border:1px solid #ccc; border-radius:4px;">
@@ -1769,7 +1692,7 @@ Status: <strong id="auditStatusText">In Bearbeitung</strong>
 
 <footer>
 <p>Operator Audit Tool - Schaeffler Technologies AG & Co. KG</p>
-<div class="version-info">Version AB - 30.01.2026 | Sync aktiv</div>
+<div class="version-info">Version AA - 10.01.2026 | Cloud-Sync aktiv</div>
 <div class="creator-info">Ersteller: Häusner Daniel, WI/SW2-PQT</div>
 </footer>
 </div>
@@ -3238,6 +3161,17 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
   </div>
 </div>
 
+  <!-- FOOTER GANZ UNTEN -->
+  <div style="position: absolute; bottom: 3mm; left: 5mm; right: 5mm; padding-top: 8px; border-top: 1px solid #ccc; font-size: 8pt; color: #444 !important;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="text-align: left; width: 33%;">Daniel Häusner, WI/SW2-PQT</td>
+        <td style="text-align: center; width: 34%;">Operator Audit Tool - Schaeffler Technologies</td>
+        <td style="text-align: right; width: 33%;">Version AA, 16.01.2026</td>
+      </tr>
+    </table>
+  </div>
+</div>
 `;
 
   document.getElementById('authorizationContainer').innerHTML = `
@@ -3936,7 +3870,7 @@ html,body{height:auto;margin:0!important;padding:0!important;}
 <tr>
 <td style="text-align: left; width: 33%; font-size: 7.5pt !important;">Daniel Häusner, WI/SW2-PQT</td>
 <td style="text-align: center; width: 34%; font-size: 7.5pt !important;">Schaeffler Technologies AG & Co. KG</td>
-<td style="text-align: right; width: 33%; font-size: 7.5pt !important;">Version AB, 30.01.2026</td>
+<td style="text-align: right; width: 33%; font-size: 7.5pt !important;">Version AA, 10.01.2026</td>
 </tr>
 </table>
 </div></div></body></html>`);
@@ -4116,7 +4050,7 @@ margin-top: 0 !important;
 <tr>
 <td style="text-align: left; width: 33%; font-size: 7.5pt !important;">Daniel Häusner, WI/SW2-PQT</td>
 <td style="text-align: center; width: 34%; font-size: 7.5pt !important;">Schaeffler Technologies AG & Co. KG</td>
-<td style="text-align: right; width: 33%; font-size: 7.5pt !important;">Version AB, 30.01.2026</td>
+<td style="text-align: right; width: 33%; font-size: 7.5pt !important;">Version AA, 10.01.2026</td>
 </tr>
 </table>
 </div></div></body></html>`);
@@ -4725,7 +4659,7 @@ function getDocumentNameForAudit(auditType) {
 return 'Schaeffler Technologies AG & Co. KG';
 }
 
-function getVersionForAudit(auditType) { return 'Version AB, 30.01.2026'; }
+function getVersionForAudit(auditType) { return 'Version AA, 10.01.2026'; }
 
 async function processAndLimitImage(file) {
 return new Promise((resolve, reject) => {
