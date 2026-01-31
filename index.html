@@ -2510,19 +2510,19 @@ employees = [];
 }
 }
 async function saveEmployees() {
-try {
-localStorage.setItem('zfpEmployees', JSON.stringify(employees));
-updateEmployeeStatus();
-
-// AUTOMATISCHE Cloud-Sync SOFORT
-if (cloudConnected && !cloudSyncInProgress) {
-for (const employee of employees) {
-await syncSingleEmployeeToCloud(employee);
-}
-}
-} catch (e) {
-console.error('Fehler beim Speichern der Mitarbeiter:', e);
-}
+    try {
+        localStorage.setItem('zfpEmployees', JSON.stringify(employees));
+        updateEmployeeStatus();
+        
+        // AUTOMATISCHE Cloud-Sync SOFORT ohne Statusmeldung
+        if (cloudConnected && !cloudSyncInProgress) {
+            for (const employee of employees) {
+                await syncSingleEmployeeToCloud(employee);
+            }
+        }
+    } catch (e) {
+        console.error('Fehler beim Speichern der Mitarbeiter:', e);
+    }
 }
 
 async function loadAuditReviews() {
@@ -3081,7 +3081,7 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
   </div>
 
   <!-- AUTHORIZATION TEXT - ANGEPASST AN ANDERE KÄSTEN -->
-  <div style="margin: 12px auto; border: 1px solid #ccc; background: #f9f9f9; border-radius: 3px; width: 190mm;">
+  <div style="margin: 10px auto; border: 1px solid #ccc; background: #f9f9f9; border-radius: 3px; width: 190mm;">
     <!-- BEREICHSÜBERSCHRIFT MIT UNTERSTRICH -->
     <div style="padding: 10px 12px; border-bottom: 1px solid #ddd; background: #f0f0f0;">
       <div class="header-section-title" style="font-size: 10pt; color: #000 !important; text-align: center;">
@@ -3097,7 +3097,7 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
   </div>
 
   <!-- BEFUGNISSE KASTEN - ANGEPASST AN ANDERE KÄSTEN -->
-  <div style="margin: 15px auto; width: 190mm;">
+  <div style="margin: 10px auto; width: 190mm;">
     <div style="border: 1px solid #ccc; background: #fff; border-radius: 3px;">
       <!-- BEREICHSÜBERSCHRIFT MIT UNTERSTRICH -->
       <div style="padding: 10px 12px; border-bottom: 1px solid #ddd; background: #f0f0f0;">
@@ -3135,7 +3135,7 @@ eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demons
   <!-- UNTERSCHRIFTEN MIT SPEZIELLER LOGIK FÜR NDT SUPERVISOR -->
   ${isNdtSupervisor ? `
   <!-- UNTERSCHRIFTEN FÜR NDT SUPERVISOR (Q-MANAGER & NDT SUPERVISOR) -->
-  <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #000; display: flex; justify-content: space-between; gap: 25px; min-height: 35mm; width: 190mm; margin-left: auto; margin-right: auto;">
+  <div style="margin-top: 18px; padding-top: 15px; border-top: 2px solid #000; display: flex; justify-content: space-between; gap: 25px; min-height: 35mm; width: 190mm; margin-left: auto; margin-right: auto;">
     <div style="flex: 1; text-align: center;">
       <div style="font-weight: bold; font-size: 9.5pt; margin-bottom: 4px; color: #000 !important;">
         Q-Manager
@@ -3436,33 +3436,33 @@ return newEmp;
 }
 
 async function upsertAuditInList(auditData) {
-try {
-if (!auditData || !auditData.meta || !auditData.meta.auditType) return;
-if (!auditData.meta.instanceId) {
-auditData.meta.instanceId = 'AUD-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
-}
-const type = auditData.meta.auditType;
-const key = STORAGE_LIST_KEY(type);
-let list = [];
-const raw = localStorage.getItem(key);
-if (raw) { try { list = JSON.parse(raw) || []; } catch (e) { list = []; } }
-
-const idx = list.findIndex(a => a?.meta?.instanceId === auditData.meta.instanceId);
-if (idx >= 0) list[idx] = auditData;
-else list.push(auditData);
-
-localStorage.setItem(key, JSON.stringify(list));
-
-// AUTOMATISCHE Cloud-Sync
-if (cloudConnected && !cloudSyncInProgress) {
-await syncSingleAuditToCloud(auditData);
-}
-
-loadAuditFiles();
-renderEmployeeList();
-} catch (e) {
-console.error('upsertAuditInList error:', e);
-}
+    try {
+        if (!auditData || !auditData.meta || !auditData.meta.auditType) return;
+        if (!auditData.meta.instanceId) {
+            auditData.meta.instanceId = 'AUD-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
+        }
+        const type = auditData.meta.auditType;
+        const key = STORAGE_LIST_KEY(type);
+        let list = [];
+        const raw = localStorage.getItem(key);
+        if (raw) { try { list = JSON.parse(raw) || []; } catch (e) { list = []; } }
+        
+        const idx = list.findIndex(a => a?.meta?.instanceId === auditData.meta.instanceId);
+        if (idx >= 0) list[idx] = auditData;
+        else list.push(auditData);
+        
+        localStorage.setItem(key, JSON.stringify(list));
+        
+        // AUTOMATISCHE Cloud-Sync ohne Statusmeldung
+        if (cloudConnected && !cloudSyncInProgress) {
+            await syncSingleAuditToCloud(auditData);
+        }
+        
+        loadAuditFiles();
+        renderEmployeeList();
+    } catch (e) {
+        console.error('upsertAuditInList error:', e);
+    }
 }
 
 function importEmployeeListData(e) {
@@ -4342,30 +4342,30 @@ images: {}
 }
 
 async function saveCurrentAuditData() {
-if (!currentAuditType || !currentAuditData) return;
-
-currentAuditData.questions = allQuestions;
-currentAuditData.headerData = getHeaderData();
-currentAuditData.images = imageStorage;
-currentAuditData.meta.lastModified = new Date().toISOString();
-
-if (!currentAuditData.meta.instanceId) {
-currentAuditData.meta.instanceId = 'AUD-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
-}
-
-localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
-
-// SOFORTIGE Cloud-Synchronisation bei Änderung
-if (cloudConnected) {
-await syncSingleAuditToCloud(currentAuditData);
-}
-
-// Auch in Liste speichern
-await upsertAuditInList(currentAuditData);
-
-updateAuditProgressDisplays();
-updateCurrentAuditProgress();
-checkAndShowFinalResult();
+    if (!currentAuditType || !currentAuditData) return;
+    
+    currentAuditData.questions = allQuestions;
+    currentAuditData.headerData = getHeaderData();
+    currentAuditData.images = imageStorage;
+    currentAuditData.meta.lastModified = new Date().toISOString();
+    
+    if (!currentAuditData.meta.instanceId) {
+        currentAuditData.meta.instanceId = 'AUD-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
+    }
+    
+    localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
+    
+    // SOFORTIGE Cloud-Synchronisation ohne Statusmeldung
+    if (cloudConnected) {
+        await syncSingleAuditToCloud(currentAuditData);
+    }
+    
+    // Auch in Liste speichern
+    await upsertAuditInList(currentAuditData);
+    
+    updateAuditProgressDisplays();
+    updateCurrentAuditProgress();
+    checkAndShowFinalResult();
 }
 
 async function goBackToSelection() {
