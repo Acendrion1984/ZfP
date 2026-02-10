@@ -1499,7 +1499,7 @@ footer { border-top-color: #444; color: #cccccc !important; }
       <option value="missing">⭕ Kein Audit</option>
     </select>
     <select id="glassesFilter" class="employee-filter" style="padding:6px; border:1px solid #ccc; border-radius:4px;">
-      <option value="all">Alle Brillen</option>
+      <option value="all">Sehhilfe</option>
       <option value="yes">👓 Mit Brille</option>
       <option value="no">❌ Ohne Brille</option>
     </select>
@@ -2625,7 +2625,7 @@ row.innerHTML = `
       <button class="employee-action-btn verify" 
               data-id="${employee.id}" 
               title="Zertifikat auf DGZFP-Website verifizieren"
-              style="padding: 4px 6px; background: #8e44ad; color: white; border: none; border-radius: 3px; cursor: help; font-size: 0.75em; min-width: 30px;">🔗</button>
+              style="padding: 4px 6px; background: #f39c12; e67e22 color: white; border: none; border-radius: 3px; cursor: help; font-size: 0.75em; min-width: 30px;">🔗</button>
       
       <!-- Löschen -->
       <button class="employee-action-btn delete" 
@@ -2854,10 +2854,10 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
         </div>
         <div style="flex:1; min-width:62mm; display:flex; flex-direction:column; gap:5px;">
           ${employee.certNumber ? `<div><strong>Identifikationsnummer:</strong> ${employee.certNumber}</div>` : ''}
-          ${uniqueCerts.length > 0 ? `<div><strong>Zertifikate (mit Stufe):</strong> ${uniqueCerts.join(', ')}</div>` : ''}
+          ${uniqueCerts.length > 0 ? `<div><strong>Zertifikate:</strong> ${uniqueCerts.join(', ')}</div>` : ''}
           ${employee.eyeTestDate ? `<div><strong>Letzter Sehtest:</strong> ${eyeTestFormatted}</div>` : ''}
           ${employee.glasses && employee.glasses !== 'unknown' ? `
-            <div><strong>Brillenbedarf:</strong> ${employee.glasses === 'yes' ? 'Ja / Yes' : employee.glasses === 'no' ? 'Nein / No' : 'Unbekannt / Unknown'}</div>
+            <div><strong>Brillenbedarf:</strong> ${employee.glasses === 'yes' ? 'Ja' : employee.glasses === 'no' ? 'Nein' : 'Unbekannt / Unknown'}</div>
           ` : ''}
         </div>
       </div>
@@ -3520,7 +3520,7 @@ function printFullReport() {
         <tr>
           <td style="text-align: left; width: 33%;">Daniel Häusner, WI/SW2-PQT</td>
           <td style="text-align: center; width: 34%;">ZfP Operator Audit © 2026 Schaeffler Technologies AG & Co. KG</td>
-          <td style="text-align: right; width: 33%;">Version AA, 10.01.2026</td>
+          <td style="text-align: right; width: 33%;">Version AB, 29.01.2026</td>
         </tr>
       </table>
     </div>`;
