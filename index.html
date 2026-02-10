@@ -550,6 +550,22 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   padding: 2px 4px !important;
   background: #F0FFF0;
   border-radius: 3px;
+  /* NEU: Standard-Rahmen für Light Mode */
+  border: 1px solid #ddd;
+}
+
+/* Bessere Kontraste für die Status-Anzeigen */
+.proc-exp.valid { 
+  color: #155724 !important; 
+  font-weight: bold;
+}
+.proc-exp.warning { 
+  color: #856404 !important; 
+  font-weight: bold;
+}
+.proc-exp.expired { 
+  color: #721c24 !important; 
+  font-weight: bold;
 }
 .proc-chip {
   display: inline-block !important;
@@ -567,7 +583,15 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   color: #155724 !important;
   border: 1px solid #b7dfb9 !important;
 }
-.proc-exp { display: inline-block !important; width: 9.2ch !important; min-width: 0 !important; margin-left: 0 !important; text-align: left !important; white-space: nowrap !important; font-size: 1.3em !important; }
+.proc-exp { 
+  display: inline-block !important; 
+  width: 9.2ch !important; 
+  min-width: 0 !important; 
+  margin-left: auto !important;
+  text-align: right !important;
+  white-space: nowrap !important; 
+  font-size: 1.3em !important; 
+}
 .proc-exp.valid { color: #155724 !important; }
 .proc-exp.warning { color: #856404 !important; }
 .proc-exp.expired { color: #721c24 !important; }
