@@ -917,16 +917,12 @@ color: #7f8c8d; font-size: 0.85em;
   .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 100px; }
   .employee-table th:nth-child(9), .employee-table td:nth-child(9) { min-width: 140px; max-width: 180px; white-space: normal !important; }
   .employee-table th:nth-child(10), .employee-table td:nth-child(10) { width: 150px; }
-  /* HIER FEHLTE DIE 11. SPALTE - JETZT HINZUFÜGEN: */
-  .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
-    width: 180px; 
-    min-width: 180px;
-    position: sticky;
-    right: 0;
-    background: white;
-    z-index: 2;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-  }
+.employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
+  width: 180px; 
+  min-width: 180px; 
+  background: inherit; 
+  z-index: 1; 
+}
   .employee-controls { flex-direction: column; align-items: stretch; }
   .employee-search, .employee-filter { width: 100%; margin-bottom: 5px; }
   .stats-container { flex-direction: column; }
