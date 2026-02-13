@@ -4073,6 +4073,222 @@ function printFullReport() {
     .report-footer { position: fixed; left: 8mm; right: 8mm; bottom: 0mm; margin: 0; padding-top: 1mm; border-top: 0.5px solid #ccc; font-size: 7.5pt; color: #444 !important; background: white !important; }
     .report-footer-table { width: 100%; border-collapse: collapse; }
     .report-footer-table td { border: none; padding: 0 3px; text-align: center; vertical-align: middle; background: none; font-size: 7.5pt !important; color: #444 !important; }
+/* === MOBILE TABELLEN-FIXES === */
+@media (max-width: 768px) {
+  /* Tabelle als Block für horizontales Scrollen */
+  .employee-table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-collapse: collapse !important;
+  }
+  
+  /* Sicherstellen, dass die Tabelle die volle Breite nutzt */
+  .employee-table thead,
+  .employee-table tbody,
+  .employee-table tr {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+  
+  /* Spaltenbreiten für bessere Darstellung */
+  .employee-table th,
+  .employee-table td {
+    padding: 8px 6px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal !important; /* Erlaubt Umbruch */
+    word-wrap: break-word !important;
+    vertical-align: middle !important;
+  }
+  
+  /* Individuelle Spaltenbreiten anpassen */
+  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 70px !important; min-width: 70px !important; } /* Status */
+  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 110px !important; min-width: 110px !important; } /* Name */
+  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 80px !important; min-width: 80px !important; } /* Personal-Nr */
+  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 70px !important; min-width: 70px !important; } /* Geburtsdatum */
+  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 50px !important; min-width: 50px !important; text-align: center !important; } /* Brille */
+  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 80px !important; min-width: 80px !important; } /* Sehtest */
+  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 70px !important; min-width: 70px !important; } /* Ident-Nr */
+  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 70px !important; min-width: 70px !important; } /* Stempel-Nr */
+  .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
+    width: 180px !important; 
+    min-width: 180px !important; 
+    white-space: normal !important;
+  } /* Zertifikate */
+  .employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
+    width: 100px !important; 
+    min-width: 100px !important; 
+    text-align: center !important;
+  } /* Zyklus */
+  .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
+    width: 150px !important; 
+    min-width: 150px !important; 
+  } /* Aktionen */
+
+  /* === BADGES IN SPALTE 9 (ZERTIFIKATE) === */
+  .proc-cert-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+  
+  .proc-cert-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    padding: 4px 6px !important;
+    background: #F0FFF0 !important;
+    border-radius: 4px !important;
+    border: 1px solid #ddd !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+  
+  .proc-cert-row span:first-child {
+    flex: 0 0 auto !important;
+    font-weight: bold !important;
+  }
+  
+  .proc-cert-row span:last-child {
+    flex: 0 0 auto !important;
+    text-align: right !important;
+    margin-left: 8px !important;
+  }
+  
+  /* === BADGES IN SPALTE 10 (ZYKLUS) === */
+  .next-audit-cell {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+  
+  .audit-cycle-badge-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 2px 0 !important;
+  }
+  
+  .audit-cycle-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 3px 8px !important;
+    border-radius: 12px !important;
+    font-size: 0.75em !important;
+    font-weight: bold !important;
+    min-width: 60px !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* === AKTIONEN SPALTE FIX (DARK MODE) === */
+  .employee-table td:last-child {
+    background: inherit !important;
+    padding: 8px 4px !important;
+  }
+  
+  .employee-actions {
+    display: flex !important;
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+  }
+  
+  .employee-action-btn {
+    flex: 0 0 auto !important;
+    padding: 6px 8px !important;
+    min-width: 36px !important;
+    text-align: center !important;
+  }
+}
+
+/* === DARK MODE FIXES FÜR AKTIONEN SPALTE === */
+[data-theme="dark"] .employee-table td:last-child {
+  background: #2a2a2a !important;
+}
+
+[data-theme="dark"] .employee-action-btn {
+  background: #3a3a3a !important;
+  color: white !important;
+  border: 1px solid #555 !important;
+}
+
+[data-theme="dark"] .employee-action-btn:hover {
+  background: #4a4a4a !important;
+}
+
+[data-theme="dark"] .employee-action-btn.edit { background: #2980b9 !important; }
+[data-theme="dark"] .employee-action-btn.audits { background: #8e44ad !important; }
+[data-theme="dark"] .employee-action-btn.authorization { background: #27ae60 !important; }
+[data-theme="dark"] .employee-action-btn.verify { background: #f39c12 !important; color: #000 !important; }
+[data-theme="dark"] .employee-action-btn.delete { background: #c0392b !important; }
+
+/* === TABELLEN-HEADER FIX === */
+.employee-table th {
+  background: #34495e !important;
+  color: white !important;
+  font-weight: bold !important;
+  white-space: nowrap !important;
+  padding: 10px 6px !important;
+}
+
+/* === ALLGEMEINE DARK MODE FIXES FÜR TABELLE === */
+[data-theme="dark"] .employee-table td {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-bottom: 1px solid #444 !important;
+}
+
+[data-theme="dark"] .employee-table tr:hover td {
+  background-color: #333 !important;
+}
+
+[data-theme="dark"] .proc-cert-row {
+  background: #2d2d2d !important;
+  border-color: #555 !important;
+}
+
+[data-theme="dark"] .proc-cert-row span {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .audit-cycle-badge {
+  background: #333 !important;
+  color: #e0e0e0 !important;
+  border-color: #555 !important;
+}
+
+/* Spezifische Badge-Farben für Dark Mode beibehalten */
+[data-theme="dark"] .audit-cycle-1 { 
+  background: #fff3e0 !important; 
+  color: #e65100 !important; 
+  border-color: #ffb74d !important; 
+}
+[data-theme="dark"] .audit-cycle-2 { 
+  background: #fff3e0 !important; 
+  color: #f57c00 !important; 
+  border-color: #ffcc80 !important; 
+}
+[data-theme="dark"] .audit-cycle-4 { 
+  background: #e3f2fd !important; 
+  color: #1565c0 !important; 
+  border-color: #90caf9 !important; 
+}
+[data-theme="dark"] .audit-cycle-5 { 
+  background: #daf2d1 !important; 
+  color: black !important; 
+  border-color: #2e7d32 !important; 
+}
   </style>
 </head>
 <body>
