@@ -968,10 +968,9 @@ color: #7f8c8d; font-size: 0.85em;
   .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 90px; }
   .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 90px; }
   .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 100px; }
-  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 100px; }
-  .employee-table th:nth-child(9), .employee-table td:nth-child(9) { min-width: 140px; max-width: 180px; white-space: normal !important; }
-  .employee-table th:nth-child(10), .employee-table td:nth-child(10) { width: 150px; }
-.employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
+  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { min-width: 140px; max-width: 180px; white-space: normal !important; }
+  .employee-table th:nth-child(9), .employee-table td:nth-child(9) { width: 150px; }
+.employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
   width: 180px; 
   min-width: 180px; 
   background: inherit; 
@@ -1673,7 +1672,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
       <th style="width: 90px;">Ident.-Nr.</th>
       <th class="col-stamp" style="width: 90px;">Stempel-Nr.</th>
       <th style="width: 90px;">Datum Sehtest</th>
-      <th style="width: 100px;">Letztes Audit</th>
       <th style="width: 100px;">Zyklus</th>
       <th style="min-width: 150px;">Verfahren/Ablaufdatum</th>
       <th style="width: 150px;">Aktionen</th>
@@ -2830,9 +2828,6 @@ function renderEmployeeList() {
     if (employee.glasses === 'yes') glassesIcon = '👓';
     else if (employee.glasses === 'no') glassesIcon = '❌';
 
-    const lastAuditText = employee.latestAudit ? formatGermanDate(employee.latestAudit.date) : '–';
-    const nextAuditText = employee.nextAudit ? formatGermanDate(employee.nextAudit) : '–';
-
     let proceduresHTML = '<div class="proc-cert-list">';
 const pc = employee.procedureCerts || defaultProcedureCerts();
 const order = ['wirbelstrom','magnetpulver','nital','ultraschall'];
@@ -2935,7 +2930,6 @@ row.innerHTML = `
   <td>${employee.certNumber || ''}</td>
   <td class="col-stamp">${employee.stampNumber || ''}</td>
   <td>${employee.eyeTestDate || ''}</td>
-  <td>${lastAuditText}</td>
   <td>${nextAuditsHTML}</td> <!-- NEUE SPALTE mit nächsten Audits -->
   <td>${proceduresHTML}</td>
   <td>
