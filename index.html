@@ -4073,7 +4073,7 @@ function printFullReport() {
     .report-footer { position: fixed; left: 8mm; right: 8mm; bottom: 0mm; margin: 0; padding-top: 1mm; border-top: 0.5px solid #ccc; font-size: 7.5pt; color: #444 !important; background: white !important; }
     .report-footer-table { width: 100%; border-collapse: collapse; }
     .report-footer-table td { border: none; padding: 0 3px; text-align: center; vertical-align: middle; background: none; font-size: 7.5pt !important; color: #444 !important; }
-/* === MOBILE TABELLEN-FIXES === */
+/* === MOBILE TABELLEN-FIXES - Buttons in einer Zeile === */
 @media (max-width: 768px) {
   /* Tabelle als Block für horizontales Scrollen */
   .employee-table {
@@ -4084,7 +4084,7 @@ function printFullReport() {
     border-collapse: collapse !important;
   }
   
-  /* Sicherstellen, dass die Tabelle die volle Breite nutzt */
+  /* Tabellenkopf und -körper als Tabelle behalten */
   .employee-table thead,
   .employee-table tbody,
   .employee-table tr {
@@ -4093,47 +4093,46 @@ function printFullReport() {
     table-layout: fixed !important;
   }
   
-  /* Spaltenbreiten für bessere Darstellung */
+  /* Spaltenbreiten für bessere Darstellung - BREITER FÜR AKTIONEN */
   .employee-table th,
   .employee-table td {
-    padding: 8px 6px !important;
+    padding: 8px 4px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    white-space: normal !important; /* Erlaubt Umbruch */
-    word-wrap: break-word !important;
+    white-space: nowrap !important; /* Jetzt again nowrap für alle Spalten */
     vertical-align: middle !important;
   }
   
-  /* Individuelle Spaltenbreiten anpassen */
-  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 70px !important; min-width: 70px !important; } /* Status */
-  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 110px !important; min-width: 110px !important; } /* Name */
-  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 80px !important; min-width: 80px !important; } /* Personal-Nr */
-  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 70px !important; min-width: 70px !important; } /* Geburtsdatum */
-  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 50px !important; min-width: 50px !important; text-align: center !important; } /* Brille */
-  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 80px !important; min-width: 80px !important; } /* Sehtest */
-  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 70px !important; min-width: 70px !important; } /* Ident-Nr */
-  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 70px !important; min-width: 70px !important; } /* Stempel-Nr */
+  /* Individuelle Spaltenbreiten - BREITER FÜR LETZTE SPALTE */
+  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 65px !important; min-width: 65px !important; } /* Status */
+  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 100px !important; min-width: 100px !important; } /* Name */
+  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 70px !important; min-width: 70px !important; } /* Personal-Nr */
+  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 60px !important; min-width: 60px !important; } /* Geburtsdatum */
+  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 40px !important; min-width: 40px !important; text-align: center !important; } /* Brille */
+  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 70px !important; min-width: 70px !important; } /* Sehtest */
+  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 60px !important; min-width: 60px !important; } /* Ident-Nr */
+  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 60px !important; min-width: 60px !important; } /* Stempel-Nr */
   .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
-    width: 180px !important; 
-    min-width: 180px !important; 
-    white-space: normal !important;
+    width: 140px !important; 
+    min-width: 140px !important; 
+    white-space: nowrap !important;
   } /* Zertifikate */
   .employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
-    width: 100px !important; 
-    min-width: 100px !important; 
+    width: 70px !important; 
+    min-width: 70px !important; 
     text-align: center !important;
   } /* Zyklus */
   .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
-    width: 150px !important; 
-    min-width: 150px !important; 
+    width: 180px !important; /* BREITER FÜR 5 BUTTONS */
+    min-width: 180px !important; 
   } /* Aktionen */
 
-  /* === BADGES IN SPALTE 9 (ZERTIFIKATE) === */
+  /* === BADGES IN SPALTE 9 (ZERTIFIKATE) - JETZT IN EINER ZEILE === */
   .proc-cert-list {
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
+    gap: 2px !important;
     width: 100% !important;
   }
   
@@ -4142,30 +4141,32 @@ function printFullReport() {
     align-items: center !important;
     justify-content: space-between !important;
     width: 100% !important;
-    padding: 4px 6px !important;
+    padding: 2px 4px !important;
     background: #F0FFF0 !important;
-    border-radius: 4px !important;
+    border-radius: 3px !important;
     border: 1px solid #ddd !important;
     box-sizing: border-box !important;
-    margin: 0 !important;
+    font-size: 0.7em !important;
+    white-space: nowrap !important;
   }
   
   .proc-cert-row span:first-child {
     flex: 0 0 auto !important;
     font-weight: bold !important;
+    margin-right: 4px !important;
   }
   
   .proc-cert-row span:last-child {
     flex: 0 0 auto !important;
     text-align: right !important;
-    margin-left: 8px !important;
+    font-size: 0.9em !important;
   }
   
-  /* === BADGES IN SPALTE 10 (ZYKLUS) === */
+  /* === BADGES IN SPALTE 10 (ZYKLUS) - JETZT IN EINER ZEILE === */
   .next-audit-cell {
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
+    gap: 2px !important;
     width: 100% !important;
   }
   
@@ -4174,42 +4175,53 @@ function printFullReport() {
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    margin: 0 !important;
-    padding: 2px 0 !important;
   }
   
   .audit-cycle-badge {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 3px 8px !important;
-    border-radius: 12px !important;
-    font-size: 0.75em !important;
+    padding: 2px 4px !important;
+    border-radius: 8px !important;
+    font-size: 0.65em !important;
     font-weight: bold !important;
-    min-width: 60px !important;
+    min-width: 45px !important;
     white-space: nowrap !important;
-    box-sizing: border-box !important;
+    height: 18px !important;
+    line-height: 1 !important;
   }
   
-  /* === AKTIONEN SPALTE FIX (DARK MODE) === */
-  .employee-table td:last-child {
-    background: inherit !important;
-    padding: 8px 4px !important;
-  }
-  
+  /* === AKTIONEN SPALTE - BUTTONS IN EINER ZEILE === */
   .employee-actions {
     display: flex !important;
-    gap: 4px !important;
-    flex-wrap: wrap !important;
+    gap: 2px !important;
+    flex-wrap: nowrap !important; /* KEIN UMBRUCH */
     justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
   }
   
   .employee-action-btn {
     flex: 0 0 auto !important;
-    padding: 6px 8px !important;
-    min-width: 36px !important;
+    padding: 4px 3px !important;
+    min-width: 28px !important;
+    height: 26px !important;
+    font-size: 0.65em !important;
     text-align: center !important;
+    border-radius: 3px !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
+  
+  /* Buttons etwas kompakter machen */
+  .employee-action-btn.edit { background: #3498db !important; }
+  .employee-action-btn.audits { background: #9b59b6 !important; }
+  .employee-action-btn.authorization { background: #2ecc71 !important; }
+  .employee-action-btn.verify { background: #f39c12 !important; color: white !important; }
+  .employee-action-btn.delete { background: #e74c3c !important; }
 }
 
 /* === DARK MODE FIXES FÜR AKTIONEN SPALTE === */
@@ -4221,10 +4233,6 @@ function printFullReport() {
   background: #3a3a3a !important;
   color: white !important;
   border: 1px solid #555 !important;
-}
-
-[data-theme="dark"] .employee-action-btn:hover {
-  background: #4a4a4a !important;
 }
 
 [data-theme="dark"] .employee-action-btn.edit { background: #2980b9 !important; }
@@ -4239,18 +4247,15 @@ function printFullReport() {
   color: white !important;
   font-weight: bold !important;
   white-space: nowrap !important;
-  padding: 10px 6px !important;
+  padding: 8px 4px !important;
+  font-size: 0.75em !important;
 }
 
-/* === ALLGEMEINE DARK MODE FIXES FÜR TABELLE === */
+/* === DARK MODE TABELLE === */
 [data-theme="dark"] .employee-table td {
   background-color: #2a2a2a !important;
   color: #e0e0e0 !important;
   border-bottom: 1px solid #444 !important;
-}
-
-[data-theme="dark"] .employee-table tr:hover td {
-  background-color: #333 !important;
 }
 
 [data-theme="dark"] .proc-cert-row {
@@ -4262,13 +4267,7 @@ function printFullReport() {
   color: #e0e0e0 !important;
 }
 
-[data-theme="dark"] .audit-cycle-badge {
-  background: #333 !important;
-  color: #e0e0e0 !important;
-  border-color: #555 !important;
-}
-
-/* Spezifische Badge-Farben für Dark Mode beibehalten */
+/* Badge-Farben für Dark Mode */
 [data-theme="dark"] .audit-cycle-1 { 
   background: #fff3e0 !important; 
   color: #e65100 !important; 
