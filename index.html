@@ -574,10 +574,10 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
     box-sizing: border-box;
     border: 1px solid;
 }
-.audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
-.audit-cycle-2 { background: #fff3e0; color: #f57c00; border-color: #ffcc80; }
-.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
-.audit-cycle-5 { background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8; }
+.audit-cycle-1 { background: #fff3e0; color: #e65100 !important; border-color: #ffb74d; }
+.audit-cycle-2 { background: #fff3e0; color: #f57c00; border: 1px solid #ffcc80; }
+.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
 
 /* Bessere Kontraste für die Status-Anzeigen */
 .proc-exp.valid { 
@@ -1091,6 +1091,91 @@ width: 180px !important;
 min-width: 180px !important;
 }
 }
+/* === BADGES - KEINE VERDUNKELUNG IM DARK MODE === */
+@media (prefers-color-scheme: dark) {
+  [data-theme="dark"] .audit-cycle-1,
+  [data-theme="dark"] .audit-cycle-2,
+  [data-theme="dark"] .audit-cycle-4,
+  [data-theme="dark"] .audit-cycle-5,
+  [data-theme="dark"] .status-valid,
+  [data-theme="dark"] .status-expired,
+  [data-theme="dark"] .status-warning,
+  [data-theme="dark"] .status-missing,
+  [data-theme="dark"] .status-needs-confirmation,
+  [data-theme="dark"] .proc-chip,
+  [data-theme="dark"] .proc-chip.complete,
+  [data-theme="dark"] .proc-exp.valid,
+  [data-theme="dark"] .proc-exp.warning,
+  [data-theme="dark"] .proc-exp.expired,
+  [data-theme="dark"] .proc-exp.needs-confirmation {
+    /* Original-Farben erzwingen - KEINE Verdunkelung */
+    background: inherit !important;
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+  
+  /* Explizite Farben für jeden Badge-Typ - exakt wie im Light Mode */
+[data-theme="dark"] .audit-cycle-1 { 
+  background: #ffd8b0 !important; 
+  color: #b84c00 !important; 
+  border-color: #ff8c42 !important; 
+}
+
+[data-theme="dark"] .audit-cycle-2 { 
+  background: #e3f2fd !important; 
+  color: #0d47a1 !important; 
+  border-color: #64b5f6 !important; 
+}
+
+[data-theme="dark"] .audit-cycle-4 { 
+  background: #e3f2fd !important;
+  color: #0d47a1 !important;
+  border-color: #64b5f6 !important;
+}
+
+[data-theme="dark"] .audit-cycle-5 { 
+  background: #daf2d1 !important; 
+  color: black !important; 
+  border-color: #2e7d32 !important; 
+}
+  
+  [data-theme="dark"] .status-valid {
+    background: #d4edda !important;
+    color: #155724 !important;
+  }
+  [data-theme="dark"] .status-expired {
+    background: #f8d7da !important;
+    color: #721c24 !important;
+  }
+  [data-theme="dark"] .status-warning {
+    background: #fff3cd !important;
+    color: #856404 !important;
+  }
+  [data-theme="dark"] .status-missing {
+    background: #e2e3e5 !important;
+    color: #383d41 !important;
+  }
+  [data-theme="dark"] .status-needs-confirmation {
+    background: #fff3cd !important;
+    color: #ff9800 !important;
+    border-color: #ff9800 !important;
+  }
+  
+  [data-theme="dark"] .proc-chip {
+    background: #e9ecef !important;
+    color: #333 !important;
+  }
+  [data-theme="dark"] .proc-chip.complete {
+    background: #d4edda !important;
+    color: #155724 !important;
+    border: 1px solid #b7dfb9 !important;
+  }
+  
+  [data-theme="dark"] .proc-exp.valid { color: #155724 !important; }
+  [data-theme="dark"] .proc-exp.warning { color: #856404 !important; }
+  [data-theme="dark"] .proc-exp.expired { color: #721c24 !important; }
+  [data-theme="dark"] .proc-exp.needs-confirmation { color: #ff9800 !important; }
+}
 </style>
 
 <!-- Neuer ausgelagerter Dark-Stylesheet: wird vom JS ein-/ausgeschaltet -->
@@ -1589,7 +1674,7 @@ footer { border-top-color: #444; color: #cccccc !important; }
       <th class="col-stamp" style="width: 90px;">Stempel-Nr.</th>
       <th style="width: 90px;">Datum Sehtest</th>
       <th style="width: 100px;">Letztes Audit</th>
-      <th style="width: 180px;">Nächstes Audit</th> <!-- BREITER GEMACHT: von 100px auf 180px -->
+      <th style="width: 100px;">Zyklus</th>
       <th style="min-width: 150px;">Verfahren/Ablaufdatum</th>
       <th style="width: 150px;">Aktionen</th>
     </tr>
@@ -1762,9 +1847,41 @@ const AUDIT_TYPES = {
 const AUDIT_CYCLES = {
   STANDARD: 1,      // 1 Jahr für Level 1/2/3 (außer NE 2/3)
   NE_2_3: 5,        // 5 Jahre für NE 2 oder 3
-  PW_STANDARD: 2,   // 2 Jahre für PW (Standard)
+  PW_STANDARD: 4,   // 4 Jahre für PW (Standard)
   PW_EXTENDED: 4    // 4 Jahre für PW (mit Haken)
 };
+
+// === FUNKTION ZUR BERECHNUNG DES NÄCHSTEN AUDIT-DATUMS ===
+// HIER EINFÜGEN ⬇️⬇️⬇️
+function calculateNextAuditDate(lastAuditDateStr, auditCycleYears) {
+    if (!lastAuditDateStr || lastAuditDateStr === '—' || lastAuditDateStr === '') return 'k.A.';
+    
+    try {
+        // Datum parsen (TT.MM.JJJJ)
+        const parts = lastAuditDateStr.split('.');
+        if (parts.length !== 3) return 'ungültiges Datum';
+        
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const year = parseInt(parts[2], 10);
+        
+        const lastAuditDate = new Date(year, month, day);
+        if (isNaN(lastAuditDate.getTime())) return 'ungültiges Datum';
+        
+        // Nächstes Audit-Datum berechnen (letztes Audit + Zyklus-Jahre)
+        const nextAuditDate = new Date(lastAuditDate);
+        nextAuditDate.setFullYear(nextAuditDate.getFullYear() + auditCycleYears);
+        
+        // Formatieren als TT.MM.JJJJ
+        const nextDay = nextAuditDate.getDate().toString().padStart(2, '0');
+        const nextMonth = (nextAuditDate.getMonth() + 1).toString().padStart(2, '0');
+        const nextYear = nextAuditDate.getFullYear();
+        
+        return `${nextDay}.${nextMonth}.${nextYear}`;
+    } catch (e) {
+        return 'Fehler';
+    }
+}
 
 const STORAGE_LIST_KEY = (type) => `zfpAudit_${type}_list`;
 
@@ -2769,32 +2886,32 @@ if (!order.some(k => pc[k]?.enabled)) {
 }
 proceduresHTML += '</div>';
 
-// Erstelle nächste-Audits Anzeige
-// Erstelle nächste-Audits Anzeige (NUR Audit-Zyklus Badges mit gleichem Design)
 // Erstelle nächste-Audits Anzeige - BADGES IN GLEICHER REIHENFOLGE WIE VERFAHREN
 let nextAuditsHTML = '<div class="next-audit-cell">';
 if (nextAuditsData.length > 0) {
-    // WICHTIG: Gleiche Reihenfolge wie in der Verfahrens-Spalte (order-Array)
     order.forEach(k => {
         const cfg = pc[k];
         if (!cfg || !cfg.enabled) return;
         
         const short = (AUDIT_TYPES[k]?.short) || k.slice(0,2).toUpperCase();
         const level = cfg.level || '';
-        const expStr = cfg.expiry || '—';
         const lastAuditDate = cfg.lastAuditDate || '';
         const extendedCycle = cfg.extendedCycle || false;
         const activityConfirmed = employee.activityConfirmed || false;
+        const expStr = cfg.expiry || '—';
         
         const status = expiryStatusFromGermanDate(expStr, k, level, lastAuditDate, extendedCycle, activityConfirmed);
         const auditCycle = calculateAuditCycle(k, level, extendedCycle);
         const cycleDisplay = getAuditCycleDisplay(auditCycle);
         
-        // Jedes Badge in eigener Zeile
+        // Formatierter Audit-String für Tooltip
+        const auditDateStr = lastAuditDate ? formatGermanDate(parseGermanDate(lastAuditDate)) : '—';
+        
+        // Tooltip zeigt NUR das letzte Audit-Datum
         nextAuditsHTML += `
             <div class="audit-cycle-badge-container ${status}">
                 <span class="audit-cycle-badge ${cycleDisplay.class}" 
-                      title="${short}${level ? '-' + level : ''}: ${expStr}">
+                      title="Letztes Audit: ${auditDateStr}">
                     ${cycleDisplay.text}
                 </span>
             </div>
@@ -3806,7 +3923,7 @@ function printFullReport() {
 .audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
 .audit-cycle-2 { background: #fff3e0; color: #f57c00; border-color: #ffcc80; }
 .audit-cycle-4 { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
-.audit-cycle-5 { background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8; }
+.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
 
 /* Verfahrens-Spalte - exakte Höhen */
 .proc-cert-list {
@@ -3974,7 +4091,7 @@ function printFullAuthorization() {
 .audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
 .audit-cycle-2 { background: #fff3e0; color: #f57c00; border: 1px solid #ffcc80; }
 .audit-cycle-4 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
-.audit-cycle-5 { background: #f3e5f5; color: #7b1fa2; border: 1px solid #ce93d8; }
+.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
 
 /* ENTFERNE Audit-Zyklus-Badges aus der Verfahrens-Spalte */
 .proc-cert-row .audit-cycle-badge {
