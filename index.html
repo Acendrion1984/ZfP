@@ -523,11 +523,11 @@ position: sticky; top: 0;
 padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: middle;
 }
 .employee-table tr:hover { background: #f8f9fa; }
-.employee-table tr.expired { background: #fff0f0; }
-.employee-table tr.valid { background: #f0fff4; }
-.employee-table tr.warning { background: #fff3cd; }
-.employee-table tr.missing { background: #e2e3e5; }
-.employee-table tr.needs-confirmation { background: #fff8e1; border-left: 3px solid #ff9800; }
+.employee-table tr.expired { background: transparent; }
+.employee-table tr.valid { background: transparent; }
+.employee-table tr.warning { background: transparent; }
+.employee-table tr.missing { background: transparent; }
+.employee-table tr.needs-confirmation { background: transparent; border-left: none; }
 .status-badge {
 display: inline-block; padding: 3px 8px; border-radius: 12px;
 font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
@@ -562,12 +562,12 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 1px; /* ETWAS MEHR PADDING FÜR BESSERE LESBARKEIT */
-    border-radius: 6px; /* ETWAS RUNDER */
+    padding: 10px 1px; /* ETWAS MEHR PADDING FÜR BESSERE LESBARKEIT */
+    border-radius: 4px; /* ETWAS RUNDER */
     font-size: 1em; /* ETWAS GRÖSSERE SCHRIFT */
     font-weight: bold;
-    height: 26px; /* ETWAS HÖHER ALS PROC-CHIP FÜR BESSERE OPTIK */
-    line-height: 20px;
+    height: 18px; /* ETWAS HÖHER ALS PROC-CHIP FÜR BESSERE OPTIK */
+    line-height: 10;
     min-width: 65px; /* ETWAS BREITER FÜR "4 JAHRE" */
     cursor: help;
     white-space: nowrap;
@@ -1239,7 +1239,11 @@ background: #2d2d2d; border-color: #444; color: #ffffff !important;
 .progress-bar { background: #333; }
 .progress-text { color: #b0b0b0; }
 .employee-table th { background: #2c3e50; color: white !important; }
-.employee-table td { border-bottom-color: #444; color: #ffffff !important; }
+.employee-table td { 
+    border-bottom-color: #444; 
+    color: #ffffff !important; 
+    background-color: #2a2a2a !important;  /* Heller als schwarz */
+}
 .employee-table tr:hover { background: #2d2d2d; }
 .employee-table tr.expired { background: rgba(231, 76, 60, 0.2); }
 .employee-table tr.valid { background: rgba(39, 174, 96, 0.2); }
@@ -1311,7 +1315,23 @@ footer { border-top-color: #444; color: #cccccc !important; }
 .procedure-expired { background: #f8d7da !important; color: #000000 !important; }
 .procedure-warning { background: #fff3cd !important; color: #000000 !important; }
 .procedure-needs-confirmation { background: #fff3cd !important; color: #000000 !important; border-color: #ff9800 !important; }
-.audit-cycle-badge { background: #37474f !important; color: #e0e0e0 !important; border-color: #546e7a !important; }
+/* Audit-Zyklus Badge - angepasst an Ablaufdatum-Badges */
+.audit-cycle-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 3px 10px !important;  /* Gleiches Padding wie Ablaufdatum */
+    border-radius: 4px !important;  /* Gleicher Radius wie Ablaufdatum */
+    font-size: 0.9em !important;    /* Gleiche Schriftgröße wie Ablaufdatum */
+    font-weight: bold !important;
+    height: auto !important;        /* Automatische Höhe wie Ablaufdatum */
+    line-height: normal !important;
+    min-width: 65px;
+    cursor: help;
+    white-space: nowrap;
+    box-sizing: border-box;
+    border: 1px solid;
+}
 .authorization-header .english-subtitle { color: #ffffff !important; }
 .header-section-title .english { color: #cccccc !important; }
 </style>
@@ -1664,21 +1684,21 @@ footer { border-top-color: #444; color: #cccccc !important; }
   <div style="overflow-x: auto; margin-top: 10px; width: 100%; -webkit-overflow-scrolling: touch;">
   <!-- ERsetze diesen Tabellen-Header -->
 <table id="employeeTable" class="employee-table">
-  <thead>
-    <tr>
-      <th style="width: 80px;">Status</th>
-      <th style="width: 120px;">Name</th>
-      <th style="width: 90px;">Personal-Nr.</th>
-      <th style="width: 70px;">Brille</th>
-      <th style="width: 90px;">Ident.-Nr.</th>
-      <th class="col-stamp" style="width: 90px;">Stempel-Nr.</th>
-      <th style="width: 90px;">Datum Sehtest</th>
-      <th style="width: 100px;">Letztes Audit</th>
-      <th style="width: 100px;">Zyklus</th>
-      <th style="min-width: 150px;">Verfahren/Ablaufdatum</th>
-      <th style="width: 150px;">Aktionen</th>
-    </tr>
-  </thead>
+<thead>
+  <tr>
+    <th style="width: 80px;">Status</th>
+    <th style="width: 120px;">Name</th>
+    <th style="width: 90px;">Personal-Nr.</th>
+    <th style="width: 90px;">Geburtsdatum</th>
+    <th style="width: 70px;">Brille</th>
+    <th style="width: 90px;">Datum Sehtest</th>
+    <th style="width: 90px;">Ident.-Nr.</th>
+    <th class="col-stamp" style="width: 90px;">Stempel-Nr.</th>
+    <th style="min-width: 150px;">Zertifikat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ablaufdatum</th>
+    <th style="width: 100px; text-align: center;">Zyklus</th>
+    <th style="width: 150px;">Aktionen</th>
+  </tr>
+</thead>
   <tbody id="employeeTableBody"></tbody>
 </table>
   </div>
@@ -2817,7 +2837,7 @@ function renderEmployeeList() {
 
   filteredEmployees.forEach(employee => {
     const row = document.createElement('tr');
-    row.className = employee.status || 'missing';
+    row.className = ''; // Keine Klassen für die ganze Zeile
     const statusMap = {
       valid: ['✅ Gültig', 'status-valid'],
       expired: ['❌ Abgelaufen', 'status-expired'],
@@ -2833,7 +2853,7 @@ function renderEmployeeList() {
     const lastAuditText = employee.latestAudit ? formatGermanDate(employee.latestAudit.date) : '–';
     const nextAuditText = employee.nextAudit ? formatGermanDate(employee.nextAudit) : '–';
 
-    let proceduresHTML = '<div class="proc-cert-list">';
+let proceduresHTML = '<div style="display: flex; flex-direction: column; gap: 4px;">';
 const pc = employee.procedureCerts || defaultProcedureCerts();
 const order = ['wirbelstrom','magnetpulver','nital','ultraschall'];
 
@@ -2851,11 +2871,41 @@ order.forEach(k => {
     const extendedCycle = cfg.extendedCycle || false;
     const activityConfirmed = employee.activityConfirmed || false;
     
-    const status = expiryStatusFromGermanDate(expStr, k, level, lastAuditDate, extendedCycle, activityConfirmed);
+    // Status für das Ablaufdatum berechnen
+    const expiryDate = parseGermanDate(expStr);
+    let expiryStatus = 'unknown';
+    let expBg = '#f8f9fa';
+    let expColor = '#333';
+    let expBorder = '#ddd';
+    
+    if (expiryDate && !isNaN(expiryDate.getTime())) {
+        const today = new Date();
+        const diffDays = Math.floor((expiryDate - today) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays < 0) {
+            // Abgelaufen - ROT
+            expiryStatus = 'expired';
+            expBg = '#f8d7da';
+            expColor = '#721c24';
+            expBorder = '#f5c6cb';
+        } else if (diffDays <= 180) {
+            // Fällig innerhalb 6 Monate - GELB
+            expiryStatus = 'warning';
+            expBg = '#fff3cd';
+            expColor = '#856404';
+            expBorder = '#ffeeba';
+        } else {
+            // Gültig - GRÜN
+            expiryStatus = 'valid';
+            expBg = '#d4edda';
+            expColor = '#155724';
+            expBorder = '#c3e6cb';
+        }
+    }
+    
     const hasCompletedAudit = employeeAudits.some(a =>
         matchesAuditToEmployee(a, employee) && a.auditType === k && a.isComplete
     );
-    const chipCls = `proc-chip${hasCompletedAudit ? ' complete' : ''}`;
     const levelText = level ? `-${level}` : '';
     
     // Audit-Zyklus berechnen
@@ -2867,18 +2917,18 @@ order.forEach(k => {
         short: short,
         level: level,
         expiry: expStr,
-        status: status,
+        status: expiryStatus,
         cycle: auditCycle,
         cycleDisplay: cycleDisplay
     });
     
-    // Verfahrens-Spalte (OHNE Audit-Zyklus Badge!)
-    proceduresHTML += `
-        <div class="proc-cert-row">
-            <span class="${chipCls}">${short}${levelText}</span>
-            <span class="proc-exp ${status}">${expStr}</span>
-        </div>
-    `;
+ // Verfahren und Ablaufdatum in einer Zeile
+proceduresHTML += `
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <span style="display: inline-block; padding: 3px 5px; background: ${hasCompletedAudit ? '#d4edda' : '#e9ecef'}; color: ${hasCompletedAudit ? '#155724' : '#333'}; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; font-size: 0.9em; white-space: nowrap;">${short}${levelText}</span>
+        <span style="display: inline-block; padding: 3px 5px; background: ${expBg}; color: ${expColor}; border-radius: 4px; border: 1px solid ${expBorder}; font-size: 0.9em; font-weight: bold; margin-left: 8px; white-space: nowrap;">${expStr}</span>
+    </div>
+`;
 });
 
 if (!order.some(k => pc[k]?.enabled)) {
@@ -2886,8 +2936,13 @@ if (!order.some(k => pc[k]?.enabled)) {
 }
 proceduresHTML += '</div>';
 
+if (!order.some(k => pc[k]?.enabled)) {
+    proceduresHTML += '<div style="color:#999; font-style:italic;">Keine Verfahren</div>';
+}
+proceduresHTML += '</div>';
+
 // Erstelle nächste-Audits Anzeige - BADGES IN GLEICHER REIHENFOLGE WIE VERFAHREN
-let nextAuditsHTML = '<div class="next-audit-cell">';
+let nextAuditsHTML = '<div style="display: flex; flex-direction: column; gap: 4px;">'; 
 if (nextAuditsData.length > 0) {
     order.forEach(k => {
         const cfg = pc[k];
@@ -2904,14 +2959,31 @@ if (nextAuditsData.length > 0) {
         const auditCycle = calculateAuditCycle(k, level, extendedCycle);
         const cycleDisplay = getAuditCycleDisplay(auditCycle);
         
-        // Formatierter Audit-String für Tooltip
-        const auditDateStr = lastAuditDate ? formatGermanDate(parseGermanDate(lastAuditDate)) : '—';
+        // HOLEN DES LETZTEN AUDIT-DATUMS AUS DER EMPLOYEE-AUDIT-LISTE
+        let lastAuditDateStr = '—';
+        
+        // 1. Versuche aus den employeeAudits zu holen
+        if (employee && employee.audits && employee.audits.length > 0) {
+            const procedureAudits = employee.audits.filter(a => a.type === k);
+            if (procedureAudits.length > 0) {
+                // Sortiere nach Datum (neuestes zuerst)
+                procedureAudits.sort((a, b) => new Date(b.date) - new Date(a.date));
+                // Nimm das neueste Audit-Datum
+                lastAuditDateStr = formatGermanDate(new Date(procedureAudits[0].date));
+            }
+        }
+        
+        // 2. Fallback: wenn nicht gefunden, nimm cfg.lastAuditDate
+        if (lastAuditDateStr === '—' && cfg.lastAuditDate) {
+            const parsed = parseGermanDate(cfg.lastAuditDate);
+            if (parsed) lastAuditDateStr = formatGermanDate(parsed);
+        }
         
         // Tooltip zeigt NUR das letzte Audit-Datum
         nextAuditsHTML += `
             <div class="audit-cycle-badge-container ${status}">
                 <span class="audit-cycle-badge ${cycleDisplay.class}" 
-                      title="Letztes Audit: ${auditDateStr}">
+                      title="Letztes Audit: ${lastAuditDateStr}">
                     ${cycleDisplay.text}
                 </span>
             </div>
@@ -2928,17 +3000,17 @@ nextAuditsHTML += '</div>';
 
    // In der row.innerHTML-Zuweisung, so sollte es aussehen:
 row.innerHTML = `
-  <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-  <td><strong>${employee.name || ''}</strong>${employee.department ? `<br><small>${employee.department}</small>` : ''}</td>
-  <td>${employee.number || ''}</td>
-  <td class="glasses-icon">${glassesIcon}</td>
-  <td>${employee.certNumber || ''}</td>
-  <td class="col-stamp">${employee.stampNumber || ''}</td>
-  <td>${employee.eyeTestDate || ''}</td>
-  <td>${lastAuditText}</td>
-  <td>${nextAuditsHTML}</td> <!-- NEUE SPALTE mit nächsten Audits -->
-  <td>${proceduresHTML}</td>
-  <td>
+<td><span class="status-badge ${statusClass}">${statusText}</span></td>
+<td><strong>${employee.name || ''}</strong>${employee.department ? `<br><small>${employee.department}</small>` : ''}</td>
+<td>${employee.number || ''}</td>
+<td>${employee.birthdate || ''}</td>
+<td class="glasses-icon">${glassesIcon}</td>
+<td>${employee.eyeTestDate || ''}</td>
+<td>${employee.certNumber || ''}</td>
+<td class="col-stamp">${employee.stampNumber || ''}</td>
+<td>${proceduresHTML}</td>
+<td style="text-align: center; vertical-align: middle;">${nextAuditsHTML}</td>
+<td>
     <div class="employee-actions" style="display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto;">
       <!-- Buttons bleiben gleich -->
       <button class="employee-action-btn edit" data-id="${employee.id}" title="Mitarbeiterdaten bearbeiten" style="padding: 4px 6px; background: #3498db; color: white; border: none; border-radius: 3px; cursor: help; font-size: 0.75em; min-width: 30px;">✏️</button>
@@ -3914,7 +3986,7 @@ function printFullReport() {
     border: 1px solid #90caf9;
     cursor: help;
     min-width: 60px;
-    height: 18px; /* Exakte Höhe für vertikale Ausrichtung */
+    height: 16px;
     line-height: 1;
     white-space: nowrap;
 }
