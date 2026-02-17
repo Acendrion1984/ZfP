@@ -2839,6 +2839,7 @@ async function loadAuditFiles() {
   await updateEmployeeAudits();
   updateEmployeeStatus();
   updateProcedureProgress();
+ updateAllAuditProgressDisplays();
 }
 async function updateEmployeeAudits() {
   employees.forEach(employee => {
@@ -3656,6 +3657,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 function initializeApp() {
   loadAllAuditData();
   updateAuditProgressDisplays();
+  updateAllAuditProgressDisplays();
 
   loadEmployees();
   loadAuditReviews();
@@ -4756,6 +4758,7 @@ async function startAudit(auditType) {
   updateCurrentAuditProgress();
   checkAndShowFinalResult();
 }
+// Diese Funktion aktualisiert ALLE Progress-Anzeigen auf der Startseite
 // Diese Funktion aktualisiert ALLE Progress-Anzeigen auf der Startseite
 function updateAllAuditProgressDisplays() {
     Object.keys(AUDIT_TYPES).forEach(auditType => {
