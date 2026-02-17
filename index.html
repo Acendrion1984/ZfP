@@ -1882,7 +1882,7 @@ function initThemeToggle() {
     btn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
       const next = current === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('zfp_theme', next);
+localStorage.setItem('zfp-theme-preference', next);
       applyTheme(next);
     });
   }
@@ -5713,4 +5713,3 @@ async function deleteEmployee(id) {
 </script>
 </body>
 </html>
-
