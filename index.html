@@ -5849,5 +5849,27 @@ async function deleteEmployee(id) {
   showInfoModal('✅ Mitarbeiter gelöscht!');
 }
 </script>
+  <script>
+  // Direktlink zur Mitarbeiterliste
+  (function() {
+      // Prüfen, ob die URL auf #employees endet
+      if (window.location.hash === '#employees') {
+          // Kleine Verzögerung, damit die Seite vollständig geladen ist
+          setTimeout(function() {
+              // Mitarbeiterliste anzeigen
+              document.getElementById('auditSelection').classList.remove('active');
+              document.getElementById('employeeListView').classList.add('active');
+              document.getElementById('auditContent').classList.remove('active');
+              
+              // Optional: Mitarbeiterliste aktualisieren
+              if (typeof renderEmployeeList === 'function') {
+                  renderEmployeeList();
+              }
+          }, 100);
+      }
+  })();
+  </script>
+</body>
+</html>
 </body>
 </html>
