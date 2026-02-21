@@ -289,38 +289,28 @@ margin: 15px 0;
 border: 1px solid #ddd;
 padding: 8px;
 text-align: left;
-vertical-align: top;
+vertical-align: middle;
 }
 .practical-experience-content th {
 background: #f0f0f0;
 font-weight: bold;
 }
-.practical-experience-content .signature-row {
-display: flex;
-align-items: center;
-margin-bottom: 15px;
-gap: 10px;
-flex-wrap: wrap;
-}
-.practical-experience-content .signature-field {
-flex: 1;
-min-width: 150px;
-}
-.practical-experience-content .underline {
-border-bottom: 1px solid #333;
-display: inline-block;
-min-width: 150px;
-}
-.practical-experience-content .total-hours {
+.practical-experience-content .btn-add-row {
+background: #3498db;
+color: white;
+border: none;
+padding: 8px 15px;
+border-radius: 5px;
+cursor: pointer;
 font-weight: bold;
-font-size: 1.1em;
-margin: 15px 0;
+margin-bottom: 15px;
+font-size: 0.9em;
 }
 .practical-experience-content .btn-save-proof {
 background: #27ae60;
 color: white;
 border: none;
-padding: 10px 20px;
+padding: 10px 25px;
 border-radius: 5px;
 cursor: pointer;
 font-weight: bold;
@@ -330,26 +320,73 @@ margin-right: 10px;
 background: #e74c3c;
 color: white;
 border: none;
-padding: 10px 20px;
+padding: 10px 25px;
 border-radius: 5px;
 cursor: pointer;
 font-weight: bold;
 }
-.practical-experience-content .btn-add-row {
-background: #3498db;
-color: white;
-border: none;
-padding: 5px 10px;
-border-radius: 3px;
-cursor: pointer;
-margin-bottom: 10px;
+.practical-experience-content .total-hours {
+font-weight: bold;
+font-size: 1.1em;
+margin: 15px 0;
+padding: 10px;
+background: #f0f8ff;
+border-radius: 5px;
 }
-.practical-experience-content input[type="text"],
-.practical-experience-content input[type="number"] {
-width: 100%;
-padding: 4px;
+.practical-experience-content .password-section {
+margin: 20px 0;
+padding: 15px;
+background: #eef2f7;
+border-radius: 8px;
+border: 1px solid #3498db;
+}
+.practical-experience-content .card-id-row {
+display: flex;
+gap: 15px;
+margin-bottom: 15px;
+align-items: flex-end;
+flex-wrap: wrap;
+}
+.practical-experience-content .card-id-item {
+flex: 1;
+min-width: 180px;
+}
+.practical-experience-content .card-id-item label {
+display: block;
+margin-bottom: 5px;
+font-weight: 600;
+color: #2c3e50;
+font-size: 0.85em;
+}
+.practical-experience-content .card-id-field {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+.practical-experience-content .card-id-field input {
+flex: 1;
+padding: 8px;
 border: 1px solid #ccc;
-border-radius: 3px;
+border-radius: 4px;
+font-family: monospace;
+background: #f9f9f9;
+}
+.practical-experience-content .inline-row {
+display: flex;
+gap: 15px;
+align-items: center;
+flex-wrap: wrap;
+margin-top: 10px;
+}
+.practical-experience-content .inline-item {
+flex: 1;
+min-width: 150px;
+}
+.practical-experience-content .inline-item label {
+display: block;
+margin-bottom: 3px;
+font-size: 0.8em;
+color: #555;
 }
 
 /* AUDIT LISTE MODAL */
@@ -746,6 +783,9 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   font-weight: bold;
   text-decoration: underline dotted;
   transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 .pw-cert-link:hover {
   color: #e74c3c;
@@ -1648,8 +1688,8 @@ footer { border-top-color: #444; color: #cccccc !important; }
   </div>
 </div>
 
-<!-- NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG (PRÜFWERKER) - KOMPLETT SICHER -->
-<!-- NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG (PRÜFWERKER) - OHNE EINLESE-BUTTONS -->
+<!-- NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG (PRÜFWERKER) -->
+<!-- NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG (PRÜFWERKER) -->
 <div id="practicalExperienceModal" class="practical-experience-modal">
   <div class="practical-experience-content">
     <h2>Nachweis der betreuten praktischen Phase</h2>
@@ -1677,13 +1717,14 @@ footer { border-top-color: #444; color: #cccccc !important; }
     <div class="section">
       <h3>4. Dokumentationspflicht</h3>
       <p>- Wöchentliche Dokumentation jeder betreuten Stunde</p>
-      <p>- Card-IDs von Pate und Prüfer erforderlich (werden manuell per Scanner eingelesen)</p>
       <p>- Gesamtsumme: 160 Stunden</p>
     </div>
     
     <div class="section">
       <h3>5. Nachweise (Gesamtziel = 160 Stunden)</h3>
       <button class="btn-add-row" id="addExperienceRow">+ Neue Zeile</button>
+      
+      <!-- Tabelle OHNE Card-ID Spalten -->
       <table id="experienceTable" style="width:100%; border-collapse:collapse; margin:15px 0;">
         <thead>
           <tr style="background:#f0f0f0;">
@@ -1691,13 +1732,11 @@ footer { border-top-color: #444; color: #cccccc !important; }
             <th style="border:1px solid #ddd; padding:8px;">Betreute Stunden</th>
             <th style="border:1px solid #ddd; padding:8px;">Anzahl Beurteilungen</th>
             <th style="border:1px solid #ddd; padding:8px;">Kommentar / Lernpunkt</th>
-            <th style="border:1px solid #ddd; padding:8px;">Card-ID Pate</th>
-            <th style="border:1px solid #ddd; padding:8px;">Card-ID Prüfer</th>
             <th style="border:1px solid #ddd; padding:8px;">Aktion</th>
           </tr>
         </thead>
         <tbody id="experienceTableBody">
-          <!-- Dynamisch befüllt - alle Card-ID Felder zeigen STERNCHEN -->
+          <!-- Dynamisch befüllt -->
         </tbody>
       </table>
       <p class="total-hours"><strong>Gesamtsumme der betreuten Stunden: <span id="totalHours">0</span> / 160 h</strong></p>
@@ -1707,67 +1746,71 @@ footer { border-top-color: #444; color: #cccccc !important; }
       <h3>6. Abschließende Bestätigung</h3>
       <p>Hiermit wird bestätigt, dass die betreute Praxisphase durchgeführt, die 160 Stunden praktische Erfahrung erreicht und die abschließende Beurteilung durch die Prüfaufsicht (Operator Audit) erfolgt ist.</p>
       
+      <!-- === PASSWORTFELD (WIRD NICHT GESPEICHERT) === -->
+      <div style="margin: 20px 0; padding: 15px; background: #eef2f7; border-radius: 8px; border: 1px solid #3498db;">
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 250px;">
+            <label for="globalPassword" style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">🔒 Master-Passwort für Card-IDs:</label>
+            <div style="display: flex; gap: 5px;">
+              <input type="password" id="globalPassword" placeholder="Passwort eingeben" style="flex: 1; padding: 10px; border: 1px solid #3498db; border-radius: 5px; font-family: monospace;" autocomplete="off">
+              <button id="unlockAllCardsBtn" style="padding: 10px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">🔓 Entsperren</button>
+            </div>
+            <small style="display: block; margin-top: 5px; color: #666;">Nach Eingabe des Passworts werden alle Card-ID-Felder sichtbar. Das Passwort wird nicht gespeichert.</small>
+          </div>
+        </div>
+      </div>
+      
+      <!-- === CARD-ID FELDER MIT NAME UND DATUM IN EINER ZEILE === -->
       <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 5px; border: 1px solid #3498db;">
         <h4 style="margin-top: 0; color: #2c3e50;">🔒 Card-IDs der verantwortlichen Personen</h4>
-        <p style="font-size: 0.9em; margin-bottom: 15px;">Die Card-IDs werden beim Einlesen automatisch mit Sternchen verdeckt und können nur mit Master-Passwort eingesehen werden. Klick in das Feld und scanne die Karte.</p>
+        <p style="font-size: 0.9em; margin-bottom: 15px;">Die Card-IDs werden beim Speichern verschlüsselt abgelegt. Zum Anzeigen das Master-Passwort oben eingeben.</p>
         
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
-          <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-            <strong style="display: block; margin-bottom: 10px;">👤 Mitarbeiter</strong>
-            <input type="password" id="employeeCardId" class="card-id-input" placeholder="●●●●●●●●" value="" style="width: 100%; font-family: monospace; letter-spacing: 2px; padding: 8px; border: 1px solid #ccc; border-radius: 3px;" onfocus="prepareForCardInput(this)" onblur="secureCardInput(this)" oninput="handleCardInput(this)">
-            <small style="display: block; margin-top: 5px; color: #666;">In das Feld klicken und Card scannen</small>
+        <!-- Mitarbeiter -->
+        <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;">
+          <div style="flex: 2; min-width: 200px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">👤 Mitarbeiter Card-ID</label>
+            <input type="text" id="employeeCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace; background: #f9f9f9;" autocomplete="off">
           </div>
-          
-          <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-            <strong style="display: block; margin-bottom: 10px;">👤 Auditor</strong>
-            <input type="password" id="auditorCardId" class="card-id-input" placeholder="●●●●●●●●" value="" style="width: 100%; font-family: monospace; letter-spacing: 2px; padding: 8px; border: 1px solid #ccc; border-radius: 3px;" onfocus="prepareForCardInput(this)" onblur="secureCardInput(this)" oninput="handleCardInput(this)">
-            <small style="display: block; margin-top: 5px; color: #666;">In das Feld klicken und Card scannen</small>
+          <div style="flex: 1; min-width: 150px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85em; color: #555;">Name</label>
+            <input type="text" id="employeeNameConfirm" placeholder="Name" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:3px;">
           </div>
-          
-          <div style="background: white; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-            <strong style="display: block; margin-bottom: 10px;">👤 Prüfaufsicht</strong>
-            <input type="password" id="expertCardId" class="card-id-input" placeholder="●●●●●●●●" value="" style="width: 100%; font-family: monospace; letter-spacing: 2px; padding: 8px; border: 1px solid #ccc; border-radius: 3px;" onfocus="prepareForCardInput(this)" onblur="secureCardInput(this)" oninput="handleCardInput(this)">
-            <small style="display: block; margin-top: 5px; color: #666;">In das Feld klicken und Card scannen</small>
+          <div style="flex: 1; min-width: 120px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85em; color: #555;">Datum</label>
+            <input type="text" id="employeeDateConfirm" placeholder="TT.MM.JJJJ" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:3px;">
           </div>
         </div>
         
-        <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end;">
-          <button class="btn-secondary" style="padding: 8px 15px;" onclick="requestShowCardId('employeeCardId')">👁️ Mitarbeiter-Card anzeigen</button>
-          <button class="btn-secondary" style="padding: 8px 15px;" onclick="requestShowCardId('auditorCardId')">👁️ Auditor-Card anzeigen</button>
-          <button class="btn-secondary" style="padding: 8px 15px;" onclick="requestShowCardId('expertCardId')">👁️ Expert-Card anzeigen</button>
+        <!-- Auditor -->
+        <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;">
+          <div style="flex: 2; min-width: 200px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">👤 Auditor Card-ID</label>
+            <input type="text" id="auditorCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace; background: #f9f9f9;" autocomplete="off">
+          </div>
+          <div style="flex: 1; min-width: 150px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85em; color: #555;">Name</label>
+            <input type="text" id="auditorNameConfirm" placeholder="Name" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:3px;">
+          </div>
+          <div style="flex: 1; min-width: 120px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85em; color: #555;">Datum</label>
+            <input type="text" id="auditorDateConfirm" placeholder="TT.MM.JJJJ" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:3px;">
+          </div>
         </div>
-      </div>
-      
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
-        <div>
-          <label><strong>Mitarbeiter Name:</strong></label>
-          <input type="text" id="employeeNameConfirm" class="underline" placeholder="Name" style="width: 100%; padding: 8px; margin-top: 5px; border:1px solid #ccc; border-radius:3px;">
-        </div>
-        <div>
-          <label><strong>Datum:</strong></label>
-          <input type="text" id="employeeDateConfirm" class="underline" placeholder="TT.MM.JJJJ" style="width: 100%; padding: 8px; margin-top: 5px; border:1px solid #ccc; border-radius:3px;">
-        </div>
-      </div>
-      
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
-        <div>
-          <label><strong>Auditor Name:</strong></label>
-          <input type="text" id="auditorNameConfirm" class="underline" placeholder="Name" style="width: 100%; padding: 8px; margin-top: 5px; border:1px solid #ccc; border-radius:3px;">
-        </div>
-        <div>
-          <label><strong>Datum:</strong></label>
-          <input type="text" id="auditorDateConfirm" class="underline" placeholder="TT.MM.JJJJ" style="width: 100%; padding: 8px; margin-top: 5px; border:1px solid #ccc; border-radius:3px;">
-        </div>
-      </div>
-      
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
-        <div>
-          <label><strong>Prüfaufsicht Name:</strong></label>
-          <input type="text" id="expertNameConfirm" class="underline" placeholder="Name" style="width: 100%; padding: 8px; margin-top: 5px; border:1px solid #ccc; border-radius:3px;">
-        </div>
-        <div>
-          <label><strong>Datum:</strong></label>
-          <input type="text" id="expertDateConfirm" class="underline" placeholder="TT.MM.JJJJ" style="width: 100%; padding: 8px; margin-top: 5px; border:1px solid #ccc; border-radius:3px;">
+        
+        <!-- Prüfaufsicht -->
+        <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;">
+          <div style="flex: 2; min-width: 200px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">👤 Prüfaufsicht Card-ID</label>
+            <input type="text" id="expertCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace; background: #f9f9f9;" autocomplete="off">
+          </div>
+          <div style="flex: 1; min-width: 150px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85em; color: #555;">Name</label>
+            <input type="text" id="expertNameConfirm" placeholder="Name" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:3px;">
+          </div>
+          <div style="flex: 1; min-width: 120px;">
+            <label style="display: block; margin-bottom: 5px; font-size: 0.85em; color: #555;">Datum</label>
+            <input type="text" id="expertDateConfirm" placeholder="TT.MM.JJJJ" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:3px;">
+          </div>
         </div>
       </div>
     </div>
@@ -2113,486 +2156,169 @@ footer { border-top-color: #444; color: #cccccc !important; }
 <script>
 // PASWORD für Card-ID Anzeige (in Produktion durch sicheren Hash ersetzen)
 // MASTER-PASSWORD für Card-ID Anzeige
-const MASTER_PASSWORD = "ZfP2026";
-
-// SICHERE Funktion zum Anfordern der Card-ID Anzeige (nur mit Passwort)
-function requestShowCardId(inputId, button) {
-  const input = document.getElementById(inputId);
-  if (!input) return;
+// Aktualisierte setupPracticalExperienceEventListeners
+function setupPracticalExperienceEventListeners() {
+  document.getElementById('addExperienceRow')?.addEventListener('click', addExperienceRow);
   
-  // Nur wenn aktuell versteckt, Passwort abfragen
-  if (input.type === 'password') {
-    const password = prompt("🔒 Bitte Master-Passwort eingeben, um die Card-ID anzuzeigen:");
-    if (password === MASTER_PASSWORD) {
-      // Kurz anzeigen
-      input.type = 'text';
-      button.textContent = '🔒';
-      button.title = 'Card-ID verbergen';
-      
-      // Nach 10 Sekunden automatisch wieder verbergen
-      setTimeout(() => {
-        input.type = 'password';
-        button.textContent = '👁️';
-        button.title = 'Card-ID anzeigen';
-      }, 10000);
-    } else {
-      alert('❌ Falsches Passwort! Zugriff verweigert.');
-    }
-  } else {
-    // Manuell verbergen
-    input.type = 'password';
-    button.textContent = '👁️';
-    button.title = 'Card-ID anzeigen';
-  }
-}
-
-// Card-ID einlesen (BLEIBT PASSWORT-FELD)
-function simulateCardReader(inputId) {
-  const cardId = prompt(`Card-ID eingeben oder einscannen:`);
-  if (cardId && cardId.trim() !== '') {
-    const input = document.getElementById(inputId);
-    input.value = cardId.trim();
-    // WICHTIG: Bleibt type="password" - keine Änderung!
-    input.type = 'password';
-    alert('✅ Card-ID erfolgreich eingelesen');
-  }
-}
-
-// Tabelle rendern mit Card-ID-Feldern - JEDE ZELLE ZEIGT STERNCHEN (GARANTIERT!)
-function renderPracticalExperienceTable(data) {
-  const tbody = document.getElementById('experienceTableBody');
-  tbody.innerHTML = '';
-  
-  const rows = data && data.rows && data.rows.length > 0 ? data.rows : [
-    { week: '1', hours: '', evaluations: '', comment: '', mentorCardId: '', traineeCardId: '' },
-    { week: '2', hours: '', evaluations: '', comment: '', mentorCardId: '', traineeCardId: '' },
-    { week: '3', hours: '', evaluations: '', comment: '', mentorCardId: '', traineeCardId: '' },
-    { week: '4', hours: '', evaluations: '', comment: '', mentorCardId: '', traineeCardId: '' },
-    { week: '5', hours: '', evaluations: '', comment: '', mentorCardId: '', traineeCardId: '' }
-  ];
-  
-  rows.forEach((row, index) => {
-    const tr = document.createElement('tr');
-    
-    tr.innerHTML = `
-      <td><input type="text" value="${row.week || index + 1}" placeholder="Woche" class="week-input" data-index="${index}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-      <td><input type="number" value="${row.hours || ''}" placeholder="Std" class="hours-input" data-index="${index}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
-      <td><input type="number" value="${row.evaluations || ''}" placeholder="Anz" class="evaluations-input" data-index="${index}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-      <td><input type="text" value="${row.comment || ''}" placeholder="Kommentar" class="comment-input" data-index="${index}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-      <td>
-        <div style="display:flex; align-items:center; gap:2px;">
-          <input type="text" value="••••••••••" data-realvalue="${row.mentorCardId || ''}" class="mentor-card-id" data-index="${index}" 
-            style="width:90px; font-family:monospace; padding:4px; border:1px solid #ccc; border-radius:3px; background:#f0f0f0; color:#666; font-weight:bold; text-align:center;" 
-            readonly 
-            onclick="prepareForCardScan(this, 'mentor', ${index})">
-          <button class="btn-secondary" style="padding:4px 6px; font-size:0.8em;" onclick="requestShowTableCardId(this, 'mentor', ${index})" title="Card-ID anzeigen">👁️</button>
-        </div>
-      </td>
-      <td>
-        <div style="display:flex; align-items:center; gap:2px;">
-          <input type="text" value="••••••••••" data-realvalue="${row.traineeCardId || ''}" class="trainee-card-id" data-index="${index}" 
-            style="width:90px; font-family:monospace; padding:4px; border:1px solid #ccc; border-radius:3px; background:#f0f0f0; color:#666; font-weight:bold; text-align:center;" 
-            readonly 
-            onclick="prepareForCardScan(this, 'trainee', ${index})">
-          <button class="btn-secondary" style="padding:4px 6px; font-size:0.8em;" onclick="requestShowTableCardId(this, 'trainee', ${index})" title="Card-ID anzeigen">👁️</button>
-        </div>
-      </td>
-      <td><button class="btn-danger" style="padding:4px 6px;" onclick="removeExperienceRow(${index})" title="Zeile löschen">✕</button></td>
-    `;
-    tbody.appendChild(tr);
+  document.getElementById('savePracticalProof')?.addEventListener('click', async () => {
+    await savePracticalExperienceProof();
+    document.getElementById('practicalExperienceModal').style.display = 'none';
   });
   
-  updateTotalHours();
+  document.getElementById('closePracticalProof')?.addEventListener('click', () => {
+    document.getElementById('practicalExperienceModal').style.display = 'none';
+    currentPracticalEmployeeId = null;
+    currentPracticalProcedure = null;
+  });
   
-  // Bestätigungsfelder laden
-  if (data) {
-    document.getElementById('employeeNameConfirm').value = data.employeeName || '';
-    document.getElementById('employeeDateConfirm').value = data.employeeDate || '';
-    document.getElementById('employeeCardId').value = data.employeeCardId || '';
-    document.getElementById('auditorNameConfirm').value = data.auditorName || '';
-    document.getElementById('auditorDateConfirm').value = data.auditorDate || '';
-    document.getElementById('auditorCardId').value = data.auditorCardId || '';
-    document.getElementById('expertNameConfirm').value = data.expertName || '';
-    document.getElementById('expertDateConfirm').value = data.expertDate || '';
-    document.getElementById('expertCardId').value = data.expertCardId || '';
-  }
-}
-
-// Funktion zum Vorbereiten des Scanner-Eingabefeldes
-function prepareForCardScan(input, type, index) {
-  // Nur fortfahren wenn das Feld aktuell Sternchen zeigt
-  if (input.value !== '••••••••••') return;
+  // Entsperren-Button
+  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', unlockAllCardFields);
   
-  // Merke den echten Wert
-  const realValue = input.getAttribute('data-realvalue') || '';
-  
-  // Ändere das Feld temporär für die Scanner-Eingabe
-  input.value = '';
-  input.readOnly = false;
-  input.style.background = 'white';
-  input.style.color = '#333';
-  input.style.fontWeight = 'normal';
-  input.style.textAlign = 'left';
-  input.focus();
-  
-  // Entferne alte Event-Listener
-  input.oninput = null;
-  input.onblur = null;
-  
-  // Event-Listener für die Eingabe
-  input.oninput = function(e) {
-    const newValue = e.target.value.trim();
-    input.setAttribute('data-realvalue', newValue);
-  };
-  
-  // Event-Listener für Verlassen des Feldes
-  input.onblur = function(e) {
-    // Nach Verlassen wieder Sternchen anzeigen
-    input.value = '••••••••••';
-    input.readOnly = true;
-    input.style.background = '#f0f0f0';
-    input.style.color = '#666';
-    input.style.fontWeight = 'bold';
-    input.style.textAlign = 'center';
+  // Passwortfeld: Enter-Taste und spezielle Behandlung
+  const passwordField = document.getElementById('globalPassword');
+  if (passwordField) {
+    passwordField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        unlockAllCardFields();
+      }
+    });
     
-    // Entferne die temporären Event-Listener
-    input.oninput = null;
-    input.onblur = null;
-  };
-}
-
-// Funktion zum Anfordern der Anzeige einer Tabellen-Card-ID
-function requestShowTableCardId(button, type, index) {
-  const row = button.closest('tr');
-  const input = row.querySelector(`.${type}-card-id`);
-  if (!input) return;
-  
-  const realValue = input.getAttribute('data-realvalue') || '';
-  
-  if (realValue) {
-    const password = prompt("🔒 Bitte Master-Passwort eingeben:");
-    if (password === MASTER_PASSWORD) {
-      // Zeige den echten Wert kurz an
-      input.value = realValue;
-      input.readOnly = false;
-      input.style.background = 'white';
-      input.style.color = '#333';
-      input.style.fontWeight = 'normal';
-      input.style.textAlign = 'left';
-      
-      // Nach 10 Sekunden wieder Sternchen
-      setTimeout(() => {
-        input.value = '••••••••••';
-        input.readOnly = true;
-        input.style.background = '#f0f0f0';
-        input.style.color = '#666';
-        input.style.fontWeight = 'bold';
-        input.style.textAlign = 'center';
-      }, 10000);
-    } else {
-      alert('❌ Falsches Passwort! Zugriff verweigert.');
-    }
-  } else {
-    alert('⚠️ Keine Card-ID für dieses Feld vorhanden.');
+    // Passwort-Feld speziell behandeln
+    passwordField.type = 'password';
   }
+  
+  // Stunden-Listener
+  attachHoursInputListeners();
+  
+  // Verschlüsselte Felder initialisieren
+  setTimeout(() => {
+    initEncryptedFields();
+    setupPasswordField();
+  }, 100);
 }
 
-// Funktion zum Hinzufügen einer neuen Zeile
-function addExperienceRow() {
-  const tbody = document.getElementById('experienceTableBody');
-  const rowCount = tbody.children.length;
-  const newIndex = rowCount;
+// Separater Aufruf beim Laden des Modals
+function openPracticalExperienceProof(employeeId, procedure, level) {
+  const employee = employees.find(e => e.id === employeeId);
+  if (!employee) {
+    showInfoModal('❌ Mitarbeiter nicht gefunden');
+    return;
+  }
   
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td><input type="text" value="${rowCount + 1}" placeholder="Woche" class="week-input" data-index="${newIndex}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-    <td><input type="number" value="" placeholder="Std" class="hours-input" data-index="${newIndex}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
-    <td><input type="number" value="" placeholder="Anz" class="evaluations-input" data-index="${newIndex}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-    <td><input type="text" value="" placeholder="Kommentar" class="comment-input" data-index="${newIndex}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-    <td>
-      <div style="display:flex; align-items:center; gap:2px;">
-        <input type="text" value="••••••••••" data-realvalue="" class="mentor-card-id" data-index="${newIndex}" 
-          style="width:90px; font-family:monospace; padding:4px; border:1px solid #ccc; border-radius:3px; background:#f0f0f0; color:#666; font-weight:bold; text-align:center;" 
-          readonly 
-          onclick="prepareForCardScan(this, 'mentor', ${newIndex})">
-        <button class="btn-secondary" style="padding:4px 6px; font-size:0.8em;" onclick="requestShowTableCardId(this, 'mentor', ${newIndex})" title="Card-ID anzeigen">👁️</button>
-      </div>
-    </td>
-    <td>
-      <div style="display:flex; align-items:center; gap:2px;">
-        <input type="text" value="••••••••••" data-realvalue="" class="trainee-card-id" data-index="${newIndex}" 
-          style="width:90px; font-family:monospace; padding:4px; border:1px solid #ccc; border-radius:3px; background:#f0f0f0; color:#666; font-weight:bold; text-align:center;" 
-          readonly 
-          onclick="prepareForCardScan(this, 'trainee', ${newIndex})">
-        <button class="btn-secondary" style="padding:4px 6px; font-size:0.8em;" onclick="requestShowTableCardId(this, 'trainee', ${newIndex})" title="Card-ID anzeigen">👁️</button>
-      </div>
-    </td>
-    <td><button class="btn-danger" style="padding:4px 6px;" onclick="removeExperienceRow(${newIndex})" title="Zeile löschen">✕</button></td>
-  `;
-  tbody.appendChild(tr);
+  currentPracticalEmployeeId = employeeId;
+  currentPracticalProcedure = procedure;
   
-  attachHoursInputListeners();
+  // Titel anpassen
+  const procedureNames = {
+    'wirbelstrom': 'Wirbelstromprüfung',
+    'magnetpulver': 'Magnetpulverprüfung',
+    'nital': 'HN03-Ätzprüfung',
+    'ultraschall': 'Ultraschallprüfung'
+  };
+  const procName = procedureNames[procedure] || procedure;
+  document.getElementById('practicalExperienceTitle').textContent = 
+    `für die Beurteilung der ${procName}`;
+  
+  // Mitarbeiternamen setzen
+  document.getElementById('employeeNameConfirm').value = employee.name || '';
+  
+  // Gespeicherte Daten laden
+  const savedData = loadPracticalExperienceProof(employeeId, procedure);
+  renderPracticalExperienceTable(savedData);
+  
+  // Passwortfeld leeren und als Passwort-Feld sichern
+  const passwordField = document.getElementById('globalPassword');
+  if (passwordField) {
+    passwordField.value = '';
+    passwordField.type = 'password';
+  }
+  
+  // Modal anzeigen
+  document.getElementById('practicalExperienceModal').style.display = 'flex';
+}
+// Funktion zum Entfernen einer Zeile
+function removeExperienceRow(index) {
+  if (confirm('Diese Zeile wirklich löschen?')) {
+    const rows = document.querySelectorAll('#experienceTableBody tr');
+    if (index >= 0 && index < rows.length) {
+      rows[index].remove();
+      // Indizes neu nummerieren
+      const remainingRows = document.querySelectorAll('#experienceTableBody tr');
+      remainingRows.forEach((row, newIndex) => {
+        row.querySelectorAll('input').forEach(input => {
+          input.dataset.index = newIndex;
+        });
+        const weekInput = row.querySelector('.week-input');
+        if (weekInput && !weekInput.value) {
+          weekInput.value = newIndex + 1;
+        }
+      });
+      updateTotalHours();
+    }
+  }
 }
 
 // Daten sammeln
 function collectPracticalExperienceData() {
   const rows = [];
   document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
-    const mentorInput = tr.querySelector('.mentor-card-id');
-    const traineeInput = tr.querySelector('.trainee-card-id');
-    
     rows.push({
       week: tr.querySelector('.week-input')?.value || '',
       hours: tr.querySelector('.hours-input')?.value || '',
       evaluations: tr.querySelector('.evaluations-input')?.value || '',
-      comment: tr.querySelector('.comment-input')?.value || '',
-      mentorCardId: mentorInput ? mentorInput.getAttribute('data-realvalue') || '' : '',
-      traineeCardId: traineeInput ? traineeInput.getAttribute('data-realvalue') || '' : ''
+      comment: tr.querySelector('.comment-input')?.value || ''
     });
   });
+  
+  // Card-ID Werte aus den data-original Attributen holen
+  const getCardValue = (id) => {
+    const field = document.getElementById(id);
+    return field ? (field.getAttribute('data-original') || '') : '';
+  };
   
   return {
     rows: rows,
     employeeName: document.getElementById('employeeNameConfirm')?.value || '',
     employeeDate: document.getElementById('employeeDateConfirm')?.value || '',
-    employeeCardId: document.getElementById('employeeCardId')?.value || '',
+    employeeCardId: getCardValue('employeeCardId'),
     auditorName: document.getElementById('auditorNameConfirm')?.value || '',
     auditorDate: document.getElementById('auditorDateConfirm')?.value || '',
-    auditorCardId: document.getElementById('auditorCardId')?.value || '',
+    auditorCardId: getCardValue('auditorCardId'),
     expertName: document.getElementById('expertNameConfirm')?.value || '',
     expertDate: document.getElementById('expertDateConfirm')?.value || '',
-    expertCardId: document.getElementById('expertCardId')?.value || '',
+    expertCardId: getCardValue('expertCardId'),
     totalHours: document.getElementById('totalHours')?.textContent || '0'
   };
 }
 
-// Funktion zum Vorbereiten des Scanner-Eingabefeldes
-function prepareForCardScan(input, type, index) {
-  // Merke den echten Wert
-  const realValue = input.getAttribute('data-realvalue') || '';
-  
-  // Ändere das Feld temporär für die Scanner-Eingabe
-  input.value = '';
-  input.readOnly = false;
-  input.style.background = 'white';
-  input.style.color = '#333';
-  input.style.fontWeight = 'normal';
-  input.focus();
-  
-  // Event-Listener für die Eingabe
-  input.oninput = function(e) {
-    const newValue = e.target.value.trim();
-    input.setAttribute('data-realvalue', newValue);
-  };
-  
-  // Event-Listener für Verlassen des Feldes
-  input.onblur = function(e) {
-    // Nach Verlassen wieder Sternchen anzeigen
-    input.value = '••••••••••';
-    input.readOnly = true;
-    input.style.background = '#f0f0f0';
-    input.style.color = '#666';
-    input.style.fontWeight = 'bold';
-    input.style.textAlign = 'center';
-    
-    // Entferne die temporären Event-Listener
-    input.oninput = null;
-    input.onblur = null;
-  };
-}
-
-// Funktion zum Anfordern der Anzeige einer Tabellen-Card-ID
-function requestShowTableCardId(button, type, index) {
-  const row = button.closest('tr');
-  const input = row.querySelector(`.${type}-card-id`);
-  if (!input) return;
-  
-  const realValue = input.getAttribute('data-realvalue') || '';
-  
-  if (realValue) {
-    const password = prompt("🔒 Bitte Master-Passwort eingeben:");
-    if (password === MASTER_PASSWORD) {
-      // Zeige den echten Wert kurz an
-      const originalValue = input.value;
-      input.value = realValue;
-      input.readOnly = false;
-      input.style.background = 'white';
-      input.style.color = '#333';
-      input.style.fontWeight = 'normal';
-      input.style.textAlign = 'left';
-      
-      setTimeout(() => {
-        input.value = '••••••••••';
-        input.readOnly = true;
-        input.style.background = '#f0f0f0';
-        input.style.color = '#666';
-        input.style.fontWeight = 'bold';
-        input.style.textAlign = 'center';
-      }, 10000);
-    } else {
-      alert('❌ Falsches Passwort! Zugriff verweigert.');
-    }
-  } else {
-    alert('⚠️ Keine Card-ID für dieses Feld vorhanden.');
-  }
-}
-
-// Funktion zum Hinzufügen einer neuen Zeile
-function addExperienceRow() {
-  const tbody = document.getElementById('experienceTableBody');
-  const rowCount = tbody.children.length;
-  const newIndex = rowCount;
-  
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td><input type="text" value="${rowCount + 1}" placeholder="Woche" class="week-input" data-index="${newIndex}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-    <td><input type="number" value="" placeholder="Std" class="hours-input" data-index="${newIndex}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
-    <td><input type="number" value="" placeholder="Anz" class="evaluations-input" data-index="${newIndex}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-    <td><input type="text" value="" placeholder="Kommentar" class="comment-input" data-index="${newIndex}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-    <td>
-      <div style="display:flex; align-items:center; gap:2px;">
-        <input type="text" value="••••••••••" data-realvalue="" class="mentor-card-id" data-index="${newIndex}" 
-          style="width:90px; font-family:monospace; padding:4px; border:1px solid #ccc; border-radius:3px; background:#f0f0f0; color:#666; font-weight:bold; text-align:center;" 
-          readonly 
-          onclick="prepareForCardScan(this, 'mentor', ${newIndex})">
-        <button class="btn-secondary" style="padding:4px 6px; font-size:0.8em;" onclick="requestShowTableCardId(this, 'mentor', ${newIndex})" title="Card-ID anzeigen">👁️</button>
-      </div>
-    </td>
-    <td>
-      <div style="display:flex; align-items:center; gap:2px;">
-        <input type="text" value="••••••••••" data-realvalue="" class="trainee-card-id" data-index="${newIndex}" 
-          style="width:90px; font-family:monospace; padding:4px; border:1px solid #ccc; border-radius:3px; background:#f0f0f0; color:#666; font-weight:bold; text-align:center;" 
-          readonly 
-          onclick="prepareForCardScan(this, 'trainee', ${newIndex})">
-        <button class="btn-secondary" style="padding:4px 6px; font-size:0.8em;" onclick="requestShowTableCardId(this, 'trainee', ${newIndex})" title="Card-ID anzeigen">👁️</button>
-      </div>
-    </td>
-    <td><button class="btn-danger" style="padding:4px 6px;" onclick="removeExperienceRow(${newIndex})" title="Zeile löschen">✕</button></td>
-  `;
-  tbody.appendChild(tr);
-  
-  attachHoursInputListeners();
-}
-
-// Daten sammeln
-function collectPracticalExperienceData() {
-  const rows = [];
-  document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
-    const mentorInput = tr.querySelector('.mentor-card-id');
-    const traineeInput = tr.querySelector('.trainee-card-id');
-    
-    rows.push({
-      week: tr.querySelector('.week-input')?.value || '',
-      hours: tr.querySelector('.hours-input')?.value || '',
-      evaluations: tr.querySelector('.evaluations-input')?.value || '',
-      comment: tr.querySelector('.comment-input')?.value || '',
-      mentorCardId: mentorInput ? mentorInput.getAttribute('data-realvalue') || '' : '',
-      traineeCardId: traineeInput ? traineeInput.getAttribute('data-realvalue') || '' : ''
-    });
+// Event-Listener für Stunden-Inputs
+function attachHoursInputListeners() {
+  document.querySelectorAll('.hours-input').forEach(input => {
+    input.removeEventListener('input', updateTotalHours);
+    input.addEventListener('input', updateTotalHours);
   });
-  
-  return {
-    rows: rows,
-    employeeName: document.getElementById('employeeNameConfirm')?.value || '',
-    employeeDate: document.getElementById('employeeDateConfirm')?.value || '',
-    employeeCardId: document.getElementById('employeeCardId')?.value || '',
-    auditorName: document.getElementById('auditorNameConfirm')?.value || '',
-    auditorDate: document.getElementById('auditorDateConfirm')?.value || '',
-    auditorCardId: document.getElementById('auditorCardId')?.value || '',
-    expertName: document.getElementById('expertNameConfirm')?.value || '',
-    expertDate: document.getElementById('expertDateConfirm')?.value || '',
-    expertCardId: document.getElementById('expertCardId')?.value || '',
-    totalHours: document.getElementById('totalHours')?.textContent || '0'
-  };
 }
 
-// Hilfsfunktionen für die Card-ID-Felder (unten)
-function prepareForCardInput(input) {
-  // Kurz vorbereiten für Scanner-Eingabe
-  input.readOnly = false;
-  input.value = '';
-  input.type = 'text';
-  input.style.background = 'white';
-}
-
-function handleCardInput(input) {
-  // Wert im data-realvalue speichern
-  const value = input.value.trim();
-  input.setAttribute('data-realvalue', value);
-}
-
-function secureCardInput(input) {
-  // Nach Verlassen wieder sichern
-  const realValue = input.getAttribute('data-realvalue') || '';
-  input.value = '••••••••';
-  input.type = 'password';
-  input.readOnly = true;
-  input.style.background = '#f9f9f9';
-}
-
-function requestShowCardId(inputId) {
-  const input = document.getElementById(inputId);
-  if (!input) return;
-  
-  const realValue = input.getAttribute('data-realvalue') || '';
-  
-  if (input.type === 'password') {
-    const password = prompt("🔒 Bitte Master-Passwort eingeben:");
-    if (password === MASTER_PASSWORD) {
-      input.value = realValue;
-      input.type = 'text';
-      input.readOnly = false;
-      
-      setTimeout(() => {
-        input.value = '••••••••';
-        input.type = 'password';
-        input.readOnly = true;
-      }, 10000);
-    } else {
-      alert('❌ Falsches Passwort!');
-    }
-  }
-}
-
-function simulateCardReaderForCell(type, index) {
-  const cardId = prompt(`${type === 'mentor' ? 'Paten' : 'Prüfer'}-Card-ID einscannen oder eingeben:`);
-  if (cardId) {
-    const input = document.querySelector(`.${type}-card-input[data-index="${index}"]`);
-    if (input) {
-      input.value = cardId;
-      input.type = "password";
-    }
-  }
-}
-
-// Aktualisierte collectPracticalExperienceData für Card-IDs
-function collectPracticalExperienceData() {
-  const rows = [];
-  document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
-    const week = tr.querySelector('.week-input')?.value || '';
-    const hours = tr.querySelector('.hours-input')?.value || '';
-    const evaluations = tr.querySelector('.evaluations-input')?.value || '';
-    const comment = tr.querySelector('.comment-input')?.value || '';
-    const mentorCardId = tr.querySelector('.mentor-card-input')?.value || '';
-    const traineeCardId = tr.querySelector('.trainee-card-input')?.value || '';
-    
-    rows.push({ week, hours, evaluations, comment, mentorCardId, traineeCardId });
+// Gesamtsumme aktualisieren
+function updateTotalHours() {
+  const hourInputs = document.querySelectorAll('.hours-input');
+  let total = 0;
+  hourInputs.forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) total += val;
   });
+  document.getElementById('totalHours').textContent = total.toFixed(1);
   
-  return {
-    rows: rows,
-    employeeName: document.getElementById('employeeNameConfirm').value,
-    employeeDate: document.getElementById('employeeDateConfirm').value,
-    employeeCardId: document.getElementById('employeeCardId').value,
-    auditorName: document.getElementById('auditorNameConfirm').value,
-    auditorDate: document.getElementById('auditorDateConfirm').value,
-    auditorCardId: document.getElementById('auditorCardId').value,
-    expertName: document.getElementById('expertNameConfirm').value,
-    expertDate: document.getElementById('expertDateConfirm').value,
-    expertCardId: document.getElementById('expertCardId').value,
-    totalHours: document.getElementById('totalHours').textContent
-  };
+  // Prüfwerker-Icon aktualisieren (wird in der Mitarbeiterliste gerendert)
+  if (currentPracticalEmployeeId && currentPracticalProcedure) {
+    const employee = employees.find(e => e.id === currentPracticalEmployeeId);
+    if (employee) {
+      // Hier wird nur die Anzeige aktualisiert, wenn die Tabelle neu gerendert wird
+      // Die eigentliche Icon-Änderung erfolgt beim Speichern
+    }
+  }
 }
+
 /* ========= THEME FUNKTIONEN ========= */
 function getSavedTheme() {
 return localStorage.getItem('zfp-theme-preference'); // 'light' | 'dark' | null
@@ -3454,6 +3180,7 @@ function updateDepartmentFilterOptions() {
   
   if (currentValue && (currentValue === 'all' || currentValue === 'other' || departments.includes(currentValue))) {
     deptFilter.value = currentValue;
+    departmentFilter = currentValue;
   } else {
     deptFilter.value = 'all';
     departmentFilter = 'all';
@@ -3466,6 +3193,7 @@ async function saveEmployees() {
     employees.forEach(emp => { if (!emp.updated) emp.updated = now; });
     localStorage.setItem('zfpEmployees', JSON.stringify(employees));
     updateEmployeeStatus();
+    updateDepartmentFilterOptions(); // WICHTIG: Nach dem Speichern Dropdown aktualisieren
     if (cloudConnected && !cloudSyncInProgress) {
       for (const emp of employees) {
         emp.updated = emp.updated || now;
@@ -3871,12 +3599,18 @@ order.forEach(k => {
     
  // Verfahren und Ablaufdatum in einer Zeile
 // Prüfwerker-Link für PW-Level
+// Prüfwerker-Link für PW-Level
 if (level === 'PW') {
+    // Prüfen, ob 160 Stunden erreicht sind
+    const practicalData = employee.practicalExperience && employee.practicalExperience[k];
+    const totalHours = practicalData ? parseFloat(practicalData.totalHours || 0) : 0;
+    const icon = totalHours >= 160 ? '✅' : '📋';
+    
     proceduresHTML += `
     <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <span class="pw-cert-link" data-employee-id="${employee.id}" data-procedure="${k}" data-level="${level}" 
               style="display: inline-block; padding: 3px 5px; background: ${hasCompletedAudit ? '#d4edda' : '#e9ecef'}; color: #3498db; border-radius: 4px; border: 1px solid #3498db; font-weight: bold; font-size: 0.9em; white-space: nowrap; cursor: pointer; text-decoration: underline dotted;">
-            ${short}${levelText} 📋
+            ${short}${levelText} ${icon}
         </span>
         <span style="display: inline-block; padding: 3px 5px; background: ${expBg}; color: ${expColor}; border-radius: 4px; border: 1px solid ${expBorder}; font-size: 0.9em; font-weight: bold; margin-left: 8px; white-space: nowrap;">${expStr}</span>
     </div>
@@ -3893,11 +3627,6 @@ if (level === 'PW') {
     `;
 }
 });
-
-if (!order.some(k => pc[k]?.enabled)) {
-    proceduresHTML += '<div style="color:#999; font-style:italic;">Keine Verfahren</div>';
-}
-proceduresHTML += '</div>';
 
 if (!order.some(k => pc[k]?.enabled)) {
     proceduresHTML += '<div style="color:#999; font-style:italic;">Keine Verfahren</div>';
@@ -4102,22 +3831,20 @@ function renderPracticalExperienceTable(data) {
   
   // Standard-Zeilen (5 leere Zeilen)
   const rows = data && data.rows && data.rows.length > 0 ? data.rows : [
-    { week: '1', hours: '', evaluations: '', comment: '', signatureMentor: '', signatureTrainee: '' },
-    { week: '2', hours: '', evaluations: '', comment: '', signatureMentor: '', signatureTrainee: '' },
-    { week: '3', hours: '', evaluations: '', comment: '', signatureMentor: '', signatureTrainee: '' },
-    { week: '4', hours: '', evaluations: '', comment: '', signatureMentor: '', signatureTrainee: '' },
-    { week: '5', hours: '', evaluations: '', comment: '', signatureMentor: '', signatureTrainee: '' }
+    { week: '1', hours: '', evaluations: '', comment: '' },
+    { week: '2', hours: '', evaluations: '', comment: '' },
+    { week: '3', hours: '', evaluations: '', comment: '' },
+    { week: '4', hours: '', evaluations: '', comment: '' },
+    { week: '5', hours: '', evaluations: '', comment: '' }
   ];
   
   rows.forEach((row, index) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><input type="text" value="${row.week || ''}" placeholder="Woche" class="week-input" data-index="${index}"></td>
-      <td><input type="number" value="${row.hours || ''}" placeholder="Stunden" class="hours-input" data-index="${index}" min="0" step="0.5"></td>
-      <td><input type="number" value="${row.evaluations || ''}" placeholder="Anzahl" class="evaluations-input" data-index="${index}" min="0"></td>
-      <td><input type="text" value="${row.comment || ''}" placeholder="Kommentar" class="comment-input" data-index="${index}"></td>
-      <td><input type="text" value="${row.signatureMentor || ''}" placeholder="Unterschrift Pate" class="mentor-signature-input" data-index="${index}"></td>
-      <td><input type="text" value="${row.signatureTrainee || ''}" placeholder="Unterschrift Prüfer" class="trainee-signature-input" data-index="${index}"></td>
+      <td><input type="text" value="${row.week || ''}" placeholder="Woche" class="week-input" data-index="${index}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+      <td><input type="number" value="${row.hours || ''}" placeholder="Stunden" class="hours-input" data-index="${index}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
+      <td><input type="number" value="${row.evaluations || ''}" placeholder="Anzahl" class="evaluations-input" data-index="${index}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+      <td><input type="text" value="${row.comment || ''}" placeholder="Kommentar" class="comment-input" data-index="${index}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
       <td><button class="btn-danger" style="padding:2px 5px;" onclick="removeExperienceRow(${index})">✕</button></td>
     `;
     tbody.appendChild(tr);
@@ -4126,17 +3853,28 @@ function renderPracticalExperienceTable(data) {
   // Gesamtsumme berechnen
   updateTotalHours();
   
-  // Signatur-Daten laden
+  // Card-ID Daten laden
   if (data) {
+    // Mitarbeiter
     document.getElementById('employeeNameConfirm').value = data.employeeName || '';
     document.getElementById('employeeDateConfirm').value = data.employeeDate || '';
-    document.getElementById('employeeSignature').value = data.employeeSignature || '';
+    const empCardField = document.getElementById('employeeCardId');
+    empCardField.setAttribute('data-original', data.employeeCardId || '');
+    empCardField.value = cardsUnlocked ? (data.employeeCardId || '') : '••••••••';
+    
+    // Auditor
     document.getElementById('auditorNameConfirm').value = data.auditorName || '';
     document.getElementById('auditorDateConfirm').value = data.auditorDate || '';
-    document.getElementById('auditorSignature').value = data.auditorSignature || '';
+    const audCardField = document.getElementById('auditorCardId');
+    audCardField.setAttribute('data-original', data.auditorCardId || '');
+    audCardField.value = cardsUnlocked ? (data.auditorCardId || '') : '••••••••';
+    
+    // Prüfaufsicht
     document.getElementById('expertNameConfirm').value = data.expertName || '';
     document.getElementById('expertDateConfirm').value = data.expertDate || '';
-    document.getElementById('expertSignature').value = data.expertSignature || '';
+    const expCardField = document.getElementById('expertCardId');
+    expCardField.setAttribute('data-original', data.expertCardId || '');
+    expCardField.value = cardsUnlocked ? (data.expertCardId || '') : '••••••••';
   }
 }
 
@@ -4159,12 +3897,10 @@ function addExperienceRow() {
   
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td><input type="text" value="${rowCount + 1}" placeholder="Woche" class="week-input" data-index="${newIndex}"></td>
-    <td><input type="number" value="" placeholder="Stunden" class="hours-input" data-index="${newIndex}" min="0" step="0.5"></td>
-    <td><input type="number" value="" placeholder="Anzahl" class="evaluations-input" data-index="${newIndex}" min="0"></td>
-    <td><input type="text" value="" placeholder="Kommentar" class="comment-input" data-index="${newIndex}"></td>
-    <td><input type="text" value="" placeholder="Unterschrift Pate" class="mentor-signature-input" data-index="${newIndex}"></td>
-    <td><input type="text" value="" placeholder="Unterschrift Prüfer" class="trainee-signature-input" data-index="${newIndex}"></td>
+    <td><input type="text" value="${rowCount + 1}" placeholder="Woche" class="week-input" data-index="${newIndex}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+    <td><input type="number" value="" placeholder="Stunden" class="hours-input" data-index="${newIndex}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
+    <td><input type="number" value="" placeholder="Anzahl" class="evaluations-input" data-index="${newIndex}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+    <td><input type="text" value="" placeholder="Kommentar" class="comment-input" data-index="${newIndex}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
     <td><button class="btn-danger" style="padding:2px 5px;" onclick="removeExperienceRow(${newIndex})">✕</button></td>
   `;
   tbody.appendChild(tr);
@@ -4211,23 +3947,27 @@ function collectPracticalExperienceData() {
     const hours = tr.querySelector('.hours-input')?.value || '';
     const evaluations = tr.querySelector('.evaluations-input')?.value || '';
     const comment = tr.querySelector('.comment-input')?.value || '';
-    const signatureMentor = tr.querySelector('.mentor-signature-input')?.value || '';
-    const signatureTrainee = tr.querySelector('.trainee-signature-input')?.value || '';
     
-    rows.push({ week, hours, evaluations, comment, signatureMentor, signatureTrainee });
+    rows.push({ week, hours, evaluations, comment });
   });
+  
+  // Card-ID Werte aus data-original holen
+  const getCardValue = (id) => {
+    const field = document.getElementById(id);
+    return field ? (field.getAttribute('data-original') || '') : '';
+  };
   
   return {
     rows: rows,
     employeeName: document.getElementById('employeeNameConfirm').value,
     employeeDate: document.getElementById('employeeDateConfirm').value,
-    employeeSignature: document.getElementById('employeeSignature').value,
+    employeeCardId: getCardValue('employeeCardId'),
     auditorName: document.getElementById('auditorNameConfirm').value,
     auditorDate: document.getElementById('auditorDateConfirm').value,
-    auditorSignature: document.getElementById('auditorSignature').value,
+    auditorCardId: getCardValue('auditorCardId'),
     expertName: document.getElementById('expertNameConfirm').value,
     expertDate: document.getElementById('expertDateConfirm').value,
-    expertSignature: document.getElementById('expertSignature').value,
+    expertCardId: getCardValue('expertCardId'),
     totalHours: document.getElementById('totalHours').textContent
   };
 }
@@ -4246,6 +3986,10 @@ async function savePracticalExperienceProof() {
     if (!employee.practicalExperience) employee.practicalExperience = {};
     employee.practicalExperience[currentPracticalProcedure] = data;
     await saveEmployees();
+    
+    // Nach dem Speichern die Tabelle aktualisieren
+    renderEmployeeList();
+    
     showInfoModal('✅ Praktische Erfahrung gespeichert');
   }
 }
@@ -4749,8 +4493,8 @@ document.addEventListener('DOMContentLoaded', async function() {
   setupPracticalExperienceEventListeners(); // NEU
 });
 
+// Aktualisierte setupPracticalExperienceEventListeners
 function setupPracticalExperienceEventListeners() {
-  // NEU: Event-Listener für praktische Erfahrung
   document.getElementById('addExperienceRow')?.addEventListener('click', addExperienceRow);
   
   document.getElementById('savePracticalProof')?.addEventListener('click', async () => {
@@ -4764,8 +4508,70 @@ function setupPracticalExperienceEventListeners() {
     currentPracticalProcedure = null;
   });
   
-  // Stunden-Listener initialisieren
+  // Entsperren-Button
+  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', unlockAllCardFields);
+  
+  // Passwortfeld: Enter-Taste und spezielle Behandlung
+  const passwordField = document.getElementById('globalPassword');
+  if (passwordField) {
+    passwordField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        unlockAllCardFields();
+      }
+    });
+    
+    // Passwort-Feld speziell behandeln
+    passwordField.type = 'password';
+  }
+  
+  // Stunden-Listener
   attachHoursInputListeners();
+  
+  // Verschlüsselte Felder initialisieren
+  setTimeout(() => {
+    initEncryptedFields();
+    setupPasswordField();
+  }, 100);
+}
+
+// Separater Aufruf beim Laden des Modals
+function openPracticalExperienceProof(employeeId, procedure, level) {
+  const employee = employees.find(e => e.id === employeeId);
+  if (!employee) {
+    showInfoModal('❌ Mitarbeiter nicht gefunden');
+    return;
+  }
+  
+  currentPracticalEmployeeId = employeeId;
+  currentPracticalProcedure = procedure;
+  
+  // Titel anpassen
+  const procedureNames = {
+    'wirbelstrom': 'Wirbelstromprüfung',
+    'magnetpulver': 'Magnetpulverprüfung',
+    'nital': 'HN03-Ätzprüfung',
+    'ultraschall': 'Ultraschallprüfung'
+  };
+  const procName = procedureNames[procedure] || procedure;
+  document.getElementById('practicalExperienceTitle').textContent = 
+    `für die Beurteilung der ${procName}`;
+  
+  // Mitarbeiternamen setzen
+  document.getElementById('employeeNameConfirm').value = employee.name || '';
+  
+  // Gespeicherte Daten laden
+  const savedData = loadPracticalExperienceProof(employeeId, procedure);
+  renderPracticalExperienceTable(savedData);
+  
+  // Passwortfeld leeren und als Passwort-Feld sichern
+  const passwordField = document.getElementById('globalPassword');
+  if (passwordField) {
+    passwordField.value = '';
+    passwordField.type = 'password';
+  }
+  
+  // Modal anzeigen
+  document.getElementById('practicalExperienceModal').style.display = 'flex';
 }
 
 function initializeApp() {
@@ -4778,6 +4584,7 @@ function initializeApp() {
   loadAuditFiles();
   renderEmployeeList();
   updateEmployeeStatus();
+  updateDepartmentFilterOptions(); // WICHTIG: Beim Start Dropdown füllen
 
   document.getElementById('modalConfirmBtn').addEventListener('click', function() {
     if (customModalResolve) customModalResolve(true);
@@ -4909,7 +4716,7 @@ function initializeApp() {
 
     updateEmployeeAudits();
     renderEmployeeList();
- updateDepartmentFilterOptions();
+ updateDepartmentFilterOptions(); // WICHTIG: Nach dem Speichern Dropdown aktualisieren
     document.getElementById('employeeModal').style.display = 'none';
     currentEmployeeEditId = null;
 
@@ -5033,6 +4840,7 @@ function setupEventListeners() {
         currentAuditListEmployeeId = null;
       }
       if (practicalModalEl && practicalModalEl.style.display === 'flex') { // NEU
+        lockAllCardFields();
         practicalModalEl.style.display = 'none';
         currentPracticalEmployeeId = null;
         currentPracticalProcedure = null;
@@ -6854,25 +6662,312 @@ async function deleteEmployee(id) {
   showInfoModal('✅ Mitarbeiter gelöscht!');
 }
 </script>
-  <script>
-  // Direktlink zur Mitarbeiterliste
-  (function() {
-      // Prüfen, ob die URL auf #employees endet
-      if (window.location.hash === '#employees') {
-          // Kleine Verzögerung, damit die Seite vollständig geladen ist
-          setTimeout(function() {
-              // Mitarbeiterliste anzeigen
-              document.getElementById('auditSelection').classList.remove('active');
-              document.getElementById('employeeListView').classList.add('active');
-              document.getElementById('auditContent').classList.remove('active');
-              
-              // Optional: Mitarbeiterliste aktualisieren
-              if (typeof renderEmployeeList === 'function') {
-                  renderEmployeeList();
-              }
-          }, 100);
-      }
-  })();
+   <script>
+ // ===== NEUE FUNKTIONEN FÜR VERSCHLÜSSELTE FELDER =====
+// MASTER-PASSWORD für Card-ID Anzeige
+const MASTER_PASSWORD = 'ZfP2026'; // Gleiches Passwort wie für Supabase
+
+// Globaler Status, ob die Felder entsperrt sind
+let cardsUnlocked = false;
+
+// Initialisiert alle verschlüsselten Felder
+function initEncryptedFields() {
+  document.querySelectorAll('.encrypted-field').forEach(field => {
+    // Stelle sicher, dass data-original existiert
+    if (!field.getAttribute('data-original')) {
+      field.setAttribute('data-original', '');
+    }
+    
+    // Entferne alte Event-Listener
+    field.removeEventListener('focus', handleEncryptedFieldFocus);
+    field.removeEventListener('blur', handleEncryptedFieldBlur);
+    field.removeEventListener('input', handleEncryptedFieldInput);
+    
+    // Füge neue Event-Listener hinzu
+    field.addEventListener('focus', handleEncryptedFieldFocus);
+    field.addEventListener('blur', handleEncryptedFieldBlur);
+    field.addEventListener('input', handleEncryptedFieldInput);
+    
+    // Setze den Anzeigewert basierend auf dem Entsperr-Status
+    updateFieldDisplay(field);
+  });
+}
+
+// Aktualisiert die Anzeige eines Feldes basierend auf dem Entsperr-Status
+function updateFieldDisplay(field) {
+  const originalValue = field.getAttribute('data-original') || '';
+  if (cardsUnlocked) {
+    // Wenn entsperrt: zeige den echten Wert an
+    field.value = originalValue;
+    field.type = 'text'; // Normales Textfeld
+    field.style.background = '#ffffff';
+    field.style.color = '#333';
+  } else {
+    // Wenn gesperrt: zeige Sternchen an
+    field.value = originalValue ? '••••••••' : '••••••••';
+    field.type = 'text'; // Bleibt Text, aber mit Sternchen
+    field.style.background = '#f9f9f9';
+    field.style.color = '#666';
+  }
+}
+
+// Bei Fokus: Wenn das Feld nicht entsperrt ist, verhindere die Eingabe
+// Bei Fokus: Wenn das Feld nicht entsperrt ist, trotzdem Eingabe ermöglichen
+function handleEncryptedFieldFocus(e) {
+  const field = e.target;
+  
+  if (!cardsUnlocked) {
+    // Wenn gesperrt: Feld leeren für neue Eingabe, aber nichts anzeigen
+    field.value = '';
+    field.style.background = '#ffffff';
+    field.style.color = '#333';
+    return;
+  }
+  
+  // Wenn entsperrt: zeige den echten Wert an
+  const originalValue = field.getAttribute('data-original') || '';
+  field.value = originalValue;
+}
+
+// Bei Verlassen: Wert verschlüsselt speichern und wieder Sternchen anzeigen (wenn gesperrt)
+function handleEncryptedFieldBlur(e) {
+  const field = e.target;
+  const currentValue = field.value;
+  
+  // Speichere den eingegebenen Wert
+  if (currentValue) {
+    field.setAttribute('data-original', currentValue);
+  }
+  
+  // Zeige je nach Status Sternchen oder echten Wert
+  updateFieldDisplay(field);
+}
+
+// Bei Eingabe: Speichere den Wert in data-original (auch wenn gesperrt)
+function handleEncryptedFieldInput(e) {
+  const field = e.target;
+  // Immer speichern, egal ob entsperrt oder nicht
+  field.setAttribute('data-original', field.value);
+}
+
+// Entsperren aller Felder mit Passwort
+function unlockAllCardFields() {
+  const passwordInput = document.getElementById('globalPassword');
+  if (!passwordInput) return;
+  
+  const enteredPassword = passwordInput.value.trim();
+  
+  if (enteredPassword === MASTER_PASSWORD) {
+    // Status auf "entsperrt" setzen
+    cardsUnlocked = true;
+    
+    // Alle Felder aktualisieren, um die echten Werte anzuzeigen
+    document.querySelectorAll('.encrypted-field').forEach(field => {
+      updateFieldDisplay(field);
+    });
+    
+    // Passwortfeld leeren (aus Sicherheitsgründen)
+    passwordInput.value = '';
+    
+    showInfoModal('✅ Alle Card-ID-Felder sind jetzt sichtbar und bearbeitbar.', 2000);
+  } else {
+    alert('❌ Falsches Passwort!');
+    passwordInput.value = '';
+  }
+}
+
+// Sperren aller Felder (z.B. beim Schließen des Modals)
+function lockAllCardFields() {
+  cardsUnlocked = false;
+  
+  document.querySelectorAll('.encrypted-field').forEach(field => {
+    updateFieldDisplay(field);
+  });
+}
+
+// Sammle Daten aus verschlüsselten Feldern
+function collectEncryptedFieldData() {
+  return {
+    employeeCardId: document.getElementById('employeeCardId')?.getAttribute('data-original') || '',
+    auditorCardId: document.getElementById('auditorCardId')?.getAttribute('data-original') || '',
+    expertCardId: document.getElementById('expertCardId')?.getAttribute('data-original') || ''
+  };
+}
+
+// Setze Daten in verschlüsselte Felder
+function setEncryptedFieldData(data) {
+  if (data.employeeCardId !== undefined) {
+    const field = document.getElementById('employeeCardId');
+    field.setAttribute('data-original', data.employeeCardId);
+  }
+  if (data.auditorCardId !== undefined) {
+    const field = document.getElementById('auditorCardId');
+    field.setAttribute('data-original', data.auditorCardId);
+  }
+  if (data.expertCardId !== undefined) {
+    const field = document.getElementById('expertCardId');
+    field.setAttribute('data-original', data.expertCardId);
+  }
+  
+  // Nach dem Setzen die Anzeige aktualisieren
+  initEncryptedFields();
+}
+
+// Aktualisierte collectPracticalExperienceData (mit Card-IDs)
+function collectPracticalExperienceData() {
+  const rows = [];
+  document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
+    rows.push({
+      week: tr.querySelector('.week-input')?.value || '',
+      hours: tr.querySelector('.hours-input')?.value || '',
+      evaluations: tr.querySelector('.evaluations-input')?.value || '',
+      comment: tr.querySelector('.comment-input')?.value || ''
+    });
+  });
+  
+  const cardData = collectEncryptedFieldData();
+  
+  return {
+    rows: rows,
+    employeeName: document.getElementById('employeeNameConfirm')?.value || '',
+    employeeDate: document.getElementById('employeeDateConfirm')?.value || '',
+    employeeCardId: cardData.employeeCardId,
+    auditorName: document.getElementById('auditorNameConfirm')?.value || '',
+    auditorDate: document.getElementById('auditorDateConfirm')?.value || '',
+    auditorCardId: cardData.auditorCardId,
+    expertName: document.getElementById('expertNameConfirm')?.value || '',
+    expertDate: document.getElementById('expertDateConfirm')?.value || '',
+    expertCardId: cardData.expertCardId,
+    totalHours: document.getElementById('totalHours')?.textContent || '0'
+  };
+}
+
+// Aktualisierte renderPracticalExperienceTable (mit Card-IDs)
+function renderPracticalExperienceTable(data) {
+  const tbody = document.getElementById('experienceTableBody');
+  tbody.innerHTML = '';
+  
+  const rows = data && data.rows && data.rows.length > 0 ? data.rows : [
+    { week: '1', hours: '', evaluations: '', comment: '' },
+    { week: '2', hours: '', evaluations: '', comment: '' },
+    { week: '3', hours: '', evaluations: '', comment: '' },
+    { week: '4', hours: '', evaluations: '', comment: '' },
+    { week: '5', hours: '', evaluations: '', comment: '' }
+  ];
+  
+  rows.forEach((row, index) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" value="${row.week || index + 1}" placeholder="Woche" class="week-input" data-index="${index}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+      <td><input type="number" value="${row.hours || ''}" placeholder="Std" class="hours-input" data-index="${index}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
+      <td><input type="number" value="${row.evaluations || ''}" placeholder="Anz" class="evaluations-input" data-index="${index}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+      <td><input type="text" value="${row.comment || ''}" placeholder="Kommentar" class="comment-input" data-index="${index}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
+      <td><button class="btn-danger" style="padding:4px 6px;" onclick="removeExperienceRow(${index})" title="Zeile löschen">✕</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
+  updateTotalHours();
+  
+  // Bestätigungsfelder laden
+  if (data) {
+    document.getElementById('employeeNameConfirm').value = data.employeeName || '';
+    document.getElementById('employeeDateConfirm').value = data.employeeDate || '';
+    document.getElementById('auditorNameConfirm').value = data.auditorName || '';
+    document.getElementById('auditorDateConfirm').value = data.auditorDate || '';
+    document.getElementById('expertNameConfirm').value = data.expertName || '';
+    document.getElementById('expertDateConfirm').value = data.expertDate || '';
+    
+    // Card-IDs setzen (verschlüsselt)
+    const cardData = {
+      employeeCardId: data.employeeCardId || '',
+      auditorCardId: data.auditorCardId || '',
+      expertCardId: data.expertCardId || ''
+    };
+    setEncryptedFieldData(cardData);
+  }
+  
+  // WICHTIG: Beim Öffnen des Modals sind die Felder standardmäßig gesperrt
+  cardsUnlocked = false;
+  
+  // Verschlüsselte Felder initialisieren
+  initEncryptedFields();
+}
+
+// Aktualisierte setupPracticalExperienceEventListeners
+function setupPracticalExperienceEventListeners() {
+  document.getElementById('addExperienceRow')?.addEventListener('click', addExperienceRow);
+  
+  document.getElementById('savePracticalProof')?.addEventListener('click', async () => {
+    await savePracticalExperienceProof();
+    
+    // Nach dem Speichern das Modal schließen
+    document.getElementById('practicalExperienceModal').style.display = 'none';
+  });
+  
+  document.getElementById('closePracticalProof')?.addEventListener('click', () => {
+    // Beim Schließen die Felder wieder sperren
+    lockAllCardFields();
+    document.getElementById('practicalExperienceModal').style.display = 'none';
+    currentPracticalEmployeeId = null;
+    currentPracticalProcedure = null;
+  });
+  
+  // Entsperren-Button
+  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', unlockAllCardFields);
+  
+  // Passwortfeld: Enter-Taste zum Entsperren
+  document.getElementById('globalPassword')?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      unlockAllCardFields();
+    }
+  });
+  
+  // Stunden-Listener initialisieren
+  attachHoursInputListeners();
+  
+  // Verschlüsselte Felder initialisieren
+  initEncryptedFields();
+}
+
+// Aktualisierte openPracticalExperienceProof
+function openPracticalExperienceProof(employeeId, procedure, level) {
+  const employee = employees.find(e => e.id === employeeId);
+  if (!employee) {
+    showInfoModal('❌ Mitarbeiter nicht gefunden');
+    return;
+  }
+  
+  currentPracticalEmployeeId = employeeId;
+  currentPracticalProcedure = procedure;
+  
+  // Titel anpassen je nach Verfahren
+  const procedureNames = {
+    'wirbelstrom': 'Wirbelstromprüfung',
+    'magnetpulver': 'Magnetpulverprüfung',
+    'nital': 'HN03-Ätzprüfung',
+    'ultraschall': 'Ultraschallprüfung'
+  };
+  const procName = procedureNames[procedure] || procedure;
+  document.getElementById('practicalExperienceTitle').textContent = 
+    `für die Beurteilung der ${procName}`;
+  
+  // Mitarbeiternamen in Bestätigungsfeld setzen
+  document.getElementById('employeeNameConfirm').value = employee.name || '';
+  
+  // Gespeicherte Daten laden
+  const savedData = loadPracticalExperienceProof(employeeId, procedure);
+  renderPracticalExperienceTable(savedData);
+  
+  // Passwortfeld leeren
+  document.getElementById('globalPassword').value = '';
+  
+  // WICHTIG: Status zurücksetzen (Felder sind beim Öffnen gesperrt)
+  cardsUnlocked = false;
+  
+  // Modal anzeigen
+  document.getElementById('practicalExperienceModal').style.display = 'flex';
+}
   </script>
 </body>
 </html>
