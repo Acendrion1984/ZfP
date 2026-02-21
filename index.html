@@ -777,19 +777,24 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
 }
 
 /* NEU: Prüfwerker-Link Styling */
+/* NEU: Prüfwerker-Link Styling - OHNE blaue Schrift und Unterstreichung */
 .pw-cert-link {
   cursor: pointer;
-  color: #3498db;
+  color: inherit !important; /* Erbt die Farbe vom Elternelement */
   font-weight: bold;
-  text-decoration: underline dotted;
-  transition: color 0.2s;
+  text-decoration: none !important; /* Keine Unterstreichung */
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  background: #e9ecef; /* Gleicher Hintergrund wie andere Badges */
+  padding: 3px 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 .pw-cert-link:hover {
-  color: #e74c3c;
-  text-decoration: underline solid;
+  background: #d4edda; /* Hellerer Hintergrund beim Hover */
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 /* NEU: Audit-Zyklus Anzeige */
@@ -3239,10 +3244,20 @@ async function unmarkAuditAsReviewed(auditId) {
 function isAuditReviewed(auditId) { return auditReviews[auditId]?.reviewed || false; }
 
 function addAuditToEmployee(employee, audit) {
+  // Nur speichern wenn das Audit vollständig ist?
   const auditDate = audit.meta?.created ? new Date(audit.meta.created) : new Date();
+  
+  // Prüfen ob das Audit überhaupt Fragen hat und ob diese beantwortet sind
+  const questions = audit.questions || [];
+  const answeredQuestions = questions.filter(q => q.verdict !== null).length;
+  
+  // Nur als Audit zählen wenn mindestens eine Frage beantwortet wurde
+  if (answeredQuestions === 0) return;
+  
   const expiryDate = new Date(auditDate);
   expiryDate.setMonth(expiryDate.getMonth() + 12);
   const daysUntilExpiry = daysBetween(new Date(), expiryDate);
+  
   let auditStatus = 'expired';
   if (daysUntilExpiry > 30) auditStatus = 'valid';
   else if (daysUntilExpiry > 0) auditStatus = 'warning';
@@ -3256,16 +3271,17 @@ function addAuditToEmployee(employee, audit) {
     status: auditStatus,
     daysUntilExpiry,
     instanceId: audit.meta?.instanceId,
-    hasDeviations: hasAuditDeviations(audit)
+    hasDeviations: hasAuditDeviations(audit),
+    isComplete: answeredQuestions === questions.length // Nur vollständige Audits?
   };
+
+  // Nur speichern wenn das Audit vollständig ist (optional)
+  // if (!entry.isComplete) return;
 
   employee.audits = employee.audits || [];
   const idx = employee.audits.findIndex(a => a.instanceId === entry.instanceId);
   if (idx >= 0) {
-    const existing = employee.audits[idx];
-    if (!existing.date || auditDate > existing.date) {
-      employee.audits[idx] = entry;
-    }
+    employee.audits[idx] = entry;
   } else {
     employee.audits.push(entry);
   }
@@ -3652,24 +3668,62 @@ if (nextAuditsData.length > 0) {
         const cycleDisplay = getAuditCycleDisplay(auditCycle);
         
         // HOLEN DES LETZTEN AUDIT-DATUMS AUS DER EMPLOYEE-AUDIT-LISTE
-        let lastAuditDateStr = '—';
+        // HOLEN DES LETZTEN AUDIT-DATUMS - NUR AUS ECHTEN AUDITS
+// HOLEN DES LETZTEN AUDIT-DATUMS - MIT NORMALISIERUNG
+let lastAuditDateStr = '';
+
+// Normalisiere Verfahrensname für Vergleich
+const procedureKey = k.toLowerCase().trim();
+const procedureShort = AUDIT_TYPES[k]?.short?.toLowerCase() || '';
+
+if (employeeAudits && employeeAudits.length > 0 && employee.number) {
+    const empNumber = employee.number.toString().trim().toLowerCase();
+    
+    // Alle Audits für diesen Mitarbeiter
+    const relevantAudits = employeeAudits.filter(audit => {
+        // Prüfe Personalnummer
+        const auditNumber = audit.headerData?.operatorNumber?.toString().trim().toLowerCase() || '';
+        if (auditNumber !== empNumber) return false;
         
-        // 1. Versuche aus den employeeAudits zu holen
-        if (employee && employee.audits && employee.audits.length > 0) {
-            const procedureAudits = employee.audits.filter(a => a.type === k);
-            if (procedureAudits.length > 0) {
-                // Sortiere nach Datum (neuestes zuerst)
-                procedureAudits.sort((a, b) => new Date(b.date) - new Date(a.date));
-                // Nimm das neueste Audit-Datum
-                lastAuditDateStr = formatGermanDate(new Date(procedureAudits[0].date));
+        // Prüfe Verfahren auf verschiedene Weisen
+        const auditType = (audit.auditType || '').toLowerCase().trim();
+        const auditInfo = audit.info?.short?.toLowerCase() || '';
+        
+        // Vergleiche mit verschiedenen möglichen Bezeichnungen
+        return auditType === procedureKey || 
+               auditType === procedureShort ||
+               auditInfo === procedureKey ||
+               auditInfo === procedureShort ||
+               (procedureKey === 'wirbelstrom' && auditType === 'et') ||
+               (procedureKey === 'et' && auditType === 'wirbelstrom') ||
+               (procedureKey === 'magnetpulver' && auditType === 'mt') ||
+               (procedureKey === 'mt' && auditType === 'magnetpulver') ||
+               (procedureKey === 'nital' && auditType === 'ne') ||
+               (procedureKey === 'ne' && auditType === 'nital') ||
+               (procedureKey === 'ultraschall' && auditType === 'ut') ||
+               (procedureKey === 'ut' && auditType === 'ultraschall');
+    });
+    
+    if (relevantAudits.length > 0) {
+        // Sortieren nach Datum
+        relevantAudits.sort((a, b) => {
+            const dateA = a.meta?.created ? new Date(a.meta.created) : new Date(0);
+            const dateB = b.meta?.created ? new Date(b.meta.created) : new Date(0);
+            return dateB - dateA;
+        });
+        
+        const latestAudit = relevantAudits[0];
+        if (latestAudit?.meta?.created) {
+            const auditDate = new Date(latestAudit.meta.created);
+            if (!isNaN(auditDate.getTime())) {
+                lastAuditDateStr = formatGermanDate(auditDate);
             }
         }
-        
-        // 2. Fallback: wenn nicht gefunden, nimm cfg.lastAuditDate
-        if (lastAuditDateStr === '—' && cfg.lastAuditDate) {
-            const parsed = parseGermanDate(cfg.lastAuditDate);
-            if (parsed) lastAuditDateStr = formatGermanDate(parsed);
-        }
+    }
+}
+
+// Debug-Ausgabe
+console.log(`Mitarbeiter ${employee.name}, Verfahren ${k} (${procedureKey}): ${lastAuditDateStr || 'kein Audit'}`);
         
         // Tooltip zeigt NUR das letzte Audit-Datum
         nextAuditsHTML += `
@@ -5296,8 +5350,28 @@ function printFullReport() {
   background: #daf2d1 !important; 
   color: black !important; 
   border-color: #2e7d32 !important; 
+}/* ULTIMATIVER DARK MODE FIX FÜR CARD-ID FELDER */
+html[data-theme="dark"] .practical-experience-content input.encrypted-field,
+html[data-theme="dark"] .practical-experience-content #employeeCardId,
+html[data-theme="dark"] .practical-experience-content #auditorCardId,
+html[data-theme="dark"] .practical-experience-content #expertCardId,
+html[data-theme="dark"] input.encrypted-field#employeeCardId,
+html[data-theme="dark"] input.encrypted-field#auditorCardId,
+html[data-theme="dark"] input.encrypted-field#expertCardId {
+  background-color: #1e1e1e !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #555 !important;
 }
-  </style>
+
+html[data-theme="dark"] .practical-experience-content input.encrypted-field:focus,
+html[data-theme="dark"] .practical-experience-content #employeeCardId:focus,
+html[data-theme="dark"] .practical-experience-content #auditorCardId:focus,
+html[data-theme="dark"] .practical-experience-content #expertCardId:focus {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: #3498db !important;
+}
+ </style>
 </head>
 <body>
 <style>
