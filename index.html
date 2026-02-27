@@ -777,19 +777,24 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
 }
 
 /* NEU: Prüfwerker-Link Styling */
+/* NEU: Prüfwerker-Link Styling - OHNE blaue Schrift und Unterstreichung */
 .pw-cert-link {
   cursor: pointer;
-  color: #000000 !important;
+  color: inherit !important; /* Erbt die Farbe vom Elternelement */
   font-weight: bold;
-  text-decoration: underline dotted;
-  transition: color 0.2s;
+  text-decoration: none !important; /* Keine Unterstreichung */
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  background: #e9ecef; /* Gleicher Hintergrund wie andere Badges */
+  padding: 3px 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 .pw-cert-link:hover {
-  color: #e74c3c;
-  text-decoration: underline solid;
+  background: #d4edda; /* Hellerer Hintergrund beim Hover */
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 /* NEU: Audit-Zyklus Anzeige */
@@ -1410,6 +1415,10 @@ min-width: 180px !important;
   [data-theme="dark"] .proc-exp.warning { color: #856404 !important; }
   [data-theme="dark"] .proc-exp.expired { color: #721c24 !important; }
   [data-theme="dark"] .proc-exp.needs-confirmation { color: #ff9800 !important; }
+}
+/* NUR DIE SCHRIFT DER PW-BADGES SCHWARZ HALTEN */
+[data-theme="dark"] .pw-cert-link {
+    color: #000000 !important;  /* SCHWARZ für PW-Badges */
 }
 </style>
 
@@ -3239,10 +3248,20 @@ async function unmarkAuditAsReviewed(auditId) {
 function isAuditReviewed(auditId) { return auditReviews[auditId]?.reviewed || false; }
 
 function addAuditToEmployee(employee, audit) {
+  // Nur speichern wenn das Audit vollständig ist?
   const auditDate = audit.meta?.created ? new Date(audit.meta.created) : new Date();
+  
+  // Prüfen ob das Audit überhaupt Fragen hat und ob diese beantwortet sind
+  const questions = audit.questions || [];
+  const answeredQuestions = questions.filter(q => q.verdict !== null).length;
+  
+  // Nur als Audit zählen wenn mindestens eine Frage beantwortet wurde
+  if (answeredQuestions === 0) return;
+  
   const expiryDate = new Date(auditDate);
   expiryDate.setMonth(expiryDate.getMonth() + 12);
   const daysUntilExpiry = daysBetween(new Date(), expiryDate);
+  
   let auditStatus = 'expired';
   if (daysUntilExpiry > 30) auditStatus = 'valid';
   else if (daysUntilExpiry > 0) auditStatus = 'warning';
@@ -3256,16 +3275,17 @@ function addAuditToEmployee(employee, audit) {
     status: auditStatus,
     daysUntilExpiry,
     instanceId: audit.meta?.instanceId,
-    hasDeviations: hasAuditDeviations(audit)
+    hasDeviations: hasAuditDeviations(audit),
+    isComplete: answeredQuestions === questions.length // Nur vollständige Audits?
   };
+
+  // Nur speichern wenn das Audit vollständig ist (optional)
+  // if (!entry.isComplete) return;
 
   employee.audits = employee.audits || [];
   const idx = employee.audits.findIndex(a => a.instanceId === entry.instanceId);
   if (idx >= 0) {
-    const existing = employee.audits[idx];
-    if (!existing.date || auditDate > existing.date) {
-      employee.audits[idx] = entry;
-    }
+    employee.audits[idx] = entry;
   } else {
     employee.audits.push(entry);
   }
@@ -3652,24 +3672,62 @@ if (nextAuditsData.length > 0) {
         const cycleDisplay = getAuditCycleDisplay(auditCycle);
         
         // HOLEN DES LETZTEN AUDIT-DATUMS AUS DER EMPLOYEE-AUDIT-LISTE
-        let lastAuditDateStr = '—';
+        // HOLEN DES LETZTEN AUDIT-DATUMS - NUR AUS ECHTEN AUDITS
+// HOLEN DES LETZTEN AUDIT-DATUMS - MIT NORMALISIERUNG
+let lastAuditDateStr = '';
+
+// Normalisiere Verfahrensname für Vergleich
+const procedureKey = k.toLowerCase().trim();
+const procedureShort = AUDIT_TYPES[k]?.short?.toLowerCase() || '';
+
+if (employeeAudits && employeeAudits.length > 0 && employee.number) {
+    const empNumber = employee.number.toString().trim().toLowerCase();
+    
+    // Alle Audits für diesen Mitarbeiter
+    const relevantAudits = employeeAudits.filter(audit => {
+        // Prüfe Personalnummer
+        const auditNumber = audit.headerData?.operatorNumber?.toString().trim().toLowerCase() || '';
+        if (auditNumber !== empNumber) return false;
         
-        // 1. Versuche aus den employeeAudits zu holen
-        if (employee && employee.audits && employee.audits.length > 0) {
-            const procedureAudits = employee.audits.filter(a => a.type === k);
-            if (procedureAudits.length > 0) {
-                // Sortiere nach Datum (neuestes zuerst)
-                procedureAudits.sort((a, b) => new Date(b.date) - new Date(a.date));
-                // Nimm das neueste Audit-Datum
-                lastAuditDateStr = formatGermanDate(new Date(procedureAudits[0].date));
+        // Prüfe Verfahren auf verschiedene Weisen
+        const auditType = (audit.auditType || '').toLowerCase().trim();
+        const auditInfo = audit.info?.short?.toLowerCase() || '';
+        
+        // Vergleiche mit verschiedenen möglichen Bezeichnungen
+        return auditType === procedureKey || 
+               auditType === procedureShort ||
+               auditInfo === procedureKey ||
+               auditInfo === procedureShort ||
+               (procedureKey === 'wirbelstrom' && auditType === 'et') ||
+               (procedureKey === 'et' && auditType === 'wirbelstrom') ||
+               (procedureKey === 'magnetpulver' && auditType === 'mt') ||
+               (procedureKey === 'mt' && auditType === 'magnetpulver') ||
+               (procedureKey === 'nital' && auditType === 'ne') ||
+               (procedureKey === 'ne' && auditType === 'nital') ||
+               (procedureKey === 'ultraschall' && auditType === 'ut') ||
+               (procedureKey === 'ut' && auditType === 'ultraschall');
+    });
+    
+    if (relevantAudits.length > 0) {
+        // Sortieren nach Datum
+        relevantAudits.sort((a, b) => {
+            const dateA = a.meta?.created ? new Date(a.meta.created) : new Date(0);
+            const dateB = b.meta?.created ? new Date(b.meta.created) : new Date(0);
+            return dateB - dateA;
+        });
+        
+        const latestAudit = relevantAudits[0];
+        if (latestAudit?.meta?.created) {
+            const auditDate = new Date(latestAudit.meta.created);
+            if (!isNaN(auditDate.getTime())) {
+                lastAuditDateStr = formatGermanDate(auditDate);
             }
         }
-        
-        // 2. Fallback: wenn nicht gefunden, nimm cfg.lastAuditDate
-        if (lastAuditDateStr === '—' && cfg.lastAuditDate) {
-            const parsed = parseGermanDate(cfg.lastAuditDate);
-            if (parsed) lastAuditDateStr = formatGermanDate(parsed);
-        }
+    }
+}
+
+// Debug-Ausgabe
+console.log(`Mitarbeiter ${employee.name}, Verfahren ${k} (${procedureKey}): ${lastAuditDateStr || 'kein Audit'}`);
         
         // Tooltip zeigt NUR das letzte Audit-Datum
         nextAuditsHTML += `
@@ -4128,9 +4186,9 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
 
   const authorizationText = `<strong>Die genannte Person hat nachweislich die in der Verfahrensanweisung INFSW17008 beschriebenen Voraussetzungen für Ausbildung, Schulung, Berufserfahrung, fortlaufende Tätigkeit und Prüfung erfüllt und ist damit für die Durchführung der Prüfung in den oben gelisteten ZfP-Verfahren autorisiert. Die Autorisierung gilt nur in Verbindung mit einem gültigen Zertifikat und hat eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demonstrably fulfilled the requirements for training, education, professional experience, ongoing activity, and examination described in the procedure instruction INFSW17008 and is therefore authorized to conduct the examination in the NDT procedures listed below. This authorization is valid only in conjunction with a valid certificate and is valid for 12 months.</em>`;
 
-  const stampMarginTop = isNdtSupervisor ? '2mm' : '20mm';
+  const stampMarginTop = isNdtSupervisor ? '2mm' : '40mm';
   const authorizationHTML = `
-<div class="print-content" style="margin:0 auto; padding:0 3mm 6mm 3mm; max-width:194mm; box-sizing:border-box; font-family:Arial, sans-serif; font-size:9.5pt; line-height:1.28; color:#000 !important; position:relative;">
+<div class="print-content" style="margin:0 auto; padding:0 3mm 15mm 3mm; max-width:194mm box-sizing:border-box; font-family:Arial, sans-serif; font-size:9.5pt; line-height:1.28; color:#000 !important; position:relative;">
   <div style="position:relative; border-bottom:2px solid #000; padding-bottom:6px; margin-bottom:8px; text-align:center;">
     <div style="position:absolute; top:0; right:0; text-align:right;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg" alt="Schaeffler Logo" style="height:7mm; width:auto; max-width:40mm;">
@@ -4243,7 +4301,7 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
   </div>`}
 
   <!-- Kompakter Stempelblock -->
-  <div style="text-align:center; margin:${stampMarginTop} auto 0 auto; width:100%; box-sizing:border-box;">
+  <div style="text-align:center; margin:${stampMarginTop} auto 0 auto; width:100%; box-sizing:border-box; margin-bottom:0;">
     <div style="display:inline-block; min-width:60mm; border:2px solid #2c3e50; border-radius:6px; padding:6px 10px; font-family:Arial, sans-serif; font-size:9pt; color:#2c3e50; background:white; line-height:1.2;">
       <div style="font-weight:bold; text-align:center; margin-bottom:5px; font-size:10pt;">AUTORISIERUNG ERTEILT</div>
       <div style="display:flex; justify-content:center; align-items:center; margin-bottom:3px; gap:32px;">
@@ -4913,417 +4971,6 @@ function setupGlobalEventListeners() {
     }
   });
 }
-
-// === DRUCK-FUNKTIONEN ===
-function printFullReport() {
-  const reportContainer = document.getElementById('reportContainer');
-  let printContent = reportContainer.innerHTML;
-
-  // Aktion-Buttons entfernen
-  printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
-
-  // Footer bleibt unten (fixed) mit nahezu keinem Abstand zum letzten Text
-  const footerHTML = `
-    <div class="report-footer">
-      <table class="report-footer-table">
-        <tr>
-          <td style="text-align: left; width: 33%;">Daniel Häusner, WI/SW2-PQT</td>
-          <td style="text-align: center; width: 34%;">ZfP Operator Audit © 2026 Schaeffler Technologies AG & Co. KG</td>
-          <td style="text-align: right; width: 33%;">Version AB, 29.01.2026</td>
-        </tr>
-      </table>
-    </div>`;
-
-  printContent += footerHTML;
-
-  const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZfP Audit Bericht - Schaeffler</title>
-  <style>
-/* Container OHNE gap */
-.next-audit-cell,
-.last-audit-cell,
-.proc-cert-list {
-    display: flex;
-    flex-direction: column;
-    /* gap: 0; ← AUSKOMMENTIEREN */
-}
-/* Container MIT margin */
-.audit-cycle-badge-container,
-.last-audit-row,
-.proc-cert-row {
-    display: flex;
-    align-items: center;
-    height: 24px;
-    margin-bottom: 2px !important;
-}
-
-/* Letzte Zeile ohne margin */
-.audit-cycle-badge-container:last-child,
-.last-audit-row:last-child,
-.proc-cert-row:last-child {
-    margin-bottom: 0 !important;
-}
-/* Container für die Nächstes-Audit Spalte - exakte Ausrichtung */
-.next-audit-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-/* Jedes Badge-Container - gleiche Höhe wie proc-cert-row */
-.audit-cycle-badge-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 24px; /* EXAKTE Höhe wie proc-cert-row */
-    padding: 0;
-}
-
-/* Audit-Zyklus Badge - exakt gleiche Höhe wie in Verfahrens-Spalte */
-.audit-cycle-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.7em;
-    font-weight: bold;
-    background: #e3f2fd;
-    color: #1565c0;
-    border: 1px solid #90caf9;
-    cursor: help;
-    min-width: 60px;
-    height: 16px;
-    line-height: 1;
-    white-space: nowrap;
-}
-
-/* Zyklus-Farben */
-.audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
-.audit-cycle-2 { background: #fff3e0; color: #f57c00; border-color: #ffcc80; }
-.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
-.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
-
-/* Verfahrens-Spalte - exakte Höhen */
-.proc-cert-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2px; /* Gleicher Abstand wie bei Badges */
-}
-
-.proc-cert-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 4px;
-    background: #F0FFF0;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    height: 24px; /* EXAKTE Höhe für Ausrichtung */
-    min-height: 24px;
-}
-
-/* Mobile Ansicht */
-@media (max-width: 768px) {
-    .audit-cycle-badge-container {
-        height: 22px;
-        margin-bottom: 2px;
-    }
-    
-    .audit-cycle-badge {
-        font-size: 0.65em;
-        padding: 1px 4px;
-        min-width: 50px;
-        height: 16px;
-    }
-    
-    .proc-cert-row {
-        height: 22px;
-        min-height: 22px;
-        padding: 3px 4px;
-    }
-}
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    @page { size: A4 portrait; margin: 12mm !important; }
-    body {
-      font-family: Arial, sans-serif !important;
-      color: #000 !important;
-      font-size: 10.5pt !important;
-      line-height: 1.32;
-      background: #fff !important;
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
-    .print-content { margin: 0 auto; padding: 0 0 2mm 0; max-width: 180mm; display: block; }
-    .report-header { border-bottom: 1.5px solid #000 !important; padding-bottom: 6px; margin-bottom: 10px; text-align: center; }
-    .report-header h2 { font-size: 13.5pt; margin: 0 0 3px 0; color: #000 !important; }
-    .company-info { font-size: 10pt; margin: 2px 0; color: #000 !important; }
-    table.person-table, table.details-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt !important; font-family: Arial, sans-serif !important; }
-    table.person-table th, table.person-table td, table.details-table td { border: 1px solid #000 !important; padding: 5px; vertical-align: top; font-size: 10pt !important; }
-    table.person-table th { background: #f0f0f0 !important; font-weight: bold; }
-    table.details-table td:first-child { width: 25%; background: #f9f9f9 !important; }
-    .results-section { margin: 10px 0; }
-    .report-section-header { font-size: 10.5pt; font-weight: bold; margin: 8px 0 4px 0; padding-bottom: 2px; border-bottom: 1px solid #000; }
-    .question-item { margin: 2px 0; padding: 3px; font-size: 9.5pt; line-height: 1.2; break-inside: avoid; page-break-inside: avoid; }
-    .question-item.ok { border-left: 2px solid #00a000 !important; background: #f0fff0 !important; }
-    .question-item.not-ok { border-left: 2px solid #ff0000 !important; background: #fff0f0 !important; }
-    .question-id { font-weight: bold; }
-    .question-comment { font-style: italic; color: #555; margin-left: 10px; font-size: 7.5pt; }
-    .signature-area { margin-top: 12px; padding-top: 8px; border-top: 1px solid #000; display: flex; justify-content: space-between; gap: 2px; }
-    .signature-box { flex: 1; text-align: center; }
-    .signature-line { margin-top: 20px; min-height: 50px; height: 50px; }
-    .report-footer { position: fixed; left: 8mm; right: 8mm; bottom: 0mm; margin: 0; padding-top: 1mm; border-top: 0.5px solid #ccc; font-size: 7.5pt; color: #444 !important; background: white !important; }
-    .report-footer-table { width: 100%; border-collapse: collapse; }
-    .report-footer-table td { border: none; padding: 0 3px; text-align: center; vertical-align: middle; background: none; font-size: 7.5pt !important; color: #444 !important; }
-/* === MOBILE TABELLEN-FIXES - Buttons in einer Zeile === */
-@media (max-width: 768px) {
-  /* Tabelle als Block für horizontales Scrollen */
-  .employee-table {
-    display: block !important;
-    width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    border-collapse: collapse !important;
-  }
-  
-  /* Tabellenkopf und -körper als Tabelle behalten */
-  .employee-table thead,
-  .employee-table tbody,
-  .employee-table tr {
-    display: table !important;
-    width: 100% !important;
-    table-layout: fixed !important;
-  }
-  
-  /* Spaltenbreiten für bessere Darstellung - BREITER FÜR AKTIONEN */
-  .employee-table th,
-  .employee-table td {
-    padding: 8px 4px !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important; /* Jetzt again nowrap für alle Spalten */
-    vertical-align: middle !important;
-  }
-  
-  /* Individuelle Spaltenbreiten - BREITER FÜR LETZTE SPALTE */
-  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 65px !important; min-width: 65px !important; } /* Status */
-  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 100px !important; min-width: 100px !important; } /* Name */
-  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 70px !important; min-width: 70px !important; } /* Personal-Nr */
-  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 60px !important; min-width: 60px !important; } /* Geburtsdatum */
-  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 40px !important; min-width: 40px !important; text-align: center !important; } /* Brille */
-  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 70px !important; min-width: 70px !important; } /* Sehtest */
-  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 60px !important; min-width: 60px !important; } /* Ident-Nr */
-  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 60px !important; min-width: 60px !important; } /* Stempel-Nr */
-  .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
-    width: 140px !important; 
-    min-width: 140px !important; 
-    white-space: nowrap !important;
-  } /* Zertifikate */
-  .employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
-    width: 70px !important; 
-    min-width: 70px !important; 
-    text-align: center !important;
-  } /* Zyklus */
-  .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
-    width: 180px !important; /* BREITER FÜR 5 BUTTONS */
-    min-width: 180px !important; 
-  } /* Aktionen */
-
-  /* === BADGES IN SPALTE 9 (ZERTIFIKATE) - JETZT IN EINER ZEILE === */
-  .proc-cert-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    width: 100% !important;
-  }
-  
-  .proc-cert-row {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    padding: 2px 4px !important;
-    background: #F0FFF0 !important;
-    border-radius: 3px !important;
-    border: 1px solid #ddd !important;
-    box-sizing: border-box !important;
-    font-size: 0.7em !important;
-    white-space: nowrap !important;
-  }
-  
-  .proc-cert-row span:first-child {
-    flex: 0 0 auto !important;
-    font-weight: bold !important;
-    margin-right: 4px !important;
-  }
-  
-  .proc-cert-row span:last-child {
-    flex: 0 0 auto !important;
-    text-align: right !important;
-    font-size: 0.9em !important;
-  }
-  
-  /* === BADGES IN SPALTE 10 (ZYKLUS) - JETZT IN EINER ZEILE === */
-  .next-audit-cell {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    width: 100% !important;
-  }
-  
-  .audit-cycle-badge-container {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-  }
-  
-  .audit-cycle-badge {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 2px 4px !important;
-    border-radius: 8px !important;
-    font-size: 0.65em !important;
-    font-weight: bold !important;
-    min-width: 45px !important;
-    white-space: nowrap !important;
-    height: 18px !important;
-    line-height: 1 !important;
-  }
-  
-  /* === AKTIONEN SPALTE - BUTTONS IN EINER ZEILE === */
-  .employee-actions {
-    display: flex !important;
-    gap: 2px !important;
-    flex-wrap: nowrap !important; /* KEIN UMBRUCH */
-    justify-content: flex-start !important;
-    align-items: center !important;
-    width: 100% !important;
-  }
-  
-  .employee-action-btn {
-    flex: 0 0 auto !important;
-    padding: 4px 3px !important;
-    min-width: 28px !important;
-    height: 26px !important;
-    font-size: 0.65em !important;
-    text-align: center !important;
-    border-radius: 3px !important;
-    border: none !important;
-    cursor: pointer !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  /* Buttons etwas kompakter machen */
-  .employee-action-btn.edit { background: #3498db !important; }
-  .employee-action-btn.audits { background: #9b59b6 !important; }
-  .employee-action-btn.authorization { background: #2ecc71 !important; }
-  .employee-action-btn.verify { background: #f39c12 !important; color: white !important; }
-  .employee-action-btn.delete { background: #e74c3c !important; }
-}
-
-/* === DARK MODE FIXES FÜR AKTIONEN SPALTE === */
-[data-theme="dark"] .employee-table td:last-child {
-  background: #2a2a2a !important;
-}
-
-[data-theme="dark"] .employee-action-btn {
-  background: #3a3a3a !important;
-  color: white !important;
-  border: 1px solid #555 !important;
-}
-
-[data-theme="dark"] .employee-action-btn.edit { background: #2980b9 !important; }
-[data-theme="dark"] .employee-action-btn.audits { background: #8e44ad !important; }
-[data-theme="dark"] .employee-action-btn.authorization { background: #27ae60 !important; }
-[data-theme="dark"] .employee-action-btn.verify { background: #f39c12 !important; color: #000 !important; }
-[data-theme="dark"] .employee-action-btn.delete { background: #c0392b !important; }
-
-/* === TABELLEN-HEADER FIX === */
-.employee-table th {
-  background: #34495e !important;
-  color: white !important;
-  font-weight: bold !important;
-  white-space: nowrap !important;
-  padding: 8px 4px !important;
-  font-size: 0.75em !important;
-}
-
-/* === DARK MODE TABELLE === */
-[data-theme="dark"] .employee-table td {
-  background-color: #2a2a2a !important;
-  color: #e0e0e0 !important;
-  border-bottom: 1px solid #444 !important;
-}
-
-[data-theme="dark"] .proc-cert-row {
-  background: #2d2d2d !important;
-  border-color: #555 !important;
-}
-
-[data-theme="dark"] .proc-cert-row span {
-  color: #e0e0e0 !important;
-}
-
-/* Badge-Farben für Dark Mode */
-[data-theme="dark"] .audit-cycle-1 { 
-  background: #fff3e0 !important; 
-  color: #e65100 !important; 
-  border-color: #ffb74d !important; 
-}
-[data-theme="dark"] .audit-cycle-2 { 
-  background: #fff3e0 !important; 
-  color: #f57c00 !important; 
-  border-color: #ffcc80 !important; 
-}
-[data-theme="dark"] .audit-cycle-4 { 
-  background: #e3f2fd !important; 
-  color: #1565c0 !important; 
-  border-color: #90caf9 !important; 
-}
-[data-theme="dark"] .audit-cycle-5 { 
-  background: #daf2d1 !important; 
-  color: black !important; 
-  border-color: #2e7d32 !important; 
-}
-  </style>
-</head>
-<body>
-<style>
-/* FORCIERT den Button auf der Startseite nach vorne */
-#portalPage.visible ~ #themeToggleBtn,
-#portalPage.visible + * #themeToggleBtn,
-body:has(#portalPage.visible) #themeToggleBtn {
-  display: flex !important;
-  z-index: 9999999 !important;
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  background: white !important;
-  border: 2px solid #3498db !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
-}
-</style>
-</body>
-</html>`);
-  w.document.close();
-  setTimeout(() => {
-    w.focus();
-    w.print();
-    setTimeout(() => { if (!w.closed) w.close(); }, 3000);
-  }, 300);
-}
-
 function printFullAuthorization() {
   const authorizationContainer = document.getElementById('authorizationContainer');
   let printContent = authorizationContainer.innerHTML;
@@ -5480,6 +5127,407 @@ ${printContent}
 </html>`);
   w.document.close();
   setTimeout(()=>{ w.focus(); w.print(); setTimeout(()=>{ if(!w.closed) w.close(); },3000); }, 250);
+}
+// ===========================================
+// KORRIGIERTE DRUCK-FUNKTION - IHR CSS BLEIBT ERHALTEN!
+// ===========================================
+function printFullReport() {
+  console.log("✅ Druckfunktion wird ausgeführt...");
+  
+  const reportContainer = document.getElementById('reportContainer');
+  if (!reportContainer) {
+    alert('❌ Kein Bericht zum Drucken gefunden!');
+    return;
+  }
+
+  // 1. IHREN ORIGINAL-BERICHTsinhalt holen
+  let printContent = reportContainer.innerHTML;
+  
+  // 2. Action-Buttons entfernen
+  printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
+
+  // 3. IHREN ORIGINAL-FOOTER (wie in Ihrer Funktion)
+  const footerHTML = `
+    <div class="report-footer">
+      <table class="report-footer-table">
+        <tr>
+          <td style="text-align: left; width: 33%;">Daniel Häusner, WI/SW2-PQT</td>
+          <td style="text-align: center; width: 34%;">ZfP Operator Audit © 2026 Schaeffler Technologies AG & Co. KG</td>
+          <td style="text-align: right; width: 33%;">Version AB, 29.01.2026</td>
+        </tr>
+      </table>
+    </div>`;
+
+  printContent += footerHTML;
+
+  // 4. Logo-URL korrigieren (HTTP -> HTTPS)
+  printContent = printContent.replace(
+    'src="http://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"',
+    'src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"'
+  );
+
+  // 5. Neues Fenster öffnen
+  const w = window.open('', '_blank');
+  
+  // 6. IHR KOMPLETTES ORIGINAL-CSS + Inhalt
+  w.document.write(`<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZfP Audit Bericht - Schaeffler</title>
+  <style>
+/* IHR KOMPLETTES ORIGINAL-CSS AUS IHRER FUNKTION */
+.next-audit-cell,
+.last-audit-cell,
+.proc-cert-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.audit-cycle-badge-container,
+.last-audit-row,
+.proc-cert-row {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    margin-bottom: 2px !important;
+}
+
+.audit-cycle-badge-container:last-child,
+.last-audit-row:last-child,
+.proc-cert-row:last-child {
+    margin-bottom: 0 !important;
+}
+
+.next-audit-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.audit-cycle-badge-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 0;
+}
+
+.audit-cycle-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.7em;
+    font-weight: bold;
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #90caf9;
+    cursor: help;
+    min-width: 60px;
+    height: 16px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+.audit-cycle-2 { background: #fff3e0; color: #f57c00; border-color: #ffcc80; }
+.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
+
+.proc-cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.proc-cert-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 4px;
+    background: #F0FFF0;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    height: 24px;
+    min-height: 24px;
+}
+
+@media (max-width: 768px) {
+    .audit-cycle-badge-container {
+        height: 22px;
+        margin-bottom: 2px;
+    }
+    
+    .audit-cycle-badge {
+        font-size: 0.65em;
+        padding: 1px 4px;
+        min-width: 50px;
+        height: 16px;
+    }
+    
+    .proc-cert-row {
+        height: 22px;
+        min-height: 22px;
+        padding: 3px 4px;
+    }
+}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @page { size: A4 portrait; margin: 12mm !important; }
+    body {
+      font-family: Arial, sans-serif !important;
+      color: #000 !important;
+      font-size: 10.5pt !important;
+      line-height: 1.32;
+      background: #fff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .print-content { margin: 0 auto; padding: 0 0 2mm 0; max-width: 180mm; display: block; }
+    .report-header { border-bottom: 1.5px solid #000 !important; padding-bottom: 6px; margin-bottom: 10px; text-align: center; }
+    .report-header h2 { font-size: 13.5pt; margin: 0 0 3px 0; color: #000 !important; }
+    .company-info { font-size: 10pt; margin: 2px 0; color: #000 !important; }
+    table.person-table, table.details-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt !important; font-family: Arial, sans-serif !important; }
+    table.person-table th, table.person-table td, table.details-table td { border: 1px solid #000 !important; padding: 5px; vertical-align: top; font-size: 10pt !important; }
+    table.person-table th { background: #f0f0f0 !important; font-weight: bold; }
+    table.details-table td:first-child { width: 25%; background: #f9f9f9 !important; }
+    .results-section { margin: 10px 0; }
+    .report-section-header { font-size: 10.5pt; font-weight: bold; margin: 8px 0 4px 0; padding-bottom: 2px; border-bottom: 1px solid #000; }
+    .question-item { margin: 2px 0; padding: 3px; font-size: 9.5pt; line-height: 1.2; break-inside: avoid; page-break-inside: avoid; }
+    .question-item.ok { border-left: 2px solid #00a000 !important; background: #f0fff0 !important; }
+    .question-item.not-ok { border-left: 2px solid #ff0000 !important; background: #fff0f0 !important; }
+    .question-id { font-weight: bold; }
+    .question-comment { font-style: italic; color: #555; margin-left: 10px; font-size: 7.5pt; }
+    .signature-area { margin-top: 12px; padding-top: 8px; border-top: 1px solid #000; display: flex; justify-content: space-between; gap: 2px; }
+    .signature-box { flex: 1; text-align: center; }
+    .signature-line { margin-top: 20px; min-height: 50px; height: 50px; }
+    .report-footer { position: fixed; left: 8mm; right: 8mm; bottom: 0mm; margin: 0; padding-top: 1mm; border-top: 0.5px solid #ccc; font-size: 7.5pt; color: #444 !important; background: white !important; }
+    .report-footer-table { width: 100%; border-collapse: collapse; }
+    .report-footer-table td { border: none; padding: 0 3px; text-align: center; vertical-align: middle; background: none; font-size: 7.5pt !important; color: #444 !important; }
+
+/* === MOBILE TABELLEN-FIXES - IHR ORIGINAL-CSS === */
+@media (max-width: 768px) {
+  .employee-table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-collapse: collapse !important;
+  }
+  
+  .employee-table thead,
+  .employee-table tbody,
+  .employee-table tr {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+  
+  .employee-table th,
+  .employee-table td {
+    padding: 8px 4px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+  }
+  
+  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 65px !important; min-width: 65px !important; }
+  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 100px !important; min-width: 100px !important; }
+  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 70px !important; min-width: 70px !important; }
+  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 60px !important; min-width: 60px !important; }
+  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 40px !important; min-width: 40px !important; text-align: center !important; }
+  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 70px !important; min-width: 70px !important; }
+  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 60px !important; min-width: 60px !important; }
+  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 60px !important; min-width: 60px !important; }
+  .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
+    width: 140px !important; 
+    min-width: 140px !important; 
+    white-space: nowrap !important;
+  }
+  .employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
+    width: 70px !important; 
+    min-width: 70px !important; 
+    text-align: center !important;
+  }
+  .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
+    width: 180px !important;
+    min-width: 180px !important; 
+  }
+
+  .proc-cert-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    width: 100% !important;
+  }
+  
+  .proc-cert-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    padding: 2px 4px !important;
+    background: #F0FFF0 !important;
+    border-radius: 3px !important;
+    border: 1px solid #ddd !important;
+    box-sizing: border-box !important;
+    font-size: 0.7em !important;
+    white-space: nowrap !important;
+  }
+  
+  .proc-cert-row span:first-child {
+    flex: 0 0 auto !important;
+    font-weight: bold !important;
+    margin-right: 4px !important;
+  }
+  
+  .proc-cert-row span:last-child {
+    flex: 0 0 auto !important;
+    text-align: right !important;
+    font-size: 0.9em !important;
+  }
+  
+  .next-audit-cell {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    width: 100% !important;
+  }
+  
+  .audit-cycle-badge-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  
+  .audit-cycle-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2px 4px !important;
+    border-radius: 8px !important;
+    font-size: 0.65em !important;
+    font-weight: bold !important;
+    min-width: 45px !important;
+    white-space: nowrap !important;
+    height: 18px !important;
+    line-height: 1 !important;
+  }
+  
+  .employee-actions {
+    display: flex !important;
+    gap: 2px !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  
+  .employee-action-btn {
+    flex: 0 0 auto !important;
+    padding: 4px 3px !important;
+    min-width: 28px !important;
+    height: 26px !important;
+    font-size: 0.65em !important;
+    text-align: center !important;
+    border-radius: 3px !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .employee-action-btn.edit { background: #3498db !important; }
+  .employee-action-btn.audits { background: #9b59b6 !important; }
+  .employee-action-btn.authorization { background: #2ecc71 !important; }
+  .employee-action-btn.verify { background: #f39c12 !important; color: white !important; }
+  .employee-action-btn.delete { background: #e74c3c !important; }
+}
+
+/* === DARK MODE FIXES - IHR ORIGINAL-CSS === */
+[data-theme="dark"] .employee-table td:last-child {
+  background: #2a2a2a !important;
+}
+
+[data-theme="dark"] .employee-action-btn {
+  background: #3a3a3a !important;
+  color: white !important;
+  border: 1px solid #555 !important;
+}
+
+[data-theme="dark"] .employee-action-btn.edit { background: #2980b9 !important; }
+[data-theme="dark"] .employee-action-btn.audits { background: #8e44ad !important; }
+[data-theme="dark"] .employee-action-btn.authorization { background: #27ae60 !important; }
+[data-theme="dark"] .employee-action-btn.verify { background: #f39c12 !important; color: #000 !important; }
+[data-theme="dark"] .employee-action-btn.delete { background: #c0392b !important; }
+
+.employee-table th {
+  background: #34495e !important;
+  color: white !important;
+  font-weight: bold !important;
+  white-space: nowrap !important;
+  padding: 8px 4px !important;
+  font-size: 0.75em !important;
+}
+
+[data-theme="dark"] .employee-table td {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-bottom: 1px solid #444 !important;
+}
+
+[data-theme="dark"] .proc-cert-row {
+  background: #2d2d2d !important;
+  border-color: #555 !important;
+}
+
+[data-theme="dark"] .proc-cert-row span {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .audit-cycle-1 { 
+  background: #fff3e0 !important; 
+  color: #e65100 !important; 
+  border-color: #ffb74d !important; 
+}
+[data-theme="dark"] .audit-cycle-2 { 
+  background: #fff3e0 !important; 
+  color: #f57c00 !important; 
+  border-color: #ffcc80 !important; 
+}
+[data-theme="dark"] .audit-cycle-4 { 
+  background: #e3f2fd !important; 
+  color: #1565c0 !important; 
+  border-color: #90caf9 !important; 
+}
+[data-theme="dark"] .audit-cycle-5 { 
+  background: #daf2d1 !important; 
+  color: black !important; 
+  border-color: #2e7d32 !important; 
+}
+  </style>
+</head>
+<body>
+  <div class="print-content">${printContent}</div>
+</body>
+</html>`);
+  
+  w.document.close();
+  
+  // 7. Kurz warten, dann drucken
+  setTimeout(() => {
+    w.focus();
+    w.print();
+    // Fenster nach dem Druck nicht schließen
+  }, 500);
 }
 // === HEADER-TOGGLE ===
 function toggleDesktopHeader() {
@@ -6970,4 +7018,5 @@ function openPracticalExperienceProof(employeeId, procedure, level) {
   </script>
 </body>
 </html>
+
 
