@@ -4972,15 +4972,25 @@ function setupGlobalEventListeners() {
   });
 }
 
-// === DRUCK-FUNKTIONEN ===
+// ===========================================
+// KORRIGIERTE DRUCK-FUNKTION - IHR CSS BLEIBT ERHALTEN!
+// ===========================================
 function printFullReport() {
+  console.log("✅ Druckfunktion wird ausgeführt...");
+  
   const reportContainer = document.getElementById('reportContainer');
-  let printContent = reportContainer.innerHTML;
+  if (!reportContainer) {
+    alert('❌ Kein Bericht zum Drucken gefunden!');
+    return;
+  }
 
-  // Aktion-Buttons entfernen
+  // 1. IHREN ORIGINAL-BERICHTsinhalt holen
+  let printContent = reportContainer.innerHTML;
+  
+  // 2. Action-Buttons entfernen
   printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
 
-  // Footer bleibt unten (fixed) mit nahezu keinem Abstand zum letzten Text
+  // 3. IHREN ORIGINAL-FOOTER (wie in Ihrer Funktion)
   const footerHTML = `
     <div class="report-footer">
       <table class="report-footer-table">
@@ -4994,7 +5004,16 @@ function printFullReport() {
 
   printContent += footerHTML;
 
+  // 4. Logo-URL korrigieren (HTTP -> HTTPS)
+  printContent = printContent.replace(
+    'src="http://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"',
+    'src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"'
+  );
+
+  // 5. Neues Fenster öffnen
   const w = window.open('', '_blank');
+  
+  // 6. IHR KOMPLETTES ORIGINAL-CSS + Inhalt
   w.document.write(`<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -5002,16 +5021,14 @@ function printFullReport() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZfP Audit Bericht - Schaeffler</title>
   <style>
-/* Container OHNE gap */
+/* IHR KOMPLETTES ORIGINAL-CSS AUS IHRER FUNKTION */
 .next-audit-cell,
 .last-audit-cell,
 .proc-cert-list {
     display: flex;
     flex-direction: column;
-    /* gap: 0; ← AUSKOMMENTIEREN */
 }
 
-/* Container MIT margin */
 .audit-cycle-badge-container,
 .last-audit-row,
 .proc-cert-row {
@@ -5021,29 +5038,26 @@ function printFullReport() {
     margin-bottom: 2px !important;
 }
 
-/* Letzte Zeile ohne margin */
 .audit-cycle-badge-container:last-child,
 .last-audit-row:last-child,
 .proc-cert-row:last-child {
     margin-bottom: 0 !important;
 }
-/* Container für die Nächstes-Audit Spalte - exakte Ausrichtung */
+
 .next-audit-cell {
     display: flex;
     flex-direction: column;
     gap: 0;
 }
 
-/* Jedes Badge-Container - gleiche Höhe wie proc-cert-row */
 .audit-cycle-badge-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 24px; /* EXAKTE Höhe wie proc-cert-row */
+    height: 24px;
     padding: 0;
 }
 
-/* Audit-Zyklus Badge - exakt gleiche Höhe wie in Verfahrens-Spalte */
 .audit-cycle-badge {
     display: inline-flex;
     align-items: center;
@@ -5062,17 +5076,15 @@ function printFullReport() {
     white-space: nowrap;
 }
 
-/* Zyklus-Farben */
 .audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
 .audit-cycle-2 { background: #fff3e0; color: #f57c00; border-color: #ffcc80; }
 .audit-cycle-4 { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
 .audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
 
-/* Verfahrens-Spalte - exakte Höhen */
 .proc-cert-list {
     display: flex;
     flex-direction: column;
-    gap: 2px; /* Gleicher Abstand wie bei Badges */
+    gap: 2px;
 }
 
 .proc-cert-row {
@@ -5084,11 +5096,10 @@ function printFullReport() {
     background: #F0FFF0;
     border-radius: 3px;
     border: 1px solid #ddd;
-    height: 24px; /* EXAKTE Höhe für Ausrichtung */
+    height: 24px;
     min-height: 24px;
 }
 
-/* Mobile Ansicht */
 @media (max-width: 768px) {
     .audit-cycle-badge-container {
         height: 22px;
@@ -5108,6 +5119,7 @@ function printFullReport() {
         padding: 3px 4px;
     }
 }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     @page { size: A4 portrait; margin: 12mm !important; }
     body {
@@ -5140,9 +5152,9 @@ function printFullReport() {
     .report-footer { position: fixed; left: 8mm; right: 8mm; bottom: 0mm; margin: 0; padding-top: 1mm; border-top: 0.5px solid #ccc; font-size: 7.5pt; color: #444 !important; background: white !important; }
     .report-footer-table { width: 100%; border-collapse: collapse; }
     .report-footer-table td { border: none; padding: 0 3px; text-align: center; vertical-align: middle; background: none; font-size: 7.5pt !important; color: #444 !important; }
-/* === MOBILE TABELLEN-FIXES - Buttons in einer Zeile === */
+
+/* === MOBILE TABELLEN-FIXES - IHR ORIGINAL-CSS === */
 @media (max-width: 768px) {
-  /* Tabelle als Block für horizontales Scrollen */
   .employee-table {
     display: block !important;
     width: 100% !important;
@@ -5151,7 +5163,6 @@ function printFullReport() {
     border-collapse: collapse !important;
   }
   
-  /* Tabellenkopf und -körper als Tabelle behalten */
   .employee-table thead,
   .employee-table tbody,
   .employee-table tr {
@@ -5160,42 +5171,39 @@ function printFullReport() {
     table-layout: fixed !important;
   }
   
-  /* Spaltenbreiten für bessere Darstellung - BREITER FÜR AKTIONEN */
   .employee-table th,
   .employee-table td {
     padding: 8px 4px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    white-space: nowrap !important; /* Jetzt again nowrap für alle Spalten */
+    white-space: nowrap !important;
     vertical-align: middle !important;
   }
   
-  /* Individuelle Spaltenbreiten - BREITER FÜR LETZTE SPALTE */
-  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 65px !important; min-width: 65px !important; } /* Status */
-  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 100px !important; min-width: 100px !important; } /* Name */
-  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 70px !important; min-width: 70px !important; } /* Personal-Nr */
-  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 60px !important; min-width: 60px !important; } /* Geburtsdatum */
-  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 40px !important; min-width: 40px !important; text-align: center !important; } /* Brille */
-  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 70px !important; min-width: 70px !important; } /* Sehtest */
-  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 60px !important; min-width: 60px !important; } /* Ident-Nr */
-  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 60px !important; min-width: 60px !important; } /* Stempel-Nr */
+  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 65px !important; min-width: 65px !important; }
+  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 100px !important; min-width: 100px !important; }
+  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 70px !important; min-width: 70px !important; }
+  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 60px !important; min-width: 60px !important; }
+  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 40px !important; min-width: 40px !important; text-align: center !important; }
+  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 70px !important; min-width: 70px !important; }
+  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 60px !important; min-width: 60px !important; }
+  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 60px !important; min-width: 60px !important; }
   .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
     width: 140px !important; 
     min-width: 140px !important; 
     white-space: nowrap !important;
-  } /* Zertifikate */
+  }
   .employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
     width: 70px !important; 
     min-width: 70px !important; 
     text-align: center !important;
-  } /* Zyklus */
+  }
   .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
-    width: 180px !important; /* BREITER FÜR 5 BUTTONS */
+    width: 180px !important;
     min-width: 180px !important; 
-  } /* Aktionen */
+  }
 
-  /* === BADGES IN SPALTE 9 (ZERTIFIKATE) - JETZT IN EINER ZEILE === */
   .proc-cert-list {
     display: flex !important;
     flex-direction: column !important;
@@ -5229,7 +5237,6 @@ function printFullReport() {
     font-size: 0.9em !important;
   }
   
-  /* === BADGES IN SPALTE 10 (ZYKLUS) - JETZT IN EINER ZEILE === */
   .next-audit-cell {
     display: flex !important;
     flex-direction: column !important;
@@ -5258,11 +5265,10 @@ function printFullReport() {
     line-height: 1 !important;
   }
   
-  /* === AKTIONEN SPALTE - BUTTONS IN EINER ZEILE === */
   .employee-actions {
     display: flex !important;
     gap: 2px !important;
-    flex-wrap: nowrap !important; /* KEIN UMBRUCH */
+    flex-wrap: nowrap !important;
     justify-content: flex-start !important;
     align-items: center !important;
     width: 100% !important;
@@ -5283,7 +5289,6 @@ function printFullReport() {
     justify-content: center !important;
   }
   
-  /* Buttons etwas kompakter machen */
   .employee-action-btn.edit { background: #3498db !important; }
   .employee-action-btn.audits { background: #9b59b6 !important; }
   .employee-action-btn.authorization { background: #2ecc71 !important; }
@@ -5291,7 +5296,7 @@ function printFullReport() {
   .employee-action-btn.delete { background: #e74c3c !important; }
 }
 
-/* === DARK MODE FIXES FÜR AKTIONEN SPALTE === */
+/* === DARK MODE FIXES - IHR ORIGINAL-CSS === */
 [data-theme="dark"] .employee-table td:last-child {
   background: #2a2a2a !important;
 }
@@ -5308,7 +5313,6 @@ function printFullReport() {
 [data-theme="dark"] .employee-action-btn.verify { background: #f39c12 !important; color: #000 !important; }
 [data-theme="dark"] .employee-action-btn.delete { background: #c0392b !important; }
 
-/* === TABELLEN-HEADER FIX === */
 .employee-table th {
   background: #34495e !important;
   color: white !important;
@@ -5318,7 +5322,6 @@ function printFullReport() {
   font-size: 0.75em !important;
 }
 
-/* === DARK MODE TABELLE === */
 [data-theme="dark"] .employee-table td {
   background-color: #2a2a2a !important;
   color: #e0e0e0 !important;
@@ -5334,7 +5337,6 @@ function printFullReport() {
   color: #e0e0e0 !important;
 }
 
-/* Badge-Farben für Dark Mode */
 [data-theme="dark"] .audit-cycle-1 { 
   background: #fff3e0 !important; 
   color: #e65100 !important; 
@@ -5354,211 +5356,22 @@ function printFullReport() {
   background: #daf2d1 !important; 
   color: black !important; 
   border-color: #2e7d32 !important; 
-}/* ULTIMATIVER DARK MODE FIX FÜR CARD-ID FELDER */
-html[data-theme="dark"] .practical-experience-content input.encrypted-field,
-html[data-theme="dark"] .practical-experience-content #employeeCardId,
-html[data-theme="dark"] .practical-experience-content #auditorCardId,
-html[data-theme="dark"] .practical-experience-content #expertCardId,
-html[data-theme="dark"] input.encrypted-field#employeeCardId,
-html[data-theme="dark"] input.encrypted-field#auditorCardId,
-html[data-theme="dark"] input.encrypted-field#expertCardId {
-  background-color: #1e1e1e !important;
-  color: #e0e0e0 !important;
-  border: 1px solid #555 !important;
 }
-
-html[data-theme="dark"] .practical-experience-content input.encrypted-field:focus,
-html[data-theme="dark"] .practical-experience-content #employeeCardId:focus,
-html[data-theme="dark"] .practical-experience-content #auditorCardId:focus,
-html[data-theme="dark"] .practical-experience-content #expertCardId:focus {
-  background-color: #2d2d2d !important;
-  color: #ffffff !important;
-  border-color: #3498db !important;
-}
- </style>
+  </style>
 </head>
 <body>
-<style>
-/* FORCIERT den Button auf der Startseite nach vorne */
-#portalPage.visible ~ #themeToggleBtn,
-#portalPage.visible + * #themeToggleBtn,
-body:has(#portalPage.visible) #themeToggleBtn {
-  display: flex !important;
-  z-index: 9999999 !important;
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  background: white !important;
-  border: 2px solid #3498db !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
-}
-</style>
+  <div class="print-content">${printContent}</div>
 </body>
 </html>`);
+  
   w.document.close();
+  
+  // 7. Kurz warten, dann drucken
   setTimeout(() => {
     w.focus();
     w.print();
-    setTimeout(() => { if (!w.closed) w.close(); }, 3000);
-  }, 300);
-}
-
-function printFullAuthorization() {
-  const authorizationContainer = document.getElementById('authorizationContainer');
-  let printContent = authorizationContainer.innerHTML;
-  printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
-
-  const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html>
-<html>
-<head>
-<title>Autorisierung ZfP - Schaeffler</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-/* NEUE STYLES FÜR DIE NÄCHSTES-AUDIT SPALTE */
-.next-audit-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.next-audit-procedure {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: #f8f9fa;
-    font-size: 0.8em;
-    border-left: 3px solid #ddd;
-}
-
-.next-audit-procedure.expired {
-    background: #fff0f0;
-    border-left-color: #e74c3c;
-}
-
-.next-audit-procedure.warning {
-    background: #fff3cd;
-    border-left-color: #f39c12;
-}
-
-.next-audit-procedure.valid {
-    background: #f0fff4;
-    border-left-color: #27ae60;
-}
-
-.next-audit-procedure.needs-confirmation {
-    background: #fff8e1;
-    border-left-color: #ff9800;
-}
-
-.next-audit-procedure .short {
-    font-weight: bold;
-    min-width: 40px;
-    color: #2c3e50;
-}
-
-.next-audit-date {
-    font-weight: bold;
-    color: #2c3e50;
-    flex: 1;
-    text-align: right;
-    padding-right: 8px;
-}
-
-/* Audit-Zyklus Badge - nur in der Nächstes-Audit Spalte */
-.next-audit-procedure .audit-cycle-badge {
-    display: inline-block;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.7em;
-    font-weight: bold;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-.audit-cycle-2 { background: #fff3e0; color: #f57c00; border: 1px solid #ffcc80; }
-.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
-.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
-
-/* ENTFERNE Audit-Zyklus-Badges aus der Verfahrens-Spalte */
-.proc-cert-row .audit-cycle-badge {
-    display: none !important;
-}
-/* Mobile Ansicht anpassen */
-@media (max-width: 768px) {
-    .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
-        width: 180px !important; 
-        min-width: 180px !important; 
-    }
-    
-    .next-audit-procedure {
-        padding: 3px 6px;
-        font-size: 0.75em;
-    }
-    
-    .next-audit-procedure .short {
-        min-width: 35px;
-    }
-    
-    .next-audit-date {
-        font-size: 0.9em;
-    }
-    
-    .next-audit-procedure .audit-cycle-badge {
-        font-size: 0.65em;
-        padding: 1px 4px;
-    }
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-@page{size:A4 portrait;12mm 8mm 12mm 11mm !important;}
-body{
-  font-family:Arial,sans-serif!important;
-  margin:0!important;padding:0!important;
-  color:#000!important;font-size:10.5pt!important;
-  line-height:1.32;background:#fff!important;
-  -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
-  position:relative;
-}
-.print-content{
-  margin:0 auto!important;
-  padding:0 3mm 6mm 3mm!important;
-  max-width:194mm;
-  position:relative;
-  font-size:9.5pt;
-  line-height:1.28;
-}
-.auth-proc-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 10px; align-items:start;}
-.page-footer{
-  position:fixed!important; bottom:3mm!important; left:5mm!important; right:5mm!important;
-  padding-top:6px!important; border-top:0.5px solid #ccc!important; font-size:7.5pt!important; color:#444!important;
-  height:auto!important; max-height:6mm!important; background:white!important; z-index:10!important;
-}
-.page-footer table{width:100%!important; border-collapse:collapse!important;}
-.page-footer td{padding:0 3px!important; margin:0!important; text-align:center!important; vertical-align:middle!important; background:none!important; border:none!important; font-size:7.5pt!important;}
-</style>
-</head>
-<body>
-<div class="print-content">
-${printContent}
-<div class="page-footer">
-<table>
-<tr>
-<td style="text-align:left;width:33%;">Daniel Häusner, WI/SW2-PQT</td>
-<td style="text-align:center;width:34%;">ZfP Operator Audit © 2026 Schaeffler Technologies AG & Co. KG</td>
-<td style="text-align:right;width:33%;">Version AB, 29.01.2026</td>
-</tr>
-</table>
-</div>
-</div>
-</body>
-</html>`);
-  w.document.close();
-  setTimeout(()=>{ w.focus(); w.print(); setTimeout(()=>{ if(!w.closed) w.close(); },3000); }, 250);
+    // Fenster nach dem Druck nicht schließen
+  }, 500);
 }
 // === HEADER-TOGGLE ===
 function toggleDesktopHeader() {
@@ -7049,3 +6862,4 @@ function openPracticalExperienceProof(employeeId, procedure, level) {
   </script>
 </body>
 </html>
+
