@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- GEÄNDERT: color-scheme auf light gesetzt -->
 <meta name="color-scheme" content="light">
 <title>ZfP Operator Audit</title>
 <style>
@@ -53,15 +52,6 @@ font-size: 14px;
   border-color: #555 !important;
 }
 
-/* Der Rest deines CSS bleibt gleich... */
-.container {
-max-width: 1200px;
-margin: 0 auto;
-background: white;
-padding: 10px;
-border-radius: 6px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
 .container {
 max-width: 1200px;
 margin: 0 auto;
@@ -113,10 +103,6 @@ margin-bottom: 8px;
   background: #f0f0f0 !important;
 }
 
-.theme-toggle:active { 
-  transform: translateY(0); 
-}
-
 /* Dark Theme Variablen */
 [data-theme="dark"] .theme-toggle {
   --toggle-bg: #2d2d2d;
@@ -125,13 +111,6 @@ margin-bottom: 8px;
   border-color: #444;
 }
 
-/* Light Theme Variablen */
-[data-theme="light"] .theme-toggle {
-  --toggle-bg: #ffffff;
-  --toggle-text: #333333;
-  --toggle-bg-hover: #f9fafb;
-  border-color: #ccc;
-}
 /* MODAL FÜR IPHONE FIX - immer im Vordergrund */
 .custom-modal {
 display: none;
@@ -141,7 +120,7 @@ left: 0;
 width: 100%;
 height: 100%;
 background: rgba(0,0,0,0.7);
-z-index: 9999; /* höchste Ebene */
+z-index: 9999;
 align-items: center;
 justify-content: center;
 }
@@ -478,7 +457,6 @@ font-style: italic;
 }
 
 /* AUDIT AUSWAHL */
-/* === AUDIT AUSWAHL (STARTSEITE) === */
 .audit-selection {
 text-align: center;
 margin: 15px 0;
@@ -490,7 +468,6 @@ font-size: 1.1em;
 font-weight: 700;
 }
 
-/* === GLASS-EFFECT FÜR AUDIT-KACHELN === */
 .audit-buttons {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -576,7 +553,6 @@ backdrop-filter: blur(10px) saturate(140%);
 }
 }
 
-/* Light Mode spezifische Anpassungen */
 html[data-theme="light"] .audit-btn {
 border-color: rgba(0,0,0,0.38) !important;
 box-shadow: 0 12px 26px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.35) inset !important;
@@ -593,7 +569,6 @@ font-weight: 900 !important;
 border: 1px solid rgba(255,255,255,0.35) !important;
 }
 
-/* Dark Mode Anpassungen */
 @media (prefers-color-scheme: dark) {
 .audit-btn {
 border-color: rgba(255,255,255,0.28);
@@ -643,6 +618,7 @@ overflow-x: auto;
 padding-bottom: 5px;
 scrollbar-width: thin;
 scrollbar-color: #3498db #f0f0f0;
+align-items: center;
 }
 .controls-row-audit::-webkit-scrollbar { height: 6px; }
 .controls-row-audit::-webkit-scrollbar-track {
@@ -666,6 +642,37 @@ overflow: hidden;
 text-overflow: ellipsis;
 min-width: 95px;
 flex-shrink: 0;
+}
+
+/* NEU: Passwort-Entsperrfeld in der Control-Leiste */
+.password-unlock-field {
+display: flex;
+gap: 4px;
+align-items: center;
+background: #f0f0f0;
+padding: 2px 5px;
+border-radius: 3px;
+height: 30px;
+flex-shrink: 0;
+}
+.password-unlock-field input {
+width: 90px;
+padding: 4px;
+border: 1px solid #3498db;
+border-radius: 3px;
+font-size: 0.7em;
+height: 24px;
+}
+.password-unlock-field button {
+padding: 4px 6px;
+background: #3498db;
+color: white;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+font-size: 0.7em;
+height: 24px;
+min-width: 60px;
 }
 
 .btn-back { background: #7f8c8d; color: white; }
@@ -742,11 +749,6 @@ position: sticky; top: 0;
 padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: middle;
 }
 .employee-table tr:hover { background: #f8f9fa; }
-.employee-table tr.expired { background: transparent; }
-.employee-table tr.valid { background: transparent; }
-.employee-table tr.warning { background: transparent; }
-.employee-table tr.missing { background: transparent; }
-.employee-table tr.needs-confirmation { background: transparent; border-left: none; }
 .status-badge {
 display: inline-block; padding: 3px 8px; border-radius: 12px;
 font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
@@ -772,43 +774,41 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   padding: 2px 4px !important;
   background: #F0FFF0;
   border-radius: 3px;
-  /* NEU: Standard-Rahmen für Light Mode */
   border: 1px solid #ddd;
 }
 
-/* NEU: Prüfwerker-Link Styling */
-/* NEU: Prüfwerker-Link Styling - OHNE blaue Schrift und Unterstreichung */
+/* Prüfwerker-Link Styling */
 .pw-cert-link {
   cursor: pointer;
-  color: inherit !important; /* Erbt die Farbe vom Elternelement */
+  color: inherit !important;
   font-weight: bold;
-  text-decoration: none !important; /* Keine Unterstreichung */
+  text-decoration: none !important;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #e9ecef; /* Gleicher Hintergrund wie andere Badges */
+  background: #e9ecef;
   padding: 3px 5px;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 .pw-cert-link:hover {
-  background: #d4edda; /* Hellerer Hintergrund beim Hover */
+  background: #d4edda;
   color: inherit !important;
   text-decoration: none !important;
 }
 
-/* NEU: Audit-Zyklus Anzeige */
+/* Audit-Zyklus Anzeige */
 .audit-cycle-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 1px; /* ETWAS MEHR PADDING FÜR BESSERE LESBARKEIT */
-    border-radius: 4px; /* ETWAS RUNDER */
-    font-size: 1em; /* ETWAS GRÖSSERE SCHRIFT */
+    padding: 10px 1px;
+    border-radius: 4px;
+    font-size: 1em;
     font-weight: bold;
-    height: 18px; /* ETWAS HÖHER ALS PROC-CHIP FÜR BESSERE OPTIK */
+    height: 18px;
     line-height: 10;
-    min-width: 65px; /* ETWAS BREITER FÜR "4 JAHRE" */
+    min-width: 65px;
     cursor: help;
     white-space: nowrap;
     box-sizing: border-box;
@@ -819,23 +819,11 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
 .audit-cycle-4 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
 .audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
 
-/* Bessere Kontraste für die Status-Anzeigen */
-.proc-exp.valid { 
-  color: #155724 !important; 
-  font-weight: bold;
-}
-.proc-exp.warning { 
-  color: #856404 !important; 
-  font-weight: bold;
-}
-.proc-exp.expired { 
-  color: #721c24 !important; 
-  font-weight: bold;
-}
-.proc-exp.needs-confirmation { 
-  color: #ff9800 !important; 
-  font-weight: bold;
-}
+.proc-exp.valid { color: #155724 !important; font-weight: bold; }
+.proc-exp.warning { color: #856404 !important; font-weight: bold; }
+.proc-exp.expired { color: #721c24 !important; font-weight: bold; }
+.proc-exp.needs-confirmation { color: #ff9800 !important; font-weight: bold; }
+
 .proc-chip {
   display: inline-block !important;
   min-width: 18px;
@@ -861,10 +849,6 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   white-space: nowrap !important; 
   font-size: 1.3em !important; 
 }
-.proc-exp.valid { color: #155724 !important; }
-.proc-exp.warning { color: #856404 !important; }
-.proc-exp.expired { color: #721c24 !important; }
-.proc-exp.needs-confirmation { color: #ff9800 !important; }
 
 /* MITARBEITERLISTE SEITE */
 .employee-view { display: none; }
@@ -883,7 +867,7 @@ margin-top: 10px; margin-bottom: 10px;
 #employeeListView .controls-row-1 { display: flex; flex-wrap: nowrap; gap: 6px; align-items: center; }
 #employeeListView .controls-row-1 button { flex: 0 0 auto; }
 
-/* KOPFDATEN SECTION */
+/* KOPFDATEN SECTION MIT NEUEN CARD-ID FELDERN */
 .header-section {
 background: #f8f9fa; border: 1px solid #3498db; border-radius: 5px;
 margin-bottom: 10px; transition: all 0.3s ease;
@@ -903,6 +887,43 @@ font-size: 0.85em; cursor: pointer; appearance: none; min-width: 60px;
 .header-group h4 { color: #2c3e50; margin-bottom: 5px; border-bottom: 1px solid #ecf0f1; padding-bottom: 3px; font-size: 0.9em; }
 .header-input { width: 100%; padding: 6px 8px; border: 1px solid #ddd; border-radius: 3px; font-family: inherit; font-size: 0.8em; margin-bottom: 6px; box-sizing: border-box; appearance: none; }
 .header-input:last-child { margin-bottom: 0; }
+
+/* NEU: Card-ID Felder im Header - kompakte Darstellung */
+.card-id-header-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  padding-top: 3px;
+  border-top: 1px dashed #ccc;
+}
+.card-id-header-field {
+  flex: 1;
+  min-width: 0;
+}
+.card-id-header-field .encrypted-field {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #3498db;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.75em;
+  background: #f9f9f9;
+}
+.card-id-header-field .encrypted-field:focus {
+  background: #fff;
+  border-color: #2c3e50;
+  outline: none;
+}
+.card-id-header-label {
+  font-size: 0.7em;
+  color: #2c3e50;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.header-group.compact .header-input {
+  margin-bottom: 3px;
+}
 
 /* Auditnummer Anzeige */
 .audit-number-display { margin-bottom: 6px; font-size: 0.9em; }
@@ -1272,7 +1293,7 @@ color: #7f8c8d; font-size: 0.85em;
 .progress-bar { height: 8px; }
 }
 
-/* === ANPASSUNGEN FÜR MITARbeiterLISTE CONTROLS === */
+/* MITARBEITERLISTE CONTROLS */
 #employeeListView .controls-row-1 {
 display: flex;
 gap: 6px;
@@ -1307,12 +1328,10 @@ color: white !important;
 #employeeListView .controls-row-1 .btn-authorization { background: #9b59b6; }
 #employeeListView .controls-row-1 .btn-danger { background: #e74c3c; }
 #employeeListView .controls-row-1 button:hover { opacity: 0.9; transform: translateY(-1px); }
-/* Mobile Ansicht */
 @media (max-width: 768px) {
 #employeeListView .controls-row-1 { gap: 3px; margin-bottom: 6px; padding-bottom: 6px; }
 #employeeListView .controls-row-1 button { padding: 6px 8px; font-size: 0.7em; height: 30px; min-width: 90px; }
 }
-/* Sehr kleine Displays */
 @media (max-width: 360px) {
 #employeeListView .controls-row-1 button {
 padding: 5px 6px;
@@ -1321,7 +1340,6 @@ height: 28px;
 min-width: 80px;
 }
 }
-/* FIX FÜR VERFAHREN-SPALTE AUF MOBILE */
 @media (max-width: 768px) {
 .employee-table td:nth-child(9),
 .employee-table th:nth-child(9) {
@@ -1331,7 +1349,6 @@ width: 180px !important;
 min-width: 180px !important;
 }
 }
-/* === BADGES - KEINE VERDUNKELUNG IM DARK MODE === */
 @media (prefers-color-scheme: dark) {
   [data-theme="dark"] .audit-cycle-1,
   [data-theme="dark"] .audit-cycle-2,
@@ -1348,13 +1365,11 @@ min-width: 180px !important;
   [data-theme="dark"] .proc-exp.warning,
   [data-theme="dark"] .proc-exp.expired,
   [data-theme="dark"] .proc-exp.needs-confirmation {
-    /* Original-Farben erzwingen - KEINE Verdunkelung */
     background: inherit !important;
     color: inherit !important;
     border-color: inherit !important;
   }
   
-  /* Explizite Farben für jeden Badge-Typ - exakt wie im Light Mode */
 [data-theme="dark"] .audit-cycle-1 { 
   background: #ffd8b0 !important; 
   color: #b84c00 !important; 
@@ -1416,20 +1431,76 @@ min-width: 180px !important;
   [data-theme="dark"] .proc-exp.expired { color: #721c24 !important; }
   [data-theme="dark"] .proc-exp.needs-confirmation { color: #ff9800 !important; }
 }
-/* NUR DIE SCHRIFT DER PW-BADGES SCHWARZ HALTEN */
 [data-theme="dark"] .pw-cert-link {
-    color: #000000 !important;  /* SCHWARZ für PW-Badges */
+    color: #000000 !important;
+}
+
+/* Verschlüsselte Card-ID Felder */
+.encrypted-field {
+  font-family: monospace;
+  background: #f9f9f9;
+  transition: all 0.2s;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+}
+.encrypted-field:focus {
+  background: #ffffff;
+  border-color: #3498db;
+  outline: none;
+}
+.card-signature-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 5px;
+  border: 2px solid #3498db;
+}
+.card-signature-section h4 {
+  margin-top: 0;
+  color: #2c3e50;
+  text-align: center;
+}
+.card-signature-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.card-signature-field {
+  flex: 2;
+  min-width: 200px;
+}
+.card-signature-name {
+  flex: 1;
+  min-width: 150px;
+}
+.card-signature-date {
+  flex: 1;
+  min-width: 120px;
+}
+.card-unlock-btn {
+  margin-top: 15px;
+  text-align: right;
+}
+.card-unlock-btn button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 </style>
 
-<!-- Neuer ausgelagerter Dark-Stylesheet: wird vom JS ein-/ausgeschaltet -->
+<!-- Dark Mode Stylesheet -->
 <style id="darkModeStyles" media="(prefers-color-scheme: dark)">
 body { background-color: #121212; color: #e0e0e0 !important; }
 .container { background: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: #e0e0e0 !important; }
 header { border-bottom-color: #444; }
 h1 { color: #ffffff !important; }
 .subtitle { color: #cccccc !important; }
-/* Theme Toggle (Dark-Override) */
 .theme-toggle {
   background: #2d2d2d !important;
   color: #e0e0e0 !important;
@@ -1492,14 +1563,9 @@ background: #2d2d2d; border-color: #444; color: #ffffff !important;
 .employee-table td { 
     border-bottom-color: #444; 
     color: #ffffff !important; 
-    background-color: #2a2a2a !important;  /* Heller als schwarz */
+    background-color: #2a2a2a !important;
 }
 .employee-table tr:hover { background: #2d2d2d; }
-.employee-table tr.expired { background: rgba(231, 76, 60, 0.2); }
-.employee-table tr.valid { background: rgba(39, 174, 96, 0.2); }
-.employee-table tr.warning { background: rgba(243, 156, 18, 0.2); }
-.employee-table tr.missing { background: rgba(149, 165, 166, 0.2); }
-.employee-table tr.needs-confirmation { background: rgba(255, 152, 0, 0.2); }
 .employee-search, .employee-filter { background: #333; border-color: #555; color: #ffffff !important; }
 .employee-search::placeholder { color: #888; }
 .stat-box { background: #2d2d2d; border-color: #444; }
@@ -1556,25 +1622,15 @@ footer { border-top-color: #444; color: #cccccc !important; }
 .audit-item-details { color: #d0d0d0 !important; }
 .audit-item-deviations { color: #ff6b6b !important; }
 .mark-reviewed-btn { color: white !important; }
-.status-valid { background: #155724 !important; color: #ffffff !important; }
-.status-expired { background: #721c24 !important; color: #ffffff !important; }
-.status-warning { background: #856404 !important; color: #ffffff !important; }
-.status-missing { background: #383d41 !important; color: #ffffff !important; }
-.status-needs-confirmation { background: #ff9800 !important; color: #000000 !important; }
-.procedure-valid { background: #d4edda !important; color: #000000 !important; }
-.procedure-expired { background: #f8d7da !important; color: #000000 !important; }
-.procedure-warning { background: #fff3cd !important; color: #000000 !important; }
-.procedure-needs-confirmation { background: #fff3cd !important; color: #000000 !important; border-color: #ff9800 !important; }
-/* Audit-Zyklus Badge - angepasst an Ablaufdatum-Badges */
 .audit-cycle-badge {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 3px 10px !important;  /* Gleiches Padding wie Ablaufdatum */
-    border-radius: 4px !important;  /* Gleicher Radius wie Ablaufdatum */
-    font-size: 0.9em !important;    /* Gleiche Schriftgröße wie Ablaufdatum */
+    padding: 3px 10px !important;
+    border-radius: 4px !important;
+    font-size: 0.9em !important;
     font-weight: bold !important;
-    height: auto !important;        /* Automatische Höhe wie Ablaufdatum */
+    height: auto !important;
     line-height: normal !important;
     min-width: 65px;
     cursor: help;
@@ -1635,12 +1691,10 @@ footer { border-top-color: #444; color: #cccccc !important; }
         <label for="employeeDepartment">Abteilung:</label>
         <input type="text" id="employeeDepartment" placeholder="Optional">
       </div>
-      <!-- Umbau: Zertifikat(e) -> Stempelnummer -->
       <div class="employee-form-group">
         <label for="employeeStampNumber">Stempelnummer:</label>
         <input type="text" id="employeeStampNumber" placeholder="z. B. PW-123 oder 4567">
       </div>
-      <!-- Verfahren + Stufe + Ablaufdatum -->
       <div class="employee-form-group">
         <label>Zertifikate / Verfahren (mit Stufe & Ablaufdatum):</label>
         <div class="proc-checkboxes">
@@ -1648,7 +1702,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
             <input type="checkbox" id="certET"> ET – Wirbelstrom
             <input type="text" class="proc-level" id="certETLevel" placeholder="Stufe (1-3/PW)" title="Stufe (1-3 oder PW)" style="display:none;">
             <input type="text" class="proc-date" id="certETExpiry" placeholder="TT.MM.JJJJ" style="display:none; margin-left:6px;">
-            <!-- NEU: Audit-Zyklus Checkbox für PW -->
             <label class="audit-cycle-checkbox" id="certETCycleLabel" style="display:none; margin-left:10px; font-size:0.8em;">
               <input type="checkbox" id="certETCycle"> Verlängerung
             </label>
@@ -1665,11 +1718,9 @@ footer { border-top-color: #444; color: #cccccc !important; }
             <input type="checkbox" id="certNE"> NE – Nital-Ätzen
             <input type="text" class="proc-level" id="certNELevel" placeholder="Stufe (1-3/PW)" title="Stufe (1-3 oder PW)" style="display:none;">
             <input type="text" class="proc-date" id="certNEExpiry" placeholder="TT.MM.JJJJ" style="display:none; margin-left:6px;">
-            <!-- NE 2/3: Automatisch 5 Jahre, keine Checkbox -->
- <span id="certNECycleInfo" style="display:none; margin-left:10px; font-size:0.8em; color:#2ecc71;">
+<span id="certNECycleInfo" style="display:none; margin-left:10px; font-size:0.8em; color:#2ecc71;">
   ✓ 5-Jahres-Audit (NE 2/3)
 </span>
-<!-- NEU: PW Verlängerungs-Checkbox für NE -->
 <label class="audit-cycle-checkbox" id="certNECycleLabel" style="display:none; margin-left:10px; font-size:0.8em;">
   <input type="checkbox" id="certNECycle"> Verlängerung
 </label>
@@ -1697,7 +1748,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
   </div>
 </div>
 
-<!-- NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG (PRÜFWERKER) -->
 <!-- NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG (PRÜFWERKER) -->
 <div id="practicalExperienceModal" class="practical-experience-modal">
   <div class="practical-experience-content">
@@ -1733,7 +1783,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
       <h3>5. Nachweise (Gesamtziel = 160 Stunden)</h3>
       <button class="btn-add-row" id="addExperienceRow">+ Neue Zeile</button>
       
-      <!-- Tabelle OHNE Card-ID Spalten -->
       <table id="experienceTable" style="width:100%; border-collapse:collapse; margin:15px 0;">
         <thead>
           <tr style="background:#f0f0f0;">
@@ -1745,7 +1794,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
           </tr>
         </thead>
         <tbody id="experienceTableBody">
-          <!-- Dynamisch befüllt -->
         </tbody>
       </table>
       <p class="total-hours"><strong>Gesamtsumme der betreuten Stunden: <span id="totalHours">0</span> / 160 h</strong></p>
@@ -1755,7 +1803,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
       <h3>6. Abschließende Bestätigung</h3>
       <p>Hiermit wird bestätigt, dass die betreute Praxisphase durchgeführt, die 160 Stunden praktische Erfahrung erreicht und die abschließende Beurteilung durch die Prüfaufsicht (Operator Audit) erfolgt ist.</p>
       
-      <!-- === PASSWORTFELD (WIRD NICHT GESPEICHERT) === -->
       <div style="margin: 20px 0; padding: 15px; background: #eef2f7; border-radius: 8px; border: 1px solid #3498db;">
         <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
           <div style="flex: 1; min-width: 250px;">
@@ -1769,12 +1816,10 @@ footer { border-top-color: #444; color: #cccccc !important; }
         </div>
       </div>
       
-      <!-- === CARD-ID FELDER MIT NAME UND DATUM IN EINER ZEILE === -->
       <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 5px; border: 1px solid #3498db;">
         <h4 style="margin-top: 0; color: #2c3e50;">🔒 Card-IDs der verantwortlichen Personen</h4>
         <p style="font-size: 0.9em; margin-bottom: 15px;">Die Card-IDs werden beim Speichern verschlüsselt abgelegt. Zum Anzeigen das Master-Passwort oben eingeben.</p>
         
-        <!-- Mitarbeiter -->
         <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;">
           <div style="flex: 2; min-width: 200px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">👤 Mitarbeiter Card-ID</label>
@@ -1790,7 +1835,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
           </div>
         </div>
         
-        <!-- Auditor -->
         <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;">
           <div style="flex: 2; min-width: 200px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">👤 Auditor Card-ID</label>
@@ -1806,7 +1850,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
           </div>
         </div>
         
-        <!-- Prüfaufsicht -->
         <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;">
           <div style="flex: 2; min-width: 200px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">👤 Prüfaufsicht Card-ID</label>
@@ -1870,6 +1913,7 @@ footer { border-top-color: #444; color: #cccccc !important; }
   </div>
 </header>
 <button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
+
 <!-- AUDIT AUSWAHL -->
 <div id="auditSelection" class="audit-selection active">
   <h2>Prüfverfahren auswählen:</h2>
@@ -1896,7 +1940,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
     </button>
   </div>
 
-  <!-- MITARBEITERLISTE BUTTON -->
   <div style="margin-top: 25px; text-align: center;">
     <button class="audit-btn employee-list-btn" id="employeeListBtn">
       <div class="btn-icon" style="font-size: 1.8em;">👥</div>
@@ -1911,12 +1954,16 @@ footer { border-top-color: #444; color: #cccccc !important; }
 
 <!-- AUDIT CONTENT -->
 <div id="auditContent" class="audit-content">
-  <!-- CONTROLS -->
+  <!-- CONTROLS MIT NEUEM PASSWORTFELD -->
   <div class="controls-row-audit">
     <button class="btn-back" id="backBtn">← Zurück</button>
     <button class="btn-export" id="exportBtn">💾 Save</button>
     <button class="btn-report" id="reportBtn">📊 Drucken</button>
     <button class="btn-danger" id="resetBtn">🗑️ Reset</button>
+    <div class="password-unlock-field">
+      <input type="password" id="headerPasswordInput" placeholder="Passwort" style="flex:1;">
+      <button id="headerUnlockBtn" style="background:#3498db;">🔓</button>
+    </div>
   </div>
 
   <!-- Sync INDICATOR -->
@@ -1924,34 +1971,52 @@ footer { border-top-color: #444; color: #cccccc !important; }
     <span id="syncIndicatorText">🔄 Synchronisiere mit Cloud...</span>
   </div>
 
-  <!-- KOPFDATEN DESKTOP -->
+  <!-- KOPFDATEN DESKTOP MIT NEUEN CARD-ID FELDERN -->
   <div class="header-section desktop-view" id="desktopHeaderSection">
     <h3>
-      <span>📄 Audit-Kopfdaten</span>
+      <span>📄 Audit-Kopfdaten mit Card-ID Signatur</span>
       <button class="toggle-header-btn" id="desktopToggleHeader">Ausblenden</button>
     </h3>
     <div class="header-content" id="desktopHeaderContent">
       <div class="header-grid">
-        <div class="header-group">
-          <h4>Operator</h4>
+        <div class="header-group compact">
+          <h4>👤 Operator</h4>
           <input type="text" class="header-input" id="operatorName" placeholder="Name">
           <input type="text" class="header-input" id="operatorNumber" placeholder="Mitarbeiter-Nr.">
           <input type="text" class="header-input" id="operatorCert" placeholder="Zertifikat">
           <input type="text" class="header-input" id="operatorDept" placeholder="Abteilung">
+          <div class="card-id-header-row">
+            <span class="card-id-header-label">Card-ID:</span>
+            <div class="card-id-header-field">
+              <input type="text" id="operatorCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" autocomplete="off">
+            </div>
+          </div>
         </div>
-        <div class="header-group">
-          <h4>Auditor (Level II)</h4>
+        <div class="header-group compact">
+          <h4>👤 Auditor (Level II)</h4>
           <input type="text" class="header-input" id="auditorName" placeholder="Name">
           <input type="text" class="header-input" id="auditorDept" placeholder="Abteilung">
           <input type="text" class="header-input" id="auditorCert" placeholder="Zertifikat">
           <input type="text" class="header-input" id="auditorPhone" placeholder="Telefon">
+          <div class="card-id-header-row">
+            <span class="card-id-header-label">Card-ID:</span>
+            <div class="card-id-header-field">
+              <input type="text" id="auditorCardIdHeader" class="encrypted-field" placeholder="●●●●●●●●" value="" autocomplete="off">
+            </div>
+          </div>
         </div>
-        <div class="header-group">
-          <h4>Supervisor (Level III)</h4>
+        <div class="header-group compact">
+          <h4>👤 Experte (Level III)</h4>
           <input type="text" class="header-input" id="approverName" placeholder="Name">
           <input type="text" class="header-input" id="approverDept" placeholder="Abteilung">
           <input type="text" class="header-input" id="approverCert" placeholder="Zertifikat">
           <input type="text" class="header-input" id="approverPhone" placeholder="Telefon">
+          <div class="card-id-header-row">
+            <span class="card-id-header-label">Card-ID:</span>
+            <div class="card-id-header-field">
+              <input type="text" id="expertCardIdHeader" class="encrypted-field" placeholder="●●●●●●●●" value="" autocomplete="off">
+            </div>
+          </div>
         </div>
         <div class="header-group">
           <h4>Prüfungsdetails</h4>
@@ -1965,34 +2030,52 @@ footer { border-top-color: #444; color: #cccccc !important; }
     </div>
   </div>
 
-  <!-- Mobile Kopfdaten -->
+  <!-- Mobile Kopfdaten MIT NEUEN CARD-ID FELDERN -->
   <div class="header-section mobile-view mobile-header-section collapsed" id="mobileHeaderSection">
     <h3>
-      <span>📄 Audit-Daten</span>
+      <span>📄 Audit-Daten mit Card-ID</span>
       <button class="toggle-header-btn" id="mobileToggleHeader">Einblenden</button>
     </h3>
     <div class="header-content" id="mobileHeaderContent">
       <div class="header-grid">
-        <div class="header-group">
+        <div class="header-group compact">
           <h4>Operator</h4>
           <input type="text" class="header-input" id="mobileOperatorName" placeholder="Name">
           <input type="text" class="header-input" id="mobileOperatorNumber" placeholder="Mitarbeiter-Nr.">
           <input type="text" class="header-input" id="mobileOperatorCert" placeholder="Zertifikat">
           <input type="text" class="header-input" id="mobileOperatorDept" placeholder="Abteilung">
+          <div class="card-id-header-row">
+            <span class="card-id-header-label">Card-ID:</span>
+            <div class="card-id-header-field">
+              <input type="text" id="mobileOperatorCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" autocomplete="off">
+            </div>
+          </div>
         </div>
-        <div class="header-group">
+        <div class="header-group compact">
           <h4>Auditor (Level II)</h4>
           <input type="text" class="header-input" id="mobileAuditorName" placeholder="Name">
           <input type="text" class="header-input" id="mobileAuditorDept" placeholder="Abteilung">
           <input type="text" class="header-input" id="mobileAuditorCert" placeholder="Zertifikat">
           <input type="text" class="header-input" id="mobileAuditorPhone" placeholder="Telefon">
+          <div class="card-id-header-row">
+            <span class="card-id-header-label">Card-ID:</span>
+            <div class="card-id-header-field">
+              <input type="text" id="mobileAuditorCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" autocomplete="off">
+            </div>
+          </div>
         </div>
-        <div class="header-group">
-          <h4>Freigeber (Level III)</h4>
+        <div class="header-group compact">
+          <h4>Experte (Level III)</h4>
           <input type="text" class="header-input" id="mobileApproverName" placeholder="Name">
           <input type="text" class="header-input" id="mobileApproverDept" placeholder="Abteilung">
           <input type="text" class="header-input" id="mobileApproverCert" placeholder="Zertifikat">
           <input type="text" class="header-input" id="mobileApproverPhone" placeholder="Telefon">
+          <div class="card-id-header-row">
+            <span class="card-id-header-label">Card-ID:</span>
+            <div class="card-id-header-field">
+              <input type="text" id="mobileExpertCardId" class="encrypted-field" placeholder="●●●●●●●●" value="" autocomplete="off">
+            </div>
+          </div>
         </div>
         <div class="header-group">
           <h4>Prüfungsdetails</h4>
@@ -2068,7 +2151,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
   <button class="btn-secondary" id="clearFiltersBtn">Filter löschen</button>
 </div>
   <div style="overflow-x: auto; margin-top: 10px; width: 100%; -webkit-overflow-scrolling: touch;">
-  <!-- ERsetze diesen Tabellen-Header -->
 <table id="employeeTable" class="employee-table">
 <thead>
   <tr>
@@ -2089,7 +2171,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
 </table>
   </div>
 <div class="stats-container" style="display:flex; gap:4px; flex-wrap: wrap; margin-top: 6px;">
-  <!-- Mitarbeiter-Statistiken -->
   <div class="stat-box" style="background: #d4edda; padding:6px 10px; border-radius:4px;">
     <div class="stat-value" id="statValid" style="font-weight:700; font-size:1.1em;">0</div>
     <div style="font-size:0.75em;">Audit Gültig</div>
@@ -2111,7 +2192,6 @@ footer { border-top-color: #444; color: #cccccc !important; }
     <div style="font-size:0.75em;">👥 Gesamt</div>
   </div>
   
-  <!-- Zertifikats-Statistiken -->
   <div class="stat-box" style="background: #c8e6c9; padding:6px 10px; border-radius:4px;">
     <div class="stat-value" id="statValidCerts" style="font-weight:700; font-size:1.1em;">0</div>
     <div style="font-size:0.75em;">📜 Gültige Zertifikate</div>
@@ -2164,7 +2244,143 @@ footer { border-top-color: #444; color: #cccccc !important; }
 
 <script>
 // PASWORD für Card-ID Anzeige (in Produktion durch sicheren Hash ersetzen)
-// MASTER-PASSWORD für Card-ID Anzeige
+const MASTER_PASSWORD = 'ZfP2026';
+
+// Globaler Status, ob die Felder entsperrt sind
+let cardsUnlocked = false;
+
+// ===== NEUE FUNKTIONEN FÜR VERSCHLÜSSELTE FELDER =====
+function initEncryptedFields(container = document) {
+  container.querySelectorAll('.encrypted-field').forEach(field => {
+    if (!field.getAttribute('data-original')) field.setAttribute('data-original', '');
+    field.removeEventListener('focus', handleEncryptedFieldFocus);
+    field.removeEventListener('blur', handleEncryptedFieldBlur);
+    field.removeEventListener('input', handleEncryptedFieldInput);
+    field.addEventListener('focus', handleEncryptedFieldFocus);
+    field.addEventListener('blur', handleEncryptedFieldBlur);
+    field.addEventListener('input', handleEncryptedFieldInput);
+    updateFieldDisplay(field);
+  });
+}
+
+function updateFieldDisplay(field) {
+  const original = field.getAttribute('data-original') || '';
+  if (cardsUnlocked) {
+    field.value = original;
+    field.type = 'text';
+    field.style.background = '#ffffff';
+    field.style.color = '#333';
+  } else {
+    field.value = original ? '••••••••' : '••••••••';
+    field.type = 'text';
+    field.style.background = '#f9f9f9';
+    field.style.color = '#666';
+  }
+}
+
+function handleEncryptedFieldFocus(e) {
+  const field = e.target;
+  if (!cardsUnlocked) {
+    field.value = '';
+    field.style.background = '#ffffff';
+    field.style.color = '#333';
+    return;
+  }
+  field.value = field.getAttribute('data-original') || '';
+}
+
+function handleEncryptedFieldBlur(e) {
+  const field = e.target;
+  if (field.value) field.setAttribute('data-original', field.value);
+  updateFieldDisplay(field);
+}
+
+function handleEncryptedFieldInput(e) {
+  e.target.setAttribute('data-original', e.target.value);
+}
+
+function unlockAllCardFields(containerSelector = 'body') {
+  const pwd = prompt('Master-Passwort eingeben:');
+  if (pwd === MASTER_PASSWORD) {
+    cardsUnlocked = true;
+    document.querySelectorAll(`${containerSelector} .encrypted-field`).forEach(f => updateFieldDisplay(f));
+    alert('✅ Card-IDs entsperrt');
+  } else {
+    alert('❌ Falsches Passwort');
+  }
+}
+
+function unlockCardFieldsWithPassword(password) {
+  if (password === MASTER_PASSWORD) {
+    cardsUnlocked = true;
+    document.querySelectorAll('.encrypted-field').forEach(f => updateFieldDisplay(f));
+    return true;
+  }
+  return false;
+}
+
+function lockAllCardFields() {
+  cardsUnlocked = false;
+  document.querySelectorAll('.encrypted-field').forEach(f => updateFieldDisplay(f));
+}
+
+// NEUE FUNKTION: Card-ID Felder im Header mit Daten füllen
+function populateHeaderCardIdsFromAuditData() {
+  if (!currentAuditData || !currentAuditData.signatureCards) return;
+  
+  const sc = currentAuditData.signatureCards;
+  
+  const operatorField = document.getElementById('operatorCardId');
+  if (operatorField) {
+    operatorField.setAttribute('data-original', sc.operatorCardId || '');
+    updateFieldDisplay(operatorField);
+  }
+  
+  const auditorField = document.getElementById('auditorCardIdHeader');
+  if (auditorField) {
+    auditorField.setAttribute('data-original', sc.auditorCardId || '');
+    updateFieldDisplay(auditorField);
+  }
+  
+  const expertField = document.getElementById('expertCardIdHeader');
+  if (expertField) {
+    expertField.setAttribute('data-original', sc.expertCardId || '');
+    updateFieldDisplay(expertField);
+  }
+  
+  const mobileOperator = document.getElementById('mobileOperatorCardId');
+  if (mobileOperator) {
+    mobileOperator.setAttribute('data-original', sc.operatorCardId || '');
+    updateFieldDisplay(mobileOperator);
+  }
+  
+  const mobileAuditor = document.getElementById('mobileAuditorCardId');
+  if (mobileAuditor) {
+    mobileAuditor.setAttribute('data-original', sc.auditorCardId || '');
+    updateFieldDisplay(mobileAuditor);
+  }
+  
+  const mobileExpert = document.getElementById('mobileExpertCardId');
+  if (mobileExpert) {
+    mobileExpert.setAttribute('data-original', sc.expertCardId || '');
+    updateFieldDisplay(mobileExpert);
+  }
+}
+
+// NEUE FUNKTION: Card-ID Daten aus Header sammeln
+function collectHeaderCardIds() {
+  const getValue = (id) => {
+    const field = document.getElementById(id);
+    return field ? field.getAttribute('data-original') || '' : '';
+  };
+  
+  return {
+    operatorCardId: getValue('operatorCardId') || getValue('mobileOperatorCardId'),
+    auditorCardId: getValue('auditorCardIdHeader') || getValue('mobileAuditorCardId'),
+    expertCardId: getValue('expertCardIdHeader') || getValue('mobileExpertCardId')
+  };
+}
+
 // Aktualisierte setupPracticalExperienceEventListeners
 function setupPracticalExperienceEventListeners() {
   document.getElementById('addExperienceRow')?.addEventListener('click', addExperienceRow);
@@ -2175,204 +2391,27 @@ function setupPracticalExperienceEventListeners() {
   });
   
   document.getElementById('closePracticalProof')?.addEventListener('click', () => {
+    lockAllCardFields();
     document.getElementById('practicalExperienceModal').style.display = 'none';
     currentPracticalEmployeeId = null;
     currentPracticalProcedure = null;
   });
   
-  // Entsperren-Button
-  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', unlockAllCardFields);
+  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', () => unlockAllCardFields('#practicalExperienceModal'));
   
-  // Passwortfeld: Enter-Taste und spezielle Behandlung
-  const passwordField = document.getElementById('globalPassword');
-  if (passwordField) {
-    passwordField.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        unlockAllCardFields();
-      }
-    });
-    
-    // Passwort-Feld speziell behandeln
-    passwordField.type = 'password';
-  }
+  document.getElementById('globalPassword')?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      unlockAllCardFields('#practicalExperienceModal');
+    }
+  });
   
-  // Stunden-Listener
   attachHoursInputListeners();
-  
-  // Verschlüsselte Felder initialisieren
-  setTimeout(() => {
-    initEncryptedFields();
-    setupPasswordField();
-  }, 100);
+  initEncryptedFields();
 }
 
-// Separater Aufruf beim Laden des Modals
-function openPracticalExperienceProof(employeeId, procedure, level) {
-  const employee = employees.find(e => e.id === employeeId);
-  if (!employee) {
-    showInfoModal('❌ Mitarbeiter nicht gefunden');
-    return;
-  }
-  
-  currentPracticalEmployeeId = employeeId;
-  currentPracticalProcedure = procedure;
-  
-  // Titel anpassen
-  const procedureNames = {
-    'wirbelstrom': 'Wirbelstromprüfung',
-    'magnetpulver': 'Magnetpulverprüfung',
-    'nital': 'HN03-Ätzprüfung',
-    'ultraschall': 'Ultraschallprüfung'
-  };
-  const procName = procedureNames[procedure] || procedure;
-  document.getElementById('practicalExperienceTitle').textContent = 
-    `für die Beurteilung der ${procName}`;
-  
-  // Mitarbeiternamen setzen
-  document.getElementById('employeeNameConfirm').value = employee.name || '';
-  
-  // Gespeicherte Daten laden
-  const savedData = loadPracticalExperienceProof(employeeId, procedure);
-  renderPracticalExperienceTable(savedData);
-  
-  // Passwortfeld leeren und als Passwort-Feld sichern
-  const passwordField = document.getElementById('globalPassword');
-  if (passwordField) {
-    passwordField.value = '';
-    passwordField.type = 'password';
-  }
-  
-  // Modal anzeigen
-  document.getElementById('practicalExperienceModal').style.display = 'flex';
-}
-// Funktion zum Entfernen einer Zeile
-function removeExperienceRow(index) {
-  if (confirm('Diese Zeile wirklich löschen?')) {
-    const rows = document.querySelectorAll('#experienceTableBody tr');
-    if (index >= 0 && index < rows.length) {
-      rows[index].remove();
-      // Indizes neu nummerieren
-      const remainingRows = document.querySelectorAll('#experienceTableBody tr');
-      remainingRows.forEach((row, newIndex) => {
-        row.querySelectorAll('input').forEach(input => {
-          input.dataset.index = newIndex;
-        });
-        const weekInput = row.querySelector('.week-input');
-        if (weekInput && !weekInput.value) {
-          weekInput.value = newIndex + 1;
-        }
-      });
-      updateTotalHours();
-    }
-  }
-}
-
-// Daten sammeln
-function collectPracticalExperienceData() {
-  const rows = [];
-  document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
-    rows.push({
-      week: tr.querySelector('.week-input')?.value || '',
-      hours: tr.querySelector('.hours-input')?.value || '',
-      evaluations: tr.querySelector('.evaluations-input')?.value || '',
-      comment: tr.querySelector('.comment-input')?.value || ''
-    });
-  });
-  
-  // Card-ID Werte aus den data-original Attributen holen
-  const getCardValue = (id) => {
-    const field = document.getElementById(id);
-    return field ? (field.getAttribute('data-original') || '') : '';
-  };
-  
-  return {
-    rows: rows,
-    employeeName: document.getElementById('employeeNameConfirm')?.value || '',
-    employeeDate: document.getElementById('employeeDateConfirm')?.value || '',
-    employeeCardId: getCardValue('employeeCardId'),
-    auditorName: document.getElementById('auditorNameConfirm')?.value || '',
-    auditorDate: document.getElementById('auditorDateConfirm')?.value || '',
-    auditorCardId: getCardValue('auditorCardId'),
-    expertName: document.getElementById('expertNameConfirm')?.value || '',
-    expertDate: document.getElementById('expertDateConfirm')?.value || '',
-    expertCardId: getCardValue('expertCardId'),
-    totalHours: document.getElementById('totalHours')?.textContent || '0'
-  };
-}
-
-// Event-Listener für Stunden-Inputs
-function attachHoursInputListeners() {
-  document.querySelectorAll('.hours-input').forEach(input => {
-    input.removeEventListener('input', updateTotalHours);
-    input.addEventListener('input', updateTotalHours);
-  });
-}
-
-// Gesamtsumme aktualisieren
-function updateTotalHours() {
-  const hourInputs = document.querySelectorAll('.hours-input');
-  let total = 0;
-  hourInputs.forEach(input => {
-    const val = parseFloat(input.value);
-    if (!isNaN(val)) total += val;
-  });
-  document.getElementById('totalHours').textContent = total.toFixed(1);
-  
-  // Prüfwerker-Icon aktualisieren (wird in der Mitarbeiterliste gerendert)
-  if (currentPracticalEmployeeId && currentPracticalProcedure) {
-    const employee = employees.find(e => e.id === currentPracticalEmployeeId);
-    if (employee) {
-      // Hier wird nur die Anzeige aktualisiert, wenn die Tabelle neu gerendert wird
-      // Die eigentliche Icon-Änderung erfolgt beim Speichern
-    }
-  }
-}
-
-/* ========= THEME FUNKTIONEN ========= */
-function getSavedTheme() {
-return localStorage.getItem('zfp-theme-preference'); // 'light' | 'dark' | null
-}
-
-function updateToggleAppearance() {
-  const btn = document.getElementById('themeToggleBtn');
-  if (!btn) return;
-  btn.textContent = '🌓'; // Immer das gleiche Symbol
-}
-
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  const darkEl = document.getElementById('darkModeStyles');
-  if (darkEl) {
-    if (theme === 'dark') darkEl.media = 'all';
-    else if (theme === 'light') darkEl.media = 'not all';
-    else darkEl.media = '(prefers-color-scheme: dark)';
-  }
-  document.body.classList.toggle('dark-mode', theme === 'dark');
-  document.body.classList.toggle('light-mode', theme === 'light');
-  updateToggleAppearance(); // Symbol bleibt gleich, nur Hintergrund ändert sich
-}
-
-function initThemeToggle() {
-  const saved = getSavedTheme();
-  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = saved || (systemDark ? 'dark' : 'light');
-  applyTheme(initial);
-  
-  const btn = document.getElementById('themeToggleBtn');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
-      const next = current === 'dark' ? 'light' : 'dark';
-localStorage.setItem('zfp-theme-preference', next);
-      applyTheme(next);
-    });
-  }
-}
-
-/* === SUPABASE KONFIGURATION === */
+// ===== SUPABASE KONFIGURATION =====
 const SUPABASE_URL = 'https://wqrynlgbspkjzxuxauvq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_jkkaIcAKxMhkXSdnJY1Oiw_U-xPWr68';
-const SUPABASE_PASSWORD = 'ZfPReviewAudit';
 let supabase;
 let cloudConnected = false;
 let cloudSyncInProgress = false;
@@ -2422,20 +2461,17 @@ const AUDIT_TYPES = {
   }
 };
 
-// NEU: Audit-Zyklus-Konstanten
 const AUDIT_CYCLES = {
-  STANDARD: 1,      // 1 Jahr für Level 1/2/3 (außer NE 2/3)
-  NE_2_3: 5,        // 5 Jahre für NE 2 oder 3
-  PW_STANDARD: 4,   // 4 Jahre für PW (Standard)
-  PW_EXTENDED: 4    // 4 Jahre für PW (mit Haken)
+  STANDARD: 1,
+  NE_2_3: 5,
+  PW_STANDARD: 4,
+  PW_EXTENDED: 4
 };
 
-// === FUNKTION ZUR BERECHNUNG DES NÄCHSTEN AUDIT-DATUMS ===
 function calculateNextAuditDate(lastAuditDateStr, auditCycleYears) {
     if (!lastAuditDateStr || lastAuditDateStr === '—' || lastAuditDateStr === '') return 'k.A.';
     
     try {
-        // Datum parsen (TT.MM.JJJJ)
         const parts = lastAuditDateStr.split('.');
         if (parts.length !== 3) return 'ungültiges Datum';
         
@@ -2446,11 +2482,9 @@ function calculateNextAuditDate(lastAuditDateStr, auditCycleYears) {
         const lastAuditDate = new Date(year, month, day);
         if (isNaN(lastAuditDate.getTime())) return 'ungültiges Datum';
         
-        // Nächstes Audit-Datum berechnen (letztes Audit + Zyklus-Jahre)
         const nextAuditDate = new Date(lastAuditDate);
         nextAuditDate.setFullYear(nextAuditDate.getFullYear() + auditCycleYears);
         
-        // Formatieren als TT.MM.JJJJ
         const nextDay = nextAuditDate.getDate().toString().padStart(2, '0');
         const nextMonth = (nextAuditDate.getMonth() + 1).toString().padStart(2, '0');
         const nextYear = nextAuditDate.getFullYear();
@@ -2598,11 +2632,9 @@ let employeeSearchFilter = '';
 let statusFilter = 'all';
 let departmentFilter = 'all';
 
-// NEU: Aktueller Mitarbeiter und Verfahren für praktische Erfahrung
 let currentPracticalEmployeeId = null;
 let currentPracticalProcedure = null;
 
-// Audit-Überprüfungsstatus
 let auditReviews = {};
 
 // === SUPABASE FUNKTIONEN ===
@@ -2671,7 +2703,6 @@ async function backgroundSync() {
         try { procedureCerts = emp.procedure_certs ? JSON.parse(emp.procedure_certs) : defaultProcedureCerts(); } catch (e) { procedureCerts = defaultProcedureCerts(); }
         ['wirbelstrom','magnetpulver','nital','ultraschall'].forEach(k => { if (!procedureCerts[k].level) procedureCerts[k].level = ''; });
         
-        // NEU: Praktische Erfahrung laden
         let practicalExperience = {};
         try { practicalExperience = emp.practical_experience ? JSON.parse(emp.practical_experience) : {}; } catch (e) { practicalExperience = {}; }
         
@@ -2692,7 +2723,7 @@ async function backgroundSync() {
           audits: audits,
           authorizations: authorizations,
           procedureCerts: procedureCerts,
-          practicalExperience: practicalExperience, // NEU
+          practicalExperience: practicalExperience,
           status: emp.status || 'missing',
           activityConfirmed: emp.activity_confirmed || false
         };
@@ -2763,7 +2794,6 @@ async function createSupabaseTables() {
   }
 }
 
-// === CLOUD-FUNKTIONEN (deaktivierte Report/Autorisierung Uploads) ===
 async function saveReportToCloud() { return false; }
 async function saveAuthorizationToCloud() { return false; }
 
@@ -2796,7 +2826,7 @@ async function syncSingleEmployeeToCloud(employee) {
     const auditsJson = employee.audits ? JSON.stringify(employee.audits) : '[]';
     const authorizationsJson = employee.authorizations ? JSON.stringify(employee.authorizations) : '[]';
     const procedureCertsJson = employee.procedureCerts ? JSON.stringify(employee.procedureCerts) : JSON.stringify(defaultProcedureCerts());
-    const practicalExperienceJson = employee.practicalExperience ? JSON.stringify(employee.practicalExperience) : '{}'; // NEU
+    const practicalExperienceJson = employee.practicalExperience ? JSON.stringify(employee.practicalExperience) : '{}';
     
     const empData = {
       id: employee.id,
@@ -2820,11 +2850,11 @@ async function syncSingleEmployeeToCloud(employee) {
       procedure_certs: procedureCertsJson,
       stamp_number: employee.stampNumber || '',
       activity_confirmed: employee.activityConfirmed || false,
-      practical_experience: practicalExperienceJson // NEU
+      practical_experience: practicalExperienceJson
     };
     let res = await supabase.from('zfp_employees').upsert(empData, { onConflict: 'id' });
     if (res.error) {
-      const { stamp_number, practical_experience, ...fallback } = empData; // NEU: practical_experience entfernt bei Fallback
+      const { stamp_number, practical_experience, ...fallback } = empData;
       res = await supabase.from('zfp_employees').upsert(fallback, { onConflict: 'id' });
       if (res.error) return false;
     }
@@ -2921,7 +2951,6 @@ async function saveToCloud(auditData) {
   }
 }
 
-// === LOKALE DATEN LÖSCHEN FUNKTION ===
 async function deleteLocalData() {
   const shouldDelete = await showCustomModal('ALLE lokalen Daten löschen?\n\nDies löscht:\n• Alle Audits\n• Alle Mitarbeiter\n• Alle Einstellungen\n\nDie Cloud-Daten bleiben erhalten.');
   if (!shouldDelete) return;
@@ -2947,7 +2976,6 @@ async function deleteLocalData() {
   }
 }
 
-// === CLOUD UI FUNKTIONEN ===
 function updateCloudStatus() {
   const statusElement = document.getElementById('cloudStatus');
   if (statusElement) {
@@ -2961,17 +2989,13 @@ function updateCloudStatus() {
   }
 }
 
-// === NEUE AUDIT-ZYKLUS FUNKTIONEN ===
 function calculateAuditCycle(procedure, level, extendedCycle = false) {
-  // NE 2 oder NE 3: 5 Jahre
   if (procedure === "nital" && (level === "2" || level === "3")) {
     return AUDIT_CYCLES.NE_2_3;
   }
-  // Prüfwerker (PW): 2 oder 4 Jahre
   if (level === "PW") {
     return extendedCycle ? AUDIT_CYCLES.PW_EXTENDED : AUDIT_CYCLES.PW_STANDARD;
   }
-  // Alle anderen Level 1/2/3: 1 Jahr
   return AUDIT_CYCLES.STANDARD;
 }
 
@@ -2987,14 +3011,13 @@ function getAuditCycleDisplay(years) {
 
 function needsActivityConfirmation(lastAuditDate, auditCycleYears) {
   if (auditCycleYears !== AUDIT_CYCLES.PW_STANDARD && auditCycleYears !== AUDIT_CYCLES.PW_EXTENDED) {
-    return false; // Nur für PW relevant
+    return false;
   }
   
   const today = new Date();
   const auditDate = new Date(lastAuditDate);
   const yearsSinceAudit = (today - auditDate) / (1000 * 60 * 60 * 24 * 365);
   
-  // Nach 2 Jahren Tätigkeitsbestätigung nötig
   return yearsSinceAudit >= 2;
 }
 
@@ -3009,7 +3032,6 @@ function calculateStatus(lastAuditDate, auditCycleYears, activityConfirmed = fal
   const nextDue = calculateNextAuditDue(lastAuditDate, auditCycleYears);
   const daysUntilExpiry = Math.floor((nextDue - today) / (1000 * 60 * 60 * 24));
   
-  // Check für Tätigkeitsbestätigung bei PW
   if ((auditCycleYears === AUDIT_CYCLES.PW_STANDARD || auditCycleYears === AUDIT_CYCLES.PW_EXTENDED) && 
       needsActivityConfirmation(lastAuditDate, auditCycleYears) && !activityConfirmed) {
     return 'needs-confirmation';
@@ -3020,13 +3042,13 @@ function calculateStatus(lastAuditDate, auditCycleYears, activityConfirmed = fal
   return 'valid';
 }
 
-// === UTILITY FUNKTIONEN ===
 function daysBetween(d1, d2) {
   const msPerDay = 1000 * 60 * 60 * 24;
   const a = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
   const b = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
   return Math.floor((b - a) / msPerDay);
 }
+
 function defaultProcedureCerts() {
   return {
     wirbelstrom:  { enabled: false, expiry: '', level: '', extendedCycle: false, lastAuditDate: '' },
@@ -3035,6 +3057,7 @@ function defaultProcedureCerts() {
     ultraschall:  { enabled: false, expiry: '', level: '', extendedCycle: false, lastAuditDate: '' }
   };
 }
+
 function parseGermanDate(dateStr) {
   if (!dateStr) return null;
   const parts = dateStr.split('.');
@@ -3046,6 +3069,7 @@ function parseGermanDate(dateStr) {
   }
   return null;
 }
+
 function formatGermanDate(date) {
   if (!date) return '';
   const d = new Date(date);
@@ -3055,11 +3079,11 @@ function formatGermanDate(date) {
   const year = d.getFullYear();
   return `${day}.${month}.${year}`;
 }
+
 function normalizeNumber(value) {
   return value === null || value === undefined ? '' : String(value).trim().toLowerCase();
 }
 
-// === PRÜFPROTOKOLLNUMMER ===
 function updateReportNumberDisplays(nr) {
   const text = nr && nr.trim() ? nr : 'wird generiert…';
   const el1 = document.getElementById('reportNumberDisplay');
@@ -3067,6 +3091,7 @@ function updateReportNumberDisplays(nr) {
   if (el1) el1.textContent = text;
   if (el2) el2.textContent = text;
 }
+
 function ensureReportNumber(auditData) {
   if (!auditData) return;
   const hd = auditData.headerData || {};
@@ -3083,18 +3108,17 @@ function ensureReportNumber(auditData) {
   updateReportNumberDisplays(auditData.headerData.reportNumber);
 }
 
-// === MATCH AUDIT -> EMPLOYEE ===
 function matchesAuditToEmployee(audit, employee) {
   const auditNum = normalizeNumber(audit.headerData?.operatorNumber);
   const empNum = normalizeNumber(employee.number);
   if (!auditNum || !empNum) return false;
   return auditNum === empNum;
 }
+
 function findEmployeeForAudit(auditData) {
   return employees.find(emp => matchesAuditToEmployee(auditData, emp)) || null;
 }
 
-// === MODAL FUNKTIONEN ===
 function showCustomModal(message) {
   return new Promise((resolve) => {
     const modal = document.getElementById('customModal');
@@ -3108,10 +3132,12 @@ function showCustomModal(message) {
     customModalResolve = resolve;
   });
 }
+
 function closeCustomModal() {
   document.getElementById('customModal').style.display = 'none';
   customModalResolve = null;
 }
+
 function showInfoModal(message, timeout = 1500) {
   const modal = document.getElementById('customModal');
   const confirmBtn = document.getElementById('modalConfirmBtn');
@@ -3127,7 +3153,6 @@ function showInfoModal(message, timeout = 1500) {
   }, timeout);
 }
 
-// === MITARBEITERLISTE ===
 async function loadEmployees() {
   try {
     const saved = localStorage.getItem('zfpEmployees');
@@ -3137,7 +3162,7 @@ async function loadEmployees() {
       if (!emp.eyeTestDate) emp.eyeTestDate = '';
       if (!emp.certNumber) emp.certNumber = '';
       if (!emp.authorizations) emp.authorizations = [];
-      if (!emp.practicalExperience) emp.practicalExperience = {}; // NEU
+      if (!emp.practicalExperience) emp.practicalExperience = {};
       if (!emp.procedureCerts) {
         emp.procedureCerts = emp.certificate
           ? parseProcedureCertsFallback(emp.certificate)
@@ -3156,7 +3181,6 @@ async function loadEmployees() {
   }
 }
 
-// NEUE FUNKTION: Alle vorhandenen Abteilungen aus den Mitarbeiterdaten sammeln
 function getUniqueDepartments() {
   const departments = new Set();
   
@@ -3169,7 +3193,6 @@ function getUniqueDepartments() {
   return Array.from(departments).sort((a, b) => a.localeCompare(b, 'de'));
 }
 
-// NEUE FUNKTION: Department-Dropdown aktualisieren
 function updateDepartmentFilterOptions() {
   const deptFilter = document.getElementById('departmentFilter');
   if (!deptFilter) return;
@@ -3202,7 +3225,7 @@ async function saveEmployees() {
     employees.forEach(emp => { if (!emp.updated) emp.updated = now; });
     localStorage.setItem('zfpEmployees', JSON.stringify(employees));
     updateEmployeeStatus();
-    updateDepartmentFilterOptions(); // WICHTIG: Nach dem Speichern Dropdown aktualisieren
+    updateDepartmentFilterOptions();
     if (cloudConnected && !cloudSyncInProgress) {
       for (const emp of employees) {
         emp.updated = emp.updated || now;
@@ -3213,6 +3236,7 @@ async function saveEmployees() {
     console.error('Fehler beim Speichern der Mitarbeiter:', e);
   }
 }
+
 async function loadAuditReviews() {
   try {
     const saved = localStorage.getItem('zfpAuditReviews');
@@ -3221,6 +3245,7 @@ async function loadAuditReviews() {
     auditReviews = {};
   }
 }
+
 async function saveAuditReviews() {
   try {
     localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
@@ -3237,25 +3262,25 @@ async function saveAuditReviews() {
     }
   } catch (e) {}
 }
+
 async function markAuditAsReviewed(auditId) {
   auditReviews[auditId] = { reviewed: true, reviewedDate: new Date().toISOString() };
   await saveAuditReviews();
 }
+
 async function unmarkAuditAsReviewed(auditId) {
   delete auditReviews[auditId];
   await saveAuditReviews();
 }
+
 function isAuditReviewed(auditId) { return auditReviews[auditId]?.reviewed || false; }
 
 function addAuditToEmployee(employee, audit) {
-  // Nur speichern wenn das Audit vollständig ist?
   const auditDate = audit.meta?.created ? new Date(audit.meta.created) : new Date();
   
-  // Prüfen ob das Audit überhaupt Fragen hat und ob diese beantwortet sind
   const questions = audit.questions || [];
   const answeredQuestions = questions.filter(q => q.verdict !== null).length;
   
-  // Nur als Audit zählen wenn mindestens eine Frage beantwortet wurde
   if (answeredQuestions === 0) return;
   
   const expiryDate = new Date(auditDate);
@@ -3276,11 +3301,8 @@ function addAuditToEmployee(employee, audit) {
     daysUntilExpiry,
     instanceId: audit.meta?.instanceId,
     hasDeviations: hasAuditDeviations(audit),
-    isComplete: answeredQuestions === questions.length // Nur vollständige Audits?
+    isComplete: answeredQuestions === questions.length
   };
-
-  // Nur speichern wenn das Audit vollständig ist (optional)
-  // if (!entry.isComplete) return;
 
   employee.audits = employee.audits || [];
   const idx = employee.audits.findIndex(a => a.instanceId === entry.instanceId);
@@ -3290,10 +3312,12 @@ function addAuditToEmployee(employee, audit) {
     employee.audits.push(entry);
   }
 }
+
 function hasAuditDeviations(audit) {
   if (!audit.questions || !Array.isArray(audit.questions)) return false;
   return audit.questions.some(q => q.verdict === 'not-ok');
 }
+
 function updateEmployeeStatusFromAudits(employee) {
   if (employee.audits && employee.audits.length > 0) {
     employee.audits.sort((a, b) => b.date - a.date);
@@ -3313,14 +3337,15 @@ function updateEmployeeStatusFromAudits(employee) {
     employee.status = 'missing';
   }
 }
+
 function updateEmployeeStatus() {
   const total = employees.length;
   const valid = employees.filter(e => e.status === 'valid').length;
   const el = document.getElementById('employeeStatus');
   if (el) el.textContent = `${valid}/${total}`;
 }
+
 function updateStatistics(filteredEmployees) {
-  // Bestehende Mitarbeiter-Statistiken
   const total = filteredEmployees.length;
   const valid = filteredEmployees.filter(e => e.status === 'valid').length;
   const expired = filteredEmployees.filter(e => e.status === 'expired').length;
@@ -3333,7 +3358,6 @@ function updateStatistics(filteredEmployees) {
   document.getElementById('statWarning').textContent = warning;
   document.getElementById('statMissing').textContent = missing;
   
-  // NEUE Zertifikats-Statistiken
   let validCerts = 0;
   let warningCerts = 0;
   let expiredCerts = 0;
@@ -3362,7 +3386,6 @@ function updateStatistics(filteredEmployees) {
     });
   });
   
-  // Neue Elemente erstellen falls nicht vorhanden
   if (!document.getElementById('statValidCerts')) {
     const statsContainer = document.querySelector('.stats-container');
     if (statsContainer) {
@@ -3383,7 +3406,6 @@ function updateStatistics(filteredEmployees) {
     }
   }
   
-  // Werte setzen
   const validCertsEl = document.getElementById('statValidCerts');
   const warningCertsEl = document.getElementById('statWarningCerts');
   const expiredCertsEl = document.getElementById('statExpiredCerts');
@@ -3393,7 +3415,6 @@ function updateStatistics(filteredEmployees) {
   if (expiredCertsEl) expiredCertsEl.textContent = expiredCerts;
 }
 
-// === AUDIT-DATEIEN LADEN/Save ===
 async function loadAuditFiles() {
   employeeAudits = [];
   Object.keys(AUDIT_TYPES).forEach(auditType => {
@@ -3446,6 +3467,7 @@ async function loadAuditFiles() {
   updateProcedureProgress();
  updateAllAuditProgressDisplays();
 }
+
 async function updateEmployeeAudits() {
   employees.forEach(employee => {
     employee.audits = [];
@@ -3467,6 +3489,7 @@ async function updateEmployeeAudits() {
   });
   renderEmployeeList();
 }
+
 function updateProcedureProgress() {
   Object.keys(AUDIT_TYPES).forEach(type => {
     const auditsForType = employeeAudits.filter(a => a.auditType === type);
@@ -3478,13 +3501,11 @@ function updateProcedureProgress() {
   });
 }
 
-// === MITARBEITERLISTE RENDERING ===
 function renderEmployeeList() {
   const tbody = document.getElementById('employeeTableBody');
   tbody.innerHTML = '';
   let filteredEmployees = employees;
 
-  // Sortierung Nachname, dann Vorname
   filteredEmployees = [...filteredEmployees].sort((a, b) => {
     const nameA = String(a.name || '').trim().replace(',', ' ');
     const nameB = String(b.name || '').trim().replace(',', ' ');
@@ -3516,7 +3537,6 @@ function renderEmployeeList() {
     );
   }
   if (statusFilter !== 'all') filteredEmployees = filteredEmployees.filter(emp => emp.status === statusFilter);
-  // Filtern nach Abteilung
   if (departmentFilter !== 'all') {
     filteredEmployees = filteredEmployees.filter(emp => {
       const empDept = (emp.department || '').trim();
@@ -3532,7 +3552,7 @@ function renderEmployeeList() {
 
   filteredEmployees.forEach(employee => {
     const row = document.createElement('tr');
-    row.className = ''; // Keine Klassen für die ganze Zeile
+    row.className = '';
     const statusMap = {
       valid: ['✅ Gültig', 'status-valid'],
       expired: ['❌ Abgelaufen', 'status-expired'],
@@ -3552,7 +3572,6 @@ let proceduresHTML = '<div style="display: flex; flex-direction: column; gap: 4p
 const pc = employee.procedureCerts || defaultProcedureCerts();
 const order = ['wirbelstrom','magnetpulver','nital','ultraschall'];
 
-// Sammle Daten für nächste Audits
 let nextAuditsData = [];
 
 order.forEach(k => {
@@ -3566,7 +3585,6 @@ order.forEach(k => {
     const extendedCycle = cfg.extendedCycle || false;
     const activityConfirmed = employee.activityConfirmed || false;
     
-    // Status für das Ablaufdatum berechnen
     const expiryDate = parseGermanDate(expStr);
     let expiryStatus = 'unknown';
     let expBg = '#f8f9fa';
@@ -3578,19 +3596,16 @@ order.forEach(k => {
         const diffDays = Math.floor((expiryDate - today) / (1000 * 60 * 60 * 24));
         
         if (diffDays < 0) {
-            // Abgelaufen - ROT
             expiryStatus = 'expired';
             expBg = '#f8d7da';
             expColor = '#721c24';
             expBorder = '#f5c6cb';
         } else if (diffDays <= 180) {
-            // Fällig innerhalb 6 Monate - GELB
             expiryStatus = 'warning';
             expBg = '#fff3cd';
             expColor = '#856404';
             expBorder = '#ffeeba';
         } else {
-            // Gültig - GRÜN
             expiryStatus = 'valid';
             expBg = '#d4edda';
             expColor = '#155724';
@@ -3603,11 +3618,9 @@ order.forEach(k => {
     );
     const levelText = level ? `-${level}` : '';
     
-    // Audit-Zyklus berechnen
     const auditCycle = calculateAuditCycle(k, level, extendedCycle);
     const cycleDisplay = getAuditCycleDisplay(auditCycle);
     
-    // Füge zur nächste-Audits Liste hinzu
     nextAuditsData.push({
         short: short,
         level: level,
@@ -3617,11 +3630,7 @@ order.forEach(k => {
         cycleDisplay: cycleDisplay
     });
     
- // Verfahren und Ablaufdatum in einer Zeile
-// Prüfwerker-Link für PW-Level
-// Prüfwerker-Link für PW-Level
 if (level === 'PW') {
-    // Prüfen, ob 160 Stunden erreicht sind
     const practicalData = employee.practicalExperience && employee.practicalExperience[k];
     const totalHours = practicalData ? parseFloat(practicalData.totalHours || 0) : 0;
     const icon = totalHours >= 160 ? '✅' : '📋';
@@ -3636,7 +3645,6 @@ if (level === 'PW') {
     </div>
     `;
 } else {
-    // Normale Anzeige für Nicht-PW
     proceduresHTML += `
     <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <span style="display: inline-block; padding: 3px 5px; background: ${hasCompletedAudit ? '#d4edda' : '#e9ecef'}; color: ${hasCompletedAudit ? '#155724' : '#333'}; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; font-size: 0.9em; white-space: nowrap;">
@@ -3653,7 +3661,6 @@ if (!order.some(k => pc[k]?.enabled)) {
 }
 proceduresHTML += '</div>';
 
-// Erstelle nächste-Audits Anzeige - BADGES IN GLEICHER REIHENFOLGE WIE VERFAHREN
 let nextAuditsHTML = '<div style="display: flex; flex-direction: column; gap: 4px;">'; 
 if (nextAuditsData.length > 0) {
     order.forEach(k => {
@@ -3671,29 +3678,21 @@ if (nextAuditsData.length > 0) {
         const auditCycle = calculateAuditCycle(k, level, extendedCycle);
         const cycleDisplay = getAuditCycleDisplay(auditCycle);
         
-        // HOLEN DES LETZTEN AUDIT-DATUMS AUS DER EMPLOYEE-AUDIT-LISTE
-        // HOLEN DES LETZTEN AUDIT-DATUMS - NUR AUS ECHTEN AUDITS
-// HOLEN DES LETZTEN AUDIT-DATUMS - MIT NORMALISIERUNG
 let lastAuditDateStr = '';
 
-// Normalisiere Verfahrensname für Vergleich
 const procedureKey = k.toLowerCase().trim();
 const procedureShort = AUDIT_TYPES[k]?.short?.toLowerCase() || '';
 
 if (employeeAudits && employeeAudits.length > 0 && employee.number) {
     const empNumber = employee.number.toString().trim().toLowerCase();
     
-    // Alle Audits für diesen Mitarbeiter
     const relevantAudits = employeeAudits.filter(audit => {
-        // Prüfe Personalnummer
         const auditNumber = audit.headerData?.operatorNumber?.toString().trim().toLowerCase() || '';
         if (auditNumber !== empNumber) return false;
         
-        // Prüfe Verfahren auf verschiedene Weisen
         const auditType = (audit.auditType || '').toLowerCase().trim();
         const auditInfo = audit.info?.short?.toLowerCase() || '';
         
-        // Vergleiche mit verschiedenen möglichen Bezeichnungen
         return auditType === procedureKey || 
                auditType === procedureShort ||
                auditInfo === procedureKey ||
@@ -3709,7 +3708,6 @@ if (employeeAudits && employeeAudits.length > 0 && employee.number) {
     });
     
     if (relevantAudits.length > 0) {
-        // Sortieren nach Datum
         relevantAudits.sort((a, b) => {
             const dateA = a.meta?.created ? new Date(a.meta.created) : new Date(0);
             const dateB = b.meta?.created ? new Date(b.meta.created) : new Date(0);
@@ -3725,11 +3723,7 @@ if (employeeAudits && employeeAudits.length > 0 && employee.number) {
         }
     }
 }
-
-// Debug-Ausgabe
-console.log(`Mitarbeiter ${employee.name}, Verfahren ${k} (${procedureKey}): ${lastAuditDateStr || 'kein Audit'}`);
         
-        // Tooltip zeigt NUR das letzte Audit-Datum
         nextAuditsHTML += `
             <div class="audit-cycle-badge-container ${status}">
                 <span class="audit-cycle-badge ${cycleDisplay.class}" 
@@ -3748,7 +3742,6 @@ nextAuditsHTML += '</div>';
     }
     proceduresHTML += '</div>';
 
-   // In der row.innerHTML-Zuweisung, so sollte es aussehen:
 row.innerHTML = `
 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
 <td><strong>${employee.name || ''}</strong>${employee.department ? `<br><small>${employee.department}</small>` : ''}</td>
@@ -3762,7 +3755,6 @@ row.innerHTML = `
 <td style="text-align: center; vertical-align: middle;">${nextAuditsHTML}</td>
 <td>
     <div class="employee-actions" style="display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto;">
-      <!-- Buttons bleiben gleich -->
       <button class="employee-action-btn edit" data-id="${employee.id}" title="Mitarbeiterdaten bearbeiten" style="padding: 4px 6px; background: #3498db; color: white; border: none; border-radius: 3px; cursor: help; font-size: 0.75em; min-width: 30px;">✏️</button>
       <button class="employee-action-btn audits" data-id="${employee.id}" title="Alle Audits dieses Mitarbeiters anzeigen" style="padding: 4px 6px; background: #9b59b6; color: white; border: none; border-radius: 3px; cursor: help; font-size: 0.75em; min-width: 30px;">📊</button>
       <button class="employee-action-btn authorization" data-id="${employee.id}" title="Offizielle Autorisierung als PDF erstellen" style="padding: 4px 6px; background: #2ecc71; color: white; border: none; border-radius: 3px; cursor: help; font-size: 0.75em; min-width: 30px;">📋</button>
@@ -3792,7 +3784,6 @@ row.innerHTML = `
     };
   });
   
-  // NEU: Event-Listener für Prüfwerker-Links
   document.querySelectorAll('.pw-cert-link').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -3804,29 +3795,24 @@ row.innerHTML = `
     });
   });
   
-// Event-Listener für den DGZFP-Button
 tbody.querySelectorAll('.employee-action-btn.verify').forEach(btn => {
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
     const employeeId = this.dataset.id;
     
-    // Mitarbeiter finden
     const employee = employees.find(emp => emp.id === employeeId);
     if (!employee) {
       showInfoModal('❌ Mitarbeiter nicht gefunden');
       return;
     }
     
-    // Nachnamen extrahieren (ORIGINAL mit Großbuchstaben/Umlauten beibehalten)
     let lastName = '';
     if (employee.name) {
-      // Erster Teil des Namens (vor erstem Leerzeichen/Komma)
-      const cleanName = employee.name.split(',')[0]; // Falls "Nachname, Vorname" Format
+      const cleanName = employee.name.split(',')[0];
       const nameParts = cleanName.split(/\s+/);
       lastName = nameParts[0] || employee.name;
     }
     
-    // Zertifikatsnummer
     const certNumber = employee.certNumber || '';
     
     if (!lastName || !certNumber) {
@@ -3834,22 +3820,17 @@ tbody.querySelectorAll('.employee-action-btn.verify').forEach(btn => {
       return;
     }
     
-    // KORREKTER LINK: Pfad-Format mit originaler Schreibweise
     const url = `https://www.dgzfp.de/Zertifizierung/ZertifikatVerifizierung/name/${encodeURIComponent(lastName)}/nr/${encodeURIComponent(certNumber)}`;
     
-    // Debug: URL in Konsole anzeigen
     console.log('DGZFP Verifizierung URL:', url);
     
-    // In neuem Tab öffnen
     window.open(url, '_blank', 'noopener,noreferrer');
     
-    // Kurze Info
     showInfoModal(`🔗 DGZFP für ${lastName} geöffnet`, 1200);
   });
 });
 }
 
-// === NEUE FUNKTION: PRAKTISCHE ERFAHRUNG ÖFFNEN ===
 function openPracticalExperienceProof(employeeId, procedure, level) {
   const employee = employees.find(e => e.id === employeeId);
   if (!employee) {
@@ -3860,7 +3841,6 @@ function openPracticalExperienceProof(employeeId, procedure, level) {
   currentPracticalEmployeeId = employeeId;
   currentPracticalProcedure = procedure;
   
-  // Titel anpassen je nach Verfahren
   const procedureNames = {
     'wirbelstrom': 'Wirbelstromprüfung',
     'magnetpulver': 'Magnetpulverprüfung',
@@ -3871,23 +3851,18 @@ function openPracticalExperienceProof(employeeId, procedure, level) {
   document.getElementById('practicalExperienceTitle').textContent = 
     `für die Beurteilung der ${procName}`;
   
-  // Mitarbeiternamen in Bestätigungsfeld setzen
   document.getElementById('employeeNameConfirm').value = employee.name || '';
   
-  // Gespeicherte Daten laden
   const savedData = loadPracticalExperienceProof(employeeId, procedure);
   renderPracticalExperienceTable(savedData);
   
-  // Modal anzeigen
   document.getElementById('practicalExperienceModal').style.display = 'flex';
 }
 
-// NEU: Tabelle für praktische Erfahrung rendern
 function renderPracticalExperienceTable(data) {
   const tbody = document.getElementById('experienceTableBody');
   tbody.innerHTML = '';
   
-  // Standard-Zeilen (5 leere Zeilen)
   const rows = data && data.rows && data.rows.length > 0 ? data.rows : [
     { week: '1', hours: '', evaluations: '', comment: '' },
     { week: '2', hours: '', evaluations: '', comment: '' },
@@ -3908,26 +3883,21 @@ function renderPracticalExperienceTable(data) {
     tbody.appendChild(tr);
   });
   
-  // Gesamtsumme berechnen
   updateTotalHours();
   
-  // Card-ID Daten laden
   if (data) {
-    // Mitarbeiter
     document.getElementById('employeeNameConfirm').value = data.employeeName || '';
     document.getElementById('employeeDateConfirm').value = data.employeeDate || '';
     const empCardField = document.getElementById('employeeCardId');
     empCardField.setAttribute('data-original', data.employeeCardId || '');
     empCardField.value = cardsUnlocked ? (data.employeeCardId || '') : '••••••••';
     
-    // Auditor
     document.getElementById('auditorNameConfirm').value = data.auditorName || '';
     document.getElementById('auditorDateConfirm').value = data.auditorDate || '';
     const audCardField = document.getElementById('auditorCardId');
     audCardField.setAttribute('data-original', data.auditorCardId || '');
     audCardField.value = cardsUnlocked ? (data.auditorCardId || '') : '••••••••';
     
-    // Prüfaufsicht
     document.getElementById('expertNameConfirm').value = data.expertName || '';
     document.getElementById('expertDateConfirm').value = data.expertDate || '';
     const expCardField = document.getElementById('expertCardId');
@@ -3936,7 +3906,6 @@ function renderPracticalExperienceTable(data) {
   }
 }
 
-// NEU: Gesamtsumme der Stunden berechnen
 function updateTotalHours() {
   const hourInputs = document.querySelectorAll('.hours-input');
   let total = 0;
@@ -3947,7 +3916,6 @@ function updateTotalHours() {
   document.getElementById('totalHours').textContent = total.toFixed(1);
 }
 
-// NEU: Zeile hinzufügen
 function addExperienceRow() {
   const tbody = document.getElementById('experienceTableBody');
   const rowCount = tbody.children.length;
@@ -3963,17 +3931,14 @@ function addExperienceRow() {
   `;
   tbody.appendChild(tr);
   
-  // Event-Listener für Stunden-Inputs aktualisieren
   attachHoursInputListeners();
 }
 
-// NEU: Zeile entfernen
 function removeExperienceRow(index) {
   if (confirm('Diese Zeile wirklich löschen?')) {
     const rows = document.querySelectorAll('#experienceTableBody tr');
     if (index >= 0 && index < rows.length) {
       rows[index].remove();
-      // Indizes neu nummerieren
       const remainingRows = document.querySelectorAll('#experienceTableBody tr');
       remainingRows.forEach((row, newIndex) => {
         row.querySelectorAll('input').forEach(input => {
@@ -3989,7 +3954,6 @@ function removeExperienceRow(index) {
   }
 }
 
-// NEU: Event-Listener für Stunden-Inputs
 function attachHoursInputListeners() {
   document.querySelectorAll('.hours-input').forEach(input => {
     input.removeEventListener('input', updateTotalHours);
@@ -3997,7 +3961,6 @@ function attachHoursInputListeners() {
   });
 }
 
-// NEU: Daten aus Tabelle sammeln
 function collectPracticalExperienceData() {
   const rows = [];
   document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
@@ -4009,7 +3972,6 @@ function collectPracticalExperienceData() {
     rows.push({ week, hours, evaluations, comment });
   });
   
-  // Card-ID Werte aus data-original holen
   const getCardValue = (id) => {
     const field = document.getElementById(id);
     return field ? (field.getAttribute('data-original') || '') : '';
@@ -4030,7 +3992,6 @@ function collectPracticalExperienceData() {
   };
 }
 
-// NEU: Daten speichern
 async function savePracticalExperienceProof() {
   if (!currentPracticalEmployeeId || !currentPracticalProcedure) {
     showInfoModal('❌ Kein Mitarbeiter oder Verfahren ausgewählt');
@@ -4045,14 +4006,12 @@ async function savePracticalExperienceProof() {
     employee.practicalExperience[currentPracticalProcedure] = data;
     await saveEmployees();
     
-    // Nach dem Speichern die Tabelle aktualisieren
     renderEmployeeList();
     
     showInfoModal('✅ Praktische Erfahrung gespeichert');
   }
 }
 
-// NEU: Daten laden
 function loadPracticalExperienceProof(employeeId, procedure) {
   const employee = employees.find(e => e.id === employeeId);
   if (employee && employee.practicalExperience && employee.practicalExperience[procedure]) {
@@ -4122,7 +4081,7 @@ function createAuthorizationFromEmployee(employeeId) {
 
   validAudits.forEach(audit => {
     if (!authorizedProcedures.some(p => p.type === audit.auditType)) {
-      const level = (pc[audit.auditType]?.level || '').toUpperCase(); // 1/2/3/PW
+      const level = (pc[audit.auditType]?.level || '').toUpperCase();
       authorizedProcedures.push({
         type: audit.auditType,
         title: AUDIT_TYPES[audit.auditType]?.title || audit.auditType,
@@ -4136,6 +4095,7 @@ function createAuthorizationFromEmployee(employeeId) {
 
   showAuthorizationFromEmployeeData(employee, tempHeaderData, authorizedProcedures);
 }
+
 function showAuthorizationFromEmployeeData(employee, headerData, authorizedProcedures) {
   if (authorizedProcedures.length === 0) {
     showInfoModal('❌ Keine autorisierbaren Verfahren gefunden!');
@@ -4253,10 +4213,8 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
         <div style="font-size:8.8pt; color:#666 !important; margin-bottom:8px; text-align:left; font-style:italic;">
           <i>The above-mentioned employee is authorized to perform the following non-destructive testing procedures!</i>
         </div>`}
-        <!-- Zweispaltige Verfahren -->
         <div class="auth-proc-grid" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 10px; align-items:start;">
           ${authorizedProcedures.map(proc => {
-            // KEINE Stufe in der Verfahrensliste anzeigen
             return `
             <div style="padding:6px 8px; margin:0; background:#f0f0f0; border-radius:2px; font-size:9pt; border-left:3px solid #3498db; text-align:left;">
               • ${proc.title} (${proc.short})
@@ -4300,7 +4258,6 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
     </div>
   </div>`}
 
-  <!-- Kompakter Stempelblock -->
   <div style="text-align:center; margin:${stampMarginTop} auto 0 auto; width:100%; box-sizing:border-box; margin-bottom:0;">
     <div style="display:inline-block; min-width:60mm; border:2px solid #2c3e50; border-radius:6px; padding:6px 10px; font-family:Arial, sans-serif; font-size:9pt; color:#2c3e50; background:white; line-height:1.2;">
       <div style="font-weight:bold; text-align:center; margin-bottom:5px; font-size:10pt;">AUTORISIERUNG ERTEILT</div>
@@ -4335,6 +4292,7 @@ ${authorizationHTML}
   document.getElementById('authorizationOverlay').style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
+
 async function showAuditListForEmployee(employeeId) {
   const employee = employees.find(e => e.id === employeeId);
   if (!employee) return;
@@ -4458,7 +4416,6 @@ function ensureEmployeeFromHeader(headerData) {
   return emp;
 }
 
-// === CLOUD-LÖSCHEN EINZELNES AUDIT ===
 async function deleteAuditFromCloud(instanceId) {
   if (!cloudConnected || !instanceId) return false;
   try {
@@ -4471,7 +4428,6 @@ async function deleteAuditFromCloud(instanceId) {
   }
 }
 
-// === EINZELNES AUDIT LÖSCHEN ===
 async function deleteAuditInstance(instanceId) {
   let removed = false;
   Object.keys(AUDIT_TYPES).forEach(type => {
@@ -4542,95 +4498,56 @@ function cloneAuditForExport(auditData) {
   return snapshot;
 }
 
-// === INITIALISIERUNG ===
+function getSavedTheme() { return localStorage.getItem('zfp-theme-preference'); }
+function updateToggleAppearance() { document.getElementById('themeToggleBtn').textContent = '🌓'; }
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const darkEl = document.getElementById('darkModeStyles');
+  if (darkEl) {
+    if (theme === 'dark') darkEl.media = 'all';
+    else if (theme === 'light') darkEl.media = 'not all';
+    else darkEl.media = '(prefers-color-scheme: dark)';
+  }
+  document.body.classList.toggle('dark-mode', theme === 'dark');
+  document.body.classList.toggle('light-mode', theme === 'light');
+  updateToggleAppearance();
+}
+function initThemeToggle() {
+  const saved = getSavedTheme();
+  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = saved || (systemDark ? 'dark' : 'light');
+  applyTheme(initial);
+  document.getElementById('themeToggleBtn').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('zfp-theme-preference', next);
+    applyTheme(next);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
   initThemeToggle();
   await initSupabase();
   initializeApp();
   setupEventListeners();
-  setupPracticalExperienceEventListeners(); // NEU
+  setupPracticalExperienceEventListeners();
+  
+  document.getElementById('headerUnlockBtn').addEventListener('click', function() {
+    const password = document.getElementById('headerPasswordInput').value;
+    if (unlockCardFieldsWithPassword(password)) {
+      document.getElementById('headerPasswordInput').value = '';
+      setTimeout(() => { alert('✅ Card-IDs entsperrt'); }, 100);
+    } else {
+      alert('❌ Falsches Passwort');
+    }
+  });
+  
+  document.getElementById('headerPasswordInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      document.getElementById('headerUnlockBtn').click();
+    }
+  });
 });
-
-// Aktualisierte setupPracticalExperienceEventListeners
-function setupPracticalExperienceEventListeners() {
-  document.getElementById('addExperienceRow')?.addEventListener('click', addExperienceRow);
-  
-  document.getElementById('savePracticalProof')?.addEventListener('click', async () => {
-    await savePracticalExperienceProof();
-    document.getElementById('practicalExperienceModal').style.display = 'none';
-  });
-  
-  document.getElementById('closePracticalProof')?.addEventListener('click', () => {
-    document.getElementById('practicalExperienceModal').style.display = 'none';
-    currentPracticalEmployeeId = null;
-    currentPracticalProcedure = null;
-  });
-  
-  // Entsperren-Button
-  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', unlockAllCardFields);
-  
-  // Passwortfeld: Enter-Taste und spezielle Behandlung
-  const passwordField = document.getElementById('globalPassword');
-  if (passwordField) {
-    passwordField.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        unlockAllCardFields();
-      }
-    });
-    
-    // Passwort-Feld speziell behandeln
-    passwordField.type = 'password';
-  }
-  
-  // Stunden-Listener
-  attachHoursInputListeners();
-  
-  // Verschlüsselte Felder initialisieren
-  setTimeout(() => {
-    initEncryptedFields();
-    setupPasswordField();
-  }, 100);
-}
-
-// Separater Aufruf beim Laden des Modals
-function openPracticalExperienceProof(employeeId, procedure, level) {
-  const employee = employees.find(e => e.id === employeeId);
-  if (!employee) {
-    showInfoModal('❌ Mitarbeiter nicht gefunden');
-    return;
-  }
-  
-  currentPracticalEmployeeId = employeeId;
-  currentPracticalProcedure = procedure;
-  
-  // Titel anpassen
-  const procedureNames = {
-    'wirbelstrom': 'Wirbelstromprüfung',
-    'magnetpulver': 'Magnetpulverprüfung',
-    'nital': 'HN03-Ätzprüfung',
-    'ultraschall': 'Ultraschallprüfung'
-  };
-  const procName = procedureNames[procedure] || procedure;
-  document.getElementById('practicalExperienceTitle').textContent = 
-    `für die Beurteilung der ${procName}`;
-  
-  // Mitarbeiternamen setzen
-  document.getElementById('employeeNameConfirm').value = employee.name || '';
-  
-  // Gespeicherte Daten laden
-  const savedData = loadPracticalExperienceProof(employeeId, procedure);
-  renderPracticalExperienceTable(savedData);
-  
-  // Passwortfeld leeren und als Passwort-Feld sichern
-  const passwordField = document.getElementById('globalPassword');
-  if (passwordField) {
-    passwordField.value = '';
-    passwordField.type = 'password';
-  }
-  
-  // Modal anzeigen
-  document.getElementById('practicalExperienceModal').style.display = 'flex';
-}
 
 function initializeApp() {
   loadAllAuditData();
@@ -4642,7 +4559,7 @@ function initializeApp() {
   loadAuditFiles();
   renderEmployeeList();
   updateEmployeeStatus();
-  updateDepartmentFilterOptions(); // WICHTIG: Beim Start Dropdown füllen
+  updateDepartmentFilterOptions();
 
   document.getElementById('modalConfirmBtn').addEventListener('click', function() {
     if (customModalResolve) customModalResolve(true);
@@ -4699,7 +4616,6 @@ function initializeApp() {
     proc.nital.enabled        = getChecked('certNE');
     proc.nital.expiry         = proc.nital.enabled ? getVal('certNEExpiry') : '';
     proc.nital.level          = proc.nital.enabled ? normalizeLevel(getVal('certNELevel')) : '';
-    // NE 2/3 hat automatisch 5 Jahre, keine Checkbox
     
     proc.ultraschall.enabled  = getChecked('certUT');
     proc.ultraschall.expiry   = proc.ultraschall.enabled ? getVal('certUTExpiry') : '';
@@ -4752,7 +4668,7 @@ function initializeApp() {
         updated: now,
         audits: [],
         authorizations: [],
-        practicalExperience: {}, // NEU
+        practicalExperience: {},
         status: 'missing'
       };
       employees.push(newEmployee);
@@ -4774,7 +4690,7 @@ function initializeApp() {
 
     updateEmployeeAudits();
     renderEmployeeList();
- updateDepartmentFilterOptions(); // WICHTIG: Nach dem Speichern Dropdown aktualisieren
+    updateDepartmentFilterOptions();
     document.getElementById('employeeModal').style.display = 'none';
     currentEmployeeEditId = null;
 
@@ -4882,7 +4798,7 @@ function setupEventListeners() {
       const customModalEl = document.getElementById('customModal');
       const employeeModalEl = document.getElementById('employeeModal');
       const auditListModalEl = document.getElementById('auditListModal');
-      const practicalModalEl = document.getElementById('practicalExperienceModal'); // NEU
+      const practicalModalEl = document.getElementById('practicalExperienceModal');
       const cloudSyncModalEl = document.getElementById('cloudSyncModal');
       const reportOverlay = document.getElementById('reportOverlay');
       const authorizationOverlay = document.getElementById('authorizationOverlay');
@@ -4897,7 +4813,7 @@ function setupEventListeners() {
         auditListModalEl.style.display = 'none';
         currentAuditListEmployeeId = null;
       }
-      if (practicalModalEl && practicalModalEl.style.display === 'flex') { // NEU
+      if (practicalModalEl && practicalModalEl.style.display === 'flex') {
         lockAllCardFields();
         practicalModalEl.style.display = 'none';
         currentPracticalEmployeeId = null;
@@ -4971,6 +4887,7 @@ function setupGlobalEventListeners() {
     }
   });
 }
+
 function printFullAuthorization() {
   const authorizationContainer = document.getElementById('authorizationContainer');
   let printContent = authorizationContainer.innerHTML;
@@ -4984,104 +4901,6 @@ function printFullAuthorization() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* NEUE STYLES FÜR DIE NÄCHSTES-AUDIT SPALTE */
-.next-audit-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.next-audit-procedure {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: #f8f9fa;
-    font-size: 0.8em;
-    border-left: 3px solid #ddd;
-}
-
-.next-audit-procedure.expired {
-    background: #fff0f0;
-    border-left-color: #e74c3c;
-}
-
-.next-audit-procedure.warning {
-    background: #fff3cd;
-    border-left-color: #f39c12;
-}
-
-.next-audit-procedure.valid {
-    background: #f0fff4;
-    border-left-color: #27ae60;
-}
-
-.next-audit-procedure.needs-confirmation {
-    background: #fff8e1;
-    border-left-color: #ff9800;
-}
-
-.next-audit-procedure .short {
-    font-weight: bold;
-    min-width: 40px;
-    color: #2c3e50;
-}
-
-.next-audit-date {
-    font-weight: bold;
-    color: #2c3e50;
-    flex: 1;
-    text-align: right;
-    padding-right: 8px;
-}
-
-/* Audit-Zyklus Badge - nur in der Nächstes-Audit Spalte */
-.next-audit-procedure .audit-cycle-badge {
-    display: inline-block;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.7em;
-    font-weight: bold;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-.audit-cycle-2 { background: #fff3e0; color: #f57c00; border: 1px solid #ffcc80; }
-.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
-.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
-
-/* ENTFERNE Audit-Zyklus-Badges aus der Verfahrens-Spalte */
-.proc-cert-row .audit-cycle-badge {
-    display: none !important;
-}
-/* Mobile Ansicht anpassen */
-@media (max-width: 768px) {
-    .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
-        width: 180px !important; 
-        min-width: 180px !important; 
-    }
-    
-    .next-audit-procedure {
-        padding: 3px 6px;
-        font-size: 0.75em;
-    }
-    
-    .next-audit-procedure .short {
-        min-width: 35px;
-    }
-    
-    .next-audit-date {
-        font-size: 0.9em;
-    }
-    
-    .next-audit-procedure .audit-cycle-badge {
-        font-size: 0.65em;
-        padding: 1px 4px;
-    }
-}
 *{margin:0;padding:0;box-sizing:border-box;}
 @page{size:A4 portrait;12mm 8mm 12mm 11mm !important;}
 body{
@@ -5128,9 +4947,7 @@ ${printContent}
   w.document.close();
   setTimeout(()=>{ w.focus(); w.print(); setTimeout(()=>{ if(!w.closed) w.close(); },3000); }, 250);
 }
-// ===========================================
-// KORRIGIERTE DRUCK-FUNKTION - IHR CSS BLEIBT ERHALTEN!
-// ===========================================
+
 function printFullReport() {
   console.log("✅ Druckfunktion wird ausgeführt...");
   
@@ -5140,13 +4957,10 @@ function printFullReport() {
     return;
   }
 
-  // 1. IHREN ORIGINAL-BERICHTsinhalt holen
   let printContent = reportContainer.innerHTML;
   
-  // 2. Action-Buttons entfernen
   printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
 
-  // 3. IHREN ORIGINAL-FOOTER (wie in Ihrer Funktion)
   const footerHTML = `
     <div class="report-footer">
       <table class="report-footer-table">
@@ -5160,16 +4974,13 @@ function printFullReport() {
 
   printContent += footerHTML;
 
-  // 4. Logo-URL korrigieren (HTTP -> HTTPS)
   printContent = printContent.replace(
     'src="http://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"',
     'src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"'
   );
 
-  // 5. Neues Fenster öffnen
   const w = window.open('', '_blank');
   
-  // 6. IHR KOMPLETTES ORIGINAL-CSS + Inhalt
   w.document.write(`<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -5177,105 +4988,6 @@ function printFullReport() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZfP Audit Bericht - Schaeffler</title>
   <style>
-/* IHR KOMPLETTES ORIGINAL-CSS AUS IHRER FUNKTION */
-.next-audit-cell,
-.last-audit-cell,
-.proc-cert-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.audit-cycle-badge-container,
-.last-audit-row,
-.proc-cert-row {
-    display: flex;
-    align-items: center;
-    height: 24px;
-    margin-bottom: 2px !important;
-}
-
-.audit-cycle-badge-container:last-child,
-.last-audit-row:last-child,
-.proc-cert-row:last-child {
-    margin-bottom: 0 !important;
-}
-
-.next-audit-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.audit-cycle-badge-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 24px;
-    padding: 0;
-}
-
-.audit-cycle-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.7em;
-    font-weight: bold;
-    background: #e3f2fd;
-    color: #1565c0;
-    border: 1px solid #90caf9;
-    cursor: help;
-    min-width: 60px;
-    height: 16px;
-    line-height: 1;
-    white-space: nowrap;
-}
-
-.audit-cycle-1 { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
-.audit-cycle-2 { background: #fff3e0; color: #f57c00; border-color: #ffcc80; }
-.audit-cycle-4 { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
-.audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
-
-.proc-cert-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.proc-cert-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 4px;
-    background: #F0FFF0;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    height: 24px;
-    min-height: 24px;
-}
-
-@media (max-width: 768px) {
-    .audit-cycle-badge-container {
-        height: 22px;
-        margin-bottom: 2px;
-    }
-    
-    .audit-cycle-badge {
-        font-size: 0.65em;
-        padding: 1px 4px;
-        min-width: 50px;
-        height: 16px;
-    }
-    
-    .proc-cert-row {
-        height: 22px;
-        min-height: 22px;
-        padding: 3px 4px;
-    }
-}
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
     @page { size: A4 portrait; margin: 12mm !important; }
     body {
@@ -5308,211 +5020,39 @@ function printFullReport() {
     .report-footer { position: fixed; left: 8mm; right: 8mm; bottom: 0mm; margin: 0; padding-top: 1mm; border-top: 0.5px solid #ccc; font-size: 7.5pt; color: #444 !important; background: white !important; }
     .report-footer-table { width: 100%; border-collapse: collapse; }
     .report-footer-table td { border: none; padding: 0 3px; text-align: center; vertical-align: middle; background: none; font-size: 7.5pt !important; color: #444 !important; }
-
-/* === MOBILE TABELLEN-FIXES - IHR ORIGINAL-CSS === */
-@media (max-width: 768px) {
-  .employee-table {
-    display: block !important;
-    width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    border-collapse: collapse !important;
-  }
-  
-  .employee-table thead,
-  .employee-table tbody,
-  .employee-table tr {
-    display: table !important;
-    width: 100% !important;
-    table-layout: fixed !important;
-  }
-  
-  .employee-table th,
-  .employee-table td {
-    padding: 8px 4px !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
-    vertical-align: middle !important;
-  }
-  
-  .employee-table th:nth-child(1), .employee-table td:nth-child(1) { width: 65px !important; min-width: 65px !important; }
-  .employee-table th:nth-child(2), .employee-table td:nth-child(2) { width: 100px !important; min-width: 100px !important; }
-  .employee-table th:nth-child(3), .employee-table td:nth-child(3) { width: 70px !important; min-width: 70px !important; }
-  .employee-table th:nth-child(4), .employee-table td:nth-child(4) { width: 60px !important; min-width: 60px !important; }
-  .employee-table th:nth-child(5), .employee-table td:nth-child(5) { width: 40px !important; min-width: 40px !important; text-align: center !important; }
-  .employee-table th:nth-child(6), .employee-table td:nth-child(6) { width: 70px !important; min-width: 70px !important; }
-  .employee-table th:nth-child(7), .employee-table td:nth-child(7) { width: 60px !important; min-width: 60px !important; }
-  .employee-table th:nth-child(8), .employee-table td:nth-child(8) { width: 60px !important; min-width: 60px !important; }
-  .employee-table th:nth-child(9), .employee-table td:nth-child(9) { 
-    width: 140px !important; 
-    min-width: 140px !important; 
-    white-space: nowrap !important;
-  }
-  .employee-table th:nth-child(10), .employee-table td:nth-child(10) { 
-    width: 70px !important; 
-    min-width: 70px !important; 
-    text-align: center !important;
-  }
-  .employee-table th:nth-child(11), .employee-table td:nth-child(11) { 
-    width: 180px !important;
-    min-width: 180px !important; 
-  }
-
-  .proc-cert-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    width: 100% !important;
-  }
-  
-  .proc-cert-row {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    padding: 2px 4px !important;
-    background: #F0FFF0 !important;
-    border-radius: 3px !important;
-    border: 1px solid #ddd !important;
-    box-sizing: border-box !important;
-    font-size: 0.7em !important;
-    white-space: nowrap !important;
-  }
-  
-  .proc-cert-row span:first-child {
-    flex: 0 0 auto !important;
-    font-weight: bold !important;
-    margin-right: 4px !important;
-  }
-  
-  .proc-cert-row span:last-child {
-    flex: 0 0 auto !important;
-    text-align: right !important;
-    font-size: 0.9em !important;
-  }
-  
-  .next-audit-cell {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    width: 100% !important;
-  }
-  
-  .audit-cycle-badge-container {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-  }
-  
-  .audit-cycle-badge {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 2px 4px !important;
-    border-radius: 8px !important;
-    font-size: 0.65em !important;
-    font-weight: bold !important;
-    min-width: 45px !important;
-    white-space: nowrap !important;
-    height: 18px !important;
-    line-height: 1 !important;
-  }
-  
-  .employee-actions {
-    display: flex !important;
-    gap: 2px !important;
-    flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    width: 100% !important;
-  }
-  
-  .employee-action-btn {
-    flex: 0 0 auto !important;
-    padding: 4px 3px !important;
-    min-width: 28px !important;
-    height: 26px !important;
-    font-size: 0.65em !important;
-    text-align: center !important;
-    border-radius: 3px !important;
-    border: none !important;
-    cursor: pointer !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  .employee-action-btn.edit { background: #3498db !important; }
-  .employee-action-btn.audits { background: #9b59b6 !important; }
-  .employee-action-btn.authorization { background: #2ecc71 !important; }
-  .employee-action-btn.verify { background: #f39c12 !important; color: white !important; }
-  .employee-action-btn.delete { background: #e74c3c !important; }
-}
-
-/* === DARK MODE FIXES - IHR ORIGINAL-CSS === */
-[data-theme="dark"] .employee-table td:last-child {
-  background: #2a2a2a !important;
-}
-
-[data-theme="dark"] .employee-action-btn {
-  background: #3a3a3a !important;
-  color: white !important;
-  border: 1px solid #555 !important;
-}
-
-[data-theme="dark"] .employee-action-btn.edit { background: #2980b9 !important; }
-[data-theme="dark"] .employee-action-btn.audits { background: #8e44ad !important; }
-[data-theme="dark"] .employee-action-btn.authorization { background: #27ae60 !important; }
-[data-theme="dark"] .employee-action-btn.verify { background: #f39c12 !important; color: #000 !important; }
-[data-theme="dark"] .employee-action-btn.delete { background: #c0392b !important; }
-
-.employee-table th {
-  background: #34495e !important;
-  color: white !important;
-  font-weight: bold !important;
-  white-space: nowrap !important;
-  padding: 8px 4px !important;
-  font-size: 0.75em !important;
-}
-
-[data-theme="dark"] .employee-table td {
-  background-color: #2a2a2a !important;
-  color: #e0e0e0 !important;
-  border-bottom: 1px solid #444 !important;
-}
-
-[data-theme="dark"] .proc-cert-row {
-  background: #2d2d2d !important;
-  border-color: #555 !important;
-}
-
-[data-theme="dark"] .proc-cert-row span {
-  color: #e0e0e0 !important;
-}
-
-[data-theme="dark"] .audit-cycle-1 { 
-  background: #fff3e0 !important; 
-  color: #e65100 !important; 
-  border-color: #ffb74d !important; 
-}
-[data-theme="dark"] .audit-cycle-2 { 
-  background: #fff3e0 !important; 
-  color: #f57c00 !important; 
-  border-color: #ffcc80 !important; 
-}
-[data-theme="dark"] .audit-cycle-4 { 
-  background: #e3f2fd !important; 
-  color: #1565c0 !important; 
-  border-color: #90caf9 !important; 
-}
-[data-theme="dark"] .audit-cycle-5 { 
-  background: #daf2d1 !important; 
-  color: black !important; 
-  border-color: #2e7d32 !important; 
-}
+    
+    .encrypted-field {
+      font-family: monospace;
+      background: #f9f9f9;
+      transition: all 0.2s;
+      border: 1px solid #ccc;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .encrypted-field:focus {
+      background: #ffffff;
+      border-color: #3498db;
+      outline: none;
+    }
+    .card-signature-section {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 5px;
+      border: 2px solid #3498db;
+    }
+    .card-signature-section h4 {
+      margin-top: 0;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .card-signature-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
@@ -5522,20 +5062,19 @@ function printFullReport() {
   
   w.document.close();
   
-  // 7. Kurz warten, dann drucken
   setTimeout(() => {
     w.focus();
     w.print();
-    // Fenster nach dem Druck nicht schließen
   }, 500);
 }
-// === HEADER-TOGGLE ===
+
 function toggleDesktopHeader() {
   const content = document.getElementById('desktopHeaderContent');
   const btn = document.getElementById('desktopToggleHeader');
   content.classList.toggle('collapsed');
   btn.textContent = content.classList.contains('collapsed') ? 'Einblenden' : 'Ausblenden';
 }
+
 function toggleMobileHeader() {
   const section = document.getElementById('mobileHeaderSection');
   const content = document.getElementById('mobileHeaderContent');
@@ -5551,13 +5090,13 @@ function toggleMobileHeader() {
   }
 }
 
-// === HEADER-DATEN SYNC ===
 function syncHeaderData() {
   const mobileIds = [
     'mobileOperatorName', 'mobileOperatorNumber', 'mobileOperatorCert', 'mobileOperatorDept',
     'mobileAuditorName', 'mobileAuditorDept', 'mobileAuditorCert', 'mobileAuditorPhone',
     'mobileApproverName', 'mobileApproverDept', 'mobileApproverCert', 'mobileApproverPhone',
-    'mobilePartType', 'mobileExternalStandard', 'mobileSStandard', 'mobileWorkInstruction'
+    'mobilePartType', 'mobileExternalStandard', 'mobileSStandard', 'mobileWorkInstruction',
+    'mobileOperatorCardId', 'mobileAuditorCardId', 'mobileExpertCardId'
   ];
   mobileIds.forEach(mobileId => {
     const mobileElement = document.getElementById(mobileId);
@@ -5565,7 +5104,14 @@ function syncHeaderData() {
       mobileElement.addEventListener('input', function() {
         const desktopId = mobileId.replace('mobile', '').charAt(0).toLowerCase() + mobileId.replace('mobile', '').slice(1);
         const desktopElement = document.getElementById(desktopId);
-        if (desktopElement) desktopElement.value = this.value;
+        if (desktopElement) {
+          if (mobileElement.classList.contains('encrypted-field')) {
+            desktopElement.setAttribute('data-original', mobileElement.getAttribute('data-original') || '');
+            updateFieldDisplay(desktopElement);
+          } else {
+            desktopElement.value = this.value;
+          }
+        }
         saveCurrentAuditData();
       });
     }
@@ -5575,7 +5121,8 @@ function syncHeaderData() {
     'operatorName', 'operatorNumber', 'operatorCert', 'operatorDept',
     'auditorName', 'auditorDept', 'auditorCert', 'auditorPhone',
     'approverName', 'approverDept', 'approverCert', 'approverPhone',
-    'partType', 'externalStandard', 'sStandard', 'workInstruction'
+    'partType', 'externalStandard', 'sStandard', 'workInstruction',
+    'operatorCardId', 'auditorCardIdHeader', 'expertCardIdHeader'
   ];
   desktopIds.forEach(id => {
     const element = document.getElementById(id);
@@ -5583,7 +5130,14 @@ function syncHeaderData() {
       element.addEventListener('input', function() {
         const mobileId = 'mobile' + id.charAt(0).toUpperCase() + id.slice(1);
         const mobileElement = document.getElementById(mobileId);
-        if (mobileElement) mobileElement.value = this.value;
+        if (mobileElement) {
+          if (element.classList.contains('encrypted-field')) {
+            mobileElement.setAttribute('data-original', element.getAttribute('data-original') || '');
+            updateFieldDisplay(mobileElement);
+          } else {
+            mobileElement.value = this.value;
+          }
+        }
         saveCurrentAuditData();
       });
     }
@@ -5596,18 +5150,26 @@ function resetAllHeaderFields() {
     'auditorName', 'auditorDept', 'auditorCert', 'auditorPhone',
     'approverName', 'approverDept', 'approverCert', 'approverPhone',
     'partType', 'externalStandard', 'sStandard', 'workInstruction',
+    'operatorCardId', 'auditorCardIdHeader', 'expertCardIdHeader',
     'mobileOperatorName', 'mobileOperatorNumber', 'mobileOperatorCert', 'mobileOperatorDept',
     'mobileAuditorName', 'mobileAuditorDept', 'mobileAuditorCert', 'mobileAuditorPhone',
     'mobileApproverName', 'mobileApproverDept', 'mobileApproverCert', 'mobileApproverPhone',
-    'mobilePartType', 'mobileExternalStandard', 'mobileSStandard', 'mobileWorkInstruction'
+    'mobilePartType', 'mobileExternalStandard', 'mobileSStandard', 'mobileWorkInstruction',
+    'mobileOperatorCardId', 'mobileAuditorCardId', 'mobileExpertCardId'
   ];
   allIds.forEach(id => {
     const element = document.getElementById(id);
-    if (element) element.value = '';
+    if (element) {
+      if (element.classList.contains('encrypted-field')) {
+        element.setAttribute('data-original', '');
+        updateFieldDisplay(element);
+      } else {
+        element.value = '';
+      }
+    }
   });
 }
 
-// === AUDIT-DATEN INITIALISIEREN ===
 function loadAllAuditData() {
   Object.keys(AUDIT_TYPES).forEach(auditType => {
     const saved = localStorage.getItem(`zfpAudit_${auditType}`);
@@ -5634,7 +5196,8 @@ function loadAllAuditData() {
         },
         headerData: {},
         questions: allQuestionsForAudit,
-        images: {}
+        images: {},
+        signatureCards: {}
       };
       ensureReportNumber(initialData);
       localStorage.setItem(`zfpAudit_${auditType}`, JSON.stringify(initialData));
@@ -5645,6 +5208,17 @@ function loadAllAuditData() {
 function getHeaderData() {
   const isMobile = window.innerWidth <= 768;
   const existingReportNumber = (currentAuditData && currentAuditData.headerData && currentAuditData.headerData.reportNumber) || '';
+  
+  const getCardValue = (id, mobileId) => {
+    if (isMobile) {
+      const field = document.getElementById(mobileId);
+      return field ? field.getAttribute('data-original') || '' : '';
+    } else {
+      const field = document.getElementById(id);
+      return field ? field.getAttribute('data-original') || '' : '';
+    }
+  };
+  
   if (isMobile) {
     return {
       operatorName: document.getElementById('mobileOperatorName')?.value || '',
@@ -5663,7 +5237,10 @@ function getHeaderData() {
       externalStandard: document.getElementById('mobileExternalStandard')?.value || '',
       sStandard: document.getElementById('mobileSStandard')?.value || AUDIT_TYPES[currentAuditType]?.norm || '',
       workInstruction: document.getElementById('mobileWorkInstruction')?.value || AUDIT_TYPES[currentAuditType]?.instruction || '',
-      reportNumber: existingReportNumber
+      reportNumber: existingReportNumber,
+      operatorCardId: getCardValue('operatorCardId', 'mobileOperatorCardId'),
+      auditorCardId: getCardValue('auditorCardIdHeader', 'mobileAuditorCardId'),
+      expertCardId: getCardValue('expertCardIdHeader', 'mobileExpertCardId')
     };
   } else {
     return {
@@ -5683,7 +5260,10 @@ function getHeaderData() {
       externalStandard: document.getElementById('externalStandard')?.value || '',
       sStandard: document.getElementById('sStandard')?.value || AUDIT_TYPES[currentAuditType]?.norm || '',
       workInstruction: document.getElementById('workInstruction')?.value || AUDIT_TYPES[currentAuditType]?.instruction || '',
-      reportNumber: existingReportNumber
+      reportNumber: existingReportNumber,
+      operatorCardId: getCardValue('operatorCardId', 'mobileOperatorCardId'),
+      auditorCardId: getCardValue('auditorCardIdHeader', 'mobileAuditorCardId'),
+      expertCardId: getCardValue('expertCardIdHeader', 'mobileExpertCardId')
     };
   }
 }
@@ -5714,6 +5294,25 @@ function setHeaderData(data) {
     if (element && field.value !== undefined) element.value = field.value;
     if (mobileElement && field.value !== undefined) mobileElement.value = field.value;
   });
+  
+  const cardFields = [
+    { id: 'operatorCardId', value: data.operatorCardId, mobileId: 'mobileOperatorCardId' },
+    { id: 'auditorCardIdHeader', value: data.auditorCardId, mobileId: 'mobileAuditorCardId' },
+    { id: 'expertCardIdHeader', value: data.expertCardId, mobileId: 'mobileExpertCardId' }
+  ];
+  cardFields.forEach(field => {
+    const element = document.getElementById(field.id);
+    const mobileElement = document.getElementById(field.mobileId);
+    if (element && field.value) {
+      element.setAttribute('data-original', field.value);
+      updateFieldDisplay(element);
+    }
+    if (mobileElement && field.value) {
+      mobileElement.setAttribute('data-original', field.value);
+      updateFieldDisplay(mobileElement);
+    }
+  });
+  
   updateReportNumberDisplays(data.reportNumber || '');
 }
 
@@ -5738,6 +5337,8 @@ async function startAudit(auditType) {
   document.getElementById('mobileHeaderContent').classList.add('collapsed');
   document.getElementById('mobileToggleHeader').textContent = 'Einblenden';
 
+  populateHeaderCardIdsFromAuditData();
+
   const isMobile = window.innerWidth <= 768;
   if (isMobile) {
     document.getElementById('desktopView').style.display = 'none';
@@ -5752,7 +5353,7 @@ async function startAudit(auditType) {
   updateCurrentAuditProgress();
   checkAndShowFinalResult();
 }
-// Diese Funktion aktualisiert ALLE Progress-Anzeigen auf der Startseite
+
 function updateAllAuditProgressDisplays() {
     Object.keys(AUDIT_TYPES).forEach(auditType => {
         const progress = calculateAuditProgress(auditType);
@@ -5801,7 +5402,8 @@ function loadCurrentAuditData() {
       },
       headerData: {},
       questions: allQuestions,
-      images: {}
+      images: {},
+      signatureCards: {}
     };
   }
   ensureReportNumber(currentAuditData);
@@ -5810,13 +5412,39 @@ function loadCurrentAuditData() {
 async function saveCurrentAuditData() {
   if (!currentAuditType || !currentAuditData) return;
   currentAuditData.questions = allQuestions;
-  currentAuditData.headerData = getHeaderData();
+  const headerData = getHeaderData();
+  currentAuditData.headerData = {
+    operatorName: headerData.operatorName,
+    operatorNumber: headerData.operatorNumber,
+    operatorCert: headerData.operatorCert,
+    operatorDept: headerData.operatorDept,
+    auditorName: headerData.auditorName,
+    auditorDept: headerData.auditorDept,
+    auditorCert: headerData.auditorCert,
+    auditorPhone: headerData.auditorPhone,
+    approverName: headerData.approverName,
+    approverDept: headerData.approverDept,
+    approverCert: headerData.approverCert,
+    approverPhone: headerData.approverPhone,
+    partType: headerData.partType,
+    externalStandard: headerData.externalStandard,
+    sStandard: headerData.sStandard,
+    workInstruction: headerData.workInstruction,
+    reportNumber: headerData.reportNumber
+  };
   currentAuditData.images = imageStorage;
   currentAuditData.meta.lastModified = new Date().toISOString();
   if (!currentAuditData.meta.instanceId) {
     currentAuditData.meta.instanceId = 'AUD-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
   }
+  
+  if (!currentAuditData.signatureCards) currentAuditData.signatureCards = {};
+  currentAuditData.signatureCards.operatorCardId = headerData.operatorCardId || '';
+  currentAuditData.signatureCards.auditorCardId = headerData.auditorCardId || '';
+  currentAuditData.signatureCards.expertCardId = headerData.expertCardId || '';
+  
   ensureReportNumber(currentAuditData);
+  
   localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
   updateAuditProgressDisplays();
   updateCurrentAuditProgress();
@@ -6240,19 +5868,28 @@ async function showReport() {
         <strong>Name:</strong> ${headerData.operatorName || '---'}<br>
         <strong>Mitarbeiter-Nr.:</strong> ${headerData.operatorNumber || '---'}<br>
         <strong>Zertifikat:</strong> ${headerData.operatorCert || '---'}<br>
-        <strong>Abteilung:</strong> ${headerData.operatorDept || '---'}
+        <strong>Abteilung:</strong> ${headerData.operatorDept || '---'}<br>
+        <div style="margin-top:5px; border-top:1px dashed #ccc; padding-top:3px;">
+          <strong>Card-ID:</strong> <span class="encrypted-field" id="reportOperatorCardId" data-original="${currentAuditData.signatureCards?.operatorCardId || ''}" style="display:inline-block; padding:2px 5px;">${cardsUnlocked ? (currentAuditData.signatureCards?.operatorCardId || '') : '••••••••'}</span>
+        </div>
       </td>
       <td>
         <strong>Name:</strong> ${headerData.auditorName || '---'}<br>
         <strong>Abteilung:</strong> ${headerData.auditorDept || '---'}<br>
         <strong>Zertifikat:</strong> ${headerData.auditorCert || '---'}<br>
-        <strong>Tel:</strong> ${headerData.auditorPhone || '---'}
+        <strong>Tel:</strong> ${headerData.auditorPhone || '---'}<br>
+        <div style="margin-top:5px; border-top:1px dashed #ccc; padding-top:3px;">
+          <strong>Card-ID:</strong> <span class="encrypted-field" id="reportAuditorCardId" data-original="${currentAuditData.signatureCards?.auditorCardId || ''}" style="display:inline-block; padding:2px 5px;">${cardsUnlocked ? (currentAuditData.signatureCards?.auditorCardId || '') : '••••••••'}</span>
+        </div>
       </td>
       <td>
         <strong>Name:</strong> ${headerData.approverName || '---'}<br>
         <strong>Abteilung:</strong> ${headerData.approverDept || '---'}<br>
         <strong>Zertifikat:</strong> ${headerData.approverCert || '---'}<br>
-        <strong>Tel:</strong> ${headerData.approverPhone || '---'}
+        <strong>Tel:</strong> ${headerData.approverPhone || '---'}<br>
+        <div style="margin-top:5px; border-top:1px dashed #ccc; padding-top:3px;">
+          <strong>Card-ID:</strong> <span class="encrypted-field" id="reportExpertCardId" data-original="${currentAuditData.signatureCards?.expertCardId || ''}" style="display:inline-block; padding:2px 5px;">${cardsUnlocked ? (currentAuditData.signatureCards?.expertCardId || '') : '••••••••'}</span>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -6330,6 +5967,10 @@ ${reportHTML}
 `;
   document.getElementById('reportOverlay').style.display = 'block';
   document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    initEncryptedFields(document.getElementById('reportContainer'));
+  }, 100);
 }
 
 function renderQuestionImagesInReport(question) {
@@ -6378,7 +6019,8 @@ async function resetAudit() {
     },
     headerData: {},
     questions: allQuestions,
-    images: {}
+    images: {},
+    signatureCards: {}
   };
   ensureReportNumber(currentAuditData);
   localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
@@ -6394,7 +6036,6 @@ async function resetAudit() {
   showCustomModal('✅ Audit wurde zurückgesetzt\nALLE Felder wurden geleert.');
 }
 
-// === EXPORT FUNKTION ===
 async function exportAudit() {
   if (!currentAuditType || !currentAuditData) return;
   await saveCurrentAuditData();
@@ -6541,6 +6182,7 @@ function closeReport() {
   document.getElementById('reportOverlay').style.display = 'none';
   document.body.style.overflow = 'auto';
 }
+
 function closeAuthorization() {
   document.getElementById('authorizationOverlay').style.display = 'none';
   document.body.style.overflow = 'auto';
@@ -6568,25 +6210,21 @@ function setupProcCertToggleHandlers() {
       const on = cb.checked;
       const level = lv.value.trim().toUpperCase();
       
-      // Datumsfeld und Level-Feld ein-/ausblenden
       dt.style.display = on ? 'inline-block' : 'none'; 
       lv.style.display = on ? 'inline-block' : 'none';
       
-      // Verlängerungs-Checkbox für PW anzeigen/verstecken
       if (cycleCb && cycleLabel) {
         if (on && level === 'PW') {
           cycleLabel.style.display = 'inline-block';
           cycleCb.style.display = 'inline-block';
-          // Info ausblenden wenn PW
           if (infoSpan) infoSpan.style.display = 'none';
         } else {
           cycleLabel.style.display = 'none';
           cycleCb.style.display = 'none';
-          cycleCb.checked = false; // Checkbox deaktivieren wenn nicht PW
+          cycleCb.checked = false;
         }
       }
       
-      // Spezielle Info für NE Level 2/3 (nur wenn NICHT PW)
       if (p.cb === 'certNE' && infoSpan) {
         if (on && (level === '2' || level === '3')) {
           infoSpan.style.display = 'inline-block';
@@ -6600,7 +6238,6 @@ function setupProcCertToggleHandlers() {
     lv.addEventListener('input', toggle);
     lv.addEventListener('change', toggle);
     
-    // Initialen Zustand setzen
     toggle();
   });
 }
@@ -6654,7 +6291,6 @@ const map = {
     activityConfirmed.checked = emp && emp.activityConfirmed ? true : false;
   }
   
-  // UI aktualisieren
   setupProcCertToggleHandlers();
 }
 
@@ -6690,7 +6326,6 @@ function showEmployeeModal(editId = null) {
     fillProcCertsInModal(null);
   }
   
-  // WICHTIG: Nach dem Befüllen der Felder die Toggle-Handler neu initialisieren
   setTimeout(() => {
     setupProcCertToggleHandlers();
   }, 50);
@@ -6709,313 +6344,6 @@ async function deleteEmployee(id) {
   showInfoModal('✅ Mitarbeiter gelöscht!');
 }
 </script>
-   <script>
- // ===== NEUE FUNKTIONEN FÜR VERSCHLÜSSELTE FELDER =====
-// MASTER-PASSWORD für Card-ID Anzeige
-const MASTER_PASSWORD = 'ZfP2026'; // Gleiches Passwort wie für Supabase
-
-// Globaler Status, ob die Felder entsperrt sind
-let cardsUnlocked = false;
-
-// Initialisiert alle verschlüsselten Felder
-function initEncryptedFields() {
-  document.querySelectorAll('.encrypted-field').forEach(field => {
-    // Stelle sicher, dass data-original existiert
-    if (!field.getAttribute('data-original')) {
-      field.setAttribute('data-original', '');
-    }
-    
-    // Entferne alte Event-Listener
-    field.removeEventListener('focus', handleEncryptedFieldFocus);
-    field.removeEventListener('blur', handleEncryptedFieldBlur);
-    field.removeEventListener('input', handleEncryptedFieldInput);
-    
-    // Füge neue Event-Listener hinzu
-    field.addEventListener('focus', handleEncryptedFieldFocus);
-    field.addEventListener('blur', handleEncryptedFieldBlur);
-    field.addEventListener('input', handleEncryptedFieldInput);
-    
-    // Setze den Anzeigewert basierend auf dem Entsperr-Status
-    updateFieldDisplay(field);
-  });
-}
-
-// Aktualisiert die Anzeige eines Feldes basierend auf dem Entsperr-Status
-function updateFieldDisplay(field) {
-  const originalValue = field.getAttribute('data-original') || '';
-  if (cardsUnlocked) {
-    // Wenn entsperrt: zeige den echten Wert an
-    field.value = originalValue;
-    field.type = 'text'; // Normales Textfeld
-    field.style.background = '#ffffff';
-    field.style.color = '#333';
-  } else {
-    // Wenn gesperrt: zeige Sternchen an
-    field.value = originalValue ? '••••••••' : '••••••••';
-    field.type = 'text'; // Bleibt Text, aber mit Sternchen
-    field.style.background = '#f9f9f9';
-    field.style.color = '#666';
-  }
-}
-
-// Bei Fokus: Wenn das Feld nicht entsperrt ist, verhindere die Eingabe
-// Bei Fokus: Wenn das Feld nicht entsperrt ist, trotzdem Eingabe ermöglichen
-function handleEncryptedFieldFocus(e) {
-  const field = e.target;
-  
-  if (!cardsUnlocked) {
-    // Wenn gesperrt: Feld leeren für neue Eingabe, aber nichts anzeigen
-    field.value = '';
-    field.style.background = '#ffffff';
-    field.style.color = '#333';
-    return;
-  }
-  
-  // Wenn entsperrt: zeige den echten Wert an
-  const originalValue = field.getAttribute('data-original') || '';
-  field.value = originalValue;
-}
-
-// Bei Verlassen: Wert verschlüsselt speichern und wieder Sternchen anzeigen (wenn gesperrt)
-function handleEncryptedFieldBlur(e) {
-  const field = e.target;
-  const currentValue = field.value;
-  
-  // Speichere den eingegebenen Wert
-  if (currentValue) {
-    field.setAttribute('data-original', currentValue);
-  }
-  
-  // Zeige je nach Status Sternchen oder echten Wert
-  updateFieldDisplay(field);
-}
-
-// Bei Eingabe: Speichere den Wert in data-original (auch wenn gesperrt)
-function handleEncryptedFieldInput(e) {
-  const field = e.target;
-  // Immer speichern, egal ob entsperrt oder nicht
-  field.setAttribute('data-original', field.value);
-}
-
-// Entsperren aller Felder mit Passwort
-function unlockAllCardFields() {
-  const passwordInput = document.getElementById('globalPassword');
-  if (!passwordInput) return;
-  
-  const enteredPassword = passwordInput.value.trim();
-  
-  if (enteredPassword === MASTER_PASSWORD) {
-    // Status auf "entsperrt" setzen
-    cardsUnlocked = true;
-    
-    // Alle Felder aktualisieren, um die echten Werte anzuzeigen
-    document.querySelectorAll('.encrypted-field').forEach(field => {
-      updateFieldDisplay(field);
-    });
-    
-    // Passwortfeld leeren (aus Sicherheitsgründen)
-    passwordInput.value = '';
-    
-    showInfoModal('✅ Alle Card-ID-Felder sind jetzt sichtbar und bearbeitbar.', 2000);
-  } else {
-    alert('❌ Falsches Passwort!');
-    passwordInput.value = '';
-  }
-}
-
-// Sperren aller Felder (z.B. beim Schließen des Modals)
-function lockAllCardFields() {
-  cardsUnlocked = false;
-  
-  document.querySelectorAll('.encrypted-field').forEach(field => {
-    updateFieldDisplay(field);
-  });
-}
-
-// Sammle Daten aus verschlüsselten Feldern
-function collectEncryptedFieldData() {
-  return {
-    employeeCardId: document.getElementById('employeeCardId')?.getAttribute('data-original') || '',
-    auditorCardId: document.getElementById('auditorCardId')?.getAttribute('data-original') || '',
-    expertCardId: document.getElementById('expertCardId')?.getAttribute('data-original') || ''
-  };
-}
-
-// Setze Daten in verschlüsselte Felder
-function setEncryptedFieldData(data) {
-  if (data.employeeCardId !== undefined) {
-    const field = document.getElementById('employeeCardId');
-    field.setAttribute('data-original', data.employeeCardId);
-  }
-  if (data.auditorCardId !== undefined) {
-    const field = document.getElementById('auditorCardId');
-    field.setAttribute('data-original', data.auditorCardId);
-  }
-  if (data.expertCardId !== undefined) {
-    const field = document.getElementById('expertCardId');
-    field.setAttribute('data-original', data.expertCardId);
-  }
-  
-  // Nach dem Setzen die Anzeige aktualisieren
-  initEncryptedFields();
-}
-
-// Aktualisierte collectPracticalExperienceData (mit Card-IDs)
-function collectPracticalExperienceData() {
-  const rows = [];
-  document.querySelectorAll('#experienceTableBody tr').forEach(tr => {
-    rows.push({
-      week: tr.querySelector('.week-input')?.value || '',
-      hours: tr.querySelector('.hours-input')?.value || '',
-      evaluations: tr.querySelector('.evaluations-input')?.value || '',
-      comment: tr.querySelector('.comment-input')?.value || ''
-    });
-  });
-  
-  const cardData = collectEncryptedFieldData();
-  
-  return {
-    rows: rows,
-    employeeName: document.getElementById('employeeNameConfirm')?.value || '',
-    employeeDate: document.getElementById('employeeDateConfirm')?.value || '',
-    employeeCardId: cardData.employeeCardId,
-    auditorName: document.getElementById('auditorNameConfirm')?.value || '',
-    auditorDate: document.getElementById('auditorDateConfirm')?.value || '',
-    auditorCardId: cardData.auditorCardId,
-    expertName: document.getElementById('expertNameConfirm')?.value || '',
-    expertDate: document.getElementById('expertDateConfirm')?.value || '',
-    expertCardId: cardData.expertCardId,
-    totalHours: document.getElementById('totalHours')?.textContent || '0'
-  };
-}
-
-// Aktualisierte renderPracticalExperienceTable (mit Card-IDs)
-function renderPracticalExperienceTable(data) {
-  const tbody = document.getElementById('experienceTableBody');
-  tbody.innerHTML = '';
-  
-  const rows = data && data.rows && data.rows.length > 0 ? data.rows : [
-    { week: '1', hours: '', evaluations: '', comment: '' },
-    { week: '2', hours: '', evaluations: '', comment: '' },
-    { week: '3', hours: '', evaluations: '', comment: '' },
-    { week: '4', hours: '', evaluations: '', comment: '' },
-    { week: '5', hours: '', evaluations: '', comment: '' }
-  ];
-  
-  rows.forEach((row, index) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="text" value="${row.week || index + 1}" placeholder="Woche" class="week-input" data-index="${index}" style="width:60px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-      <td><input type="number" value="${row.hours || ''}" placeholder="Std" class="hours-input" data-index="${index}" min="0" step="0.5" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;" oninput="updateTotalHours()"></td>
-      <td><input type="number" value="${row.evaluations || ''}" placeholder="Anz" class="evaluations-input" data-index="${index}" min="0" style="width:70px; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-      <td><input type="text" value="${row.comment || ''}" placeholder="Kommentar" class="comment-input" data-index="${index}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:3px;"></td>
-      <td><button class="btn-danger" style="padding:4px 6px;" onclick="removeExperienceRow(${index})" title="Zeile löschen">✕</button></td>
-    `;
-    tbody.appendChild(tr);
-  });
-  
-  updateTotalHours();
-  
-  // Bestätigungsfelder laden
-  if (data) {
-    document.getElementById('employeeNameConfirm').value = data.employeeName || '';
-    document.getElementById('employeeDateConfirm').value = data.employeeDate || '';
-    document.getElementById('auditorNameConfirm').value = data.auditorName || '';
-    document.getElementById('auditorDateConfirm').value = data.auditorDate || '';
-    document.getElementById('expertNameConfirm').value = data.expertName || '';
-    document.getElementById('expertDateConfirm').value = data.expertDate || '';
-    
-    // Card-IDs setzen (verschlüsselt)
-    const cardData = {
-      employeeCardId: data.employeeCardId || '',
-      auditorCardId: data.auditorCardId || '',
-      expertCardId: data.expertCardId || ''
-    };
-    setEncryptedFieldData(cardData);
-  }
-  
-  // WICHTIG: Beim Öffnen des Modals sind die Felder standardmäßig gesperrt
-  cardsUnlocked = false;
-  
-  // Verschlüsselte Felder initialisieren
-  initEncryptedFields();
-}
-
-// Aktualisierte setupPracticalExperienceEventListeners
-function setupPracticalExperienceEventListeners() {
-  document.getElementById('addExperienceRow')?.addEventListener('click', addExperienceRow);
-  
-  document.getElementById('savePracticalProof')?.addEventListener('click', async () => {
-    await savePracticalExperienceProof();
-    
-    // Nach dem Speichern das Modal schließen
-    document.getElementById('practicalExperienceModal').style.display = 'none';
-  });
-  
-  document.getElementById('closePracticalProof')?.addEventListener('click', () => {
-    // Beim Schließen die Felder wieder sperren
-    lockAllCardFields();
-    document.getElementById('practicalExperienceModal').style.display = 'none';
-    currentPracticalEmployeeId = null;
-    currentPracticalProcedure = null;
-  });
-  
-  // Entsperren-Button
-  document.getElementById('unlockAllCardsBtn')?.addEventListener('click', unlockAllCardFields);
-  
-  // Passwortfeld: Enter-Taste zum Entsperren
-  document.getElementById('globalPassword')?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      unlockAllCardFields();
-    }
-  });
-  
-  // Stunden-Listener initialisieren
-  attachHoursInputListeners();
-  
-  // Verschlüsselte Felder initialisieren
-  initEncryptedFields();
-}
-
-// Aktualisierte openPracticalExperienceProof
-function openPracticalExperienceProof(employeeId, procedure, level) {
-  const employee = employees.find(e => e.id === employeeId);
-  if (!employee) {
-    showInfoModal('❌ Mitarbeiter nicht gefunden');
-    return;
-  }
-  
-  currentPracticalEmployeeId = employeeId;
-  currentPracticalProcedure = procedure;
-  
-  // Titel anpassen je nach Verfahren
-  const procedureNames = {
-    'wirbelstrom': 'Wirbelstromprüfung',
-    'magnetpulver': 'Magnetpulverprüfung',
-    'nital': 'HN03-Ätzprüfung',
-    'ultraschall': 'Ultraschallprüfung'
-  };
-  const procName = procedureNames[procedure] || procedure;
-  document.getElementById('practicalExperienceTitle').textContent = 
-    `für die Beurteilung der ${procName}`;
-  
-  // Mitarbeiternamen in Bestätigungsfeld setzen
-  document.getElementById('employeeNameConfirm').value = employee.name || '';
-  
-  // Gespeicherte Daten laden
-  const savedData = loadPracticalExperienceProof(employeeId, procedure);
-  renderPracticalExperienceTable(savedData);
-  
-  // Passwortfeld leeren
-  document.getElementById('globalPassword').value = '';
-  
-  // WICHTIG: Status zurücksetzen (Felder sind beim Öffnen gesperrt)
-  cardsUnlocked = false;
-  
-  // Modal anzeigen
-  document.getElementById('practicalExperienceModal').style.display = 'flex';
-}
-  </script>
 </body>
 </html>
 
