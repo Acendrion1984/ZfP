@@ -4186,9 +4186,9 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
 
   const authorizationText = `<strong>Die genannte Person hat nachweislich die in der Verfahrensanweisung INFSW17008 beschriebenen Voraussetzungen für Ausbildung, Schulung, Berufserfahrung, fortlaufende Tätigkeit und Prüfung erfüllt und ist damit für die Durchführung der Prüfung in den oben gelisteten ZfP-Verfahren autorisiert. Die Autorisierung gilt nur in Verbindung mit einem gültigen Zertifikat und hat eine Gültigkeit von 12 Monaten.</strong><br><br><em>The named person has demonstrably fulfilled the requirements for training, education, professional experience, ongoing activity, and examination described in the procedure instruction INFSW17008 and is therefore authorized to conduct the examination in the NDT procedures listed below. This authorization is valid only in conjunction with a valid certificate and is valid for 12 months.</em>`;
 
-  const stampMarginTop = isNdtSupervisor ? '2mm' : '20mm';
+  const stampMarginTop = isNdtSupervisor ? '2mm' : '40mm';
   const authorizationHTML = `
-<div class="print-content" style="margin:0 auto; padding:0 3mm 6mm 3mm; max-width:194mm; box-sizing:border-box; font-family:Arial, sans-serif; font-size:9.5pt; line-height:1.28; color:#000 !important; position:relative;">
+<div class="print-content" style="margin:0 auto; padding:0 3mm 15mm 3mm; max-width:194mm box-sizing:border-box; font-family:Arial, sans-serif; font-size:9.5pt; line-height:1.28; color:#000 !important; position:relative;">
   <div style="position:relative; border-bottom:2px solid #000; padding-bottom:6px; margin-bottom:8px; text-align:center;">
     <div style="position:absolute; top:0; right:0; text-align:right;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg" alt="Schaeffler Logo" style="height:7mm; width:auto; max-width:40mm;">
@@ -4301,7 +4301,7 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
   </div>`}
 
   <!-- Kompakter Stempelblock -->
-  <div style="text-align:center; margin:${stampMarginTop} auto 0 auto; width:100%; box-sizing:border-box;">
+  <div style="text-align:center; margin:${stampMarginTop} auto 0 auto; width:100%; box-sizing:border-box; margin-bottom:0;">
     <div style="display:inline-block; min-width:60mm; border:2px solid #2c3e50; border-radius:6px; padding:6px 10px; font-family:Arial, sans-serif; font-size:9pt; color:#2c3e50; background:white; line-height:1.2;">
       <div style="font-weight:bold; text-align:center; margin-bottom:5px; font-size:10pt;">AUTORISIERUNG ERTEILT</div>
       <div style="display:flex; justify-content:center; align-items:center; margin-bottom:3px; gap:32px;">
@@ -4971,7 +4971,124 @@ function setupGlobalEventListeners() {
     }
   });
 }
+// ===========================================
+// KORRIGIERTE FUNKTION: DRUCKEN DER AUTORISIERUNG MIT FOOTER
+// ===========================================
+function printFullAuthorization() {
+  console.log("✅ Autorisierung wird gedruckt...");
+  
+  const authContainer = document.getElementById('authorizationContainer');
+  if (!authContainer) {
+    alert('❌ Keine Autorisierung zum Drucken gefunden!');
+    return;
+  }
 
+  // 1. Den Inhalt holen
+  let printContent = authContainer.innerHTML;
+  
+  // 2. Action-Buttons entfernen
+  printContent = printContent.replace(/<div class="report-action-buttons">[\s\S]*?<\/div>/, '');
+
+  // 3. Logo-URL korrigieren (HTTP -> HTTPS) falls nötig
+  printContent = printContent.replace(
+    'src="http://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"',
+    'src="https://upload.wikimedia.org/wikipedia/commons/7/72/Schaeffler_logo.svg"'
+  );
+
+  // 4. FOOTER HINZUFÜGEN (wie in printFullReport)
+  const footerHTML = `
+    <div class="report-footer">
+      <table class="report-footer-table">
+        <tr>
+          <td style="text-align: left; width: 33%;">Daniel Häusner, WI/SW2-PQT</td>
+          <td style="text-align: center; width: 34%;">ZfP Operator Audit © 2026 Schaeffler Technologies AG & Co. KG</td>
+          <td style="text-align: right; width: 33%;">Version AB, 29.01.2026</td>
+        </tr>
+      </table>
+    </div>`;
+
+  printContent += footerHTML;
+
+  // 5. Neues Fenster öffnen
+  const w = window.open('', '_blank');
+  
+  // 6. CSS und Inhalt schreiben - IHR ORIGINAL-CSS für die Autorisierung
+  w.document.write(`<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZfP Autorisierung - Schaeffler</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @page { size: A4 portrait; margin: 5mm !important; }
+    body {
+      font-family: Arial, sans-serif !important;
+      color: #000 !important;
+      font-size: 10.5pt !important;
+      line-height: 1.32;
+      background: #fff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .print-content { margin: 0 auto; padding: 0 0 10mm 0; max-width: 180mm; display: block; }
+    .report-header { border-bottom: 1.5px solid #000 !important; padding-bottom: 6px; margin-bottom: 10px; text-align: center; position: relative; }
+    .report-header h2 { font-size: 13.5pt; margin: 0 0 3px 0; color: #000 !important; }
+    .company-info { font-size: 10pt; margin: 2px 0; color: #000 !important; }
+    table.person-table, table.details-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt !important; }
+    table.person-table th, table.person-table td, table.details-table td { border: 1px solid #000 !important; padding: 5px; vertical-align: top; }
+    table.person-table th { background: #f0f0f0 !important; font-weight: bold; }
+    .auth-proc-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px 10px; margin: 8px 0; }
+    .auth-proc-grid div { padding: 6px 8px; background: #f0f0f0; border-left: 3px solid #3498db; border-radius: 2px; }
+    .signature-area { margin-top: 12px; padding-top: 8px; border-top: 1px solid #000; display: flex; justify-content: space-between; gap: 20px; }
+    .signature-box { flex: 1; text-align: center; }
+    .signature-line { margin-top: 12mm; min-height: 10mm; padding-top: 6px; border-bottom: 1px solid #000; }
+    .authorization-stamp-box { text-align: center; margin: 10px auto 0 auto; padding: 8px 12px; border: 1px solid #000; border-radius: 6px; display: inline-block; width: 80%; background: white; }
+    .english-subtitle { font-style: italic; color: #666; }
+    .header-section-title .english { font-style: italic; color: #666; }
+    
+    /* FOOTER STYLES */
+    .report-footer { 
+      position: fixed; 
+      left: 8mm; 
+      right: 8mm; 
+      bottom: 0mm; 
+      margin: 0; 
+      padding-top: 1mm; 
+      border-top: 0.5px solid #ccc; 
+      font-size: 7.5pt; 
+      color: #444 !important; 
+      background: white !important; 
+    }
+    .report-footer-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+    }
+    .report-footer-table td { 
+      border: none; 
+      padding: 0 3px; 
+      text-align: center; 
+      vertical-align: middle; 
+      background: none; 
+      font-size: 7.5pt !important; 
+      color: #444 !important; 
+    }
+  </style>
+</head>
+<body>
+  <div class="print-content">${printContent}</div>
+</body>
+</html>`);
+  
+  w.document.close();
+  
+  // 7. Kurz warten, dann drucken
+  setTimeout(() => {
+    w.focus();
+    w.print();
+    // Fenster nach dem Druck nicht schließen
+  }, 500);
+}
 // ===========================================
 // KORRIGIERTE DRUCK-FUNKTION - IHR CSS BLEIBT ERHALTEN!
 // ===========================================
@@ -6862,4 +6979,6 @@ function openPracticalExperienceProof(employeeId, procedure, level) {
   </script>
 </body>
 </html>
+
+
 
