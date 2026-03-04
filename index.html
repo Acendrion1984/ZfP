@@ -1898,41 +1898,46 @@ footer { border-top-color: #444; color: #cccccc !important; }
 </header>
 <button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
 
-<!-- NEU: GitHub Konfigurations-Panel -->
+<!-- NEU: GitHub Konfigurations-Panel (ausblendbar) -->
 <div class="github-config-panel" id="githubConfigPanel">
-  <h3>⚙️ GitHub JSON Datenbank Konfiguration</h3>
-  <div class="github-config-row">
-    <label>GitHub Owner:</label>
-    <input type="text" id="githubOwner" placeholder="z.B. Acendrion1984" value="Acendrion1984">
+  <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" id="githubPanelHeader">
+    <h3 style="margin:0;">⚙️ GitHub JSON Datenbank Konfiguration</h3>
+    <span id="githubPanelToggle" style="font-size: 1.5em; padding:0 10px;">▼</span>
   </div>
-  <div class="github-config-row">
-    <label>Repository:</label>
-    <input type="text" id="githubRepo" placeholder="z.B. ZfP" value="ZfP">
-  </div>
-  <div class="github-config-row">
-    <label>Branch:</label>
-    <input type="text" id="githubBranch" placeholder="main" value="main">
-  </div>
-  <div class="github-config-row">
-    <label>Dateiname:</label>
-    <input type="text" id="githubFilename" placeholder="zfp-audit-db.json" value="zfp-audit-db.json">
-  </div>
-  <div class="github-config-row">
-    <label>Personal Access Token:</label>
-    <input type="password" id="githubToken" placeholder="ghp_...">
-  </div>
-  <div class="github-config-row">
-    <button id="githubTestBtn" class="secondary">🔌 Verbindung testen</button>
-    <button id="githubSaveConfigBtn">💾 Konfiguration speichern</button>
-    <button id="githubPullBtn">⬇️ Von GitHub laden</button>
-    <button id="githubPushBtn" class="secondary">⬆️ Nach GitHub pushen</button>
-    <button id="githubClearConfigBtn" class="danger">🗑️ Token löschen</button>
-  </div>
-  <div id="githubStatus" class="github-status">
-    ⚠️ Nicht verbunden. Bitte konfigurieren.
-  </div>
-  <div style="font-size: 0.8em; color: #666; margin-top: 8px;">
-    ℹ️ Token wird nur lokal im Browser gespeichert. Erfordert Schreibrechte auf das Repository.
+  <div id="githubPanelContent">
+    <div class="github-config-row">
+      <label>GitHub Owner:</label>
+      <input type="text" id="githubOwner" placeholder="z.B. Acendrion1984" value="Acendrion1984">
+    </div>
+    <div class="github-config-row">
+      <label>Repository:</label>
+      <input type="text" id="githubRepo" placeholder="z.B. ZfP" value="ZfP">
+    </div>
+    <div class="github-config-row">
+      <label>Branch:</label>
+      <input type="text" id="githubBranch" placeholder="main" value="main">
+    </div>
+    <div class="github-config-row">
+      <label>Dateiname:</label>
+      <input type="text" id="githubFilename" placeholder="zfp-audit-db.json" value="zfp-audit-db.json">
+    </div>
+    <div class="github-config-row">
+      <label>Personal Access Token:</label>
+      <input type="password" id="githubToken" placeholder="ghp_...">
+    </div>
+    <div class="github-config-row">
+      <button id="githubTestBtn" class="secondary">🔌 Verbindung testen</button>
+      <button id="githubSaveConfigBtn">💾 Konfiguration speichern</button>
+      <button id="githubPullBtn">⬇️ Von GitHub laden</button>
+      <button id="githubPushBtn" class="secondary">⬆️ Nach GitHub pushen</button>
+      <button id="githubClearConfigBtn" class="danger">🗑️ Token löschen</button>
+    </div>
+    <div id="githubStatus" class="github-status">
+      ⚠️ Nicht verbunden. Bitte konfigurieren.
+    </div>
+    <div style="font-size: 0.8em; color: #666; margin-top: 8px;">
+      ℹ️ Token wird nur lokal im Browser gespeichert. Erfordert Schreibrechte auf das Repository.
+    </div>
   </div>
 </div>
 
@@ -2352,8 +2357,6 @@ function updateGitHubStatus() {
 
 // ===== GITHUB API FUNKTIONEN =====
 
-// ===== KORRIGIERTE GITHUB FUNKTIONEN =====
-
 // Hilfsfunktion: Base64 kodieren (funktioniert zuverlässig mit Unicode)
 function b64Encode(str) {
   // UTF-8 Kodierung für Sonderzeichen
@@ -2471,7 +2474,7 @@ async function testGitHubConnection() {
     if (!githubConfig.owner || !githubConfig.repo || !githubConfig.token) {
       statusEl.className = 'github-status error';
       statusEl.innerHTML = '❌ Bitte alle Felder ausfüllen';
-      return;
+      return false;
     }
     
     statusEl.className = 'github-status';
@@ -2498,9 +2501,11 @@ async function testGitHubConnection() {
     if (!permissions.push) {
       statusEl.className = 'github-status error';
       statusEl.innerHTML = '⚠️ Token hat keine Schreibrechte! <button onclick="showTokenHelp()" style="background:#3498db; color:white; border:none; padding:2px 8px; border-radius:3px;">Hilfe</button>';
+      return false;
     } else {
       statusEl.className = 'github-status success';
       statusEl.innerHTML = `✅ Verbunden mit ${repoData.full_name} (Schreibrechte OK)`;
+      return true;
     }
     
   } catch (error) {
@@ -2515,6 +2520,97 @@ async function testGitHubConnection() {
     } else {
       statusEl.innerHTML = `❌ Fehler: ${error.message}`;
     }
+    return false;
+  }
+}
+
+// NEUE FUNKTION: Von GitHub laden
+async function loadFromGitHub() {
+  try {
+    if (!githubConfig.owner || !githubConfig.repo || !githubConfig.token) {
+      throw new Error('GitHub nicht konfiguriert');
+    }
+    
+    const result = await fetchGitHubFile();
+    
+    if (!result.exists) {
+      return { success: true, message: 'Keine Daten auf GitHub gefunden. Leeres Repository.' };
+    }
+    
+    const data = result.content;
+    
+    // Mitarbeiter laden
+    if (data.employees) {
+      employees = data.employees;
+      localStorage.setItem('zfpEmployees', JSON.stringify(employees));
+    }
+    
+    // Audit Reviews laden
+    if (data.auditReviews) {
+      auditReviews = data.auditReviews;
+      localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
+    }
+    
+    // Audits pro Typ laden
+    if (data.audits) {
+      Object.keys(data.audits).forEach(type => {
+        if (data.audits[type]) {
+          localStorage.setItem(STORAGE_LIST_KEY(type), JSON.stringify(data.audits[type]));
+        }
+      });
+    }
+    
+    // Settings laden
+    if (data.settings) {
+      localStorage.setItem('zfp_settings', JSON.stringify(data.settings));
+    }
+    
+    return { success: true, message: '✅ Daten erfolgreich von GitHub geladen' };
+    
+  } catch (error) {
+    console.error('Fehler beim Laden von GitHub:', error);
+    return { success: false, message: error.message };
+  }
+}
+
+// NEUE FUNKTION: Nach GitHub pushen
+async function pushToGitHubDatabase(commitMessage) {
+  try {
+    if (!githubConfig.owner || !githubConfig.repo || !githubConfig.token) {
+      throw new Error('GitHub nicht konfiguriert');
+    }
+    
+    // Sammle alle Daten
+    const exportData = {
+      employees: employees,
+      auditReviews: auditReviews,
+      audits: {},
+      settings: localStorage.getItem('zfp_settings') ? JSON.parse(localStorage.getItem('zfp_settings')) : {},
+      lastSync: new Date().toISOString()
+    };
+    
+    // Sammle alle Audits pro Typ
+    Object.keys(AUDIT_TYPES).forEach(type => {
+      const key = STORAGE_LIST_KEY(type);
+      const savedList = localStorage.getItem(key);
+      if (savedList) {
+        try {
+          exportData.audits[type] = JSON.parse(savedList);
+        } catch (e) {
+          exportData.audits[type] = [];
+        }
+      } else {
+        exportData.audits[type] = [];
+      }
+    });
+    
+    await pushToGitHub(exportData, commitMessage || 'Daten von ZfP Audit App');
+    
+    return { success: true, message: '✅ Daten erfolgreich nach GitHub gepusht' };
+    
+  } catch (error) {
+    console.error('Fehler beim Pushen nach GitHub:', error);
+    return { success: false, message: error.message };
   }
 }
 
@@ -4501,6 +4597,26 @@ document.addEventListener('DOMContentLoaded', async function() {
   
   // GitHub Config laden
   loadGitHubConfig();
+  // GitHub Panel ein-/ausblendbar machen
+  const githubPanelHeader = document.getElementById('githubPanelHeader');
+  const githubPanelContent = document.getElementById('githubPanelContent');
+  const githubPanelToggle = document.getElementById('githubPanelToggle');
+  
+  if (githubPanelHeader && githubPanelContent && githubPanelToggle) {
+    // Gespeicherten Zustand laden
+    const panelCollapsed = localStorage.getItem('zfp_github_panel_collapsed') === 'true';
+    if (panelCollapsed) {
+      githubPanelContent.style.display = 'none';
+      githubPanelToggle.textContent = '▶';
+    }
+    
+    githubPanelHeader.addEventListener('click', function() {
+      const isCollapsed = githubPanelContent.style.display === 'none';
+      githubPanelContent.style.display = isCollapsed ? 'block' : 'none';
+      githubPanelToggle.textContent = isCollapsed ? '▼' : '▶';
+      localStorage.setItem('zfp_github_panel_collapsed', !isCollapsed);
+    });
+  }
   
   initializeApp();
   setupEventListeners();
@@ -6559,4 +6675,3 @@ async function deleteEmployee(id) {
 </script>
 </body>
 </html>
-
