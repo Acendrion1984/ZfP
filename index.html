@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<title>ZfP Operator Audit</title>
+<title>ZfP Operator Audit (GitHub DB)</title>
 <style>
+/* ===== BESTEHENDES CSS BLEIBT IDENTISCH ===== */
 * {
 box-sizing: border-box;
 margin: 0;
@@ -19,8 +20,6 @@ background-color: #f5f5f5;
 padding: 6px;
 font-size: 14px;
 }
-
-/* NEU: Eingabefelder im Light Mode */
 [data-theme="light"] .header-input,
 [data-theme="light"] .comment,
 [data-theme="light"] .employee-form-group input,
@@ -32,14 +31,11 @@ font-size: 14px;
   color: #333 !important;
   border-color: #ddd !important;
 }
-
 [data-theme="light"] .comment::placeholder,
 [data-theme="light"] .header-input::placeholder,
 [data-theme="light"] .employee-form-group input::placeholder {
   color: #888 !important;
 }
-
-/* Dark Mode bleibt wie gehabt */
 [data-theme="dark"] .header-input,
 [data-theme="dark"] .comment,
 [data-theme="dark"] .employee-form-group input,
@@ -51,7 +47,6 @@ font-size: 14px;
   color: #e0e0e0 !important;
   border-color: #555 !important;
 }
-
 .container {
 max-width: 1200px;
 margin: 0 auto;
@@ -76,7 +71,6 @@ color: #7f8c8d;
 font-size: 0.9em;
 margin-bottom: 8px;
 }
-
 .theme-toggle {
   position: fixed !important;
   right: 16px !important;
@@ -97,21 +91,16 @@ margin-bottom: 8px;
   opacity: 1 !important;
   visibility: visible !important;
 }
-
 .theme-toggle:hover {
   transform: scale(1.1);
   background: #f0f0f0 !important;
 }
-
-/* Dark Theme Variablen */
 [data-theme="dark"] .theme-toggle {
   --toggle-bg: #2d2d2d;
   --toggle-text: #e0e0e0;
   --toggle-bg-hover: #333333;
   border-color: #444;
 }
-
-/* MODAL FÜR IPHONE FIX - immer im Vordergrund */
 .custom-modal {
 display: none;
 position: fixed;
@@ -155,8 +144,6 @@ color: white;
 background: #e74c3c;
 color: white;
 }
-
-/* MITARBEITER MODAL */
 .employee-modal {
 display: none;
 position: fixed;
@@ -221,8 +208,6 @@ bottom: 0;
 background: white;
 padding-top: 15px;
 }
-
-/* NEU: MODAL FÜR PRAKTISCHE ERFAHRUNG */
 .practical-experience-modal {
 display: none;
 position: fixed;
@@ -367,8 +352,6 @@ margin-bottom: 3px;
 font-size: 0.8em;
 color: #555;
 }
-
-/* AUDIT LISTE MODAL */
 .audit-list-modal {
 display: none;
 position: fixed;
@@ -404,7 +387,6 @@ padding: 12px;
 margin-bottom: 10px;
 background: #f9f9f9;
 }
-
 .audit-item.has-deviations {
 background: #fff0f0;
 border-color: #e74c3c;
@@ -455,8 +437,6 @@ padding: 20px;
 color: #666;
 font-style: italic;
 }
-
-/* AUDIT AUSWAHL */
 .audit-selection {
 text-align: center;
 margin: 15px 0;
@@ -467,14 +447,12 @@ margin-bottom: 12px;
 font-size: 1.1em;
 font-weight: 700;
 }
-
 .audit-buttons {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 gap: 8px;
 margin-bottom: 15px;
 }
-
 .audit-btn {
 position: relative;
 color: #fff;
@@ -495,7 +473,6 @@ align-items: center;
 justify-content: center;
 min-height: 100px;
 }
-
 .audit-btn::before {
 content: "";
 position: absolute;
@@ -505,7 +482,6 @@ border-radius: 8px;
 background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
 pointer-events: none;
 }
-
 .audit-btn .btn-icon,
 .audit-btn span,
 .audit-btn .btn-progress {
@@ -513,7 +489,6 @@ text-shadow: 0 1px 2px rgba(0,0,0,0.25);
 position: relative;
 z-index: 2;
 }
-
 .audit-btn .btn-progress {
 background: rgba(255,255,255,0.22);
 border-radius: 999px;
@@ -523,7 +498,6 @@ font-size: 0.7em;
 min-width: 35px;
 border: 1px solid rgba(255,255,255,0.35);
 }
-
 .audit-btn.wirbelstrom {
 background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #3498db, #3498db);
 }
@@ -536,7 +510,6 @@ background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.0
 .audit-btn.ultraschall {
 background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #9b59b6, #9b59b6);
 }
-
 .audit-btn:hover {
 transform: translateY(-2px);
 box-shadow: 0 10px 22px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.01);
@@ -545,30 +518,25 @@ box-shadow: 0 10px 22px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.01);
 transform: translateY(0);
 box-shadow: 0 6px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.25);
 }
-
 @supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
 .audit-btn {
 backdrop-filter: blur(10px) saturate(140%);
 -webkit-backdrop-filter: blur(10px) saturate(140%);
 }
 }
-
 html[data-theme="light"] .audit-btn {
 border-color: rgba(0,0,0,0.38) !important;
 box-shadow: 0 12px 26px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.35) inset !important;
 }
-
 html[data-theme="light"] .audit-btn::before {
 opacity: 0.65;
 }
-
 html[data-theme="light"] .audit-btn .btn-progress {
 background: rgba(0,0,0,0.22) !important;
 color: #fff !important;
 font-weight: 900 !important;
 border: 1px solid rgba(255,255,255,0.35) !important;
 }
-
 @media (prefers-color-scheme: dark) {
 .audit-btn {
 border-color: rgba(255,255,255,0.28);
@@ -578,7 +546,6 @@ box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06));
 }
 }
-
 .audit-btn.disabled {
 opacity: 0.6;
 cursor: not-allowed;
@@ -587,8 +554,6 @@ cursor: not-allowed;
 transform: none;
 box-shadow: none;
 }
-
-/* MITARBEITERLISTE BUTTON */
 .employee-list-btn {
 background: linear-gradient(135deg, #f39c12, #e67e22) !important;
 color: white;
@@ -607,8 +572,6 @@ display: block;
 transform: translateY(-2px);
 box-shadow: 0 5px 10px rgba(243, 156, 18, 0.4);
 }
-
-/* CONTROLS */
 .controls-row-audit {
 display: flex;
 gap: 6px;
@@ -643,8 +606,6 @@ text-overflow: ellipsis;
 min-width: 95px;
 flex-shrink: 0;
 }
-
-/* NEU: Passwort-Entsperrfeld in der Control-Leiste */
 .password-unlock-field {
 display: flex;
 gap: 4px;
@@ -674,7 +635,6 @@ font-size: 0.7em;
 height: 24px;
 min-width: 60px;
 }
-
 .btn-back { background: #7f8c8d; color: white; }
 .btn-export { background: #27ae60; color: white; }
 .btn-report { background: #f39c12; color: white; }
@@ -692,8 +652,6 @@ height: 32px;
 font-size: 0.75em;
 }
 button:hover { opacity: 0.9; }
-
-/* STATUSLEISTE */
 .audit-status {
 margin-bottom: 6px;
 font-size: 0.9em;
@@ -733,8 +691,6 @@ border-radius: 5px; transition: width 0.3s ease; position: relative;
 position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
 font-size: 0.8em; color: #666; font-weight: bold;
 }
-
-/* MITARBEITERLISTE TABELLE */
 .employee-table {
 width: 100%;
 border-collapse: collapse;
@@ -759,8 +715,6 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
 .status-missing { background: #e2e3e5; color: #383d41; }
 .status-needs-confirmation { background: #fff3cd; color: #ff9800; border: 1px solid #ff9800; }
 .glasses-icon { font-size: 1.2em; }
-
-/* Zertifikate kompakt */
 .proc-checkboxes { display: grid; grid-template-columns: 1fr; gap: 6px; }
 .proc-check { display: flex; align-items: center; gap: 6px; font-size: 0.9em; }
 .proc-date { width: 13ch !important; max-width: 13ch !important; }
@@ -776,8 +730,6 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   border-radius: 3px;
   border: 1px solid #ddd;
 }
-
-/* Prüfwerker-Link Styling */
 .pw-cert-link {
   cursor: pointer;
   color: inherit !important;
@@ -796,8 +748,6 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   color: inherit !important;
   text-decoration: none !important;
 }
-
-/* Audit-Zyklus Anzeige */
 .audit-cycle-badge {
     display: inline-flex;
     align-items: center;
@@ -818,12 +768,10 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
 .audit-cycle-2 { background: #fff3e0; color: #f57c00; border: 1px solid #ffcc80; }
 .audit-cycle-4 { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
 .audit-cycle-5 { background: #daf2d1; color: black !important; border-color: #2e7d32; }
-
 .proc-exp.valid { color: #155724 !important; font-weight: bold; }
 .proc-exp.warning { color: #856404 !important; font-weight: bold; }
 .proc-exp.expired { color: #721c24 !important; font-weight: bold; }
 .proc-exp.needs-confirmation { color: #ff9800 !important; font-weight: bold; }
-
 .proc-chip {
   display: inline-block !important;
   min-width: 18px;
@@ -849,8 +797,6 @@ font-size: 0.8em; font-weight: bold; text-align: center; min-width: 80px;
   white-space: nowrap !important; 
   font-size: 1.3em !important; 
 }
-
-/* MITARBEITERLISTE SEITE */
 .employee-view { display: none; }
 .employee-view.active { display: block; }
 .employee-controls {
@@ -859,15 +805,11 @@ margin-top: 10px; margin-bottom: 10px;
 }
 .employee-search { flex: 1; min-width: 200px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9em; }
 .employee-filter { padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9em; }
-
 .stats-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 15px; margin-bottom: 10px; }
 .stat-box { background: #f8f9fa; padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; min-width: 100px; text-align: center; }
 .stat-value { font-weight: 700; font-size: 1.2em; margin-bottom: 3px; color: #000!important; }
-
 #employeeListView .controls-row-1 { display: flex; flex-wrap: nowrap; gap: 6px; align-items: center; }
 #employeeListView .controls-row-1 button { flex: 0 0 auto; }
-
-/* KOPFDATEN SECTION MIT NEUEN CARD-ID FELDERN */
 .header-section {
 background: #f8f9fa; border: 1px solid #3498db; border-radius: 5px;
 margin-bottom: 10px; transition: all 0.3s ease;
@@ -887,8 +829,6 @@ font-size: 0.85em; cursor: pointer; appearance: none; min-width: 60px;
 .header-group h4 { color: #2c3e50; margin-bottom: 5px; border-bottom: 1px solid #ecf0f1; padding-bottom: 3px; font-size: 0.9em; }
 .header-input { width: 100%; padding: 6px 8px; border: 1px solid #ddd; border-radius: 3px; font-family: inherit; font-size: 0.8em; margin-bottom: 6px; box-sizing: border-box; appearance: none; }
 .header-input:last-child { margin-bottom: 0; }
-
-/* NEU: Card-ID Felder im Header - kompakte Darstellung */
 .card-id-header-row {
   display: flex;
   align-items: center;
@@ -924,16 +864,10 @@ font-size: 0.85em; cursor: pointer; appearance: none; min-width: 60px;
 .header-group.compact .header-input {
   margin-bottom: 3px;
 }
-
-/* Auditnummer Anzeige */
 .audit-number-display { margin-bottom: 6px; font-size: 0.9em; }
 .audit-number-display strong { color: #2c3e50; }
-
-/* MOBILE HEADER - KOMPAKT */
 .mobile-header-section.collapsed { padding: 2px; }
 .mobile-header-section.collapsed h3 { padding: 4px 6px; font-size: 0.75em; min-height: 24px; }
-
-/* FRAGEN UND SECTIONS */
 .section { margin-bottom: 15px; border: 1px solid #bdc3c7; border-radius: 5px; overflow: hidden; }
 .section-header {
 background: #34495e; color: white; padding: 10px 12px; cursor: pointer;
@@ -946,7 +880,6 @@ display: flex; justify-content: space-between; align-items: center; user-select:
 .section-content { padding: 10px; display: none; }
 .section.expanded .section-content { display: block; animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
 .question {
 margin-bottom: 10px; padding: 15px; background: #f8f9fa; border-radius: 4px; border-left: 3px solid #95a5a6;
 }
@@ -961,8 +894,6 @@ margin-left: 8px; white-space: nowrap; flex-shrink: 0;
 .english-translation {
 font-style: italic; color: #666; font-size: 0.9em; margin-top: 5px; margin-bottom: 10px; padding-left: 10px; border-left: 2px solid #ddd;
 }
-
-/* Ja/Nein Buttons */
 .verdict-options { display: flex; gap: 10px; margin-bottom: 10px; }
 .verdict-btn {
 flex: 1; padding: 10px; border: none; border-radius: 4px; cursor: pointer; text-align: center;
@@ -973,12 +904,9 @@ font-weight: bold; font-size: 0.9em; transition: all 0.2s; display: flex; align-
 .verdict-btn.ok.selected { background: #27ae60; color: white; }
 .verdict-btn.not-ok { background: #ffebee; color: #e74c3c; border: 2px solid #e74c3c; }
 .verdict-btn.not-ok.selected { background: #e74c3c; color: white; }
-
 .comment-section { margin-bottom: 10px; }
 .comment-label { display: block; margin-bottom: 5px; font-weight: 500; color: #2c3e50; font-size: 0.85em; }
 .comment { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical; min-height: 60px; font-family: inherit; font-size: 0.85em; box-sizing: border-box; }
-
-/* Bild-Upload */
 .image-upload-section {
 margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px; border: 1px dashed #3498db;
 }
@@ -997,23 +925,15 @@ position: relative; width: 100px; height: 100px; border: 1px solid #ddd; border-
 position: absolute; top: 2px; right: 2px; background: #e74c3c; color: white; border: none;
 width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 0.8em; display: flex; align-items: center; justify-content: center; line-height: 1;
 }
-
-/* GESAMTERGEBNIS */
 .final-result { text-align: center; margin: 10px 0; padding: 12px; border-radius: 5px; font-weight: bold; font-size: 0.9em; display: none; }
 .final-result.passed { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
 .final-result.failed { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 .final-result.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
-
-/* MOBILE ANSICHT */
 .mobile-view { display: none; }
 .desktop-view { display: block; }
-
-/* MOBILE NAVIGATION */
 .mobile-nav { display: flex; justify-content: space-between; margin-top: 5px; border-top: 1px solid #ddd; }
 .mobile-nav button { padding: 10px 15px; font-size: 0.8em; min-width: 80px; border: none; border-radius: 4px; background: #95a5a6; color: white; cursor: pointer; }
 #mobileCounter { font-size: 0.9em; padding: 0 15px; text-align: center; font-weight: bold; color: #2c3e50; display: flex; align-items: center; }
-
-/* KATEGORIEN-BUTTONS FÜR MOBILE */
 .mobile-section-selector {
 display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; background: #f8f9fa; padding: 8px; border-radius: 4px;
 }
@@ -1022,8 +942,6 @@ flex: 1; min-width: 60px; font-size: 0.7em; padding: 6px 4px; text-align: center
 border: none; border-radius: 3px; background: #3498db; color: white; cursor: pointer;
 }
 .section-btn.active { background: #2c3e50; font-weight: bold; }
-
-/* BERICHTSANZEIGE OVERLAY */
 .report-overlay {
 display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
 background: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; padding: 10px; box-sizing: border-box;
@@ -1047,24 +965,18 @@ opacity: 0.7; transition: opacity 0.3s;
 .report-action-btn.print-btn { background: #27ae60; }
 .report-action-btn.close-btn { background: #e74c3c; }
 .report-action-btn.cloud-btn { background: #9b59b6; }
-
 .report-header {
 position: relative; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 15px;
 text-align: center; height: auto; min-height: 10mm; max-height: 15mm;
 }
 .report-header h2 { font-size: 16px !important; margin: 0 0 2px 0; color: #000 !important; line-height: 1.2; }
 .company-info { font-size: 11px; margin: 1px 0; color: #333 !important; }
-
-/* Tabellen */
 .person-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10px; }
 .person-table th, .person-table td { border: 1px solid #000; padding: 6px; vertical-align: top; }
 .person-table th { background: #f0f0f0 !important; font-weight: bold; text-align: left; }
-
 .details-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10px; }
 .details-table td { border: 1px solid #000; padding: 5px 6px; vertical-align: middle; }
 .details-table td:first-child {width: 25%; background: #f9f9f9 !important; }
-
-/* Ergebnisse */
 .results-section { margin: 15px 0; }
 .report-section-header { font-size: 12px; font-weight: bold; margin: 10px 0 5px 0; padding-bottom: 3px; border-bottom: 1px solid #000; }
 .question-item { margin: 4px 0; padding: 5px; font-size: 10px; line-height: 1.3; }
@@ -1072,16 +984,12 @@ text-align: center; height: auto; min-height: 10mm; max-height: 15mm;
 .question-item.not-ok { border-left: 2px solid #ff0000; background: #fff0f0 !important; }
 .question-id { font-weight: bold; color: #000 !important; font-size: 10px; }
 .question-comment { font-style: italic; color: #666; margin-left: 8px; font-size: 9px; }
-
-/* Unterschriften */
 .signature-area {
 margin-top: 30px; padding-top: 15px; border-top: 1px solid #000;
 display: flex; justify-content: space-between; gap: 25px;
 }
 .signature-box { flex: 1; text-align: center; min-width: 45%; }
 .signature-line { margin-top: 50px; min-height: 40px; }
-
-/* AUTORISIERUNG - Deko */
 .authorization-header {
   position: relative;
   text-align: center;
@@ -1182,22 +1090,16 @@ z-index: 1 !important;
 }
 .authorization-stamp-box.supervisor { margin: 25px auto 10px auto !important; width: 85% !important; max-width: 150mm !important; }
 .print-container { position: relative; min-height: 297mm !important; padding-bottom: 12mm !important; }
-
-/* ANSICHTS-STEUERUNG */
 .audit-content { display: none; }
 .audit-content.active { display: block; }
 .audit-selection { display: none; }
 .audit-selection.active { display: block; }
-
-/* FOOTER */
 footer {
 text-align: center; margin-top: 1px; padding-top: 1px; border-top: 1px solid #ecf0f1;
 color: #7f8c8d; font-size: 0.85em;
 }
 .creator-info { font-weight: bold; color: #2c3e50; margin-top: 4px; font-size: 0.9em; }
 .version-info { margin-top: 2px; font-size: 0.8em; color: #7f8c8d; }
-
-/* MOBILE OPTIMIERUNGEN */
 @media (max-width: 768px) {
   body { padding: 4px; font-size: 13px; }
   .container { padding: 6px; }
@@ -1278,8 +1180,6 @@ color: #7f8c8d; font-size: 0.85em;
   .report-action-buttons { top: 5px; right: 5px; gap: 3px; }
   .report-action-btn { width: 25px; height: 25px; font-size: 14px; }
 }
-
-/* SEHR KLEINE DISPLAYS */
 @media (max-width: 360px) {
 .audit-status { font-size: 0.7em; padding: 6px; }
 .controls-row-audit button { padding: 6px 8px; font-size: 0.65em; height: 30px; min-width: 90px; }
@@ -1292,8 +1192,6 @@ color: #7f8c8d; font-size: 0.85em;
 .mobile-nav button { min-width: 60px; padding: 6px 8px; font-size: 0.75em; }
 .progress-bar { height: 8px; }
 }
-
-/* MITARBEITERLISTE CONTROLS */
 #employeeListView .controls-row-1 {
 display: flex;
 gap: 6px;
@@ -1434,8 +1332,6 @@ min-width: 180px !important;
 [data-theme="dark"] .pw-cert-link {
     color: #000000 !important;
 }
-
-/* Verschlüsselte Card-ID Felder */
 .encrypted-field {
   font-family: monospace;
   background: #f9f9f9;
@@ -1492,6 +1388,70 @@ min-width: 180px !important;
   border-radius: 3px;
   cursor: pointer;
 }
+
+/* NEU: GitHub Config Bereich */
+.github-config-panel {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+}
+.github-config-panel h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+}
+.github-config-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.github-config-row label {
+  min-width: 100px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+.github-config-row input {
+  flex: 1;
+  min-width: 200px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: monospace;
+}
+.github-config-row button {
+  padding: 8px 15px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.github-config-row button.secondary {
+  background: #3498db;
+}
+.github-config-row button.danger {
+  background: #e74c3c;
+}
+.github-status {
+  margin-top: 10px;
+  padding: 8px;
+  background: #eef2f7;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.github-status.success {
+  background: #d4edda;
+  color: #155724;
+}
+.github-status.error {
+  background: #f8d7da;
+  color: #721c24;
+}
 </style>
 
 <!-- Dark Mode Stylesheet -->
@@ -1508,7 +1468,6 @@ h1 { color: #ffffff !important; }
   box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
 }
 .theme-toggle:hover { background: #333333 !important; }
-
 .custom-modal-content,
 .employee-modal-content,
 .audit-list-content,
@@ -1640,6 +1599,31 @@ footer { border-top-color: #444; color: #cccccc !important; }
 }
 .authorization-header .english-subtitle { color: #ffffff !important; }
 .header-section-title .english { color: #cccccc !important; }
+.github-config-panel {
+  background: #2d2d2d !important;
+  border-color: #3498db !important;
+}
+.github-config-panel h3,
+.github-config-panel label {
+  color: #ffffff !important;
+}
+.github-config-panel input {
+  background: #333;
+  color: #e0e0e0;
+  border-color: #555;
+}
+.github-status {
+  background: #333 !important;
+  color: #e0e0e0 !important;
+}
+.github-status.success {
+  background: #1e3b2a !important;
+  color: #8bc34a !important;
+}
+.github-status.error {
+  background: #3b2a2a !important;
+  color: #ff6b6b !important;
+}
 </style>
 </head>
 <body>
@@ -1886,10 +1870,10 @@ footer { border-top-color: #444; color: #cccccc !important; }
   </div>
 </div>
 
-<!-- Sync MODAL -->
+<!-- Sync MODAL (für GitHub) -->
 <div id="cloudSyncModal" class="custom-modal">
   <div class="custom-modal-content">
-    <h3 id="cloudSyncTitle">Cloud-Synchronisation</h3>
+    <h3 id="cloudSyncTitle">GitHub Synchronisation</h3>
     <div id="cloudSyncMessage">Verbindung wird hergestellt...</div>
     <div id="cloudSyncProgress" style="margin: 15px 0;">
       <div style="width: 100%; height: 10px; background: #e0e0e0; border-radius: 5px;">
@@ -1909,10 +1893,48 @@ footer { border-top-color: #444; color: #cccccc !important; }
   <h1>ZfP Operator Audit</h1>
   <div class="subtitle">INFSW17008_NDT_Personal</div>
   <div style="margin-top: 5px; font-size: 0.8em; color: #3498db; display: flex; align-items: center; justify-content: center; gap: 5px;">
-    <span id="cloudStatus">🌐 Cloud verbunden</span>
+    <span id="cloudStatus">📦 Lokal gespeichert</span>
   </div>
 </header>
 <button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
+
+<!-- NEU: GitHub Konfigurations-Panel -->
+<div class="github-config-panel" id="githubConfigPanel">
+  <h3>⚙️ GitHub JSON Datenbank Konfiguration</h3>
+  <div class="github-config-row">
+    <label>GitHub Owner:</label>
+    <input type="text" id="githubOwner" placeholder="z.B. Acendrion1984" value="Acendrion1984">
+  </div>
+  <div class="github-config-row">
+    <label>Repository:</label>
+    <input type="text" id="githubRepo" placeholder="z.B. ZfP" value="ZfP">
+  </div>
+  <div class="github-config-row">
+    <label>Branch:</label>
+    <input type="text" id="githubBranch" placeholder="main" value="main">
+  </div>
+  <div class="github-config-row">
+    <label>Dateiname:</label>
+    <input type="text" id="githubFilename" placeholder="zfp-audit-db.json" value="zfp-audit-db.json">
+  </div>
+  <div class="github-config-row">
+    <label>Personal Access Token:</label>
+    <input type="password" id="githubToken" placeholder="ghp_...">
+  </div>
+  <div class="github-config-row">
+    <button id="githubTestBtn" class="secondary">🔌 Verbindung testen</button>
+    <button id="githubSaveConfigBtn">💾 Konfiguration speichern</button>
+    <button id="githubPullBtn">⬇️ Von GitHub laden</button>
+    <button id="githubPushBtn" class="secondary">⬆️ Nach GitHub pushen</button>
+    <button id="githubClearConfigBtn" class="danger">🗑️ Token löschen</button>
+  </div>
+  <div id="githubStatus" class="github-status">
+    ⚠️ Nicht verbunden. Bitte konfigurieren.
+  </div>
+  <div style="font-size: 0.8em; color: #666; margin-top: 8px;">
+    ℹ️ Token wird nur lokal im Browser gespeichert. Erfordert Schreibrechte auf das Repository.
+  </div>
+</div>
 
 <!-- AUDIT AUSWAHL -->
 <div id="auditSelection" class="audit-selection active">
@@ -1960,6 +1982,9 @@ footer { border-top-color: #444; color: #cccccc !important; }
     <button class="btn-export" id="exportBtn">💾 Save</button>
     <button class="btn-report" id="reportBtn">📊 Drucken</button>
     <button class="btn-danger" id="resetBtn">🗑️ Reset</button>
+    <!-- NEU: CSV Export / Import -->
+    <button class="btn-success" id="csvExportBtn">📥 CSV Export</button>
+    <button class="btn-secondary" id="csvImportBtn">📤 CSV Import</button>
     <div class="password-unlock-field">
       <input type="password" id="headerPasswordInput" placeholder="Passwort" style="flex:1;">
       <button id="headerUnlockBtn" style="background:#3498db;">🔓</button>
@@ -1968,7 +1993,7 @@ footer { border-top-color: #444; color: #cccccc !important; }
 
   <!-- Sync INDICATOR -->
   <div id="cloudSyncIndicator" style="display: none; background: #3498db; color: white; padding: 5px 10px; border-radius: 3px; margin-bottom: 8px; font-size: 0.8em; text-align: center;">
-    <span id="syncIndicatorText">🔄 Synchronisiere mit Cloud...</span>
+    <span id="syncIndicatorText">🔄 Synchronisiere mit GitHub...</span>
   </div>
 
   <!-- KOPFDATEN DESKTOP MIT NEUEN CARD-ID FELDERN -->
@@ -2132,7 +2157,7 @@ footer { border-top-color: #444; color: #cccccc !important; }
   <div class="controls-row-1">
     <button class="btn-back" id="backFromEmployeesBtn">← Zurück</button>
     <button class="btn-success" id="addEmployeeBtn">➕ Mitarbeiter</button>
-    <button class="btn-authorization" id="syncCloudBtn">☁️ Sync</button>
+    <button class="btn-authorization" id="syncCloudBtn">☁️ GitHub Sync</button>
     <button class="btn-danger" id="deleteLocalDataBtn">🗑️ Lokale Daten löschen</button>
   </div>
   <div class="employee-controls" style="display:flex; gap:6px; align-items:center; flex-wrap: wrap;">
@@ -2238,9 +2263,7 @@ footer { border-top-color: #444; color: #cccccc !important; }
 <input type="file" id="fileLoader" accept=".json" style="display: none;">
 <input type="file" id="employeeListLoader" accept=".json" style="display: none;">
 <input type="file" id="cloudRestoreLoader" accept=".json" style="display: none;">
-
-<!-- SUPABASE SCRIPT -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
+<input type="file" id="csvLoader" accept=".csv" style="display: none;">
 
 <script>
 // PASWORD für Card-ID Anzeige (in Produktion durch sicheren Hash ersetzen)
@@ -2248,6 +2271,345 @@ const MASTER_PASSWORD = 'ZfP2026';
 
 // Globaler Status, ob die Felder entsperrt sind
 let cardsUnlocked = false;
+
+// ===== GITHUB KONFIGURATION =====
+let githubConfig = {
+  owner: 'Acendrion1984',
+  repo: 'ZfP',
+  branch: 'main',
+  filename: 'zfp-audit-db.json',
+  token: ''
+};
+
+// GitHub Status
+let githubConnected = false;
+let githubSyncInProgress = false;
+
+// Lade gespeicherte GitHub Konfiguration
+function loadGitHubConfig() {
+  try {
+    const saved = localStorage.getItem('zfp_github_config');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      githubConfig = { ...githubConfig, ...parsed };
+    }
+    
+    // Felder befüllen
+    document.getElementById('githubOwner').value = githubConfig.owner || '';
+    document.getElementById('githubRepo').value = githubConfig.repo || '';
+    document.getElementById('githubBranch').value = githubConfig.branch || 'main';
+    document.getElementById('githubFilename').value = githubConfig.filename || 'zfp-audit-db.json';
+    document.getElementById('githubToken').value = githubConfig.token || '';
+    
+    updateGitHubStatus();
+  } catch (e) {
+    console.error('Fehler beim Laden der GitHub Konfiguration:', e);
+  }
+}
+
+function saveGitHubConfig() {
+  githubConfig.owner = document.getElementById('githubOwner').value.trim();
+  githubConfig.repo = document.getElementById('githubRepo').value.trim();
+  githubConfig.branch = document.getElementById('githubBranch').value.trim() || 'main';
+  githubConfig.filename = document.getElementById('githubFilename').value.trim() || 'zfp-audit-db.json';
+  githubConfig.token = document.getElementById('githubToken').value.trim();
+  
+  localStorage.setItem('zfp_github_config', JSON.stringify(githubConfig));
+  updateGitHubStatus();
+  showInfoModal('✅ GitHub Konfiguration gespeichert');
+}
+
+function clearGitHubToken() {
+  githubConfig.token = '';
+  document.getElementById('githubToken').value = '';
+  localStorage.setItem('zfp_github_config', JSON.stringify(githubConfig));
+  updateGitHubStatus();
+  showInfoModal('🗑️ GitHub Token gelöscht');
+}
+
+function updateGitHubStatus() {
+  const statusEl = document.getElementById('githubStatus');
+  const cloudStatusEl = document.getElementById('cloudStatus');
+  
+  if (githubConfig.owner && githubConfig.repo && githubConfig.token) {
+    githubConnected = true;
+    statusEl.className = 'github-status success';
+    statusEl.innerHTML = '✅ GitHub verbunden. Repository ist bereit.';
+    if (cloudStatusEl) {
+      cloudStatusEl.innerHTML = '☁️ GitHub verbunden';
+      cloudStatusEl.style.color = '#27ae60';
+    }
+  } else {
+    githubConnected = false;
+    statusEl.className = 'github-status error';
+    statusEl.innerHTML = '⚠️ Nicht verbunden. Bitte alle Felder ausfüllen.';
+    if (cloudStatusEl) {
+      cloudStatusEl.innerHTML = '📦 Lokal gespeichert';
+      cloudStatusEl.style.color = '#7f8c8d';
+    }
+  }
+}
+
+// ===== GITHUB API FUNKTIONEN =====
+
+// ===== KORRIGIERTE GITHUB FUNKTIONEN =====
+
+// Hilfsfunktion: Base64 kodieren (funktioniert zuverlässig mit Unicode)
+function b64Encode(str) {
+  // UTF-8 Kodierung für Sonderzeichen
+  const utf8Bytes = new TextEncoder().encode(str);
+  let binary = '';
+  utf8Bytes.forEach(byte => binary += String.fromCharCode(byte));
+  return btoa(binary);
+}
+
+function b64Decode(str) {
+  const binary = atob(str);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+// GitHub API: Datei abrufen
+async function fetchGitHubFile() {
+  if (!githubConfig.owner || !githubConfig.repo || !githubConfig.token) {
+    throw new Error('GitHub nicht konfiguriert');
+  }
+  
+  const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.filename}?ref=${githubConfig.branch}`;
+  
+  const response = await fetch(url, {
+    headers: {
+      'Authorization': `token ${githubConfig.token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'ZfP-Audit-App'
+    }
+  });
+  
+  if (response.status === 404) {
+    return { exists: false, content: null, sha: null };
+  }
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(`${error.message || response.statusText} (${response.status})`);
+  }
+  
+  const data = await response.json();
+  const content = b64Decode(data.content);
+  return { 
+    exists: true, 
+    content: JSON.parse(content), 
+    sha: data.sha 
+  };
+}
+
+// GitHub API: Datei pushen
+async function pushToGitHub(content, commitMessage) {
+  if (!githubConfig.owner || !githubConfig.repo || !githubConfig.token) {
+    throw new Error('GitHub nicht konfiguriert');
+  }
+  
+  // Prüfen ob Datei existiert
+  let sha = null;
+  try {
+    const existing = await fetchGitHubFile();
+    if (existing.exists) {
+      sha = existing.sha;
+      // Merge: vorhandene Daten behalten, neue hinzufügen
+      content = { ...existing.content, ...content };
+      content.lastMerged = new Date().toISOString();
+    }
+  } catch (e) {
+    // Datei existiert nicht - ignorieren
+  }
+  
+  const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.filename}`;
+  
+  const body = {
+    message: commitMessage || `Update ZfP Audit - ${new Date().toLocaleString('de-DE')}`,
+    content: b64Encode(JSON.stringify(content, null, 2)),
+    branch: githubConfig.branch
+  };
+  
+  if (sha) {
+    body.sha = sha;
+  }
+  
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${githubConfig.token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+      'User-Agent': 'ZfP-Audit-App'
+    },
+    body: JSON.stringify(body)
+  });
+  
+  if (!response.ok) {
+    const error = await response.json();
+    let errorMsg = error.message || response.statusText;
+    
+    if (response.status === 401) errorMsg = 'Token ungültig';
+    else if (response.status === 403) errorMsg = 'Keine Schreibrechte. Token benötigt "contents:write"';
+    else if (response.status === 409) errorMsg = 'Konflikt - Datei wurde geändert. Bitte neu laden.';
+    
+    throw new Error(`${errorMsg} (${response.status})`);
+  }
+  
+  return await response.json();
+}
+
+// Verbindung testen
+async function testGitHubConnection() {
+  const statusEl = document.getElementById('githubStatus');
+  
+  try {
+    if (!githubConfig.owner || !githubConfig.repo || !githubConfig.token) {
+      statusEl.className = 'github-status error';
+      statusEl.innerHTML = '❌ Bitte alle Felder ausfüllen';
+      return;
+    }
+    
+    statusEl.className = 'github-status';
+    statusEl.innerHTML = '🔄 Teste Verbindung...';
+    
+    const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}`;
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `token ${githubConfig.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'ZfP-Audit-App'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const repoData = await response.json();
+    
+    // Prüfen ob Push-Rechte vorhanden
+    const permissions = repoData.permissions || { push: false };
+    
+    if (!permissions.push) {
+      statusEl.className = 'github-status error';
+      statusEl.innerHTML = '⚠️ Token hat keine Schreibrechte! <button onclick="showTokenHelp()" style="background:#3498db; color:white; border:none; padding:2px 8px; border-radius:3px;">Hilfe</button>';
+    } else {
+      statusEl.className = 'github-status success';
+      statusEl.innerHTML = `✅ Verbunden mit ${repoData.full_name} (Schreibrechte OK)`;
+    }
+    
+  } catch (error) {
+    statusEl.className = 'github-status error';
+    
+    if (error.message.includes('401')) {
+      statusEl.innerHTML = '❌ Token ungültig - <button onclick="showTokenHelp()" style="background:#3498db; color:white; border:none; padding:2px 8px; border-radius:3px;">Token Hilfe</button>';
+    } else if (error.message.includes('403')) {
+      statusEl.innerHTML = '❌ Kein Zugriff - <button onclick="showTokenHelp()" style="background:#3498db; color:white; border:none; padding:2px 8px; border-radius:3px;">Token Hilfe</button>';
+    } else if (error.message.includes('404')) {
+      statusEl.innerHTML = '❌ Repository nicht gefunden';
+    } else {
+      statusEl.innerHTML = `❌ Fehler: ${error.message}`;
+    }
+  }
+}
+
+// Hilfe-Funktion für Token
+function showTokenHelp() {
+  alert(
+    '🔑 GitHub Token benötigt:\n\n' +
+    '1. Gehe zu: github.com/settings/tokens\n' +
+    '2. "Generate new token" → "Fine-grained tokens"\n' +
+    '3. Repository auswählen\n' +
+    '4. Berechtigungen: "Contents" → Read and Write\n' +
+    '5. Token generieren und hier einfügen'
+  );
+}
+
+// Push-Funktion für den Button
+async function handleGitHubPush() {
+  const statusEl = document.getElementById('githubStatus');
+  const pushBtn = document.getElementById('githubPushBtn');
+  
+  if (!githubConfig.token) {
+    alert('Bitte zuerst GitHub Token eingeben!');
+    return;
+  }
+  
+  const originalText = pushBtn.textContent;
+  pushBtn.disabled = true;
+  pushBtn.textContent = '⏳ Pushe...';
+  statusEl.className = 'github-status';
+  statusEl.innerHTML = '🔄 Pushe zu GitHub...';
+  
+  try {
+    const result = await pushToGitHubDatabase('Manueller Push');
+    
+    if (result.success) {
+      statusEl.className = 'github-status success';
+      statusEl.innerHTML = `✅ ${result.message}`;
+      showInfoModal(result.message);
+    } else {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    statusEl.className = 'github-status error';
+    statusEl.innerHTML = `❌ ${error.message}`;
+    showInfoModal(`Fehler: ${error.message}`);
+  } finally {
+    pushBtn.disabled = false;
+    pushBtn.textContent = originalText;
+  }
+}
+
+// Pull-Funktion für den Button
+async function handleGitHubPull() {
+  const statusEl = document.getElementById('githubStatus');
+  const pullBtn = document.getElementById('githubPullBtn');
+  
+  if (!githubConfig.token) {
+    alert('Bitte zuerst GitHub Token eingeben!');
+    return;
+  }
+  
+  const originalText = pullBtn.textContent;
+  pullBtn.disabled = true;
+  pullBtn.textContent = '⏳ Lade...';
+  statusEl.className = 'github-status';
+  statusEl.innerHTML = '🔄 Lade von GitHub...';
+  
+  try {
+    const result = await loadFromGitHub();
+    
+    if (result.success) {
+      // Daten neu laden
+      await loadEmployees();
+      await loadAuditReviews();
+      await loadAuditFiles();
+      renderEmployeeList();
+      updateDepartmentFilterOptions();
+      updateProcedureProgress();
+      updateAllAuditProgressDisplays();
+      
+      statusEl.className = 'github-status success';
+      statusEl.innerHTML = `✅ ${result.message}`;
+      showInfoModal(result.message);
+    } else {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    statusEl.className = 'github-status error';
+    statusEl.innerHTML = `❌ ${error.message}`;
+    showInfoModal(`Fehler: ${error.message}`);
+  } finally {
+    pullBtn.disabled = false;
+    pullBtn.textContent = originalText;
+  }
+}
 
 // ===== NEUE FUNKTIONEN FÜR VERSCHLÜSSELTE FELDER =====
 function initEncryptedFields(container = document) {
@@ -2408,14 +2770,6 @@ function setupPracticalExperienceEventListeners() {
   attachHoursInputListeners();
   initEncryptedFields();
 }
-
-// ===== SUPABASE KONFIGURATION =====
-const SUPABASE_URL = 'https://wqrynlgbspkjzxuxauvq.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_jkkaIcAKxMhkXSdnJY1Oiw_U-xPWr68';
-let supabase;
-let cloudConnected = false;
-let cloudSyncInProgress = false;
-let backgroundSyncInterval = null;
 
 // === KONSTANTEN ===
 const AUDIT_TYPES = {
@@ -2636,358 +2990,6 @@ let currentPracticalEmployeeId = null;
 let currentPracticalProcedure = null;
 
 let auditReviews = {};
-
-// === SUPABASE FUNKTIONEN ===
-async function initSupabase() {
-  try {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const { data, error } = await supabase.from('zfp_audits').select('count').limit(1);
-    if (error) {
-      await createSupabaseTables();
-    } else {
-      cloudConnected = true;
-      updateCloudStatus();
-      startBackgroundSync();
-    }
-    return true;
-  } catch (error) {
-    cloudConnected = false;
-    updateCloudStatus();
-    return false;
-  }
-}
-
-function startBackgroundSync() {
-  if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
-  backgroundSyncInterval = setInterval(async () => {
-    if (cloudConnected && !cloudSyncInProgress) {
-      await backgroundSync();
-    }
-  }, 60000);
-  setTimeout(() => {
-    if (cloudConnected && !cloudSyncInProgress) {
-      backgroundSync();
-    }
-  }, 2000);
-}
-
-async function backgroundSync() {
-  if (!cloudConnected || cloudSyncInProgress) return;
-  cloudSyncInProgress = true;
-  try {
-    const { data: cloudAudits } = await supabase.from('zfp_audits').select('*').order('created_at', { ascending: false });
-    if (cloudAudits && cloudAudits.length > 0) {
-      cloudAudits.forEach(cloudAudit => {
-        if (cloudAudit.audit_type && cloudAudit.data) {
-          const listKey = STORAGE_LIST_KEY(cloudAudit.audit_type);
-          let localList = [];
-          const saved = localStorage.getItem(listKey);
-          if (saved) {
-            try { localList = JSON.parse(saved) || []; } catch (e) { localList = []; }
-          }
-          const exists = localList.some(a => a.meta?.instanceId === cloudAudit.id);
-          if (!exists) {
-            localList.push(cloudAudit.data);
-            localStorage.setItem(listKey, JSON.stringify(localList));
-          }
-        }
-      });
-    }
-    const { data: cloudEmployees } = await supabase.from('zfp_employees').select('*').order('updated_at', { ascending: false });
-    if (cloudEmployees && cloudEmployees.length > 0) {
-      const newEmployees = cloudEmployees.map(emp => {
-        let audits = []; let authorizations = [];
-        try { audits = emp.audits ? JSON.parse(emp.audits) : []; } catch (e) { audits = []; }
-        try { authorizations = emp.authorizations ? JSON.parse(emp.authorizations) : []; } catch (e) { authorizations = []; }
-        let procedureCerts = defaultProcedureCerts();
-        try { procedureCerts = emp.procedure_certs ? JSON.parse(emp.procedure_certs) : defaultProcedureCerts(); } catch (e) { procedureCerts = defaultProcedureCerts(); }
-        ['wirbelstrom','magnetpulver','nital','ultraschall'].forEach(k => { if (!procedureCerts[k].level) procedureCerts[k].level = ''; });
-        
-        let practicalExperience = {};
-        try { practicalExperience = emp.practical_experience ? JSON.parse(emp.practical_experience) : {}; } catch (e) { practicalExperience = {}; }
-        
-        return {
-          id: emp.id,
-          name: emp.name || '',
-          number: emp.number || '',
-          birthdate: emp.birthdate || '',
-          eyeTestDate: emp.eye_test_date || '',
-          certNumber: emp.cert_number || '',
-          glasses: emp.glasses || 'unknown',
-          department: emp.department || '',
-          certificate: emp.certificate || '',
-          stampNumber: emp.stamp_number || '',
-          notes: emp.notes || '',
-          created: emp.created_at || new Date().toISOString(),
-          updated: emp.updated_at || new Date().toISOString(),
-          audits: audits,
-          authorizations: authorizations,
-          procedureCerts: procedureCerts,
-          practicalExperience: practicalExperience,
-          status: emp.status || 'missing',
-          activityConfirmed: emp.activity_confirmed || false
-        };
-      });
-      employees = mergeEmployees(employees, newEmployees);
-      localStorage.setItem('zfpEmployees', JSON.stringify(employees));
-    }
-    const { data: cloudReviews } = await supabase.from('zfp_audit_reviews').select('*');
-    if (cloudReviews) {
-      cloudReviews.forEach(review => {
-        auditReviews[review.audit_id] = {
-          reviewed: review.reviewed,
-          reviewedDate: review.reviewed_date
-        };
-      });
-      localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
-    }
-    await backgroundSyncToCloud();
-    loadAuditFiles();
-    renderEmployeeList();
-    updateEmployeeStatus();
-  } catch (error) {
-  } finally {
-    cloudSyncInProgress = false;
-  }
-}
-
-async function backgroundSyncToCloud() {
-  if (!cloudConnected || cloudSyncInProgress) return;
-  try {
-    for (const employee of employees) {
-      await syncSingleEmployeeToCloud(employee);
-    }
-    await syncAuditsToCloud();
-    const reviewsForCloud = Object.entries(auditReviews).map(([auditId, review]) => ({
-      audit_id: auditId,
-      reviewed: review.reviewed,
-      reviewed_date: review.reviewedDate,
-      device_id: 'web_' + navigator.userAgent.substring(0, 30)
-    }));
-    if (reviewsForCloud.length > 0) {
-      await supabase.from('zfp_audit_reviews').upsert(reviewsForCloud, { onConflict: 'audit_id' });
-    }
-  } catch (error) {}
-}
-
-async function createSupabaseTables() {
-  try {
-    await supabase.from('zfp_audits').insert({
-      id: 'table_check',
-      audit_type: 'test',
-      data: { test: true },
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }).select();
-    await supabase.from('zfp_employees').insert({
-      id: 'table_check',
-      name: 'Test',
-      status: 'missing',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }).select();
-    cloudConnected = true;
-    updateCloudStatus();
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-async function saveReportToCloud() { return false; }
-async function saveAuthorizationToCloud() { return false; }
-
-async function syncSingleAuditToCloud(auditData) {
-  if (!cloudConnected || !auditData) return false;
-  ensureReportNumber(auditData);
-  try {
-    const cloudAudit = {
-      id: auditData.meta.instanceId,
-      audit_type: auditData.meta.auditType,
-      data: auditData,
-      operator_name: auditData.headerData?.operatorName || '',
-      operator_number: auditData.headerData?.operatorNumber || '',
-      report_number: auditData.headerData?.reportNumber || '',
-      created_at: auditData.meta.created || new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      device_id: 'web_' + navigator.userAgent.substring(0, 30)
-    };
-    const { error } = await supabase.from('zfp_audits').upsert(cloudAudit, { onConflict: 'id' });
-    if (error) return false;
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-async function syncSingleEmployeeToCloud(employee) {
-  if (!cloudConnected || !employee) return false;
-  try {
-    const auditsJson = employee.audits ? JSON.stringify(employee.audits) : '[]';
-    const authorizationsJson = employee.authorizations ? JSON.stringify(employee.authorizations) : '[]';
-    const procedureCertsJson = employee.procedureCerts ? JSON.stringify(employee.procedureCerts) : JSON.stringify(defaultProcedureCerts());
-    const practicalExperienceJson = employee.practicalExperience ? JSON.stringify(employee.practicalExperience) : '{}';
-    
-    const empData = {
-      id: employee.id,
-      name: employee.name || '',
-      number: employee.number || '',
-      birthdate: employee.birthdate || '',
-      eye_test_date: employee.eyeTestDate || '',
-      cert_number: employee.certNumber || '',
-      glasses: employee.glasses || 'unknown',
-      department: employee.department || '',
-      certificate: employee.certificate || '',
-      notes: employee.notes || '',
-      status: employee.status || 'missing',
-      audits: auditsJson,
-      authorizations: authorizationsJson,
-      latest_audit: employee.latestAudit ? employee.latestAudit.date.toISOString() : null,
-      next_audit: employee.nextAudit ? employee.nextAudit.toISOString() : null,
-      created_at: employee.created || new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      device_id: 'web_' + navigator.userAgent.substring(0, 30),
-      procedure_certs: procedureCertsJson,
-      stamp_number: employee.stampNumber || '',
-      activity_confirmed: employee.activityConfirmed || false,
-      practical_experience: practicalExperienceJson
-    };
-    let res = await supabase.from('zfp_employees').upsert(empData, { onConflict: 'id' });
-    if (res.error) {
-      const { stamp_number, practical_experience, ...fallback } = empData;
-      res = await supabase.from('zfp_employees').upsert(fallback, { onConflict: 'id' });
-      if (res.error) return false;
-    }
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-async function syncFromCloud() {
-  if (!cloudConnected) {
-    const success = await initSupabase();
-    if (!success) return false;
-  }
-  try {
-    await backgroundSync();
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-function mergeEmployees(localEmployees, cloudEmployees) {
-  const merged = [...localEmployees];
-  cloudEmployees.forEach(cloudEmp => {
-    const existingIndex = merged.findIndex(localEmp => localEmp.id === cloudEmp.id);
-    if (existingIndex >= 0) {
-      const localEmp = merged[existingIndex];
-      const localUpdated = new Date(localEmp.updated || 0);
-      const cloudUpdated = new Date(cloudEmp.updated || 0);
-      if (cloudUpdated > localUpdated) {
-        merged[existingIndex] = { ...localEmp, ...cloudEmp, id: localEmp.id };
-      }
-    } else {
-      merged.push(cloudEmp);
-    }
-  });
-  return merged;
-}
-
-async function syncAllToCloud() {
-  if (!cloudConnected) {
-    const success = await initSupabase();
-    if (!success) return false;
-  }
-  try {
-    cloudSyncInProgress = true;
-    for (const employee of employees) await syncSingleEmployeeToCloud(employee);
-    await syncAuditsToCloud();
-    const reviewsForCloud = Object.entries(auditReviews).map(([auditId, review]) => ({
-      audit_id: auditId,
-      reviewed: review.reviewed,
-      reviewed_date: review.reviewedDate,
-      device_id: 'web_' + navigator.userAgent.substring(0, 30)
-    }));
-    if (reviewsForCloud.length > 0) {
-      await supabase.from('zfp_audit_reviews').upsert(reviewsForCloud, { onConflict: 'audit_id' });
-    }
-    cloudSyncInProgress = false;
-    return true;
-  } catch (error) {
-    cloudSyncInProgress = false;
-    return false;
-  }
-}
-
-async function saveToCloud(auditData) {
-  if (!cloudConnected) {
-    showInfoModal('❌ Keine Cloud-Verbindung');
-    return false;
-  }
-  if (!findEmployeeForAudit(auditData)) {
-    showInfoModal('❌ Cloud-Save abgebrochen: Audit keinem Mitarbeiter zugeordnet.');
-    return false;
-  }
-  ensureReportNumber(auditData);
-  try {
-    const cloudAudit = {
-      id: auditData.meta.instanceId,
-      audit_type: auditData.meta.auditType,
-      data: auditData,
-      operator_name: auditData.headerData?.operatorName || '',
-      operator_number: auditData.headerData?.operatorNumber || '',
-      report_number: auditData.headerData?.reportNumber || '',
-      created_at: auditData.meta.created || new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      device_id: 'web_' + navigator.userAgent.substring(0, 30)
-    };
-    const { error } = await supabase.from('zfp_audits').upsert(cloudAudit, { onConflict: 'id' });
-    if (error) return false;
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-async function deleteLocalData() {
-  const shouldDelete = await showCustomModal('ALLE lokalen Daten löschen?\n\nDies löscht:\n• Alle Audits\n• Alle Mitarbeiter\n• Alle Einstellungen\n\nDie Cloud-Daten bleiben erhalten.');
-  if (!shouldDelete) return;
-  try {
-    Object.keys(AUDIT_TYPES).forEach(auditType => {
-      localStorage.removeItem(`zfpAudit_${auditType}`);
-      localStorage.removeItem(STORAGE_LIST_KEY(auditType));
-    });
-    localStorage.removeItem('zfpEmployees');
-    employees = [];
-    localStorage.removeItem('zfpAuditReviews');
-    auditReviews = {};
-    localStorage.removeItem('zfp_last_sync');
-    localStorage.removeItem('zfp_settings');
-    employeeAudits = [];
-    loadAuditFiles();
-    renderEmployeeList();
-    updateEmployeeStatus();
-    updateProcedureProgress();
-    showInfoModal('✅ Alle lokalen Daten gelöscht!\n\nApp neu starten oder Cloud-Sync durchführen,\num Cloud-Daten wiederherzustellen.');
-  } catch (error) {
-    showInfoModal('❌ Fehler beim Löschen der Daten');
-  }
-}
-
-function updateCloudStatus() {
-  const statusElement = document.getElementById('cloudStatus');
-  if (statusElement) {
-    if (cloudConnected) {
-      statusElement.innerHTML = '🌐 Cloud verbunden';
-      statusElement.style.color = '#27ae60';
-    } else {
-      statusElement.innerHTML = '❌ Cloud nicht verbunden';
-      statusElement.style.color = '#e74c3c';
-    }
-  }
-}
 
 function calculateAuditCycle(procedure, level, extendedCycle = false) {
   if (procedure === "nital" && (level === "2" || level === "3")) {
@@ -3226,12 +3228,6 @@ async function saveEmployees() {
     localStorage.setItem('zfpEmployees', JSON.stringify(employees));
     updateEmployeeStatus();
     updateDepartmentFilterOptions();
-    if (cloudConnected && !cloudSyncInProgress) {
-      for (const emp of employees) {
-        emp.updated = emp.updated || now;
-        await syncSingleEmployeeToCloud(emp);
-      }
-    }
   } catch (e) {
     console.error('Fehler beim Speichern der Mitarbeiter:', e);
   }
@@ -3249,17 +3245,6 @@ async function loadAuditReviews() {
 async function saveAuditReviews() {
   try {
     localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
-    if (cloudConnected && !cloudSyncInProgress) {
-      const reviewsForCloud = Object.entries(auditReviews).map(([auditId, review]) => ({
-        audit_id: auditId,
-        reviewed: review.reviewed,
-        reviewed_date: review.reviewedDate,
-        device_id: 'web_' + navigator.userAgent.substring(0, 30)
-      }));
-      if (reviewsForCloud.length > 0) {
-        await supabase.from('zfp_audit_reviews').upsert(reviewsForCloud, { onConflict: 'audit_id' });
-      }
-    }
   } catch (e) {}
 }
 
@@ -4416,18 +4401,6 @@ function ensureEmployeeFromHeader(headerData) {
   return emp;
 }
 
-async function deleteAuditFromCloud(instanceId) {
-  if (!cloudConnected || !instanceId) return false;
-  try {
-    await supabase.from('zfp_audit_reviews').delete().eq('audit_id', instanceId);
-    const { error } = await supabase.from('zfp_audits').delete().eq('id', instanceId);
-    if (error) return false;
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
-
 async function deleteAuditInstance(instanceId) {
   let removed = false;
   Object.keys(AUDIT_TYPES).forEach(type => {
@@ -4448,9 +4421,6 @@ async function deleteAuditInstance(instanceId) {
     if (auditReviews[instanceId]) {
       delete auditReviews[instanceId];
       await saveAuditReviews();
-    }
-    if (cloudConnected) {
-      await deleteAuditFromCloud(instanceId);
     }
     await loadAuditFiles();
     await updateEmployeeAudits();
@@ -4512,6 +4482,7 @@ function applyTheme(theme) {
   document.body.classList.toggle('light-mode', theme === 'light');
   updateToggleAppearance();
 }
+
 function initThemeToggle() {
   const saved = getSavedTheme();
   const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -4527,7 +4498,10 @@ function initThemeToggle() {
 
 document.addEventListener('DOMContentLoaded', async function() {
   initThemeToggle();
-  await initSupabase();
+  
+  // GitHub Config laden
+  loadGitHubConfig();
+  
   initializeApp();
   setupEventListeners();
   setupPracticalExperienceEventListeners();
@@ -4547,7 +4521,281 @@ document.addEventListener('DOMContentLoaded', async function() {
       document.getElementById('headerUnlockBtn').click();
     }
   });
+  
+  // CSV Export / Import
+  document.getElementById('csvExportBtn').addEventListener('click', exportAllDataToCSV);
+  document.getElementById('csvImportBtn').addEventListener('click', function() {
+    document.getElementById('csvLoader').click();
+  });
+  document.getElementById('csvLoader').addEventListener('change', importAllDataFromCSV);
+  
+  // GitHub Event-Listener
+  document.getElementById('githubTestBtn').addEventListener('click', async function() {
+    saveGitHubConfig();
+    const result = await testGitHubConnection();
+    if (result.success) {
+      document.getElementById('githubStatus').className = 'github-status success';
+      document.getElementById('githubStatus').innerHTML = `✅ ${result.message}`;
+      updateGitHubStatus();
+    } else {
+      document.getElementById('githubStatus').className = 'github-status error';
+      document.getElementById('githubStatus').innerHTML = `❌ ${result.message}`;
+    }
+  });
+  
+  document.getElementById('githubSaveConfigBtn').addEventListener('click', saveGitHubConfig);
+  document.getElementById('githubClearConfigBtn').addEventListener('click', clearGitHubToken);
+  
+  document.getElementById('githubPullBtn').addEventListener('click', async function() {
+    if (!githubConfig.token) {
+      alert('Bitte zuerst GitHub konfigurieren und Token eingeben');
+      return;
+    }
+    
+    document.getElementById('cloudSyncIndicator').style.display = 'block';
+    document.getElementById('syncIndicatorText').innerHTML = '⬇️ Lade von GitHub...';
+    
+    const result = await loadFromGitHub();
+    
+    if (result.success) {
+      // Daten neu laden
+      await loadEmployees();
+      await loadAuditReviews();
+      await loadAuditFiles();
+      renderEmployeeList();
+      updateDepartmentFilterOptions();
+      updateProcedureProgress();
+      updateAllAuditProgressDisplays();
+      
+      document.getElementById('githubStatus').className = 'github-status success';
+      document.getElementById('githubStatus').innerHTML = '✅ Daten erfolgreich von GitHub geladen';
+      
+      showInfoModal('✅ Daten von GitHub geladen');
+    } else {
+      document.getElementById('githubStatus').className = 'github-status error';
+      document.getElementById('githubStatus').innerHTML = `❌ Fehler: ${result.message}`;
+      
+      showInfoModal(`❌ Fehler beim Laden: ${result.message}`);
+    }
+    
+    document.getElementById('cloudSyncIndicator').style.display = 'none';
+  });
+  
+  document.getElementById('githubPushBtn').addEventListener('click', async function() {
+    if (!githubConfig.token) {
+      alert('Bitte zuerst GitHub konfigurieren und Token eingeben');
+      return;
+    }
+    
+    document.getElementById('cloudSyncIndicator').style.display = 'block';
+    document.getElementById('syncIndicatorText').innerHTML = '⬆️ Pushe nach GitHub...';
+    
+    const result = await pushToGitHubDatabase('Manueller Push von ZfP Audit App');
+    
+    if (result.success) {
+      document.getElementById('githubStatus').className = 'github-status success';
+      document.getElementById('githubStatus').innerHTML = '✅ Daten erfolgreich nach GitHub gepusht';
+      
+      showInfoModal('✅ Daten nach GitHub gepusht');
+    } else {
+      document.getElementById('githubStatus').className = 'github-status error';
+      document.getElementById('githubStatus').innerHTML = `❌ Fehler: ${result.message}`;
+      
+      showInfoModal(`❌ Fehler beim Pushen: ${result.message}`);
+    }
+    
+    document.getElementById('cloudSyncIndicator').style.display = 'none';
+  });
+  
+  // Sync Cloud Button in der Mitarbeiterliste
+  document.getElementById('syncCloudBtn').addEventListener('click', async function() {
+    // Zeige GitHub Pull Option
+    if (!githubConfig.token) {
+      alert('Bitte zuerst GitHub im Konfigurations-Panel konfigurieren');
+      return;
+    }
+    
+    const action = await showCustomModal('Was möchten Sie tun?\n\nOK = Von GitHub laden\nAbbrechen = Nach GitHub pushen');
+    
+    if (action) {
+      // Von GitHub laden
+      document.getElementById('cloudSyncIndicator').style.display = 'block';
+      document.getElementById('syncIndicatorText').innerHTML = '⬇️ Lade von GitHub...';
+      
+      const result = await loadFromGitHub();
+      
+      if (result.success) {
+        await loadEmployees();
+        await loadAuditReviews();
+        await loadAuditFiles();
+        renderEmployeeList();
+        updateDepartmentFilterOptions();
+        updateProcedureProgress();
+        updateAllAuditProgressDisplays();
+        
+        showInfoModal('✅ Daten von GitHub geladen');
+      } else {
+        showInfoModal(`❌ Fehler beim Laden: ${result.message}`);
+      }
+      
+      document.getElementById('cloudSyncIndicator').style.display = 'none';
+    } else {
+      // Nach GitHub pushen
+      document.getElementById('cloudSyncIndicator').style.display = 'block';
+      document.getElementById('syncIndicatorText').innerHTML = '⬆️ Pushe nach GitHub...';
+      
+      const result = await pushToGitHubDatabase('Sync von ZfP Audit App');
+      
+      if (result.success) {
+        showInfoModal('✅ Daten nach GitHub gepusht');
+      } else {
+        showInfoModal(`❌ Fehler beim Pushen: ${result.message}`);
+      }
+      
+      document.getElementById('cloudSyncIndicator').style.display = 'none';
+    }
+  });
 });
+
+// NEU: CSV Export aller Daten (Audits, Mitarbeiter, Reviews)
+function exportAllDataToCSV() {
+  // Sammle alle relevanten Daten
+  const exportData = {
+    employees: employees,
+    auditReviews: auditReviews,
+    audits: {}
+  };
+  
+  // Sammle alle Audits pro Typ
+  Object.keys(AUDIT_TYPES).forEach(type => {
+    const key = STORAGE_LIST_KEY(type);
+    const savedList = localStorage.getItem(key);
+    if (savedList) {
+      try {
+        exportData.audits[type] = JSON.parse(savedList);
+      } catch (e) {
+        exportData.audits[type] = [];
+      }
+    } else {
+      exportData.audits[type] = [];
+    }
+  });
+  
+  // Konvertiere zu CSV (eine Spalte für den Typ, eine für den JSON-String)
+  const rows = [];
+  
+  // Header
+  rows.push(['DataType', 'JSONData']);
+  
+  // Mitarbeiter
+  rows.push(['employees', JSON.stringify(exportData.employees)]);
+  
+  // AuditReviews
+  rows.push(['auditReviews', JSON.stringify(exportData.auditReviews)]);
+  
+  // Audits pro Typ
+  Object.keys(exportData.audits).forEach(type => {
+    rows.push([`audits_${type}`, JSON.stringify(exportData.audits[type])]);
+  });
+  
+  // Erstelle CSV-String
+  const csvContent = rows.map(row => {
+    return row.map(cell => {
+      // Maskiere Anführungszeichen und umschließe mit Anführungszeichen
+      if (typeof cell === 'string') {
+        return `"${cell.replace(/"/g, '""')}"`;
+      }
+      return `"${JSON.stringify(cell).replace(/"/g, '""')}"`;
+    }).join(',');
+  }).join('\n');
+  
+  // Download
+  const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' }); // BOM für Umlaute
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', `zfp_audit_backup_${new Date().toISOString().slice(0,10)}.csv`);
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  
+  showInfoModal('✅ CSV Export erfolgreich!');
+}
+
+// NEU: CSV Import aller Daten
+function importAllDataFromCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const csvText = e.target.result;
+      const rows = csvText.split('\n').map(row => row.trim()).filter(row => row.length > 0);
+      if (rows.length === 0) throw new Error('Leere Datei');
+      
+      // Parse CSV (einfaches Parsing, da nur zwei Spalten)
+      const dataMap = {};
+      
+      for (let i = 1; i < rows.length; i++) { // ab Zeile 1, da Zeile 0 Header
+        const row = rows[i];
+        const match = row.match(/"([^"]*)","(.*)"/);
+        if (!match) continue;
+        
+        const dataType = match[1];
+        let jsonStr = match[2];
+        // Entferne doppelte Anführungszeichen
+        jsonStr = jsonStr.replace(/""/g, '"');
+        
+        try {
+          const parsed = JSON.parse(jsonStr);
+          dataMap[dataType] = parsed;
+        } catch (jsonErr) {
+          console.warn('Fehler beim Parsen von JSON für', dataType, jsonErr);
+        }
+      }
+      
+      // Daten zurückschreiben in localStorage
+      if (dataMap['employees']) {
+        employees = dataMap['employees'];
+        localStorage.setItem('zfpEmployees', JSON.stringify(employees));
+      }
+      
+      if (dataMap['auditReviews']) {
+        auditReviews = dataMap['auditReviews'];
+        localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
+      }
+      
+      // Audits pro Typ
+      Object.keys(AUDIT_TYPES).forEach(type => {
+        const key = `audits_${type}`;
+        if (dataMap[key]) {
+          localStorage.setItem(STORAGE_LIST_KEY(type), JSON.stringify(dataMap[key]));
+        }
+      });
+      
+      // Neu laden
+      loadEmployees();
+      loadAuditReviews();
+      loadAuditFiles();
+      renderEmployeeList();
+      updateDepartmentFilterOptions();
+      updateProcedureProgress();
+      updateAllAuditProgressDisplays();
+      
+      showInfoModal('✅ CSV Import erfolgreich!');
+      
+    } catch (error) {
+      console.error('CSV Import Fehler:', error);
+      showInfoModal(`❌ Fehler beim CSV Import: ${error.message}`);
+    } finally {
+      event.target.value = ''; // Input zurücksetzen
+    }
+  };
+  reader.readAsText(file, 'UTF-8');
+}
 
 function initializeApp() {
   loadAllAuditData();
@@ -4678,12 +4926,6 @@ function initializeApp() {
       employees.forEach(emp => { if (!emp.updated) emp.updated = now; });
       localStorage.setItem('zfpEmployees', JSON.stringify(employees));
       updateEmployeeStatus();
-      if (cloudConnected && !cloudSyncInProgress) {
-        for (const emp of employees) {
-          emp.updated = emp.updated || now;
-          await syncSingleEmployeeToCloud(emp);
-        }
-      }
     } catch (e) {
       console.error('Fehler beim Speichern der Mitarbeiter:', e);
     }
@@ -4703,13 +4945,7 @@ function initializeApp() {
   });
 
   document.getElementById('auditListLoadAll').addEventListener('click', async () => {
-    if (!cloudConnected) {
-      showInfoModal('❌ Keine Cloud-Verbindung');
-      return;
-    }
-    const success = await syncAllToCloud();
-    if (success) showInfoModal('✅ Alle Audits in Cloud gespeichert');
-    else showInfoModal('❌ Fehler beim Save in Cloud');
+    showInfoModal('❌ Cloud-Funktion deaktiviert (Lokaler Modus)');
   });
 
   document.getElementById('desktopToggleHeader').addEventListener('click', toggleDesktopHeader);
@@ -4742,10 +4978,6 @@ function setupEventListeners() {
   document.getElementById('resetBtn').addEventListener('click', resetAudit);
 
   document.getElementById('addEmployeeBtn').addEventListener('click', () => showEmployeeModal());
-  document.getElementById('syncCloudBtn').addEventListener('click', async () => {
-    await syncFromCloud();
-    showInfoModal('✅ Cloud-Sync durchgeführt');
-  });
   document.getElementById('deleteLocalDataBtn').addEventListener('click', deleteLocalData);
 
   document.getElementById('employeeSearch').addEventListener('input', (e) => {
@@ -6046,9 +6278,7 @@ async function exportAudit() {
     return;
   }
   await upsertAuditInList(exportSnapshot);
-  const cloudSuccess = await saveToCloud(exportSnapshot);
-  if (cloudSuccess) showInfoModal('✅ Audit in Cloud gespeichert!');
-  else showInfoModal('⚠️ Audit nur lokal gespeichert (Cloud-Fehler)');
+  showInfoModal('✅ Audit lokal gespeichert!');
   loadAuditFiles();
   updateEmployeeAudits();
   updateDepartmentFilterOptions();
@@ -6120,46 +6350,29 @@ function loadAuditData(event) {
   event.target.value = '';
 }
 
-async function syncAuditsToCloud() {
-  if (!cloudConnected) return false;
+async function deleteLocalData() {
+  const shouldDelete = await showCustomModal('ALLE lokalen Daten löschen?\n\nDies löscht:\n• Alle Audits\n• Alle Mitarbeiter\n• Alle Einstellungen');
+  if (!shouldDelete) return;
   try {
-    const allCloudAudits = [];
     Object.keys(AUDIT_TYPES).forEach(auditType => {
-      const listKey = STORAGE_LIST_KEY(auditType);
-      const savedList = localStorage.getItem(listKey);
-      if (savedList) {
-        try {
-          const audits = JSON.parse(savedList);
-          if (Array.isArray(audits)) {
-            audits.forEach(audit => {
-              if (audit.meta && audit.headerData && findEmployeeForAudit(audit)) {
-                ensureReportNumber(audit);
-                allCloudAudits.push({
-                  id: audit.meta.instanceId || `audit_${Date.now()}_${Math.random().toString(36).slice(2,9)}`,
-                  audit_type: auditType,
-                  operator_name: audit.headerData.operatorName || '',
-                  operator_number: audit.headerData.operatorNumber || '',
-                  report_number: audit.headerData.reportNumber || '',
-                  data: audit,
-                  created_at: audit.meta.created || new Date().toISOString(),
-                  updated_at: new Date().toISOString(),
-                  device_id: 'web_' + navigator.userAgent.substring(0, 30)
-                });
-              }
-            });
-          }
-        } catch (e) {}
-      }
+      localStorage.removeItem(`zfpAudit_${auditType}`);
+      localStorage.removeItem(STORAGE_LIST_KEY(auditType));
     });
-
-    for (const audit of allCloudAudits) {
-      try {
-        await supabase.from('zfp_audits').upsert(audit, { onConflict: 'id' });
-      } catch (uploadError) {}
-    }
-    return true;
+    localStorage.removeItem('zfpEmployees');
+    employees = [];
+    localStorage.removeItem('zfpAuditReviews');
+    auditReviews = {};
+    localStorage.removeItem('zfp_last_sync');
+    localStorage.removeItem('zfp_settings');
+    // GitHub Config bleibt erhalten
+    employeeAudits = [];
+    loadAuditFiles();
+    renderEmployeeList();
+    updateEmployeeStatus();
+    updateProcedureProgress();
+    showInfoModal('✅ Alle lokalen Daten gelöscht!');
   } catch (error) {
-    return false;
+    showInfoModal('❌ Fehler beim Löschen der Daten');
   }
 }
 
@@ -6346,5 +6559,4 @@ async function deleteEmployee(id) {
 </script>
 </body>
 </html>
-
 
