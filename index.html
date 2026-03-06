@@ -5068,6 +5068,28 @@ function initializeApp() {
   document.getElementById('mobileToggleHeader').addEventListener('click', toggleMobileHeader);
 
   syncHeaderData();
+
+  // ===== NEU: URL-Parameter für direkten Aufruf der Mitarbeiterliste =====
+  (function() {
+    // Prüfen ob der Hash #employees oder Parameter view=employees gesetzt ist
+    const shouldShowEmployees = window.location.hash === '#employees' || 
+                                new URLSearchParams(window.location.search).get('view') === 'employees';
+    
+    if (shouldShowEmployees) {
+      console.log('📋 Direktaufruf: Mitarbeiterliste wird geöffnet');
+      
+      // Kleine Verzögerung, damit DOM vollständig geladen ist
+      setTimeout(() => {
+        const auditSelection = document.getElementById('auditSelection');
+        const employeeView = document.getElementById('employeeListView');
+        
+        if (auditSelection && employeeView) {
+          auditSelection.classList.remove('active');
+          employeeView.classList.add('active');
+        }
+      }, 100);
+    }
+  })();
 }
 
 function setupEventListeners() {
