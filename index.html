@@ -3065,6 +3065,35 @@ const STANDARD_QUESTIONS = {
 };
 
 // === GLOBALE VARIABLEN ===
+// ===== DIREKTE STEUERUNG ÜBER URL (GANZ OBEN) =====
+(function() {
+    // Prüfen ob der Hash #employees oder Parameter view=employees gesetzt ist
+    const shouldShowEmployees = window.location.hash === '#employees' || 
+                                new URLSearchParams(window.location.search).get('view') === 'employees';
+    
+    if (shouldShowEmployees) {
+        // Direkt beim Laden der Seite ausführen
+        document.addEventListener('DOMContentLoaded', function() {
+            // Audit-Auswahl sofort verstecken
+            const auditSelection = document.getElementById('auditSelection');
+            const employeeView = document.getElementById('employeeListView');
+            
+            if (auditSelection && employeeView) {
+                auditSelection.classList.remove('active');
+                employeeView.classList.add('active');
+                console.log('📋 Mitarbeiterliste direkt geöffnet (ohne Blitzen)');
+            }
+        });
+        
+        // Zusätzlich: Style direkt setzen für noch schnellere Ausführung
+        const style = document.createElement('style');
+        style.textContent = `
+            #auditSelection.active { display: none !important; }
+            #employeeListView { display: block !important; }
+        `;
+        document.head.appendChild(style);
+    }
+})();
 let currentAuditType = null;
 let currentAuditData = null;
 let allQuestions = [];
