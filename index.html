@@ -453,124 +453,163 @@ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 gap: 8px;
 margin-bottom: 15px;
 }
+/* ===== AUDIT BUTTONS – Portal-Tile Design ===== */
+.audit-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 8px;
+}
+/* Bottom row: Quali-Button zentriert, gleiche Breite wie eine Kachel */
+.audit-buttons-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.audit-buttons-bottom .employee-list-btn {
+  flex: 0 0 calc(25% - 9px);
+}
 .audit-btn {
-position: relative;
-color: #fff;
-border-radius: 10px;
-border: 2px solid rgba(255,255,255,0.38);
-border-right-color: rgba(255,255,255,0.25);
-border-bottom-color: rgba(255,255,255,0.25);
-box-shadow: 0 10px 22px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.25);
-transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-isolation: isolate;
-padding: 12px 8px;
-cursor: pointer;
-font-size: 1.0em;
-font-weight: bold;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-min-height: 100px;
+  position: relative;
+  color: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.22);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, filter .2s ease;
+  isolation: isolate;
+  padding: 16px 16px 14px;
+  cursor: pointer;
+  font-size: 1.0em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 148px;
+  text-align: left;
+  overflow: hidden;
 }
+/* Glanzlicht oben-links */
 .audit-btn::before {
-content: "";
-position: absolute;
-inset: 2px 2px auto 2px;
-height: 45%;
-border-radius: 8px;
-background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
-pointer-events: none;
+  content: "";
+  position: absolute;
+  width: 180px; height: 180px;
+  left: -50px; top: -70px;
+  background: radial-gradient(circle, rgba(255,255,255,0.20) 0%, transparent 65%);
+  pointer-events: none;
 }
-.audit-btn .btn-icon,
-.audit-btn span,
-.audit-btn .btn-progress {
-text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-position: relative;
-z-index: 2;
+/* Oberer Glanzstreifen */
+.audit-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 100%);
+  border-radius: 14px 14px 0 0;
+  pointer-events: none;
 }
-.audit-btn .btn-progress {
-background: rgba(255,255,255,0.22);
-border-radius: 999px;
-padding: 2px 8px;
-margin-top: 4px;
-font-size: 0.7em;
-min-width: 35px;
-border: 1px solid rgba(255,255,255,0.35);
-}
-.audit-btn.wirbelstrom {
-background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #3498db, #3498db);
-}
-.audit-btn.magnetpulver {
-background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #e74c3c, #e74c3c);
-}
-.audit-btn.nital {
-background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #2ecc71, #2ecc71);
-}
-.audit-btn.ultraschall {
-background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #9b59b6, #9b59b6);
-}
+/* Farben */
+.audit-btn.wirbelstrom  { background: linear-gradient(145deg, #3498db 0%, #1a5276 100%); }
+.audit-btn.magnetpulver { background: linear-gradient(145deg, #e74c3c 0%, #c0392b 100%); }
+.audit-btn.nital        { background: linear-gradient(145deg, #27ae60 0%, #1e8449 100%); }
+.audit-btn.ultraschall  { background: linear-gradient(145deg, #8e44ad 0%, #6c3483 100%); }
+/* Hover/Active */
 .audit-btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 10px 22px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.01);
+  transform: translateY(-5px) scale(1.012);
+  box-shadow: 0 20px 42px rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.22);
+  filter: saturate(1.08) brightness(1.04);
 }
 .audit-btn:active {
-transform: translateY(0);
-box-shadow: 0 6px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.25);
+  transform: translateY(-2px) scale(1.004);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.22);
+  transition-duration: .08s;
 }
-@supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
-.audit-btn {
-backdrop-filter: blur(10px) saturate(140%);
--webkit-backdrop-filter: blur(10px) saturate(140%);
+.audit-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+.audit-btn.disabled:hover { transform: none; box-shadow: 0 12px 26px rgba(0,0,0,0.22); filter: none; }
+/* ---- Interne Layout-Elemente ---- */
+.btn-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
 }
+.btn-icon-box {
+  width: 50px; height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: rgba(255,255,255,0.20);
+  border: 1px solid rgba(255,255,255,0.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 6px rgba(0,0,0,0.15);
+  transition: background .2s, transform .2s;
+  flex: 0 0 auto;
 }
-html[data-theme="light"] .audit-btn {
-border-color: rgba(0,0,0,0.38) !important;
-box-shadow: 0 12px 26px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.35) inset !important;
+.audit-btn:hover .btn-icon-box {
+  background: rgba(255,255,255,0.28);
+  transform: scale(1.08);
 }
-html[data-theme="light"] .audit-btn::before {
-opacity: 0.65;
+.btn-chevron {
+  font-size: 22px;
+  opacity: 0.50;
+  line-height: 1;
+  padding-top: 2px;
+  transition: opacity .2s, transform .2s;
+  position: relative; z-index: 2;
 }
-html[data-theme="light"] .audit-btn .btn-progress {
-background: rgba(0,0,0,0.22) !important;
-color: #fff !important;
-font-weight: 900 !important;
-border: 1px solid rgba(255,255,255,0.35) !important;
+.audit-btn:hover .btn-chevron {
+  opacity: 0.90;
+  transform: translateX(3px);
 }
-@media (prefers-color-scheme: dark) {
-.audit-btn {
-border-color: rgba(255,255,255,0.28);
-box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+.btn-label {
+  font-weight: 800;
+  font-size: 1.0em;
+  line-height: 1.2;
+  letter-spacing: .1px;
+  margin-top: 10px;
+  position: relative; z-index: 2;
 }
-.audit-btn::before {
-background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06));
+.btn-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  margin-top: 6px;
+  position: relative; z-index: 2;
+  font-size: 0.80em;
+  color: rgba(255,255,255,0.88);
 }
+.btn-meta-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.70);
+  flex: 0 0 auto;
 }
-.audit-btn.disabled {
-opacity: 0.6;
-cursor: not-allowed;
+.audit-btn .btn-progress {
+  background: rgba(255,255,255,0.22);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 0.85em;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,0.35);
+  margin-left: auto;
+  display: none;
 }
-.audit-btn.disabled:hover {
-transform: none;
-box-shadow: none;
-}
+/* Employee-List-Button */
 .employee-list-btn {
-background: linear-gradient(135deg, #f39c12, #e67e22) !important;
-color: white;
-min-height: 70px;
-font-size: 1.1em;
-border: none;
-box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
-margin-top: 15px;
-width: 100%;
-max-width: 400px;
-margin-left: auto;
-margin-right: auto;
-display: block;
+  background: linear-gradient(145deg, #f39c12 0%, #ca6f1e 100%) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  min-height: 148px !important;
+  display: flex !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
 }
 .employee-list-btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 5px 10px rgba(243, 156, 18, 0.4);
+  transform: translateY(-5px) scale(1.012) !important;
+  box-shadow: 0 20px 42px rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.22) !important;
 }
 .controls-row-audit {
 display: flex;
@@ -593,18 +632,31 @@ background: #3498db;
 border-radius: 3px;
 }
 .controls-row-audit button {
-padding: 7px 9px;
-border: none;
-border-radius: 3px;
-cursor: pointer;
-font-weight: bold;
-font-size: 0.72em;
-height: 30px;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-min-width: 95px;
-flex-shrink: 0;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.72em;
+  height: 34px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 95px;
+  flex-shrink: 0;
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  letter-spacing: .2px;
+}
+.controls-row-audit button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.22);
+  filter: brightness(1.08);
+  opacity: 1;
+}
+.controls-row-audit button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
 }
 .password-unlock-field {
 display: flex;
@@ -635,21 +687,30 @@ font-size: 0.7em;
 height: 24px;
 min-width: 60px;
 }
-.btn-back { background: #7f8c8d; color: white; }
-.btn-export { background: #27ae60; color: white; }
-.btn-report { background: #f39c12; color: white; }
-.btn-danger { background: #e74c3c; color: white; }
-.btn-success { background: #27ae60; color: white; }
-.btn-secondary {
-background: #bdc3c7;
-color: white;
-border: none;
-border-radius: 3px;
-padding: 5px 8px;
-font-weight: bold;
-cursor: pointer;
-height: 32px;
-font-size: 0.75em;
+.btn-back        { background: linear-gradient(135deg, #7f8c8d, #636e72); color: #fff; }
+.btn-export      { background: linear-gradient(135deg, #27ae60, #1e8449); color: #fff; }
+.btn-report      { background: linear-gradient(135deg, #e67e22, #d35400); color: #fff; }
+.btn-danger      { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; }
+.btn-success     { background: linear-gradient(135deg, #27ae60, #1e8449); color: #fff; }
+.btn-authorization { background: linear-gradient(135deg, #8e44ad, #6c3483); color: #fff; }
+.btn-secondary   {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-weight: 700;
+  cursor: pointer;
+  height: 34px;
+  font-size: 0.75em;
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.22);
+  filter: brightness(1.08);
+  opacity: 1;
 }
 button:hover { opacity: 0.9; }
 .audit-status {
@@ -849,11 +910,27 @@ font-size: 0.85em; cursor: pointer; appearance: none; min-width: 60px;
   font-family: monospace;
   font-size: 0.75em;
   background: #f9f9f9;
+  color: #2c3e50;
+  transition: background 0.2s, color 0.2s;
 }
 .card-id-header-field .encrypted-field:focus {
   background: #fff;
+  color: #2c3e50;
   border-color: #2c3e50;
   outline: none;
+}
+/* Dark mode */
+html[data-theme="dark"] .card-id-header-field .encrypted-field,
+html[data-theme="dark"] .encrypted-field {
+  background: #2d2d2d !important;
+  color: #e0e0e0 !important;
+  border-color: #3498db !important;
+}
+html[data-theme="dark"] .card-id-header-field .encrypted-field:focus,
+html[data-theme="dark"] .encrypted-field:focus {
+  background: #333 !important;
+  color: #ffffff !important;
+  border-color: #5dade2 !important;
 }
 .card-id-header-label {
   font-size: 0.7em;
@@ -1112,13 +1189,11 @@ color: #7f8c8d; font-size: 0.85em;
   .progress-container { min-width: 100%; max-width: 100%; }
   .controls-row-audit { display: flex; gap: 3px; margin-bottom: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; scrollbar-color: #3498db #f0f0f0; }
   .controls-row-audit button { padding: 8px 10px; font-size: 0.7em; height: 32px; min-width: 100px; flex-shrink: 0; }
-  .audit-buttons { grid-template-columns: 1fr; gap: 5px; }
-  .audit-btn {
-    padding: 10px 8px; min-height: 70px; font-size: 0.85em;
-    flex-direction: row; justify-content: flex-start; text-align: left; padding-left: 15px;
-  }
-  .audit-btn .btn-icon { font-size: 2em; margin-right: 10px; margin-bottom: 5; }
-  .audit-btn .btn-progress { margin-left: auto; margin-top: 0; font-size: 0.7em; }
+  .audit-buttons { grid-template-columns: 1fr; gap: 8px; }
+  .audit-buttons-bottom { grid-template-columns: 1fr; }
+  .audit-btn { padding: 14px; min-height: 120px; }
+  .btn-icon-box { width: 42px; height: 42px; font-size: 20px; }
+  .btn-label { font-size: 0.95em; }
   .employee-table { font-size: 0.7em; width: 100%; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .employee-table thead { display: table; width: 100%; table-layout: fixed; }
   .employee-table tbody { display: table; width: 100%; table-layout: fixed; }
@@ -1391,67 +1466,287 @@ min-width: 180px !important;
 
 /* NEU: GitHub Config Bereich */
 .github-config-panel {
-  margin: 20px 0;
-  padding: 15px;
-  background: #f8f9fa;
-  border: 2px solid #3498db;
-  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 14px;
 }
-.github-config-panel h3 {
-  margin-top: 0;
-  color: #2c3e50;
-  font-size: 1.1em;
-}
-.github-config-row {
+.token-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
+  gap: 8px;
+  background: #f0f4f8;
+  border: 1.5px solid #bcd0e8;
+  border-radius: 10px;
+  padding: 6px 10px;
 }
-.github-config-row label {
-  min-width: 100px;
-  font-weight: 600;
-  color: #2c3e50;
-}
-.github-config-row input {
+.token-icon { font-size: 1.1em; flex-shrink: 0; }
+.token-input {
   flex: 1;
-  min-width: 200px;
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: monospace;
-}
-.github-config-row button {
-  padding: 8px 15px;
-  background: #27ae60;
-  color: white;
   border: none;
-  border-radius: 4px;
+  background: transparent;
+  font-family: monospace;
+  font-size: 0.88em;
+  color: #2c3e50;
+  padding: 4px 0;
+  outline: none;
+  min-width: 0;
+}
+.token-input::placeholder { color: #a0aab4; }
+.token-save-btn {
+  background: linear-gradient(135deg, #27ae60, #1e8449);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 14px;
+  font-weight: 700;
+  font-size: 0.82em;
   cursor: pointer;
-  font-weight: bold;
+  flex-shrink: 0;
+  transition: transform .14s, box-shadow .14s, filter .14s;
+  box-shadow: 0 2px 6px rgba(39,174,96,0.30);
 }
-.github-config-row button.secondary {
-  background: #3498db;
+.token-save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(39,174,96,0.40);
+  filter: brightness(1.07);
+  opacity: 1;
 }
-.github-config-row button.danger {
+.github-status { display: none !important; }
+/* Verbunden-Punkt */
+.github-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #bdc3c7;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.github-dot.connected {
+  background: #27ae60;
+  box-shadow: 0 0 0 3px rgba(39,174,96,0.25);
+  border-color: #1e8449;
+}
+.github-dot.error {
   background: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.20);
+  border-color: #c0392b;
 }
-.github-status {
-  margin-top: 10px;
-  padding: 8px;
-  background: #eef2f7;
-  border-radius: 4px;
-  font-size: 0.85em;
+
+/* ====================================================
+   GLOBAL UI REFRESH
+   ==================================================== */
+
+/* Inputs & Selects – konsistentes Design */
+input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not(.encrypted-field):not(.token-input),
+select,
+textarea {
+  border-radius: 8px !important;
+  border: 1.5px solid #d1d9e0 !important;
+  transition: border-color .2s, box-shadow .2s !important;
+  font-family: inherit !important;
+  background: #fff !important;
+  color: #2c3e50 !important;
 }
-.github-status.success {
-  background: #d4edda;
-  color: #155724;
+input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not(.encrypted-field):not(.token-input):focus,
+select:focus,
+textarea:focus {
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.14) !important;
+  outline: none !important;
 }
-.github-status.error {
-  background: #f8d7da;
-  color: #721c24;
+
+/* Container */
+.container {
+  border-radius: 14px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
 }
+
+/* Header */
+header {
+  border-radius: 8px 8px 0 0;
+  padding-bottom: 10px;
+}
+h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
+.subtitle { font-size: 0.85em; }
+
+/* Sections */
+.section {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07) !important;
+  overflow: hidden !important;
+  margin-bottom: 12px !important;
+}
+.section-header {
+  background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+  padding: 12px 16px !important;
+  border-radius: 0 !important;
+  font-size: 0.95em !important;
+  letter-spacing: .1px;
+}
+.section-header:hover { background: linear-gradient(135deg, #253545, #2c3e50) !important; }
+.section-content { padding: 14px !important; background: #fff; }
+
+/* Questions */
+.question {
+  border-radius: 10px !important;
+  border-left: 4px solid #bdc3c7 !important;
+  background: #f8fafc !important;
+  padding: 14px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05) !important;
+  margin-bottom: 10px !important;
+}
+.question.ok     { border-left-color: #27ae60 !important; background: #f0fff6 !important; }
+.question.not-ok { border-left-color: #e74c3c !important; background: #fff5f5 !important; }
+.question-id {
+  border-radius: 6px !important;
+  font-size: 0.85em !important;
+  padding: 4px 10px !important;
+  background: linear-gradient(135deg, #3498db, #2980b9) !important;
+  box-shadow: 0 2px 5px rgba(52,152,219,0.3) !important;
+}
+.question-text { font-size: 1.0em !important; }
+
+/* Verdict buttons */
+.verdict-btn {
+  border-radius: 8px !important;
+  font-size: 0.88em !important;
+  font-weight: 700 !important;
+  padding: 9px !important;
+  transition: transform .15s, box-shadow .15s !important;
+}
+.verdict-btn:hover { transform: translateY(-2px) !important; box-shadow: 0 3px 8px rgba(0,0,0,0.18) !important; }
+.verdict-btn.ok        { border-width: 2px !important; }
+.verdict-btn.ok.selected { box-shadow: 0 3px 8px rgba(39,174,96,0.40) !important; }
+.verdict-btn.not-ok.selected { box-shadow: 0 3px 8px rgba(231,76,60,0.40) !important; }
+
+/* Comment textarea */
+.comment {
+  border-radius: 8px !important;
+  border: 1.5px solid #d1d9e0 !important;
+  padding: 10px 12px !important;
+  font-size: 0.85em !important;
+}
+.comment:focus { border-color: #3498db !important; box-shadow: 0 0 0 3px rgba(52,152,219,0.14) !important; }
+
+/* Header sections */
+.header-section {
+  border-radius: 10px !important;
+  border-color: #c8dff5 !important;
+  background: #f6faff !important;
+}
+.header-section h3 { font-size: 0.82em !important; color: #2980b9 !important; padding: 9px 12px !important; }
+.header-group {
+  border-radius: 7px !important;
+  border-color: #e2ecf5 !important;
+  background: #fff !important;
+}
+.header-input {
+  border-radius: 6px !important;
+  border: 1.5px solid #d1d9e0 !important;
+  padding: 6px 10px !important;
+}
+.header-input:focus { border-color: #3498db !important; box-shadow: 0 0 0 2px rgba(52,152,219,0.12) !important; }
+
+/* Toggle header button */
+.toggle-header-btn {
+  border-radius: 6px !important;
+  background: linear-gradient(135deg, #3498db, #2980b9) !important;
+  padding: 4px 10px !important;
+  font-size: 0.8em !important;
+}
+
+/* Audit status bar */
+.audit-status {
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #f6faff, #eef4fb) !important;
+  border: 1px solid #c8dff5 !important;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.06) !important;
+}
+
+/* Stat boxes */
+.stat-box {
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #f8fafc, #f0f4f8) !important;
+  border: 1px solid #dce6ef !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+  padding: 10px 14px !important;
+}
+.stat-value { font-size: 1.4em !important; color: #2980b9 !important; }
+
+/* Employee search/filter */
+.employee-search, .employee-filter {
+  border-radius: 8px !important;
+  border: 1.5px solid #d1d9e0 !important;
+  padding: 7px 10px !important;
+}
+
+/* Employee table */
+.employee-table { border-radius: 8px; overflow: hidden; }
+.employee-table th { background: linear-gradient(135deg, #2c3e50, #34495e) !important; font-size: 0.82em; padding: 9px 8px !important; letter-spacing: .2px; }
+.employee-table td { padding: 8px 8px !important; }
+.employee-table tr:hover { background: #f0f6ff !important; }
+
+/* Modals */
+.custom-modal-content, .employee-modal-content {
+  border-radius: 14px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.30) !important;
+}
+.custom-modal-btn {
+  border-radius: 8px !important;
+  padding: 9px 20px !important;
+  font-size: 0.92em !important;
+  transition: transform .14s, box-shadow .14s, filter .14s !important;
+}
+.custom-modal-btn:hover { transform: translateY(-2px) !important; filter: brightness(1.08) !important; opacity: 1; }
+.custom-modal-btn.confirm { background: linear-gradient(135deg, #27ae60, #1e8449) !important; box-shadow: 0 3px 10px rgba(39,174,96,0.35) !important; }
+.custom-modal-btn.cancel  { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; box-shadow: 0 3px 10px rgba(231,76,60,0.35) !important; }
+
+/* Progress bar */
+.progress-bar { border-radius: 999px !important; overflow: hidden; }
+
+/* Section buttons (mobile) */
+.section-btn { border-radius: 6px !important; font-weight: 600 !important; }
+.section-btn.active { background: linear-gradient(135deg, #2c3e50, #34495e) !important; }
+
+/* Final result */
+.final-result { border-radius: 10px !important; font-size: 0.95em !important; }
+
+/* Image upload area */
+.image-upload-section { border-radius: 8px !important; }
+.file-input-label { border-radius: 6px !important; }
+.image-preview-item { border-radius: 6px !important; }
+
+/* Mobile nav buttons */
+.mobile-nav button { border-radius: 7px !important; }
+
+/* Cloud sync indicator */
+#cloudSyncIndicator { border-radius: 8px !important; font-size: 0.85em !important; }
+
+/* Audit selection heading */
+.audit-selection h2 { font-size: 1.0em !important; color: #5f6b73; font-weight: 700; letter-spacing: .2px; margin-bottom: 14px; }
+
+/* Employee form inputs */
+.employee-form-group input,
+.employee-form-group select,
+.employee-form-group textarea {
+  border-radius: 8px !important;
+  border: 1.5px solid #d1d9e0 !important;
+  padding: 8px 10px !important;
+}
+.employee-form-group input:focus,
+.employee-form-group select:focus,
+.employee-form-group textarea:focus {
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.14) !important;
+  outline: none !important;
+}
+
+/* ====================================================
+   DARK MODE UI REFRESH (data-theme=dark)
+   ==================================================== */
+
 </style>
 
 <!-- Dark Mode Stylesheet -->
@@ -1490,12 +1785,12 @@ background: #333; border-color: #555; color: #ffffff !important;
 .employee-form-group input::placeholder,
 .employee-form-group textarea::placeholder { color: #888; }
 .audit-selection h2 { color: #ffffff !important; }
-.audit-btn.wirbelstrom { background: #2980b9; color: white; }
-.audit-btn.magnetpulver { background: #c0392b; color: white; }
-.audit-btn.nital { background: #27ae60; color: white; }
-.audit-btn.ultraschall { background: #8e44ad; color: white; }
-.audit-btn.disabled { opacity: 0.4; background: #555; }
-.audit-btn .btn-progress { background: rgba(255,255,255,0.1); }
+.audit-btn.wirbelstrom { background: linear-gradient(145deg, #2980b9, #1a5276); color: white; }
+.audit-btn.magnetpulver { background: linear-gradient(145deg, #c0392b, #922b21); color: white; }
+.audit-btn.nital { background: linear-gradient(145deg, #27ae60, #1e8449); color: white; }
+.audit-btn.ultraschall { background: linear-gradient(145deg, #7d3c98, #5b2c6f); color: white; }
+.audit-btn.disabled { opacity: 0.4; }
+.audit-btn .btn-progress { background: rgba(255,255,255,0.15); }
 .employee-list-btn {
 background: linear-gradient(135deg, #d35400, #e67e22) !important;
 color: white !important;
@@ -1599,31 +1894,78 @@ footer { border-top-color: #444; color: #cccccc !important; }
 }
 .authorization-header .english-subtitle { color: #ffffff !important; }
 .header-section-title .english { color: #cccccc !important; }
-.github-config-panel {
-  background: #2d2d2d !important;
-  border-color: #3498db !important;
-}
-.github-config-panel h3,
-.github-config-panel label {
-  color: #ffffff !important;
-}
-.github-config-panel input {
-  background: #333;
-  color: #e0e0e0;
-  border-color: #555;
-}
 .github-status {
-  background: #333 !important;
-  color: #e0e0e0 !important;
+  background: #2a2a2a !important;
+  color: #aaaaaa !important;
 }
 .github-status.success {
-  background: #1e3b2a !important;
-  color: #8bc34a !important;
+  background: #1a3326 !important;
+  color: #7dbb8a !important;
 }
 .github-status.error {
-  background: #3b2a2a !important;
-  color: #ff6b6b !important;
+  background: #3b2222 !important;
+  color: #ff7070 !important;
 }
+/* Card-ID / encrypted-field dark mode */
+.card-id-header-field .encrypted-field,
+.encrypted-field {
+  background: #2d2d2d !important;
+  color: #e0e0e0 !important;
+  border-color: #3498db !important;
+}
+.card-id-header-field .encrypted-field:focus,
+.encrypted-field:focus {
+  background: #333 !important;
+  color: #ffffff !important;
+}
+.card-id-header-label { color: #cccccc !important; }
+/* Password unlock dark */
+.password-unlock-field { background: #2d2d2d !important; }
+.password-unlock-field input { background: #333 !important; color: #e0e0e0 !important; border-color: #555 !important; }
+/* Inputs global dark */
+input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not(.encrypted-field):not(.token-input),
+select, textarea {
+  background: #2d2d2d !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.18) !important;
+}
+/* Token row dark */
+.token-row { background: #252525 !important; border-color: #3a3a3a !important; }
+.token-input { color: #e0e0e0 !important; }
+.token-input::placeholder { color: #666 !important; }
+/* Sections dark */
+.section { box-shadow: 0 2px 10px rgba(0,0,0,0.35) !important; }
+.section-content { background: #1e1e1e !important; }
+/* Questions dark */
+.question { background: #252525 !important; box-shadow: none !important; }
+.question.ok     { background: rgba(39,174,96,0.10) !important; }
+.question.not-ok { background: rgba(231,76,60,0.10) !important; }
+/* Stat boxes dark */
+.stat-box { background: linear-gradient(135deg, #252525, #2a2a2a) !important; border-color: #3a3a3a !important; }
+.stat-value { color: #5dade2 !important; }
+/* Header section dark */
+.header-section { background: #252525 !important; border-color: #333 !important; }
+.header-group { background: #2a2a2a !important; border-color: #3a3a3a !important; }
+.header-input { background: #2d2d2d !important; color: #e0e0e0 !important; border-color: #444 !important; }
+/* Audit status dark */
+.audit-status { background: linear-gradient(135deg, #252525, #2a2a2a) !important; border-color: #333 !important; }
+/* Comment dark */
+.comment { background: #2d2d2d !important; color: #e0e0e0 !important; border-color: #444 !important; }
+/* Modal dark */
+.custom-modal-content, .employee-modal-content { background: #252525 !important; }
+/* Employee modal inputs dark */
+.employee-form-group input, .employee-form-group select, .employee-form-group textarea {
+  background: #2d2d2d !important; color: #e0e0e0 !important; border-color: #444 !important;
+}
+/* Employee table row hover dark */
+.employee-table tr:hover { background: #252d38 !important; }
+/* Section btn dark */
+.section-btn { background: #2980b9 !important; }
+.section-btn.active { background: linear-gradient(135deg, #1e2a36, #2c3e50) !important; }
 </style>
 </head>
 <body>
@@ -1892,52 +2234,26 @@ footer { border-top-color: #444; color: #cccccc !important; }
 <header>
   <h1>ZfP Operator Audit</h1>
   <div class="subtitle">INFSW17008_NDT_Personal</div>
-  <div style="margin-top: 5px; font-size: 0.8em; color: #3498db; display: flex; align-items: center; justify-content: center; gap: 5px;">
-    <span id="cloudStatus">📦 Lokal gespeichert</span>
-  </div>
+  <div style="display:none"><span id="cloudStatus"></span></div>
 </header>
 <button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
 
 <!-- NEU: GitHub Konfigurations-Panel (ausblendbar) -->
 <div class="github-config-panel" id="githubConfigPanel">
-  <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" id="githubPanelHeader">
-    <h3 style="margin:0;">⚙️ GitHub JSON Datenbank Konfiguration</h3>
-    <span id="githubPanelToggle" style="font-size: 1.5em; padding:0 10px;">▼</span>
-  </div>
-  <div id="githubPanelContent">
-    <div class="github-config-row">
-      <label>GitHub Owner:</label>
-      <input type="text" id="githubOwner" placeholder="z.B. Acendrion1984" value="Acendrion1984">
-    </div>
-    <div class="github-config-row">
-      <label>Repository:</label>
-      <input type="text" id="githubRepo" placeholder="z.B. ZfP" value="ZfP">
-    </div>
-    <div class="github-config-row">
-      <label>Branch:</label>
-      <input type="text" id="githubBranch" placeholder="main" value="main">
-    </div>
-    <div class="github-config-row">
-      <label>Dateiname:</label>
-      <input type="text" id="githubFilename" placeholder="zfp-audit-db.json" value="zfp-audit-db.json">
-    </div>
-    <div class="github-config-row">
-      <label>Personal Access Token:</label>
-      <input type="password" id="githubToken" placeholder="ghp_...">
-    </div>
-    <div class="github-config-row">
-      <button id="githubTestBtn" class="secondary">🔌 Verbindung testen</button>
-      <button id="githubSaveConfigBtn">💾 Konfiguration speichern</button>
-      <button id="githubPullBtn">⬇️ Von GitHub laden</button>
-      <button id="githubPushBtn" class="secondary">⬆️ Nach GitHub pushen</button>
-      <button id="githubClearConfigBtn" class="danger">🗑️ Token löschen</button>
-    </div>
-    <div id="githubStatus" class="github-status">
-      ⚠️ Nicht verbunden. Bitte konfigurieren.
-    </div>
-    <div style="font-size: 0.8em; color: #666; margin-top: 8px;">
-      ℹ️ Token wird nur lokal im Browser gespeichert. Erfordert Schreibrechte auf das Repository.
-    </div>
+  <input type="hidden" id="githubOwner" value="Acendrion1984">
+  <input type="hidden" id="githubRepo" value="ZfP">
+  <input type="hidden" id="githubBranch" value="main">
+  <input type="hidden" id="githubFilename" value="zfp-audit-db.json">
+  <button id="githubTestBtn" style="display:none"></button>
+  <button id="githubPullBtn" style="display:none"></button>
+  <button id="githubPushBtn" style="display:none"></button>
+  <button id="githubClearConfigBtn" style="display:none"></button>
+  <div id="githubStatus" style="display:none"></div>
+  <div class="token-row">
+    <span id="githubDot" class="github-dot" title="Nicht verbunden"></span>
+    <span class="token-icon">🔑</span>
+    <input type="password" id="githubToken" class="token-input" placeholder="GitHub Personal Access Token (ghp_...)">
+    <button id="githubSaveConfigBtn" class="token-save-btn">Speichern</button>
   </div>
 </div>
 
@@ -1946,34 +2262,66 @@ footer { border-top-color: #444; color: #cccccc !important; }
   <h2>Prüfverfahren auswählen:</h2>
   <div class="audit-buttons">
     <button class="audit-btn wirbelstrom" data-audit="wirbelstrom">
-      <div class="btn-icon">⚡</div>
-      <span>Wirbelstromprüfung</span>
-      <div class="btn-progress" id="wirbelstromProgress">0%</div>
+      <div class="btn-top-row">
+        <div class="btn-icon-box">⚡</div>
+        <span class="btn-chevron">›</span>
+      </div>
+      <div class="btn-label">Wirbelstromprüfung</div>
+      <div class="btn-meta-row">
+        <span class="btn-meta-dot"></span>
+        <span>Eddy Current Testing (ET)</span>
+        <div class="btn-progress" id="wirbelstromProgress">0%</div>
+      </div>
     </button>
     <button class="audit-btn magnetpulver" data-audit="magnetpulver">
-      <div class="btn-icon">🧲</div>
-      <span>Magnetpulverprüfung</span>
-      <div class="btn-progress" id="magnetpulverProgress">0%</div>
+      <div class="btn-top-row">
+        <div class="btn-icon-box">🧲</div>
+        <span class="btn-chevron">›</span>
+      </div>
+      <div class="btn-label">Magnetpulverprüfung</div>
+      <div class="btn-meta-row">
+        <span class="btn-meta-dot"></span>
+        <span>Magnetic Particle Testing (MT)</span>
+        <div class="btn-progress" id="magnetpulverProgress">0%</div>
+      </div>
     </button>
     <button class="audit-btn nital" data-audit="nital">
-      <div class="btn-icon">🧪</div>
-      <span>Nital-Ätzen</span>
-      <div class="btn-progress" id="nitalProgress">0%</div>
+      <div class="btn-top-row">
+        <div class="btn-icon-box">🧪</div>
+        <span class="btn-chevron">›</span>
+      </div>
+      <div class="btn-label">Nital-Ätzen</div>
+      <div class="btn-meta-row">
+        <span class="btn-meta-dot"></span>
+        <span>Nital Etch Inspection (NE)</span>
+        <div class="btn-progress" id="nitalProgress">0%</div>
+      </div>
     </button>
     <button class="audit-btn ultraschall" data-audit="ultraschall">
-      <div class="btn-icon">📡</div>
-      <span>Ultraschallprüfung</span>
-      <div class="btn-progress" id="ultraschallProgress">0%</div>
+      <div class="btn-top-row">
+        <div class="btn-icon-box">📡</div>
+        <span class="btn-chevron">›</span>
+      </div>
+      <div class="btn-label">Ultraschallprüfung</div>
+      <div class="btn-meta-row">
+        <span class="btn-meta-dot"></span>
+        <span>Ultrasonic Testing (UT)</span>
+        <div class="btn-progress" id="ultraschallProgress">0%</div>
+      </div>
     </button>
   </div>
-
-  <div style="margin-top: 5px; text-align: center;">
+  <div class="audit-buttons audit-buttons-bottom">
     <button class="audit-btn employee-list-btn" id="employeeListBtn">
-      <div class="btn-icon" style="font-size: 1.8em;">👥</div>
-      <span>Qualifikationsmatrix</span>
+      <div class="btn-top-row">
+        <div class="btn-icon-box" style="font-size: 26px;">👥</div>
+        <span class="btn-chevron">›</span>
+      </div>
+      <div class="btn-label">Qualifikationsmatrix</div>
+      <div class="btn-meta-row">
+        <span class="btn-meta-dot"></span>
+        <span>DGZfP Personal</span>
+      </div>
     </button>
-    <div style="font-size: 0.8em; color: #7f8c8d; margin-top: 5px;">
-    </div>
   </div>
 </div>
 
@@ -2296,30 +2644,42 @@ function loadGitHubConfig() {
       const parsed = JSON.parse(saved);
       githubConfig = { ...githubConfig, ...parsed };
     }
-    
-    // Felder befüllen
-    document.getElementById('githubOwner').value = githubConfig.owner || '';
-    document.getElementById('githubRepo').value = githubConfig.repo || '';
-    document.getElementById('githubBranch').value = githubConfig.branch || 'main';
-    document.getElementById('githubFilename').value = githubConfig.filename || 'zfp-audit-db.json';
+    // Nur Token-Feld befüllen (andere sind hidden mit Standardwerten)
     document.getElementById('githubToken').value = githubConfig.token || '';
-    
     updateGitHubStatus();
   } catch (e) {
     console.error('Fehler beim Laden der GitHub Konfiguration:', e);
   }
 }
 
-function saveGitHubConfig() {
+async function saveGitHubConfig() {
   githubConfig.owner = document.getElementById('githubOwner').value.trim();
   githubConfig.repo = document.getElementById('githubRepo').value.trim();
   githubConfig.branch = document.getElementById('githubBranch').value.trim() || 'main';
   githubConfig.filename = document.getElementById('githubFilename').value.trim() || 'zfp-audit-db.json';
   githubConfig.token = document.getElementById('githubToken').value.trim();
-  
   localStorage.setItem('zfp_github_config', JSON.stringify(githubConfig));
   updateGitHubStatus();
-  showInfoModal('✅ GitHub Konfiguration gespeichert');
+  if (githubConfig.token) {
+    const statusEl = document.getElementById('githubStatus');
+    const dotEl2 = document.getElementById('githubDot');
+    if (dotEl2) { dotEl2.className = 'github-dot'; dotEl2.title = '⏳ Lade…'; }
+    const syncEl = document.getElementById('cloudSyncIndicator');
+    const syncTxt = document.getElementById('syncIndicatorText');
+    if (syncEl) { syncEl.style.display = 'block'; syncTxt.innerHTML = '⬇️ Synchronisiere…'; }
+    const result = await loadFromGitHub();
+    if (syncEl) syncEl.style.display = 'none';
+    if (result.success) {
+      await loadEmployees(); await loadAuditReviews(); await loadAuditFiles();
+      try { renderEmployeeList(); } catch(e) {}
+      try { updateDepartmentFilterOptions(); } catch(e) {}
+      try { updateProcedureProgress(); } catch(e) {}
+      try { updateAllAuditProgressDisplays(); } catch(e) {}
+      if (dotEl2) { dotEl2.className = 'github-dot connected'; dotEl2.title = 'Verbunden & synchronisiert'; }
+    } else {
+      if (dotEl2) { dotEl2.className = 'github-dot error'; dotEl2.title = '❌ ' + result.message; }
+    }
+  }
 }
 
 function clearGitHubToken() {
@@ -2331,21 +2691,19 @@ function clearGitHubToken() {
 }
 
 function updateGitHubStatus() {
-  const statusEl = document.getElementById('githubStatus');
+  const dotEl = document.getElementById('githubDot');
   const cloudStatusEl = document.getElementById('cloudStatus');
   
   if (githubConfig.owner && githubConfig.repo && githubConfig.token) {
     githubConnected = true;
-    statusEl.className = 'github-status success';
-    statusEl.innerHTML = '✅ GitHub verbunden. Repository ist bereit.';
+    if (dotEl) { dotEl.className = 'github-dot connected'; dotEl.title = 'Verbunden'; }
     if (cloudStatusEl) {
       cloudStatusEl.innerHTML = '☁️ GitHub verbunden';
       cloudStatusEl.style.color = '#27ae60';
     }
   } else {
     githubConnected = false;
-    statusEl.className = 'github-status error';
-    statusEl.innerHTML = '⚠️ Nicht verbunden. Bitte alle Felder ausfüllen.';
+    if (dotEl) { dotEl.className = 'github-dot'; dotEl.title = 'Kein Token'; }
     if (cloudStatusEl) {
       cloudStatusEl.innerHTML = '📦 Lokal gespeichert';
       cloudStatusEl.style.color = '#7f8c8d';
@@ -5139,7 +5497,7 @@ function setupEventListeners() {
 
   document.getElementById('backBtn').addEventListener('click', goBackToSelection);
   document.getElementById('exportBtn').addEventListener('click', exportAudit);
-  document.getElementById('reportBtn').addEventListener('click', showReport);
+  document.getElementById('reportBtn').addEventListener('click', printDirect);
   document.getElementById('resetBtn').addEventListener('click', resetAudit);
 
   document.getElementById('addEmployeeBtn').addEventListener('click', () => showEmployeeModal());
@@ -5458,11 +5816,12 @@ function printFullReport() {
 </html>`);
   
   w.document.close();
-  
   setTimeout(() => {
     w.focus();
+    // Fenster schließt sich automatisch nach Druckdialog
+    w.onafterprint = () => { w.close(); };
     w.print();
-  }, 500);
+  }, 400);
 }
 
 function toggleDesktopHeader() {
@@ -6233,6 +6592,11 @@ function checkAndShowFinalResult() {
   }
 }
 
+async function printDirect() {
+  await buildReportContent();
+  printFullReport();
+}
+
 async function showReport() {
   await saveCurrentAuditData();
   ensureReportNumber(currentAuditData);
@@ -6368,6 +6732,22 @@ ${reportHTML}
   setTimeout(() => {
     initEncryptedFields(document.getElementById('reportContainer'));
   }, 100);
+}
+
+// Befüllt reportContainer ohne Overlay anzuzeigen
+async function buildReportContent() {
+  await saveCurrentAuditData();
+  ensureReportNumber(currentAuditData);
+  const headerData = currentAuditData.headerData;
+  const auditInfo = AUDIT_TYPES[currentAuditType];
+  const createdDateDE = formatGermanDate(new Date());
+  const nextDueDateDE = formatGermanDate(new Date(Date.now() + 365 * 24 * 60 * 60 * 1000));
+  const reportNo = headerData.reportNumber;
+  // Re-use the same HTML generation as showReport by calling it silently
+  // We call showReport but then immediately close the overlay
+  await showReport();
+  document.getElementById('reportOverlay').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 
 function renderQuestionImagesInReport(question) {
@@ -6723,4 +7103,3 @@ async function deleteEmployee(id) {
 }
 </script>
 </body>
-</html>
