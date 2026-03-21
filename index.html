@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <title>ZfP Operator Audit (GitHub DB)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 /* ===== BESTEHENDES CSS BLEIBT IDENTISCH ===== */
 * {
@@ -13,7 +16,7 @@ margin: 0;
 padding: 0;
 }
 body {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
 line-height: 1.4;
 color: #333;
 background-color: #f5f5f5;
@@ -47,6 +50,118 @@ font-size: 14px;
   color: #e0e0e0 !important;
   border-color: #555 !important;
 }
+
+        /* ══ SITE HEADER ══ */
+        .site-header {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 22px 40px 20px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap;
+        }
+        .site-header-left { display: flex; flex-direction: column; gap: 4px; }
+        .site-header-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+            color: #2980b9; font-weight: 500;
+        }
+        .site-header-title {
+            font-size: clamp(20px, 2.5vw, 26px); font-weight: 900;
+            color: #1a1e24; line-height: 1.1; letter-spacing: -0.5px;
+        }
+        .site-header-sub { font-size: 13px; color: #6b7280; }
+        .site-header-right { display: flex; align-items: center; gap: 12px; }
+        .theme-toggle-btn {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: #f0f2f5; border: 1px solid rgba(0,0,0,0.1);
+            color: #1a1e24; font-size: 18px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; flex-shrink: 0;
+        }
+        .theme-toggle-btn:hover { transform: scale(1.08) rotate(15deg); border-color: #2980b9; }
+
+        /* ══ PRUEFPROTOKOLL-STYLE TILES ══ */
+        .audit-btn {
+            position: relative;
+            color: #fff;
+            border-radius: 16px !important;
+            padding: 22px 18px 18px !important;
+            min-height: 160px !important;
+            cursor: pointer;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            overflow: hidden;
+            transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+            border: 1px solid rgba(255,255,255,0.06) !important;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: tileIn 0.45s ease forwards;
+            text-align: left !important;
+            font-family: 'DM Sans', system-ui, sans-serif;
+        }
+        @keyframes tileIn { to { opacity: 1; transform: translateY(0); } }
+        .audit-btn:nth-child(1) { animation-delay: 0.04s; }
+        .audit-btn:nth-child(2) { animation-delay: 0.08s; }
+        .audit-btn:nth-child(3) { animation-delay: 0.12s; }
+        .audit-btn:nth-child(4) { animation-delay: 0.16s; }
+        .audit-btn:nth-child(5) { animation-delay: 0.20s; }
+
+        .audit-btn.wirbelstrom  { background: linear-gradient(145deg, #2d7dd2, color-mix(in srgb, #2d7dd2 65%, #000)) !important; }
+        .audit-btn.magnetpulver { background: linear-gradient(145deg, #c0392b, color-mix(in srgb, #c0392b 65%, #000)) !important; }
+        .audit-btn.nital        { background: linear-gradient(145deg, #1a936f, color-mix(in srgb, #1a936f 65%, #000)) !important; }
+        .audit-btn.ultraschall  { background: linear-gradient(145deg, #7d3c98, color-mix(in srgb, #7d3c98 65%, #000)) !important; }
+        .audit-btn.employee-list-btn,
+        .employee-list-btn      { background: linear-gradient(145deg, #e67e22, color-mix(in srgb, #e67e22 65%, #000)) !important; }
+
+        /* Gloss */
+        .audit-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .audit-btn::after {
+            content: ''; position: absolute; right: -30px; bottom: -30px;
+            width: 110px; height: 110px; border-radius: 50%;
+            background: rgba(255,255,255,0.07); pointer-events: none;
+        }
+        .audit-btn:hover { transform: translateY(-4px) scale(1.015) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.55) !important; filter: none !important; }
+        .audit-btn:active { transform: translateY(-1px) scale(1.005) !important; }
+        .audit-btn.disabled { opacity: 0.5 !important; cursor: not-allowed !important; }
+        .audit-btn.disabled:hover { transform: none !important; }
+
+        /* Tile inner elements */
+        .tile-icon-wrap { font-size: 28px; color: rgba(255,255,255,0.92); margin-bottom: 12px; position: relative; z-index: 1; }
+        .tile-body-wrap { position: relative; z-index: 1; }
+        .tile-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-bottom: 5px; }
+        .tile-nm  { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.25; letter-spacing: -0.2px; }
+        .tile-progress {
+            font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700;
+            background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28);
+            border-radius: 999px; padding: 2px 8px; color: rgba(255,255,255,0.9);
+            display: inline-block; margin-top: 6px;
+        }
+        .tile-arrow-btn {
+            position: absolute; bottom: 16px; right: 16px;
+            width: 30px; height: 30px; border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.8); font-size: 12px;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .audit-btn:hover .tile-arrow-btn { background: rgba(255,255,255,0.28); transform: translate(2px,-2px); }
+
+        /* ══ TOKEN BAR UPGRADE ══ */
+        .github-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: #bdc3c7; flex-shrink: 0;
+            border: 1.5px solid rgba(0,0,0,0.12);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .github-dot.connected { background: #27ae60; box-shadow: 0 0 0 3px rgba(39,174,96,0.22); border-color: #1e8449; }
+        .github-dot.error     { background: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.18); }
+
 .container {
 max-width: 1200px;
 margin: 0 auto;
@@ -71,36 +186,7 @@ color: #7f8c8d;
 font-size: 0.9em;
 margin-bottom: 8px;
 }
-.theme-toggle {
-  position: fixed !important;
-  right: 16px !important;
-  bottom: 16px !important;
-  z-index: 99999 !important;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 2px solid #3498db !important;
-  background: white !important;
-  color: #333 !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-  font-size: 20px;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-.theme-toggle:hover {
-  transform: scale(1.1);
-  background: #f0f0f0 !important;
-}
-[data-theme="dark"] .theme-toggle {
-  --toggle-bg: #2d2d2d;
-  --toggle-text: #e0e0e0;
-  --toggle-bg-hover: #333333;
-  border-color: #444;
-}
+/* theme-toggle moved to site-header */
 .custom-modal {
 display: none;
 position: fixed;
@@ -453,163 +539,26 @@ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 gap: 8px;
 margin-bottom: 15px;
 }
-/* ===== AUDIT BUTTONS – Portal-Tile Design ===== */
+/* ===== AUDIT BUTTONS – 5 gleichbreite Kacheln ===== */
 .audit-buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 8px;
-}
-/* Bottom row: Quali-Button zentriert, gleiche Breite wie eine Kachel */
-.audit-buttons-bottom {
-  display: flex;
-  justify-content: center;
-  margin-top: 0;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
   margin-bottom: 15px;
 }
-.audit-buttons-bottom .employee-list-btn {
-  flex: 0 0 calc(25% - 9px);
-}
-.audit-btn {
-  position: relative;
-  color: #fff;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 0 12px 26px rgba(0,0,0,0.22);
-  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, filter .2s ease;
-  isolation: isolate;
-  padding: 16px 16px 14px;
-  cursor: pointer;
-  font-size: 1.0em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 148px;
-  text-align: left;
-  overflow: hidden;
-}
-/* Glanzlicht oben-links */
-.audit-btn::before {
-  content: "";
-  position: absolute;
-  width: 180px; height: 180px;
-  left: -50px; top: -70px;
-  background: radial-gradient(circle, rgba(255,255,255,0.20) 0%, transparent 65%);
-  pointer-events: none;
-}
-/* Oberer Glanzstreifen */
-.audit-btn::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 100%);
-  border-radius: 14px 14px 0 0;
-  pointer-events: none;
-}
-/* Farben */
-.audit-btn.wirbelstrom  { background: linear-gradient(145deg, #3498db 0%, #1a5276 100%); }
-.audit-btn.magnetpulver { background: linear-gradient(145deg, #e74c3c 0%, #c0392b 100%); }
-.audit-btn.nital        { background: linear-gradient(145deg, #27ae60 0%, #1e8449 100%); }
-.audit-btn.ultraschall  { background: linear-gradient(145deg, #8e44ad 0%, #6c3483 100%); }
-/* Hover/Active */
-.audit-btn:hover {
-  transform: translateY(-5px) scale(1.012);
-  box-shadow: 0 20px 42px rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.22);
-  filter: saturate(1.08) brightness(1.04);
-}
-.audit-btn:active {
-  transform: translateY(-2px) scale(1.004);
-  box-shadow: 0 12px 26px rgba(0,0,0,0.22);
-  transition-duration: .08s;
-}
+.audit-buttons-bottom { display: contents; }
+/* audit-btn base style defined above */
+/* gloss replaced by new ::before/::after above */
+/* colors defined in tile CSS above */
+/* hover/active defined in tile CSS above */
 .audit-btn.disabled { opacity: 0.5; cursor: not-allowed; }
 .audit-btn.disabled:hover { transform: none; box-shadow: 0 12px 26px rgba(0,0,0,0.22); filter: none; }
 /* ---- Interne Layout-Elemente ---- */
-.btn-top-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  position: relative;
-  z-index: 2;
-}
-.btn-icon-box {
-  width: 50px; height: 50px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  background: rgba(255,255,255,0.20);
-  border: 1px solid rgba(255,255,255,0.30);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 6px rgba(0,0,0,0.15);
-  transition: background .2s, transform .2s;
-  flex: 0 0 auto;
-}
-.audit-btn:hover .btn-icon-box {
-  background: rgba(255,255,255,0.28);
-  transform: scale(1.08);
-}
-.btn-chevron {
-  font-size: 22px;
-  opacity: 0.50;
-  line-height: 1;
-  padding-top: 2px;
-  transition: opacity .2s, transform .2s;
-  position: relative; z-index: 2;
-}
-.audit-btn:hover .btn-chevron {
-  opacity: 0.90;
-  transform: translateX(3px);
-}
-.btn-label {
-  font-weight: 800;
-  font-size: 1.0em;
-  line-height: 1.2;
-  letter-spacing: .1px;
-  margin-top: 10px;
-  position: relative; z-index: 2;
-}
-.btn-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255,255,255,0.18);
-  margin-top: 6px;
-  position: relative; z-index: 2;
-  font-size: 0.80em;
-  color: rgba(255,255,255,0.88);
-}
-.btn-meta-dot {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.70);
-  flex: 0 0 auto;
-}
-.audit-btn .btn-progress {
-  background: rgba(255,255,255,0.22);
-  border-radius: 999px;
-  padding: 1px 8px;
-  font-size: 0.85em;
-  font-weight: 700;
-  border: 1px solid rgba(255,255,255,0.35);
-  margin-left: auto;
-  display: none;
-}
-/* Employee-List-Button */
+/* inner tile elements replaced by tile-icon-wrap / tile-body-wrap system */
+/* Employee-List-Button – inherits tile style */
 .employee-list-btn {
-  background: linear-gradient(145deg, #f39c12 0%, #ca6f1e 100%) !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  min-height: 148px !important;
-  display: flex !important;
+  min-height: 160px !important;
   width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-}
-.employee-list-btn:hover {
-  transform: translateY(-5px) scale(1.012) !important;
-  box-shadow: 0 20px 42px rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.22) !important;
 }
 .controls-row-audit {
 display: flex;
@@ -1189,11 +1138,11 @@ color: #7f8c8d; font-size: 0.85em;
   .progress-container { min-width: 100%; max-width: 100%; }
   .controls-row-audit { display: flex; gap: 3px; margin-bottom: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; scrollbar-color: #3498db #f0f0f0; }
   .controls-row-audit button { padding: 8px 10px; font-size: 0.7em; height: 32px; min-width: 100px; flex-shrink: 0; }
-  .audit-buttons { grid-template-columns: 1fr; gap: 8px; }
-  .audit-buttons-bottom { grid-template-columns: 1fr; }
-  .audit-btn { padding: 14px; min-height: 120px; }
-  .btn-icon-box { width: 42px; height: 42px; font-size: 20px; }
-  .btn-label { font-size: 0.95em; }
+  .audit-buttons { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+  .audit-btn { min-height: 120px !important; padding: 16px 14px 14px !important; }
+  .tile-icon-wrap { font-size: 22px !important; margin-bottom: 8px !important; }
+  .tile-nm { font-size: 13px !important; }
+  .tile-arrow-btn { width: 26px !important; height: 26px !important; font-size: 11px !important; bottom: 12px !important; right: 12px !important; }
   .employee-table { font-size: 0.7em; width: 100%; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .employee-table thead { display: table; width: 100%; table-layout: fixed; }
   .employee-table tbody { display: table; width: 100%; table-layout: fixed; }
@@ -1258,7 +1207,7 @@ color: #7f8c8d; font-size: 0.85em;
 @media (max-width: 360px) {
 .audit-status { font-size: 0.7em; padding: 6px; }
 .controls-row-audit button { padding: 6px 8px; font-size: 0.65em; height: 30px; min-width: 90px; }
-.audit-btn { padding: 8px 6px; min-height: 60px; font-size: 0.8em; }
+.audit-btn { padding: 8px 6px !important; min-height: 90px !important; font-size: 0.8em; }
 .question-text { font-size: 0.9em; }
 .verdict-btn { padding: 6px 4px; font-size: 0.8em; min-height: 36px; }
 .verdict-btn span { font-size: 0.9em; margin-right: 3px; }
@@ -1725,7 +1674,13 @@ h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
 #cloudSyncIndicator { border-radius: 8px !important; font-size: 0.85em !important; }
 
 /* Audit selection heading */
-.audit-selection h2 { font-size: 1.0em !important; color: #5f6b73; font-weight: 700; letter-spacing: .2px; margin-bottom: 14px; }
+.audit-selection h2 {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important; letter-spacing: 2px !important; text-transform: uppercase !important;
+  color: #6b7280 !important; margin-bottom: 18px !important; font-weight: 500 !important;
+  display: flex !important; align-items: center !important; gap: 12px !important;
+}
+.audit-selection h2::after { content: ''; flex: 1 !important; height: 1px !important; background: rgba(0,0,0,0.1) !important; }
 
 /* Employee form inputs */
 .employee-form-group input,
@@ -1751,18 +1706,24 @@ h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
 
 <!-- Dark Mode Stylesheet -->
 <style id="darkModeStyles" media="(prefers-color-scheme: dark)">
-body { background-color: #121212; color: #e0e0e0 !important; }
-.container { background: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: #e0e0e0 !important; }
-header { border-bottom-color: #444; }
+body { background-color: #191919; color: #e6e6e6 !important; }
+.container { background: #242424; box-shadow: 0 2px 8px rgba(0,0,0,0.4); color: #e6e6e6 !important; }
+.site-header {
+  background: #1e1e1e !important;
+  border-bottom-color: rgba(255,255,255,0.06) !important;
+}
+.site-header-eyebrow { color: #58a6ff !important; }
+.site-header-title { color: #f0f0f0 !important; }
+.site-header-sub { color: #8a8a8a !important; }
+.theme-toggle-btn { background: #2e2e2e !important; border-color: rgba(255,255,255,0.08) !important; color: #e6e6e6 !important; }
 h1 { color: #ffffff !important; }
 .subtitle { color: #cccccc !important; }
-.theme-toggle {
-  background: #2d2d2d !important;
-  color: #e0e0e0 !important;
-  border-color: #444 !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
+.theme-toggle-btn {
+  background: #2a2a2a !important;
+  color: #e6e6e6 !important;
+  border-color: rgba(255,255,255,0.08) !important;
 }
-.theme-toggle:hover { background: #333333 !important; }
+.theme-toggle-btn:hover { background: #333333 !important; }
 .custom-modal-content,
 .employee-modal-content,
 .audit-list-content,
@@ -1784,17 +1745,11 @@ background: #333; border-color: #555; color: #ffffff !important;
 }
 .employee-form-group input::placeholder,
 .employee-form-group textarea::placeholder { color: #888; }
-.audit-selection h2 { color: #ffffff !important; }
-.audit-btn.wirbelstrom { background: linear-gradient(145deg, #2980b9, #1a5276); color: white; }
-.audit-btn.magnetpulver { background: linear-gradient(145deg, #c0392b, #922b21); color: white; }
-.audit-btn.nital { background: linear-gradient(145deg, #27ae60, #1e8449); color: white; }
-.audit-btn.ultraschall { background: linear-gradient(145deg, #7d3c98, #5b2c6f); color: white; }
+.audit-selection h2 { color: #8a8a8a !important; }
+.audit-selection h2::after { background: rgba(255,255,255,0.08) !important; }
+/* Tile colors identical in dark mode – already handled by light CSS */
 .audit-btn.disabled { opacity: 0.4; }
-.audit-btn .btn-progress { background: rgba(255,255,255,0.15); }
-.employee-list-btn {
-background: linear-gradient(135deg, #d35400, #e67e22) !important;
-color: white !important;
-}
+.tile-progress { background: rgba(255,255,255,0.15) !important; }
 .btn-back, .btn-export, .btn-export, .btn-authorization,
 .btn-report, .btn-danger, .btn-success,
 .btn-secondary { color: white !important; }
@@ -1807,7 +1762,7 @@ color: white !important;
 .btn-success { background: #27ae60; }
 .btn-secondary { background: #666; }
 .audit-status {
-background: #2d2d2d; border-color: #444; color: #ffffff !important;
+background: #2a2a2a; border-color: #3a3a3a; color: #e6e6e6 !important;
 }
 .status-text { color: #ffffff !important; }
 .status-text strong { color: #3498db !important; }
@@ -1815,26 +1770,26 @@ background: #2d2d2d; border-color: #444; color: #ffffff !important;
 .progress-text { color: #b0b0b0; }
 .employee-table th { background: #2c3e50; color: white !important; }
 .employee-table td { 
-    border-bottom-color: #444; 
-    color: #ffffff !important; 
-    background-color: #2a2a2a !important;
+    border-bottom-color: #3a3a3a; 
+    color: #e6e6e6 !important; 
+    background-color: #282828 !important;
 }
 .employee-table tr:hover { background: #2d2d2d; }
 .employee-search, .employee-filter { background: #333; border-color: #555; color: #ffffff !important; }
 .employee-search::placeholder { color: #888; }
-.stat-box { background: #2d2d2d; border-color: #444; }
+.stat-box { background: #2a2a2a; border-color: #3a3a3a; }
 .stat-value { color: #000000 !important; font-weight: bold; }
 .stat-box div:not(.stat-value) { color: #000000 !important; }
-.header-section { background: #2d2d2d; border-color: #2980b9; }
+.header-section { background: #2a2a2a; border-color: #3a3a3a; }
 .header-section h3 { color: #ffffff !important; font-weight: 600; }
-.header-group { background: #252525; border-color: #444; }
+.header-group { background: #2e2e2e; border-color: #3a3a3a; }
 .header-group h4 { color: #ffffff !important; border-bottom-color: #444; }
 .header-input { background: #333; border-color: #555; color: #ffffff !important; }
 .header-input::placeholder { color: #888; }
 .section { border-color: #444; }
 .section-header { background: #2c3e50; color: #ffffff !important; }
 .section-header:hover { background: #34495e; }
-.question { background: #252525; border-left-color: #666; color: #ffffff !important; }
+.question { background: #2e2e2e; border-left-color: #555; color: #e6e6e6 !important; }
 .question.ok { border-left-color: #27ae60; background: rgba(39, 174, 96, 0.15); color: #ffffff !important; }
 .question.not-ok { border-left-color: #e74c3c; background: rgba(231, 76, 60, 0.15); color: #ffffff !important; }
 .question-id { background: #3498db; color: white !important; }
@@ -1939,7 +1894,7 @@ input:focus, select:focus, textarea:focus {
 .token-input::placeholder { color: #666 !important; }
 /* Sections dark */
 .section { box-shadow: 0 2px 10px rgba(0,0,0,0.35) !important; }
-.section-content { background: #1e1e1e !important; }
+.section-content { background: #242424 !important; }
 /* Questions dark */
 .question { background: #252525 !important; box-shadow: none !important; }
 .question.ok     { background: rgba(39,174,96,0.10) !important; }
@@ -2230,13 +2185,19 @@ input:focus, select:focus, textarea:focus {
   </div>
 </div>
 
+<!-- SITE HEADER -->
+<div class="site-header">
+  <div class="site-header-left">
+    <div class="site-header-eyebrow">Schaeffler · ZfP · Schweinfurt</div>
+    <div class="site-header-title">ZfP Operator Audit</div>
+    <div class="site-header-sub">INFSW17008_NDT_Personal</div>
+  </div>
+  <div class="site-header-right">
+    <button id="themeToggleBtn" class="theme-toggle-btn" title="Dark/Light Mode">🌓</button>
+  </div>
+</div>
 <div class="container">
-<header>
-  <h1>ZfP Operator Audit</h1>
-  <div class="subtitle">INFSW17008_NDT_Personal</div>
   <div style="display:none"><span id="cloudStatus"></span></div>
-</header>
-<button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
 
 <!-- NEU: GitHub Konfigurations-Panel (ausblendbar) -->
 <div class="github-config-panel" id="githubConfigPanel">
@@ -2262,65 +2223,50 @@ input:focus, select:focus, textarea:focus {
   <h2>Prüfverfahren auswählen:</h2>
   <div class="audit-buttons">
     <button class="audit-btn wirbelstrom" data-audit="wirbelstrom">
-      <div class="btn-top-row">
-        <div class="btn-icon-box">⚡</div>
-        <span class="btn-chevron">›</span>
+      <div class="tile-icon-wrap"><i class="fas fa-wave-square"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat">Eddy Current · ET</div>
+        <div class="tile-nm">Wirbelstrom&shy;prüfung</div>
+        <div class="tile-progress" id="wirbelstromProgress">0%</div>
       </div>
-      <div class="btn-label">Wirbelstromprüfung</div>
-      <div class="btn-meta-row">
-        <span class="btn-meta-dot"></span>
-        <span>Eddy Current Testing (ET)</span>
-        <div class="btn-progress" id="wirbelstromProgress">0%</div>
-      </div>
+      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn magnetpulver" data-audit="magnetpulver">
-      <div class="btn-top-row">
-        <div class="btn-icon-box">🧲</div>
-        <span class="btn-chevron">›</span>
+      <div class="tile-icon-wrap"><i class="fas fa-magnet"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat">Magnetic Particle · MT</div>
+        <div class="tile-nm">Magnetpulver&shy;prüfung</div>
+        <div class="tile-progress" id="magnetpulverProgress">0%</div>
       </div>
-      <div class="btn-label">Magnetpulverprüfung</div>
-      <div class="btn-meta-row">
-        <span class="btn-meta-dot"></span>
-        <span>Magnetic Particle Testing (MT)</span>
-        <div class="btn-progress" id="magnetpulverProgress">0%</div>
-      </div>
+      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn nital" data-audit="nital">
-      <div class="btn-top-row">
-        <div class="btn-icon-box">🧪</div>
-        <span class="btn-chevron">›</span>
+      <div class="tile-icon-wrap"><i class="fas fa-flask"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat">Nital Etch · NE</div>
+        <div class="tile-nm">Nital-Ätzen</div>
+        <div class="tile-progress" id="nitalProgress">0%</div>
       </div>
-      <div class="btn-label">Nital-Ätzen</div>
-      <div class="btn-meta-row">
-        <span class="btn-meta-dot"></span>
-        <span>Nital Etch Inspection (NE)</span>
-        <div class="btn-progress" id="nitalProgress">0%</div>
-      </div>
+      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn ultraschall" data-audit="ultraschall">
-      <div class="btn-top-row">
-        <div class="btn-icon-box">📡</div>
-        <span class="btn-chevron">›</span>
+      <div class="tile-icon-wrap"><i class="fas fa-broadcast-tower"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat">Ultrasonic · UT</div>
+        <div class="tile-nm">Ultraschall&shy;prüfung</div>
+        <div class="tile-progress" id="ultraschallProgress">0%</div>
       </div>
-      <div class="btn-label">Ultraschallprüfung</div>
-      <div class="btn-meta-row">
-        <span class="btn-meta-dot"></span>
-        <span>Ultrasonic Testing (UT)</span>
-        <div class="btn-progress" id="ultraschallProgress">0%</div>
-      </div>
+      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
     </button>
   </div>
   <div class="audit-buttons audit-buttons-bottom">
     <button class="audit-btn employee-list-btn" id="employeeListBtn">
-      <div class="btn-top-row">
-        <div class="btn-icon-box" style="font-size: 26px;">👥</div>
-        <span class="btn-chevron">›</span>
+      <div class="tile-icon-wrap"><i class="fas fa-users"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat">DGZfP Personal</div>
+        <div class="tile-nm">Qualifikations&shy;matrix</div>
       </div>
-      <div class="btn-label">Qualifikationsmatrix</div>
-      <div class="btn-meta-row">
-        <span class="btn-meta-dot"></span>
-        <span>DGZfP Personal</span>
-      </div>
+      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
     </button>
   </div>
 </div>
