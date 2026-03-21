@@ -15,13 +15,36 @@ box-sizing: border-box;
 margin: 0;
 padding: 0;
 }
+:root {
+  --bg:          #0d1117;
+  --surface:     #161b22;
+  --surface-2:   #21262d;
+  --border:      rgba(255,255,255,0.08);
+  --text:        #e6edf3;
+  --muted:       #8b949e;
+  --accent:      #58a6ff;
+  --shadow:      0 8px 32px rgba(0,0,0,0.4);
+  --shadow-hover:0 16px 48px rgba(0,0,0,0.55);
+}
+body.light-mode {
+  --bg:          #f0f2f5;
+  --surface:     #ffffff;
+  --surface-2:   #f0f2f5;
+  --border:      rgba(0,0,0,0.1);
+  --text:        #1a1e24;
+  --muted:       #6b7280;
+  --accent:      #1d6fbe;
+  --shadow:      0 4px 20px rgba(0,0,0,0.08);
+  --shadow-hover:0 10px 36px rgba(0,0,0,0.16);
+}
+
 body {
-font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
-line-height: 1.4;
-color: #333;
-background-color: #f5f5f5;
-padding: 6px;
-font-size: 14px;
+font-family: 'DM Sans', system-ui, sans-serif;
+background: var(--bg, #0d1117);
+color: var(--text, #e6edf3);
+min-height: 100vh;
+padding: 0 0 60px;
+transition: background-color 0.3s ease, color 0.3s ease;
 }
 [data-theme="light"] .header-input,
 [data-theme="light"] .comment,
@@ -53,32 +76,34 @@ font-size: 14px;
 
         /* ══ SITE HEADER ══ */
         .site-header {
-            background: #ffffff;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding: 22px 40px 20px 40px;
+            background: var(--surface, #161b22);
+            border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+            padding: 28px 40px 24px 120px;
             display: flex; align-items: center; justify-content: space-between;
             gap: 20px; flex-wrap: wrap;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
-        .site-header-left { display: flex; flex-direction: column; gap: 4px; }
+        .site-header-left { display: flex; flex-direction: column; gap: 6px; }
         .site-header-eyebrow {
             font-family: 'DM Mono', monospace;
             font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-            color: #2980b9; font-weight: 500;
+            color: var(--accent, #58a6ff); font-weight: 500;
         }
         .site-header-title {
-            font-size: clamp(20px, 2.5vw, 26px); font-weight: 900;
-            color: #1a1e24; line-height: 1.1; letter-spacing: -0.5px;
+            font-size: clamp(22px, 3vw, 30px); font-weight: 900;
+            color: var(--text, #e6edf3); line-height: 1.1; letter-spacing: -0.5px;
+            transition: color 0.3s ease;
         }
-        .site-header-sub { font-size: 13px; color: #6b7280; }
+        .site-header-sub { font-size: 14px; color: var(--muted, #8b949e); margin-top: 2px; transition: color 0.3s ease; }
         .site-header-right { display: flex; align-items: center; gap: 12px; }
         .theme-toggle-btn {
             width: 44px; height: 44px; border-radius: 50%;
-            background: #f0f2f5; border: 1px solid rgba(0,0,0,0.1);
-            color: #1a1e24; font-size: 18px; cursor: pointer;
+            background: var(--surface-2, #21262d); border: 1px solid var(--border, rgba(255,255,255,0.08));
+            color: var(--text, #e6edf3); font-size: 18px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease; flex-shrink: 0;
         }
-        .theme-toggle-btn:hover { transform: scale(1.08) rotate(15deg); border-color: #2980b9; }
+        .theme-toggle-btn:hover { transform: scale(1.08) rotate(15deg); border-color: var(--accent, #58a6ff); }
 
         /* ══ PRUEFPROTOKOLL-STYLE TILES ══ */
         .audit-btn {
@@ -93,7 +118,7 @@ font-size: 14px;
             justify-content: space-between !important;
             overflow: hidden;
             transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease !important;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+            box-shadow: var(--shadow, 0 8px 32px rgba(0,0,0,0.4)) !important;
             border: 1px solid rgba(255,255,255,0.06) !important;
             opacity: 0;
             transform: translateY(18px);
@@ -126,7 +151,7 @@ font-size: 14px;
             width: 110px; height: 110px; border-radius: 50%;
             background: rgba(255,255,255,0.07); pointer-events: none;
         }
-        .audit-btn:hover { transform: translateY(-4px) scale(1.015) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.55) !important; filter: none !important; }
+        .audit-btn:hover { transform: translateY(-4px) scale(1.015) !important; box-shadow: var(--shadow-hover, 0 16px 48px rgba(0,0,0,0.55)) !important; filter: none !important; }
         .audit-btn:active { transform: translateY(-1px) scale(1.005) !important; }
         .audit-btn.disabled { opacity: 0.5 !important; cursor: not-allowed !important; }
         .audit-btn.disabled:hover { transform: none !important; }
@@ -161,6 +186,118 @@ font-size: 14px;
         }
         .github-dot.connected { background: #27ae60; box-shadow: 0 0 0 3px rgba(39,174,96,0.22); border-color: #1e8449; }
         .github-dot.error     { background: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.18); }
+
+
+        /* ══ LOGIN OVERLAY (pruefprotokoll-style) ══ */
+        .login-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.72);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; backdrop-filter: blur(8px);
+        }
+        .login-overlay.hidden { display: none; }
+        .login-modal {
+            background: #161b22;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px; padding: 36px 32px 30px;
+            max-width: 420px; width: 92%;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+            animation: modalIn 0.35s cubic-bezier(.34,1.56,.64,1) forwards;
+        }
+        body.light-mode .login-modal {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.1);
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .login-eyebrow {
+            font-family: 'DM Mono', monospace; font-size: 10px;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: #58a6ff; margin-bottom: 8px;
+        }
+        .login-title {
+            font-size: 22px; font-weight: 900; color: #e6edf3;
+            margin-bottom: 4px; letter-spacing: -0.3px;
+        }
+        body.light-mode .login-title { color: #1a1e24; }
+        .login-sub { font-size: 13px; color: #8b949e; margin-bottom: 28px; }
+        .field-label {
+            font-family: 'DM Mono', monospace; font-size: 10px;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: #8b949e; margin-bottom: 5px; display: block;
+        }
+        .field-input {
+            width: 100%; padding: 11px 14px; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #21262d; color: #e6edf3;
+            font-family: 'DM Mono', monospace; font-size: 13px;
+            transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+        }
+        body.light-mode .field-input {
+            background: #f0f2f5; color: #1a1e24;
+            border-color: rgba(0,0,0,0.12);
+        }
+        .field-input:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88,166,255,0.15);
+        }
+        .login-btn {
+            width: 100%; padding: 13px; border-radius: 10px; border: none;
+            background: #58a6ff; color: #0d1117;
+            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: opacity 0.2s, transform 0.15s; margin-top: 14px;
+        }
+        body.light-mode .login-btn { color: #ffffff; background: #1d6fbe; }
+        .login-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .login-btn:active { transform: translateY(0); }
+        .login-error {
+            margin-top: 12px; min-height: 18px; font-size: 12.5px;
+            color: #f85149; text-align: center;
+            font-family: 'DM Mono', monospace;
+        }
+        .login-footer-note {
+            margin-top: 20px; text-align: center; font-size: 11.5px;
+            color: #8b949e; border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 16px;
+        }
+        body.light-mode .login-footer-note { border-color: rgba(0,0,0,0.08); }
+
+        /* ══ SECTION LABEL (pruefprotokoll-style) ══ */
+        .section-label-pp {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+            color: #6b7280; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .section-label-pp::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
+
+
+        /* ══ LOGIN OVERLAY – pruefprotokoll-style ══ */
+        .login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.72); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(8px); }
+        .login-overlay.hidden { display: none; }
+        .login-modal-pp { background: var(--surface, #161b22); border: 1px solid var(--border, rgba(255,255,255,0.08)); border-radius: 20px; padding: 36px 32px 30px; max-width: 420px; width: 92%; box-shadow: 0 24px 64px rgba(0,0,0,0.6); animation: qModalIn 0.35s cubic-bezier(.34,1.56,.64,1) forwards; }
+        @keyframes qModalIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .login-eyebrow-pp { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent, #58a6ff); margin-bottom: 8px; }
+        .login-title-pp { font-size: 22px; font-weight: 900; color: var(--text, #e6edf3); margin-bottom: 4px; letter-spacing: -0.3px; }
+        .login-sub-pp { font-size: 13px; color: var(--muted, #8b949e); margin-bottom: 28px; }
+        .field-label-pp { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted, #8b949e); margin-bottom: 5px; display: block; }
+        .field-input-pp { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border, rgba(255,255,255,0.08)); background: var(--surface-2, #21262d); color: var(--text, #e6edf3); font-family: 'DM Mono', monospace; font-size: 13px; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+        .field-input-pp:focus { border-color: var(--accent, #58a6ff); box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }
+        .login-btn-pp { width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--accent, #58a6ff); color: #0d1117; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; margin-top: 6px; }
+        body.light-mode .login-btn-pp { color: #ffffff; }
+        .login-btn-pp:hover { opacity: 0.88; transform: translateY(-1px); }
+        .login-err-pp { margin-top: 12px; min-height: 18px; font-size: 12.5px; color: #f85149; text-align: center; font-family: 'DM Mono', monospace; }
+        .login-footer-note-pp { margin-top: 20px; text-align: center; font-size: 11.5px; color: var(--muted, #8b949e); border-top: 1px solid var(--border, rgba(255,255,255,0.08)); padding-top: 16px; }
+
+        /* ══ SECTION LABEL ══ */
+        .section-label-pp {
+            font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--muted, #8b949e); margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px; transition: color 0.3s;
+        }
+        .section-label-pp::after { content: ''; flex: 1; height: 1px; background: var(--border, rgba(255,255,255,0.08)); transition: background 0.3s; }
 
 .container {
 max-width: 1200px;
@@ -542,11 +679,19 @@ margin-bottom: 15px;
 /* ===== AUDIT BUTTONS – 5 gleichbreite Kacheln ===== */
 .audit-buttons {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
+  margin-bottom: 14px;
+}
+.audit-buttons-bottom {
+  display: flex;
+  justify-content: center;
   margin-bottom: 15px;
 }
-.audit-buttons-bottom { display: contents; }
+.audit-buttons-bottom .employee-list-btn {
+  width: calc(25% - 10.5px);
+  flex: 0 0 calc(25% - 10.5px);
+}
 /* audit-btn base style defined above */
 /* gloss replaced by new ::before/::after above */
 /* colors defined in tile CSS above */
@@ -1138,7 +1283,8 @@ color: #7f8c8d; font-size: 0.85em;
   .progress-container { min-width: 100%; max-width: 100%; }
   .controls-row-audit { display: flex; gap: 3px; margin-bottom: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; scrollbar-color: #3498db #f0f0f0; }
   .controls-row-audit button { padding: 8px 10px; font-size: 0.7em; height: 32px; min-width: 100px; flex-shrink: 0; }
-  .audit-buttons { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+  .audit-buttons { grid-template-columns: 1fr !important; gap: 10px; }
+  .audit-buttons-bottom .employee-list-btn { width: 100% !important; flex: 1 1 100% !important; }
   .audit-btn { min-height: 120px !important; padding: 16px 14px 14px !important; }
   .tile-icon-wrap { font-size: 22px !important; margin-bottom: 8px !important; }
   .tile-nm { font-size: 13px !important; }
@@ -1706,24 +1852,11 @@ h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
 
 <!-- Dark Mode Stylesheet -->
 <style id="darkModeStyles" media="(prefers-color-scheme: dark)">
-body { background-color: #191919; color: #e6e6e6 !important; }
-.container { background: #242424; box-shadow: 0 2px 8px rgba(0,0,0,0.4); color: #e6e6e6 !important; }
-.site-header {
-  background: #1e1e1e !important;
-  border-bottom-color: rgba(255,255,255,0.06) !important;
-}
-.site-header-eyebrow { color: #58a6ff !important; }
-.site-header-title { color: #f0f0f0 !important; }
-.site-header-sub { color: #8a8a8a !important; }
-.theme-toggle-btn { background: #2e2e2e !important; border-color: rgba(255,255,255,0.08) !important; color: #e6e6e6 !important; }
-h1 { color: #ffffff !important; }
-.subtitle { color: #cccccc !important; }
-.theme-toggle-btn {
-  background: #2a2a2a !important;
-  color: #e6e6e6 !important;
-  border-color: rgba(255,255,255,0.08) !important;
-}
-.theme-toggle-btn:hover { background: #333333 !important; }
+/* body dark handled by CSS vars */
+.login-modal { background: #1e1e1e !important; border-color: rgba(255,255,255,0.08) !important; }
+.container { background: var(--surface, #161b22); box-shadow: 0 2px 8px rgba(0,0,0,0.4); color: var(--text, #e6edf3) !important; }
+/* site-header dark: handled by CSS vars */
+/* theme-toggle-btn dark: handled by CSS vars */
 .custom-modal-content,
 .employee-modal-content,
 .audit-list-content,
@@ -1747,7 +1880,8 @@ background: #333; border-color: #555; color: #ffffff !important;
 .employee-form-group textarea::placeholder { color: #888; }
 .audit-selection h2 { color: #8a8a8a !important; }
 .audit-selection h2::after { background: rgba(255,255,255,0.08) !important; }
-/* Tile colors identical in dark mode – already handled by light CSS */
+.section-label-pp { color: #666 !important; }
+.section-label-pp::after { background: rgba(255,255,255,0.08) !important; }
 .audit-btn.disabled { opacity: 0.4; }
 .tile-progress { background: rgba(255,255,255,0.15) !important; }
 .btn-back, .btn-export, .btn-export, .btn-authorization,
@@ -2185,6 +2319,23 @@ input:focus, select:focus, textarea:focus {
   </div>
 </div>
 
+<!-- LOGIN OVERLAY – pruefprotokoll-style -->
+<div class="login-overlay hidden" id="qualiLoginOverlay">
+  <div class="login-modal-pp">
+    <div class="login-eyebrow-pp">GitHub · API-Zugang</div>
+    <div class="login-title-pp">Token erforderlich</div>
+    <div class="login-sub-pp">Bitte GitHub Personal Access Token eingeben, um fortzufahren.</div>
+    <label class="field-label-pp" for="qualiTokenInput">Personal Access Token</label>
+    <input class="field-input-pp" id="qualiTokenInput" type="password"
+           placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+    <button class="login-btn-pp" id="qualiLoginBtn">
+      <i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten
+    </button>
+    <div class="login-err-pp" id="qualiLoginErr"></div>
+    <div class="login-footer-note-pp">Schaeffler Technologies AG &amp; Co. KG · ZfP Schweinfurt<br>Nur für autorisierte Benutzer</div>
+  </div>
+</div>
+
 <!-- SITE HEADER -->
 <div class="site-header">
   <div class="site-header-left">
@@ -2210,17 +2361,21 @@ input:focus, select:focus, textarea:focus {
   <button id="githubPushBtn" style="display:none"></button>
   <button id="githubClearConfigBtn" style="display:none"></button>
   <div id="githubStatus" style="display:none"></div>
-  <div class="token-row">
+  <!-- Token UI: overlay handles entry; keep dot + compat buttons hidden -->
+  <div style="display:none;">
+    <input type="password" id="githubToken" autocomplete="off">
+    <button id="githubSaveConfigBtn"></button>
+  </div>
+  <div class="token-row" style="padding:6px 14px; display:flex; align-items:center; gap:8px;">
     <span id="githubDot" class="github-dot" title="Nicht verbunden"></span>
-    <span class="token-icon">🔑</span>
-    <input type="password" id="githubToken" class="token-input" placeholder="GitHub Personal Access Token (ghp_...)">
-    <button id="githubSaveConfigBtn" class="token-save-btn">Speichern</button>
+    <span id="githubStatusLabel" style="font-size:0.82em;color:var(--muted,#8b949e);flex:1;">Nicht verbunden</span>
+    <button onclick="qualiShowOverlay()" style="background:none;border:none;cursor:pointer;font-size:0.8em;color:var(--muted,#8b949e);">🔑</button>
   </div>
 </div>
 
 <!-- AUDIT AUSWAHL -->
 <div id="auditSelection" class="audit-selection active">
-  <h2>Prüfverfahren auswählen:</h2>
+  <div class="section-label-pp">Audits</div>
   <div class="audit-buttons">
     <button class="audit-btn wirbelstrom" data-audit="wirbelstrom">
       <div class="tile-icon-wrap"><i class="fas fa-wave-square"></i></div>
@@ -4907,6 +5062,7 @@ function applyTheme(theme) {
   }
   document.body.classList.toggle('dark-mode', theme === 'dark');
   document.body.classList.toggle('light-mode', theme === 'light');
+  qualiApplyTheme(theme);
   updateToggleAppearance();
 }
 
@@ -4923,11 +5079,87 @@ function initThemeToggle() {
   });
 }
 
+
+// ══ QUALI LOGIN OVERLAY ══
+function qualiShowOverlay() {
+  document.getElementById('qualiLoginOverlay').classList.remove('hidden');
+  setTimeout(() => { const i = document.getElementById('qualiTokenInput'); if(i){i.value='';i.focus();} }, 150);
+}
+function qualiHideOverlay() {
+  document.getElementById('qualiLoginOverlay').classList.add('hidden');
+}
+async function qualiValidateToken() {
+  const inp = document.getElementById('qualiTokenInput');
+  const err = document.getElementById('qualiLoginErr');
+  const btn = document.getElementById('qualiLoginBtn');
+  const token = inp ? inp.value.trim() : '';
+  if (!token) { err.textContent = '⚠ Bitte Token eingeben.'; return; }
+  err.textContent = '';
+  btn.disabled = true; btn.textContent = 'Wird geprüft …';
+  try {
+    const r = await fetch(
+      'https://api.github.com/repos/Acendrion1984/ZfP',
+      { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (r.status === 200 || r.status === 301 || r.status === 404) {
+      qualiHideOverlay();
+      // Sync token to githubToken hidden input + save config
+      const hiddenInp = document.getElementById('githubToken');
+      if (hiddenInp) hiddenInp.value = token;
+      try {
+        const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
+        cfg.token = token;
+        localStorage.setItem('zfp_github_config', JSON.stringify(cfg));
+        if (typeof loadGitHubConfig === 'function') loadGitHubConfig();
+        if (typeof saveGitHubConfig === 'function') await saveGitHubConfig();
+      } catch(e) {}
+    } else if (r.status === 401) {
+      err.textContent = '❌ Ungültiger Token. Bitte erneut versuchen.';
+      if (inp) { inp.value = ''; inp.focus(); }
+    } else {
+      err.textContent = `❌ Fehler ${r.status}. Bitte Netzwerk prüfen.`;
+    }
+  } catch(e) {
+    err.textContent = '❌ Netzwerkfehler. Verbindung prüfen.';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten';
+  }
+}
+
+// ══ QUALI THEME (pruefprotokoll-style: dark default) ══
+function qualiApplyTheme(theme) {
+  if (theme === 'light') {
+    document.body.classList.add('light-mode');
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) btn.textContent = '🌙';
+  } else {
+    document.body.classList.remove('light-mode');
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) btn.textContent = '☀️';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
-  initThemeToggle();
-  
+  // Apply theme FIRST (dark default)
+  qualiApplyTheme(localStorage.getItem('zfp-theme-preference') || 'dark');
+
   // GitHub Config laden
   loadGitHubConfig();
+
+  // Login overlay buttons
+  const qLoginBtn = document.getElementById('qualiLoginBtn');
+  if (qLoginBtn) qLoginBtn.addEventListener('click', qualiValidateToken);
+  const qTokenInp = document.getElementById('qualiTokenInput');
+  if (qTokenInp) qTokenInp.addEventListener('keydown', e => { if(e.key==='Enter') qualiValidateToken(); });
+
+  // Show overlay if no token saved
+  try {
+    const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
+    if (!cfg.token) qualiShowOverlay();
+  } catch(e) { qualiShowOverlay(); }
+
+  initThemeToggle();
   // GitHub Panel ein-/ausblendbar machen
   const githubPanelHeader = document.getElementById('githubPanelHeader');
   const githubPanelContent = document.getElementById('githubPanelContent');
@@ -7047,5 +7279,122 @@ async function deleteEmployee(id) {
  updateDepartmentFilterOptions();
   showInfoModal('✅ Mitarbeiter gelöscht!');
 }
+
+        // ══ TOKEN LOGIN OVERLAY MANAGEMENT ══
+        (function() {
+            const OVERLAY_ID  = 'tokenLoginOverlay';
+            const DOT_ID      = 'githubDot';
+            const LABEL_ID    = 'githubStatusLabel';
+            const TOKEN_INPUT = 'githubToken';     // same ID used by saveGitHubConfig()
+            const LOGIN_BTN   = 'tokenLoginBtn';
+            const LOGIN_ERR   = 'tokenLoginError';
+
+            function showOverlay() {
+                const ov = document.getElementById(OVERLAY_ID);
+                if (ov) {
+                    ov.classList.remove('hidden');
+                    setTimeout(() => {
+                        const inp = document.getElementById(TOKEN_INPUT);
+                        if (inp) inp.focus();
+                    }, 200);
+                }
+            }
+            function hideOverlay() {
+                const ov = document.getElementById(OVERLAY_ID);
+                if (ov) ov.classList.add('hidden');
+            }
+
+            async function handleTokenLogin() {
+                const inp    = document.getElementById(TOKEN_INPUT);
+                const errEl  = document.getElementById(LOGIN_ERR);
+                const btn    = document.getElementById(LOGIN_BTN);
+                const token  = inp ? inp.value.trim() : '';
+                if (!token) { if (errEl) errEl.textContent = '⚠ Bitte Token eingeben.'; return; }
+                if (errEl) errEl.textContent = '';
+                if (btn) { btn.disabled = true; btn.textContent = 'Wird geprüft …'; }
+
+                try {
+                    const owner    = document.getElementById('githubOwner')?.value  || 'Acendrion1984';
+                    const repo     = document.getElementById('githubRepo')?.value   || 'ZfP';
+                    const res = await fetch(
+                        `https://api.github.com/repos/${owner}/${repo}`,
+                        { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' } }
+                    );
+                    if (res.status === 200 || res.status === 301 || res.status === 404) {
+                        // valid token (404 = repo not found but token OK, or wrong repo)
+                        hideOverlay();
+                        // trigger existing save flow which uses same input
+                        if (typeof saveGitHubConfig === 'function') await saveGitHubConfig();
+                    } else if (res.status === 401) {
+                        if (errEl) errEl.textContent = '❌ Ungültiger Token. Bitte erneut versuchen.';
+                        if (inp) { inp.value = ''; inp.focus(); }
+                    } else {
+                        if (errEl) errEl.textContent = `❌ Fehler ${res.status}. Bitte Netzwerk prüfen.`;
+                    }
+                } catch (err) {
+                    if (errEl) errEl.textContent = '❌ Netzwerkfehler. Verbindung prüfen.';
+                } finally {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten';
+                    }
+                }
+            }
+
+            // Hook into existing dot updates: when dot gets 'connected' class → update label
+            const origUpdateDot = window.updateGitHubStatus;
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const btn = document.getElementById(LOGIN_BTN);
+                if (btn) btn.addEventListener('click', handleTokenLogin);
+                const inp = document.getElementById(TOKEN_INPUT);
+                if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') handleTokenLogin(); });
+
+                // Check if token already exists → decide overlay
+                setTimeout(() => {
+                    try {
+                        const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
+                        if (!cfg.token) showOverlay();
+                        // else: loadGitHubConfig() already ran and will try auto-connect
+                    } catch(e) { showOverlay(); }
+                }, 100);
+
+                // Observe dot class changes to update label text
+                const dot = document.getElementById(DOT_ID);
+                const label = document.getElementById(LABEL_ID);
+                if (dot && label) {
+                    const obs = new MutationObserver(() => {
+                        if (dot.classList.contains('connected')) {
+                            label.textContent = '✓ Verbunden';
+                            label.style.color = '#27ae60';
+                        } else if (dot.classList.contains('error')) {
+                            label.textContent = '✗ Verbindungsfehler – 🔑 Token';
+                            label.style.color = '#e74c3c';
+                            label.style.cursor = 'pointer';
+                            label.onclick = showOverlay;
+                        } else {
+                            label.textContent = 'Nicht verbunden';
+                            label.style.color = '#8b949e';
+                        }
+                    });
+                    obs.observe(dot, { attributes: true, attributeFilter: ['class'] });
+                }
+
+                // Show overlay if user clicks on the status label (for re-entry)
+                if (label) {
+                    label.style.cursor = 'pointer';
+                    label.addEventListener('click', showOverlay);
+                }
+            });
+
+            // Dark mode sync for overlay
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'zfp-theme-preference') {
+                    const isDark = e.newValue === 'dark';
+                    document.body.classList.toggle('light-mode', !isDark);
+                }
+            });
+        })();
+
 </script>
 </body>
