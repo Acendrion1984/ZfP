@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <title>ZfP Operator Audit (GitHub DB)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 /* ===== BESTEHENDES CSS BLEIBT IDENTISCH ===== */
 * {
@@ -15,36 +12,13 @@ box-sizing: border-box;
 margin: 0;
 padding: 0;
 }
-:root {
-  --bg:          #0d1117;
-  --surface:     #161b22;
-  --surface-2:   #21262d;
-  --border:      rgba(255,255,255,0.08);
-  --text:        #e6edf3;
-  --muted:       #8b949e;
-  --accent:      #58a6ff;
-  --shadow:      0 8px 32px rgba(0,0,0,0.4);
-  --shadow-hover:0 16px 48px rgba(0,0,0,0.55);
-}
-body.light-mode {
-  --bg:          #f0f2f5;
-  --surface:     #ffffff;
-  --surface-2:   #f0f2f5;
-  --border:      rgba(0,0,0,0.1);
-  --text:        #1a1e24;
-  --muted:       #6b7280;
-  --accent:      #1d6fbe;
-  --shadow:      0 4px 20px rgba(0,0,0,0.08);
-  --shadow-hover:0 10px 36px rgba(0,0,0,0.16);
-}
-
 body {
-font-family: 'DM Sans', system-ui, sans-serif;
-background: var(--bg, #0d1117);
-color: var(--text, #e6edf3);
-min-height: 100vh;
-padding: 0 0 60px;
-transition: background-color 0.3s ease, color 0.3s ease;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+line-height: 1.4;
+color: #333;
+background-color: #f5f5f5;
+padding: 6px;
+font-size: 14px;
 }
 [data-theme="light"] .header-input,
 [data-theme="light"] .comment,
@@ -73,232 +47,6 @@ transition: background-color 0.3s ease, color 0.3s ease;
   color: #e0e0e0 !important;
   border-color: #555 !important;
 }
-
-        /* ══ SITE HEADER ══ */
-        .site-header {
-            background: var(--surface, #161b22);
-            border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
-            padding: 28px 40px 24px 120px;
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 20px; flex-wrap: wrap;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .site-header-left { display: flex; flex-direction: column; gap: 6px; }
-        .site-header-eyebrow {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-            color: var(--accent, #58a6ff); font-weight: 500;
-        }
-        .site-header-title {
-            font-size: clamp(22px, 3vw, 30px); font-weight: 900;
-            color: var(--text, #e6edf3); line-height: 1.1; letter-spacing: -0.5px;
-            transition: color 0.3s ease;
-        }
-        .site-header-sub { font-size: 14px; color: var(--muted, #8b949e); margin-top: 2px; transition: color 0.3s ease; }
-        .site-header-right { display: flex; align-items: center; gap: 12px; }
-        .theme-toggle-btn {
-            width: 44px; height: 44px; border-radius: 50%;
-            background: var(--surface-2, #21262d); border: 1px solid var(--border, rgba(255,255,255,0.08));
-            color: var(--text, #e6edf3); font-size: 18px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease; flex-shrink: 0;
-        }
-        .theme-toggle-btn:hover { transform: scale(1.08) rotate(15deg); border-color: var(--accent, #58a6ff); }
-
-        /* ══ PRUEFPROTOKOLL-STYLE TILES ══ */
-        .audit-btn {
-            position: relative;
-            color: #fff;
-            border-radius: 16px !important;
-            padding: 22px 18px 18px !important;
-            min-height: 160px !important;
-            cursor: pointer;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-            overflow: hidden;
-            transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease !important;
-            box-shadow: var(--shadow, 0 8px 32px rgba(0,0,0,0.4)) !important;
-            border: 1px solid rgba(255,255,255,0.06) !important;
-            opacity: 0;
-            transform: translateY(18px);
-            animation: tileIn 0.45s ease forwards;
-            text-align: left !important;
-            font-family: 'DM Sans', system-ui, sans-serif;
-        }
-        @keyframes tileIn { to { opacity: 1; transform: translateY(0); } }
-        .audit-btn:nth-child(1) { animation-delay: 0.04s; }
-        .audit-btn:nth-child(2) { animation-delay: 0.08s; }
-        .audit-btn:nth-child(3) { animation-delay: 0.12s; }
-        .audit-btn:nth-child(4) { animation-delay: 0.16s; }
-        .audit-btn:nth-child(5) { animation-delay: 0.20s; }
-
-        .audit-btn.wirbelstrom  { background: linear-gradient(145deg, #2d7dd2, color-mix(in srgb, #2d7dd2 65%, #000)) !important; }
-        .audit-btn.magnetpulver { background: linear-gradient(145deg, #c0392b, color-mix(in srgb, #c0392b 65%, #000)) !important; }
-        .audit-btn.nital        { background: linear-gradient(145deg, #1a936f, color-mix(in srgb, #1a936f 65%, #000)) !important; }
-        .audit-btn.ultraschall  { background: linear-gradient(145deg, #7d3c98, color-mix(in srgb, #7d3c98 65%, #000)) !important; }
-        .audit-btn.employee-list-btn,
-        .employee-list-btn      { background: linear-gradient(145deg, #e67e22, color-mix(in srgb, #e67e22 65%, #000)) !important; }
-
-        /* Gloss */
-        .audit-btn::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 55%);
-            pointer-events: none;
-        }
-        .audit-btn::after {
-            content: ''; position: absolute; right: -30px; bottom: -30px;
-            width: 110px; height: 110px; border-radius: 50%;
-            background: rgba(255,255,255,0.07); pointer-events: none;
-        }
-        .audit-btn:hover { transform: translateY(-4px) scale(1.015) !important; box-shadow: var(--shadow-hover, 0 16px 48px rgba(0,0,0,0.55)) !important; filter: none !important; }
-        .audit-btn:active { transform: translateY(-1px) scale(1.005) !important; }
-        .audit-btn.disabled { opacity: 0.5 !important; cursor: not-allowed !important; }
-        .audit-btn.disabled:hover { transform: none !important; }
-
-        /* Tile inner elements */
-        .tile-icon-wrap { font-size: 28px; color: rgba(255,255,255,0.92); margin-bottom: 12px; position: relative; z-index: 1; }
-        .tile-body-wrap { position: relative; z-index: 1; }
-        .tile-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-bottom: 5px; }
-        .tile-nm  { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.25; letter-spacing: -0.2px; }
-        .tile-progress {
-            font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700;
-            background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28);
-            border-radius: 999px; padding: 2px 8px; color: rgba(255,255,255,0.9);
-            display: inline-block; margin-top: 6px;
-        }
-        .tile-arrow-btn {
-            position: absolute; bottom: 16px; right: 16px;
-            width: 30px; height: 30px; border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            display: flex; align-items: center; justify-content: center;
-            color: rgba(255,255,255,0.8); font-size: 12px;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .audit-btn:hover .tile-arrow-btn { background: rgba(255,255,255,0.28); transform: translate(2px,-2px); }
-
-        /* ══ TOKEN BAR UPGRADE ══ */
-        .github-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: #bdc3c7; flex-shrink: 0;
-            border: 1.5px solid rgba(0,0,0,0.12);
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-        .github-dot.connected { background: #27ae60; box-shadow: 0 0 0 3px rgba(39,174,96,0.22); border-color: #1e8449; }
-        .github-dot.error     { background: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.18); }
-
-
-        /* ══ LOGIN OVERLAY (pruefprotokoll-style) ══ */
-        .login-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.72);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999; backdrop-filter: blur(8px);
-        }
-        .login-overlay.hidden { display: none; }
-        .login-modal {
-            background: #161b22;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px; padding: 36px 32px 30px;
-            max-width: 420px; width: 92%;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
-            animation: modalIn 0.35s cubic-bezier(.34,1.56,.64,1) forwards;
-        }
-        body.light-mode .login-modal {
-            background: #ffffff;
-            border-color: rgba(0,0,0,0.1);
-        }
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to   { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .login-eyebrow {
-            font-family: 'DM Mono', monospace; font-size: 10px;
-            letter-spacing: 2px; text-transform: uppercase;
-            color: #58a6ff; margin-bottom: 8px;
-        }
-        .login-title {
-            font-size: 22px; font-weight: 900; color: #e6edf3;
-            margin-bottom: 4px; letter-spacing: -0.3px;
-        }
-        body.light-mode .login-title { color: #1a1e24; }
-        .login-sub { font-size: 13px; color: #8b949e; margin-bottom: 28px; }
-        .field-label {
-            font-family: 'DM Mono', monospace; font-size: 10px;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            color: #8b949e; margin-bottom: 5px; display: block;
-        }
-        .field-input {
-            width: 100%; padding: 11px 14px; border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: #21262d; color: #e6edf3;
-            font-family: 'DM Mono', monospace; font-size: 13px;
-            transition: border-color 0.2s, box-shadow 0.2s; outline: none;
-        }
-        body.light-mode .field-input {
-            background: #f0f2f5; color: #1a1e24;
-            border-color: rgba(0,0,0,0.12);
-        }
-        .field-input:focus {
-            border-color: #58a6ff;
-            box-shadow: 0 0 0 3px rgba(88,166,255,0.15);
-        }
-        .login-btn {
-            width: 100%; padding: 13px; border-radius: 10px; border: none;
-            background: #58a6ff; color: #0d1117;
-            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
-            cursor: pointer; transition: opacity 0.2s, transform 0.15s; margin-top: 14px;
-        }
-        body.light-mode .login-btn { color: #ffffff; background: #1d6fbe; }
-        .login-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-        .login-btn:active { transform: translateY(0); }
-        .login-error {
-            margin-top: 12px; min-height: 18px; font-size: 12.5px;
-            color: #f85149; text-align: center;
-            font-family: 'DM Mono', monospace;
-        }
-        .login-footer-note {
-            margin-top: 20px; text-align: center; font-size: 11.5px;
-            color: #8b949e; border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 16px;
-        }
-        body.light-mode .login-footer-note { border-color: rgba(0,0,0,0.08); }
-
-        /* ══ SECTION LABEL (pruefprotokoll-style) ══ */
-        .section-label-pp {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-            color: #6b7280; margin-bottom: 16px;
-            display: flex; align-items: center; gap: 12px;
-        }
-        .section-label-pp::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
-
-
-        /* ══ LOGIN OVERLAY – pruefprotokoll-style ══ */
-        .login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.72); display: flex; align-items: center; justify-content: center; z-index: 99999; backdrop-filter: blur(8px); }
-        .login-overlay.hidden { display: none; }
-        .login-modal-pp { background: var(--surface, #161b22); border: 1px solid var(--border, rgba(255,255,255,0.08)); border-radius: 20px; padding: 36px 32px 30px; max-width: 420px; width: 92%; box-shadow: 0 24px 64px rgba(0,0,0,0.6); animation: qModalIn 0.35s cubic-bezier(.34,1.56,.64,1) forwards; }
-        @keyframes qModalIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .login-eyebrow-pp { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent, #58a6ff); margin-bottom: 8px; }
-        .login-title-pp { font-size: 22px; font-weight: 900; color: var(--text, #e6edf3); margin-bottom: 4px; letter-spacing: -0.3px; }
-        .login-sub-pp { font-size: 13px; color: var(--muted, #8b949e); margin-bottom: 28px; }
-        .field-label-pp { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted, #8b949e); margin-bottom: 5px; display: block; }
-        .field-input-pp { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border, rgba(255,255,255,0.08)); background: var(--surface-2, #21262d); color: var(--text, #e6edf3); font-family: 'DM Mono', monospace; font-size: 13px; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-        .field-input-pp:focus { border-color: var(--accent, #58a6ff); box-shadow: 0 0 0 3px rgba(88,166,255,0.15); }
-        .login-btn-pp { width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--accent, #58a6ff); color: #0d1117; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; margin-top: 6px; }
-        body.light-mode .login-btn-pp { color: #ffffff; }
-        .login-btn-pp:hover { opacity: 0.88; transform: translateY(-1px); }
-        .login-err-pp { margin-top: 12px; min-height: 18px; font-size: 12.5px; color: #f85149; text-align: center; font-family: 'DM Mono', monospace; }
-        .login-footer-note-pp { margin-top: 20px; text-align: center; font-size: 11.5px; color: var(--muted, #8b949e); border-top: 1px solid var(--border, rgba(255,255,255,0.08)); padding-top: 16px; }
-
-        /* ══ SECTION LABEL ══ */
-        .section-label-pp {
-            font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--muted, #8b949e); margin-bottom: 20px;
-            display: flex; align-items: center; gap: 12px; transition: color 0.3s;
-        }
-        .section-label-pp::after { content: ''; flex: 1; height: 1px; background: var(--border, rgba(255,255,255,0.08)); transition: background 0.3s; }
-
 .container {
 max-width: 1200px;
 margin: 0 auto;
@@ -323,7 +71,36 @@ color: #7f8c8d;
 font-size: 0.9em;
 margin-bottom: 8px;
 }
-/* theme-toggle moved to site-header */
+.theme-toggle {
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  z-index: 99999 !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid #3498db !important;
+  background: white !important;
+  color: #333 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+  font-size: 20px;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background: #f0f0f0 !important;
+}
+[data-theme="dark"] .theme-toggle {
+  --toggle-bg: #2d2d2d;
+  --toggle-text: #e0e0e0;
+  --toggle-bg-hover: #333333;
+  border-color: #444;
+}
 .custom-modal {
 display: none;
 position: fixed;
@@ -676,34 +453,124 @@ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 gap: 8px;
 margin-bottom: 15px;
 }
-/* ===== AUDIT BUTTONS – 5 gleichbreite Kacheln ===== */
-.audit-buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 14px;
+.audit-btn {
+position: relative;
+color: #fff;
+border-radius: 10px;
+border: 2px solid rgba(255,255,255,0.38);
+border-right-color: rgba(255,255,255,0.25);
+border-bottom-color: rgba(255,255,255,0.25);
+box-shadow: 0 10px 22px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.25);
+transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+isolation: isolate;
+padding: 12px 8px;
+cursor: pointer;
+font-size: 1.0em;
+font-weight: bold;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 100px;
 }
-.audit-buttons-bottom {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
+.audit-btn::before {
+content: "";
+position: absolute;
+inset: 2px 2px auto 2px;
+height: 45%;
+border-radius: 8px;
+background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+pointer-events: none;
 }
-.audit-buttons-bottom .employee-list-btn {
-  width: calc(25% - 10.5px);
-  flex: 0 0 calc(25% - 10.5px);
+.audit-btn .btn-icon,
+.audit-btn span,
+.audit-btn .btn-progress {
+text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+position: relative;
+z-index: 2;
 }
-/* audit-btn base style defined above */
-/* gloss replaced by new ::before/::after above */
-/* colors defined in tile CSS above */
-/* hover/active defined in tile CSS above */
-.audit-btn.disabled { opacity: 0.5; cursor: not-allowed; }
-.audit-btn.disabled:hover { transform: none; box-shadow: 0 12px 26px rgba(0,0,0,0.22); filter: none; }
-/* ---- Interne Layout-Elemente ---- */
-/* inner tile elements replaced by tile-icon-wrap / tile-body-wrap system */
-/* Employee-List-Button – inherits tile style */
+.audit-btn .btn-progress {
+background: rgba(255,255,255,0.22);
+border-radius: 999px;
+padding: 2px 8px;
+margin-top: 4px;
+font-size: 0.7em;
+min-width: 35px;
+border: 1px solid rgba(255,255,255,0.35);
+}
+.audit-btn.wirbelstrom {
+background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #3498db, #3498db);
+}
+.audit-btn.magnetpulver {
+background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #e74c3c, #e74c3c);
+}
+.audit-btn.nital {
+background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #2ecc71, #2ecc71);
+}
+.audit-btn.ultraschall {
+background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(255,255,255,0.08)), linear-gradient(0deg, #9b59b6, #9b59b6);
+}
+.audit-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 22px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.01);
+}
+.audit-btn:active {
+transform: translateY(0);
+box-shadow: 0 6px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+@supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+.audit-btn {
+backdrop-filter: blur(10px) saturate(140%);
+-webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+}
+html[data-theme="light"] .audit-btn {
+border-color: rgba(0,0,0,0.38) !important;
+box-shadow: 0 12px 26px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.35) inset !important;
+}
+html[data-theme="light"] .audit-btn::before {
+opacity: 0.65;
+}
+html[data-theme="light"] .audit-btn .btn-progress {
+background: rgba(0,0,0,0.22) !important;
+color: #fff !important;
+font-weight: 900 !important;
+border: 1px solid rgba(255,255,255,0.35) !important;
+}
+@media (prefers-color-scheme: dark) {
+.audit-btn {
+border-color: rgba(255,255,255,0.28);
+box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.audit-btn::before {
+background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.06));
+}
+}
+.audit-btn.disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+.audit-btn.disabled:hover {
+transform: none;
+box-shadow: none;
+}
 .employee-list-btn {
-  min-height: 160px !important;
-  width: 100% !important;
+background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+color: white;
+min-height: 70px;
+font-size: 1.1em;
+border: none;
+box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
+margin-top: 15px;
+width: 100%;
+max-width: 400px;
+margin-left: auto;
+margin-right: auto;
+display: block;
+}
+.employee-list-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 10px rgba(243, 156, 18, 0.4);
 }
 .controls-row-audit {
 display: flex;
@@ -726,31 +593,18 @@ background: #3498db;
 border-radius: 3px;
 }
 .controls-row-audit button {
-  padding: 0 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 0.72em;
-  height: 34px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 95px;
-  flex-shrink: 0;
-  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-  letter-spacing: .2px;
-}
-.controls-row-audit button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(0,0,0,0.22);
-  filter: brightness(1.08);
-  opacity: 1;
-}
-.controls-row-audit button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+padding: 7px 9px;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+font-weight: bold;
+font-size: 0.72em;
+height: 30px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+min-width: 95px;
+flex-shrink: 0;
 }
 .password-unlock-field {
 display: flex;
@@ -781,30 +635,21 @@ font-size: 0.7em;
 height: 24px;
 min-width: 60px;
 }
-.btn-back        { background: linear-gradient(135deg, #7f8c8d, #636e72); color: #fff; }
-.btn-export      { background: linear-gradient(135deg, #27ae60, #1e8449); color: #fff; }
-.btn-report      { background: linear-gradient(135deg, #e67e22, #d35400); color: #fff; }
-.btn-danger      { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; }
-.btn-success     { background: linear-gradient(135deg, #27ae60, #1e8449); color: #fff; }
-.btn-authorization { background: linear-gradient(135deg, #8e44ad, #6c3483); color: #fff; }
-.btn-secondary   {
-  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0 12px;
-  font-weight: 700;
-  cursor: pointer;
-  height: 34px;
-  font-size: 0.75em;
-  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-}
-.btn-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 12px rgba(0,0,0,0.22);
-  filter: brightness(1.08);
-  opacity: 1;
+.btn-back { background: #7f8c8d; color: white; }
+.btn-export { background: #27ae60; color: white; }
+.btn-report { background: #f39c12; color: white; }
+.btn-danger { background: #e74c3c; color: white; }
+.btn-success { background: #27ae60; color: white; }
+.btn-secondary {
+background: #bdc3c7;
+color: white;
+border: none;
+border-radius: 3px;
+padding: 5px 8px;
+font-weight: bold;
+cursor: pointer;
+height: 32px;
+font-size: 0.75em;
 }
 button:hover { opacity: 0.9; }
 .audit-status {
@@ -1004,27 +849,11 @@ font-size: 0.85em; cursor: pointer; appearance: none; min-width: 60px;
   font-family: monospace;
   font-size: 0.75em;
   background: #f9f9f9;
-  color: #2c3e50;
-  transition: background 0.2s, color 0.2s;
 }
 .card-id-header-field .encrypted-field:focus {
   background: #fff;
-  color: #2c3e50;
   border-color: #2c3e50;
   outline: none;
-}
-/* Dark mode */
-html[data-theme="dark"] .card-id-header-field .encrypted-field,
-html[data-theme="dark"] .encrypted-field {
-  background: #2d2d2d !important;
-  color: #e0e0e0 !important;
-  border-color: #3498db !important;
-}
-html[data-theme="dark"] .card-id-header-field .encrypted-field:focus,
-html[data-theme="dark"] .encrypted-field:focus {
-  background: #333 !important;
-  color: #ffffff !important;
-  border-color: #5dade2 !important;
 }
 .card-id-header-label {
   font-size: 0.7em;
@@ -1048,7 +877,7 @@ display: flex; justify-content: space-between; align-items: center; user-select:
 .section-header h2 { margin: 0; font-size: 1em; font-weight: 600; }
 .section-header span { transition: transform 0.3s; }
 .section.expanded .section-header span { transform: rotate(90deg); }
-.section-content { padding: 10px; display: none; }
+.section-content { padding: 10px; display: block; }
 .section.expanded .section-content { display: block; animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .question {
@@ -1283,12 +1112,13 @@ color: #7f8c8d; font-size: 0.85em;
   .progress-container { min-width: 100%; max-width: 100%; }
   .controls-row-audit { display: flex; gap: 3px; margin-bottom: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; scrollbar-color: #3498db #f0f0f0; }
   .controls-row-audit button { padding: 8px 10px; font-size: 0.7em; height: 32px; min-width: 100px; flex-shrink: 0; }
-  .audit-buttons { grid-template-columns: 1fr !important; gap: 10px; }
-  .audit-buttons-bottom .employee-list-btn { width: 100% !important; flex: 1 1 100% !important; }
-  .audit-btn { min-height: 120px !important; padding: 16px 14px 14px !important; }
-  .tile-icon-wrap { font-size: 22px !important; margin-bottom: 8px !important; }
-  .tile-nm { font-size: 13px !important; }
-  .tile-arrow-btn { width: 26px !important; height: 26px !important; font-size: 11px !important; bottom: 12px !important; right: 12px !important; }
+  .audit-buttons { grid-template-columns: 1fr; gap: 5px; }
+  .audit-btn {
+    padding: 10px 8px; min-height: 70px; font-size: 0.85em;
+    flex-direction: row; justify-content: flex-start; text-align: left; padding-left: 15px;
+  }
+  .audit-btn .btn-icon { font-size: 2em; margin-right: 10px; margin-bottom: 5; }
+  .audit-btn .btn-progress { margin-left: auto; margin-top: 0; font-size: 0.7em; }
   .employee-table { font-size: 0.7em; width: 100%; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .employee-table thead { display: table; width: 100%; table-layout: fixed; }
   .employee-table tbody { display: table; width: 100%; table-layout: fixed; }
@@ -1353,7 +1183,7 @@ color: #7f8c8d; font-size: 0.85em;
 @media (max-width: 360px) {
 .audit-status { font-size: 0.7em; padding: 6px; }
 .controls-row-audit button { padding: 6px 8px; font-size: 0.65em; height: 30px; min-width: 90px; }
-.audit-btn { padding: 8px 6px !important; min-height: 90px !important; font-size: 0.8em; }
+.audit-btn { padding: 8px 6px; min-height: 60px; font-size: 0.8em; }
 .question-text { font-size: 0.9em; }
 .verdict-btn { padding: 6px 4px; font-size: 0.8em; min-height: 36px; }
 .verdict-btn span { font-size: 0.9em; margin-right: 3px; }
@@ -1561,302 +1391,277 @@ min-width: 180px !important;
 
 /* NEU: GitHub Config Bereich */
 .github-config-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin: 10px 0 14px;
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border: 2px solid #3498db;
+  border-radius: 8px;
 }
-.token-row {
+.github-config-panel h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+}
+.github-config-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #f0f4f8;
-  border: 1.5px solid #bcd0e8;
-  border-radius: 10px;
-  padding: 6px 10px;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
 }
-.token-icon { font-size: 1.1em; flex-shrink: 0; }
-.token-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-family: monospace;
-  font-size: 0.88em;
+.github-config-row label {
+  min-width: 100px;
+  font-weight: 600;
   color: #2c3e50;
-  padding: 4px 0;
-  outline: none;
-  min-width: 0;
 }
-.token-input::placeholder { color: #a0aab4; }
-.token-save-btn {
-  background: linear-gradient(135deg, #27ae60, #1e8449);
-  color: #fff;
-  border: none;
-  border-radius: 7px;
-  padding: 6px 14px;
-  font-weight: 700;
-  font-size: 0.82em;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: transform .14s, box-shadow .14s, filter .14s;
-  box-shadow: 0 2px 6px rgba(39,174,96,0.30);
+.github-config-row input {
+  flex: 1;
+  min-width: 200px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: monospace;
 }
-.token-save-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(39,174,96,0.40);
-  filter: brightness(1.07);
-  opacity: 1;
-}
-.github-status { display: none !important; }
-/* Verbunden-Punkt */
-.github-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: #bdc3c7;
-  flex-shrink: 0;
-  border: 1.5px solid rgba(0,0,0,0.12);
-  transition: background 0.3s, box-shadow 0.3s;
-}
-.github-dot.connected {
+.github-config-row button {
+  padding: 8px 15px;
   background: #27ae60;
-  box-shadow: 0 0 0 3px rgba(39,174,96,0.25);
-  border-color: #1e8449;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
 }
-.github-dot.error {
+.github-config-row button.secondary {
+  background: #3498db;
+}
+.github-config-row button.danger {
   background: #e74c3c;
-  box-shadow: 0 0 0 3px rgba(231,76,60,0.20);
-  border-color: #c0392b;
+}
+.github-status {
+  margin-top: 10px;
+  padding: 8px;
+  background: #eef2f7;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.github-status.success {
+  background: #d4edda;
+  color: #155724;
+}
+.github-status.error {
+  background: #f8d7da;
+  color: #721c24;
 }
 
-/* ====================================================
-   GLOBAL UI REFRESH
-   ==================================================== */
+/* ===== DESKTOP MAX-WIDTH 1600px ===== */
+.container { max-width: 1600px !important; }
 
-/* Inputs & Selects – konsistentes Design */
-input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not(.encrypted-field):not(.token-input),
-select,
-textarea {
-  border-radius: 8px !important;
-  border: 1.5px solid #d1d9e0 !important;
-  transition: border-color .2s, box-shadow .2s !important;
-  font-family: inherit !important;
-  background: #fff !important;
-  color: #2c3e50 !important;
+/* ===== RESPONSIVE / MOBILE ===== */
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+  header { padding: 10px 12px !important; }
+  h1 { font-size: 1.3em !important; }
+  .controls-row-audit { flex-wrap: wrap !important; gap: 5px !important; }
+  .controls-row-audit button { padding: 6px 8px !important; font-size: 11px !important; flex: 1 1 auto; }
+  .password-unlock-field { display: none !important; }
+  .header-grid { grid-template-columns: 1fr !important; }
+  .desktop-view#desktopView { display: none !important; }
+  .mobile-view#mobileView { display: block !important; }
+  .op-token-bar { flex-wrap: wrap !important; gap: 6px !important; padding: 8px !important; }
+  .op-token-input-wrap { flex: 1 1 100% !important; }
+  .op-token-connect-btn { width: 100% !important; }
+  .audit-buttons { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .section-header { padding: 10px 12px !important; }
+  .question { padding: 10px !important; }
+  .question-text { font-size: 0.88em !important; }
+  .verdict-options { gap: 5px !important; }
+  .verdict-btn { font-size: 0.8em !important; padding: 6px !important; }
+  .site-header, .app-header { padding: 12px 14px !important; }
+  .container { padding: 8px !important; }
 }
-input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not(.encrypted-field):not(.token-input):focus,
-select:focus,
-textarea:focus {
-  border-color: #3498db !important;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.14) !important;
-  outline: none !important;
+@media (max-width: 480px) {
+  .audit-buttons { grid-template-columns: 1fr !important; }
+  h1 { font-size: 1.1em !important; }
 }
 
-/* Container */
-.container {
-  border-radius: 14px !important;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
+/* ===== DESKTOP MAX-WIDTH 1600px ===== */
+.main, .main-content, .container, .app-inner, footer, .site-main {
+  max-width: 1600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
-/* Header */
-header {
-  border-radius: 8px 8px 0 0;
-  padding-bottom: 10px;
+/* ===== RESPONSIVE / MOBILE ===== */
+@media (max-width: 768px) {
+  body { font-size: 14px; overflow-x: hidden; }
+  .site-header, header { padding: 12px 14px !important; }
+  .site-header-title { font-size: clamp(15px, 5vw, 22px) !important; }
+  .site-header-sub { display: none; }
+  .main, .main-content, .container, .app-inner { padding: 10px 10px 20px !important; }
+  .grid, .tiles-grid, .audit-buttons { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .tile, .audit-btn { min-height: 100px !important; padding: 12px 10px !important; }
+  .header-row, .controls-row, .controls-row-audit { flex-wrap: wrap !important; gap: 5px !important; }
+  .token-input-wrap, .token-input-row, .rev-token-input-wrap, .op-token-input-wrap {
+    max-width: 100% !important; min-width: 0 !important; width: 100% !important; flex: 1 1 100% !important;
+  }
+  .rev-token-bar, .op-token-bar { flex-wrap: wrap !important; gap: 5px !important; padding: 8px !important; }
+  .rev-token-connect-btn, .op-token-connect-btn { width: 100% !important; }
+  .filters { flex-wrap: wrap !important; gap: 6px !important; }
+  .filters select, .filters input { width: 100% !important; min-width: 0 !important; }
+  table { font-size: 11px !important; }
+  th, td { padding: 5px 6px !important; }
+  .login-modal, .login-modal-pp { padding: 22px 14px 18px !important; width: 95% !important; }
+  .btn-back, .btn-export, .btn-report, .btn-danger, .btn-success, .btn-secondary {
+    padding: 6px 8px !important; font-size: 11px !important;
+  }
 }
-h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
-.subtitle { font-size: 0.85em; }
+@media (max-width: 480px) {
+  .grid, .tiles-grid, .audit-buttons { grid-template-columns: 1fr !important; }
+  .site-header-eyebrow { display: none; }
+}
 
-/* Sections */
-.section {
-  border: none !important;
-  border-radius: 12px !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.07) !important;
+/* ===== SITE HEADER ===== */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  padding: 20px 28px 18px;
+  background: var(--surface, #242424);
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.07));
+  margin-bottom: 0;
+}
+.site-header-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: #3498db; margin-bottom: 4px;
+}
+.site-header-title {
+  font-size: clamp(20px, 2.5vw, 28px); font-weight: 900;
+  color: var(--text, #e0e0e0); letter-spacing: -0.5px; line-height: 1.1;
+}
+.site-header-sub { font-size: 13px; color: var(--muted, #8b949e); margin-top: 2px; }
+
+/* ===== AUDIT TILE OVERRIDES (Review-App Style) ===== */
+.audit-btn {
+  position: relative !important;
+  border-radius: 16px !important;
+  padding: 22px 18px 18px !important;
+  min-height: 155px !important;
+  cursor: pointer; color: #fff; border: 1px solid rgba(255,255,255,0.07) !important;
+  text-align: left !important;
+  display: flex !important; flex-direction: column !important;
+  justify-content: space-between !important;
   overflow: hidden !important;
-  margin-bottom: 12px !important;
+  transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+  opacity: 0; transform: translateY(18px);
+  animation: tileInOp 0.45s ease forwards !important;
 }
-.section-header {
-  background: linear-gradient(135deg, #2c3e50, #34495e) !important;
-  padding: 12px 16px !important;
-  border-radius: 0 !important;
-  font-size: 0.95em !important;
-  letter-spacing: .1px;
+@keyframes tileInOp { to { opacity:1; transform:translateY(0); } }
+.audit-btn:nth-child(1){animation-delay:.04s}
+.audit-btn:nth-child(2){animation-delay:.08s}
+.audit-btn:nth-child(3){animation-delay:.12s}
+.audit-btn:nth-child(4){animation-delay:.16s}
+.audit-btn::before {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg,rgba(255,255,255,0.13) 0%,transparent 55%);
+  pointer-events:none; z-index:0;
 }
-.section-header:hover { background: linear-gradient(135deg, #253545, #2c3e50) !important; }
-.section-content { padding: 14px !important; background: #fff; }
-
-/* Questions */
-.question {
-  border-radius: 10px !important;
-  border-left: 4px solid #bdc3c7 !important;
-  background: #f8fafc !important;
-  padding: 14px !important;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05) !important;
-  margin-bottom: 10px !important;
+.audit-btn::after {
+  content:''; position:absolute; right:-30px; bottom:-30px;
+  width:110px; height:110px; border-radius:50%;
+  background:rgba(255,255,255,0.06); pointer-events:none;
 }
-.question.ok     { border-left-color: #27ae60 !important; background: #f0fff6 !important; }
-.question.not-ok { border-left-color: #e74c3c !important; background: #fff5f5 !important; }
-.question-id {
-  border-radius: 6px !important;
-  font-size: 0.85em !important;
-  padding: 4px 10px !important;
-  background: linear-gradient(135deg, #3498db, #2980b9) !important;
-  box-shadow: 0 2px 5px rgba(52,152,219,0.3) !important;
+.audit-btn .btn-icon {
+  font-size: 28px !important; color: rgba(255,255,255,0.9) !important;
+  margin-bottom: 10px !important; position: relative; z-index:1;
 }
-.question-text { font-size: 1.0em !important; }
-
-/* Verdict buttons */
-.verdict-btn {
-  border-radius: 8px !important;
-  font-size: 0.88em !important;
-  font-weight: 700 !important;
-  padding: 9px !important;
-  transition: transform .15s, box-shadow .15s !important;
+.audit-btn span {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 15px !important; font-weight: 700 !important;
+  color: #fff !important; line-height: 1.25 !important;
+  letter-spacing: -0.2px !important; position: relative; z-index:1;
 }
-.verdict-btn:hover { transform: translateY(-2px) !important; box-shadow: 0 3px 8px rgba(0,0,0,0.18) !important; }
-.verdict-btn.ok        { border-width: 2px !important; }
-.verdict-btn.ok.selected { box-shadow: 0 3px 8px rgba(39,174,96,0.40) !important; }
-.verdict-btn.not-ok.selected { box-shadow: 0 3px 8px rgba(231,76,60,0.40) !important; }
-
-/* Comment textarea */
-.comment {
-  border-radius: 8px !important;
-  border: 1.5px solid #d1d9e0 !important;
-  padding: 10px 12px !important;
-  font-size: 0.85em !important;
-}
-.comment:focus { border-color: #3498db !important; box-shadow: 0 0 0 3px rgba(52,152,219,0.14) !important; }
-
-/* Header sections */
-.header-section {
-  border-radius: 10px !important;
-  border-color: #c8dff5 !important;
-  background: #f6faff !important;
-}
-.header-section h3 { font-size: 0.82em !important; color: #2980b9 !important; padding: 9px 12px !important; }
-.header-group {
-  border-radius: 7px !important;
-  border-color: #e2ecf5 !important;
-  background: #fff !important;
-}
-.header-input {
-  border-radius: 6px !important;
-  border: 1.5px solid #d1d9e0 !important;
-  padding: 6px 10px !important;
-}
-.header-input:focus { border-color: #3498db !important; box-shadow: 0 0 0 2px rgba(52,152,219,0.12) !important; }
-
-/* Toggle header button */
-.toggle-header-btn {
-  border-radius: 6px !important;
-  background: linear-gradient(135deg, #3498db, #2980b9) !important;
-  padding: 4px 10px !important;
-  font-size: 0.8em !important;
-}
-
-/* Audit status bar */
-.audit-status {
-  border-radius: 10px !important;
-  background: linear-gradient(135deg, #f6faff, #eef4fb) !important;
-  border: 1px solid #c8dff5 !important;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.06) !important;
-}
-
-/* Stat boxes */
-.stat-box {
-  border-radius: 10px !important;
-  background: linear-gradient(135deg, #f8fafc, #f0f4f8) !important;
-  border: 1px solid #dce6ef !important;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
-  padding: 10px 14px !important;
-}
-.stat-value { font-size: 1.4em !important; color: #2980b9 !important; }
-
-/* Employee search/filter */
-.employee-search, .employee-filter {
-  border-radius: 8px !important;
-  border: 1.5px solid #d1d9e0 !important;
-  padding: 7px 10px !important;
-}
-
-/* Employee table */
-.employee-table { border-radius: 8px; overflow: hidden; }
-.employee-table th { background: linear-gradient(135deg, #2c3e50, #34495e) !important; font-size: 0.82em; padding: 9px 8px !important; letter-spacing: .2px; }
-.employee-table td { padding: 8px 8px !important; }
-.employee-table tr:hover { background: #f0f6ff !important; }
-
-/* Modals */
-.custom-modal-content, .employee-modal-content {
-  border-radius: 14px !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.30) !important;
-}
-.custom-modal-btn {
-  border-radius: 8px !important;
-  padding: 9px 20px !important;
-  font-size: 0.92em !important;
-  transition: transform .14s, box-shadow .14s, filter .14s !important;
-}
-.custom-modal-btn:hover { transform: translateY(-2px) !important; filter: brightness(1.08) !important; opacity: 1; }
-.custom-modal-btn.confirm { background: linear-gradient(135deg, #27ae60, #1e8449) !important; box-shadow: 0 3px 10px rgba(39,174,96,0.35) !important; }
-.custom-modal-btn.cancel  { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; box-shadow: 0 3px 10px rgba(231,76,60,0.35) !important; }
-
-/* Progress bar */
-.progress-bar { border-radius: 999px !important; overflow: hidden; }
-
-/* Section buttons (mobile) */
-.section-btn { border-radius: 6px !important; font-weight: 600 !important; }
-.section-btn.active { background: linear-gradient(135deg, #2c3e50, #34495e) !important; }
-
-/* Final result */
-.final-result { border-radius: 10px !important; font-size: 0.95em !important; }
-
-/* Image upload area */
-.image-upload-section { border-radius: 8px !important; }
-.file-input-label { border-radius: 6px !important; }
-.image-preview-item { border-radius: 6px !important; }
-
-/* Mobile nav buttons */
-.mobile-nav button { border-radius: 7px !important; }
-
-/* Cloud sync indicator */
-#cloudSyncIndicator { border-radius: 8px !important; font-size: 0.85em !important; }
-
-/* Audit selection heading */
-.audit-selection h2 {
+.audit-btn .btn-progress {
+  margin-top: 8px !important; font-size: 11px !important;
   font-family: 'DM Mono', monospace !important;
-  font-size: 11px !important; letter-spacing: 2px !important; text-transform: uppercase !important;
-  color: #6b7280 !important; margin-bottom: 18px !important; font-weight: 500 !important;
-  display: flex !important; align-items: center !important; gap: 12px !important;
+  background: rgba(255,255,255,0.18) !important;
+  padding: 3px 8px !important; border-radius: 20px !important;
+  width: fit-content !important; position: relative; z-index:1;
 }
-.audit-selection h2::after { content: ''; flex: 1 !important; height: 1px !important; background: rgba(0,0,0,0.1) !important; }
-
-/* Employee form inputs */
-.employee-form-group input,
-.employee-form-group select,
-.employee-form-group textarea {
-  border-radius: 8px !important;
-  border: 1.5px solid #d1d9e0 !important;
-  padding: 8px 10px !important;
+.tile-cat-op {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); margin-bottom: 4px;
 }
-.employee-form-group input:focus,
-.employee-form-group select:focus,
-.employee-form-group textarea:focus {
-  border-color: #3498db !important;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.14) !important;
-  outline: none !important;
+.tile-arrow-badge {
+  position: absolute; bottom:14px; right:14px;
+  width:28px; height:28px; border-radius:50%;
+  background: rgba(255,255,255,0.15);
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,0.8); font-size:12px;
+  transition: background 0.2s, transform 0.2s; z-index:1;
+}
+.audit-btn:hover .tile-arrow-badge { background:rgba(255,255,255,0.28); transform:translate(2px,-2px); }
+.audit-btn:hover  { transform: translateY(-4px) scale(1.015) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.55) !important; }
+.audit-btn:active { transform: translateY(-1px) scale(1.005) !important; }
+
+/* Tile colors */
+.audit-btn.wirbelstrom  { background: linear-gradient(145deg,#2d7dd2,#1a4d8c); }
+.audit-btn.magnetpulver { background: linear-gradient(145deg,#c44569,#7a2040); }
+.audit-btn.nital        { background: linear-gradient(145deg,#1a936f,#0d5c45); }
+.audit-btn.ultraschall  { background: linear-gradient(145deg,#8e44ad,#5a2d72); }
+.audit-btn.employee-list-btn { background: linear-gradient(145deg,#16a085,#0d5c45); }
+.audit-btn.barkhausen   { background: linear-gradient(145deg,#5d6d7e,#2c3e50); opacity:0.7 !important; cursor:not-allowed !important; }
+.audit-btn.eindring     { background: linear-gradient(145deg,#7f8c8d,#4a5568); opacity:0.7 !important; cursor:not-allowed !important; }
+.audit-btn.disabled     { opacity: 0.65 !important; cursor: not-allowed !important; }
+.audit-btn.disabled:hover { transform: none !important; box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important; }
+
+/* In-Entwicklung Badge */
+.construction-badge-op {
+  position: absolute; top:12px; right:12px; z-index:10;
+  display: flex; align-items:center; gap:5px;
+  background: rgba(0,0,0,0.55);
+  border: 1.5px solid rgba(255,193,7,0.85);
+  border-radius: 20px; padding: 3px 9px 3px 6px;
+  font-family: 'DM Mono', monospace; font-size: 9.5px;
+  font-weight: 500; letter-spacing: 0.5px;
+  color: #ffc107; backdrop-filter: blur(4px);
+  white-space: nowrap; pointer-events:none;
+}
+.construction-badge-op::before { content:'🚧'; font-size:11px; margin-right:3px; }
+
+/* Audit buttons grid */
+.audit-buttons {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 14px !important;
 }
 
-/* ====================================================
-   DARK MODE UI REFRESH (data-theme=dark)
-   ==================================================== */
-
+/* Theme toggle repositioned */
+.theme-toggle {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--surface-2, #2d2d2d);
+  border: 1px solid var(--border, rgba(255,255,255,0.1));
+  color: var(--text, #e0e0e0); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s; flex-shrink: 0;
+}
 </style>
 
 <!-- Dark Mode Stylesheet -->
 <style id="darkModeStyles" media="(prefers-color-scheme: dark)">
-/* body dark handled by CSS vars */
-.login-modal { background: #1e1e1e !important; border-color: rgba(255,255,255,0.08) !important; }
-.container { background: var(--surface, #161b22); box-shadow: 0 2px 8px rgba(0,0,0,0.4); color: var(--text, #e6edf3) !important; }
-/* site-header dark: handled by CSS vars */
-/* theme-toggle-btn dark: handled by CSS vars */
+body { background-color: #121212; color: #e0e0e0 !important; }
+.container { background: #252525; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: #e0e0e0 !important; }
+header { border-bottom-color: #444; }
+h1 { color: #ffffff !important; }
+.subtitle { color: #cccccc !important; }
+.theme-toggle {
+  background: #2d2d2d !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
+}
+.theme-toggle:hover { background: #333333 !important; }
 .custom-modal-content,
 .employee-modal-content,
 .audit-list-content,
@@ -1878,12 +1683,17 @@ background: #333; border-color: #555; color: #ffffff !important;
 }
 .employee-form-group input::placeholder,
 .employee-form-group textarea::placeholder { color: #888; }
-.audit-selection h2 { color: #8a8a8a !important; }
-.audit-selection h2::after { background: rgba(255,255,255,0.08) !important; }
-.section-label-pp { color: #666 !important; }
-.section-label-pp::after { background: rgba(255,255,255,0.08) !important; }
-.audit-btn.disabled { opacity: 0.4; }
-.tile-progress { background: rgba(255,255,255,0.15) !important; }
+.audit-selection h2 { color: #ffffff !important; }
+.audit-btn.wirbelstrom { background: #2980b9; color: white; }
+.audit-btn.magnetpulver { background: #c0392b; color: white; }
+.audit-btn.nital { background: #27ae60; color: white; }
+.audit-btn.ultraschall { background: #8e44ad; color: white; }
+.audit-btn.disabled { opacity: 0.4; background: #555; }
+.audit-btn .btn-progress { background: rgba(255,255,255,0.1); }
+.employee-list-btn {
+background: linear-gradient(135deg, #d35400, #e67e22) !important;
+color: white !important;
+}
 .btn-back, .btn-export, .btn-export, .btn-authorization,
 .btn-report, .btn-danger, .btn-success,
 .btn-secondary { color: white !important; }
@@ -1896,7 +1706,7 @@ background: #333; border-color: #555; color: #ffffff !important;
 .btn-success { background: #27ae60; }
 .btn-secondary { background: #666; }
 .audit-status {
-background: #2a2a2a; border-color: #3a3a3a; color: #e6e6e6 !important;
+background: #2d2d2d; border-color: #444; color: #ffffff !important;
 }
 .status-text { color: #ffffff !important; }
 .status-text strong { color: #3498db !important; }
@@ -1904,26 +1714,26 @@ background: #2a2a2a; border-color: #3a3a3a; color: #e6e6e6 !important;
 .progress-text { color: #b0b0b0; }
 .employee-table th { background: #2c3e50; color: white !important; }
 .employee-table td { 
-    border-bottom-color: #3a3a3a; 
-    color: #e6e6e6 !important; 
-    background-color: #282828 !important;
+    border-bottom-color: #444; 
+    color: #ffffff !important; 
+    background-color: #2a2a2a !important;
 }
 .employee-table tr:hover { background: #2d2d2d; }
 .employee-search, .employee-filter { background: #333; border-color: #555; color: #ffffff !important; }
 .employee-search::placeholder { color: #888; }
-.stat-box { background: #2a2a2a; border-color: #3a3a3a; }
+.stat-box { background: #2d2d2d; border-color: #444; }
 .stat-value { color: #000000 !important; font-weight: bold; }
 .stat-box div:not(.stat-value) { color: #000000 !important; }
-.header-section { background: #2a2a2a; border-color: #3a3a3a; }
+.header-section { background: #2d2d2d; border-color: #2980b9; }
 .header-section h3 { color: #ffffff !important; font-weight: 600; }
-.header-group { background: #2e2e2e; border-color: #3a3a3a; }
+.header-group { background: #252525; border-color: #444; }
 .header-group h4 { color: #ffffff !important; border-bottom-color: #444; }
 .header-input { background: #333; border-color: #555; color: #ffffff !important; }
 .header-input::placeholder { color: #888; }
 .section { border-color: #444; }
 .section-header { background: #2c3e50; color: #ffffff !important; }
 .section-header:hover { background: #34495e; }
-.question { background: #2e2e2e; border-left-color: #555; color: #e6e6e6 !important; }
+.question { background: #252525; border-left-color: #666; color: #ffffff !important; }
 .question.ok { border-left-color: #27ae60; background: rgba(39, 174, 96, 0.15); color: #ffffff !important; }
 .question.not-ok { border-left-color: #e74c3c; background: rgba(231, 76, 60, 0.15); color: #ffffff !important; }
 .question-id { background: #3498db; color: white !important; }
@@ -1983,78 +1793,31 @@ footer { border-top-color: #444; color: #cccccc !important; }
 }
 .authorization-header .english-subtitle { color: #ffffff !important; }
 .header-section-title .english { color: #cccccc !important; }
-.github-status {
-  background: #2a2a2a !important;
-  color: #aaaaaa !important;
-}
-.github-status.success {
-  background: #1a3326 !important;
-  color: #7dbb8a !important;
-}
-.github-status.error {
-  background: #3b2222 !important;
-  color: #ff7070 !important;
-}
-/* Card-ID / encrypted-field dark mode */
-.card-id-header-field .encrypted-field,
-.encrypted-field {
+.github-config-panel {
   background: #2d2d2d !important;
-  color: #e0e0e0 !important;
   border-color: #3498db !important;
 }
-.card-id-header-field .encrypted-field:focus,
-.encrypted-field:focus {
-  background: #333 !important;
+.github-config-panel h3,
+.github-config-panel label {
   color: #ffffff !important;
 }
-.card-id-header-label { color: #cccccc !important; }
-/* Password unlock dark */
-.password-unlock-field { background: #2d2d2d !important; }
-.password-unlock-field input { background: #333 !important; color: #e0e0e0 !important; border-color: #555 !important; }
-/* Inputs global dark */
-input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not(.encrypted-field):not(.token-input),
-select, textarea {
-  background: #2d2d2d !important;
+.github-config-panel input {
+  background: #333;
+  color: #e0e0e0;
+  border-color: #555;
+}
+.github-status {
+  background: #333 !important;
   color: #e0e0e0 !important;
-  border-color: #444 !important;
 }
-input:focus, select:focus, textarea:focus {
-  border-color: #3498db !important;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.18) !important;
+.github-status.success {
+  background: #1e3b2a !important;
+  color: #8bc34a !important;
 }
-/* Token row dark */
-.token-row { background: #252525 !important; border-color: #3a3a3a !important; }
-.token-input { color: #e0e0e0 !important; }
-.token-input::placeholder { color: #666 !important; }
-/* Sections dark */
-.section { box-shadow: 0 2px 10px rgba(0,0,0,0.35) !important; }
-.section-content { background: #242424 !important; }
-/* Questions dark */
-.question { background: #252525 !important; box-shadow: none !important; }
-.question.ok     { background: rgba(39,174,96,0.10) !important; }
-.question.not-ok { background: rgba(231,76,60,0.10) !important; }
-/* Stat boxes dark */
-.stat-box { background: linear-gradient(135deg, #252525, #2a2a2a) !important; border-color: #3a3a3a !important; }
-.stat-value { color: #5dade2 !important; }
-/* Header section dark */
-.header-section { background: #252525 !important; border-color: #333 !important; }
-.header-group { background: #2a2a2a !important; border-color: #3a3a3a !important; }
-.header-input { background: #2d2d2d !important; color: #e0e0e0 !important; border-color: #444 !important; }
-/* Audit status dark */
-.audit-status { background: linear-gradient(135deg, #252525, #2a2a2a) !important; border-color: #333 !important; }
-/* Comment dark */
-.comment { background: #2d2d2d !important; color: #e0e0e0 !important; border-color: #444 !important; }
-/* Modal dark */
-.custom-modal-content, .employee-modal-content { background: #252525 !important; }
-/* Employee modal inputs dark */
-.employee-form-group input, .employee-form-group select, .employee-form-group textarea {
-  background: #2d2d2d !important; color: #e0e0e0 !important; border-color: #444 !important;
+.github-status.error {
+  background: #3b2a2a !important;
+  color: #ff6b6b !important;
 }
-/* Employee table row hover dark */
-.employee-table tr:hover { background: #252d38 !important; }
-/* Section btn dark */
-.section-btn { background: #2980b9 !important; }
-.section-btn.active { background: linear-gradient(135deg, #1e2a36, #2c3e50) !important; }
 </style>
 </head>
 <body>
@@ -2319,110 +2082,127 @@ input:focus, select:focus, textarea:focus {
   </div>
 </div>
 
-<!-- LOGIN OVERLAY – pruefprotokoll-style -->
-<div class="login-overlay hidden" id="qualiLoginOverlay">
-  <div class="login-modal-pp">
-    <div class="login-eyebrow-pp">GitHub · API-Zugang</div>
-    <div class="login-title-pp">Token erforderlich</div>
-    <div class="login-sub-pp">Bitte GitHub Personal Access Token eingeben, um fortzufahren.</div>
-    <label class="field-label-pp" for="qualiTokenInput">Personal Access Token</label>
-    <input class="field-input-pp" id="qualiTokenInput" type="password"
-           placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-    <button class="login-btn-pp" id="qualiLoginBtn">
-      <i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten
-    </button>
-    <div class="login-err-pp" id="qualiLoginErr"></div>
-    <div class="login-footer-note-pp">Schaeffler Technologies AG &amp; Co. KG · ZfP Schweinfurt<br>Nur für autorisierte Benutzer</div>
-  </div>
+<!-- Hidden compat fields for existing JS -->
+<div style="display:none">
+  <input type="text" id="githubOwner" value="Acendrion1984">
+  <input type="text" id="githubRepo" value="ZfP">
+  <input type="text" id="githubBranch" value="main">
+  <input type="text" id="githubFilename" value="zfp-audit-db.json">
+  <input type="password" id="githubToken">
+  <button id="githubTestBtn"></button>
+  <button id="githubSaveConfigBtn"></button>
+  <button id="githubPullBtn"></button>
+  <button id="githubPushBtn"></button>
+  <button id="githubClearConfigBtn"></button>
+  <div id="githubStatus"></div>
+  <div id="githubPanelHeader"></div>
+  <div id="githubPanelContent"></div>
+  <span id="githubPanelToggle"></span>
+  <span id="cloudStatus"></span>
+  <div class="login-err-pp" id="qualiLoginErr"></div>
 </div>
 
 <!-- SITE HEADER -->
 <div class="site-header">
-  <div class="site-header-left">
+  <div>
     <div class="site-header-eyebrow">Schaeffler · ZfP · Schweinfurt</div>
     <div class="site-header-title">ZfP Operator Audit</div>
     <div class="site-header-sub">INFSW17008_NDT_Personal</div>
   </div>
-  <div class="site-header-right">
-    <button id="themeToggleBtn" class="theme-toggle-btn" title="Dark/Light Mode">🌓</button>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <div class="op-token-bar" id="op_token_bar">
+      <div class="op-token-bar-label"><i class="fab fa-github"></i> GitHub Token</div>
+      <div class="op-gh-dot" id="op_gh_dot" title="Nicht verbunden"></div>
+      <div class="op-token-input-wrap">
+        <input type="password" id="qualiTokenInput" placeholder="github_pat_… (Enter zum Verbinden)" autocomplete="off" spellcheck="false">
+      </div>
+      <button class="op-token-connect-btn" id="qualiLoginBtn"><i class="fas fa-plug"></i> Verbinden</button>
+      <span class="op-token-status" id="op_token_status">Bitte Token eingeben</span>
+    </div>
+    <button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
   </div>
 </div>
-<div class="container">
-  <div style="display:none"><span id="cloudStatus"></span></div>
 
-<!-- NEU: GitHub Konfigurations-Panel (ausblendbar) -->
-<div class="github-config-panel" id="githubConfigPanel">
-  <input type="hidden" id="githubOwner" value="Acendrion1984">
-  <input type="hidden" id="githubRepo" value="ZfP">
-  <input type="hidden" id="githubBranch" value="main">
-  <input type="hidden" id="githubFilename" value="zfp-audit-db.json">
-  <button id="githubTestBtn" style="display:none"></button>
-  <button id="githubPullBtn" style="display:none"></button>
-  <button id="githubPushBtn" style="display:none"></button>
-  <button id="githubClearConfigBtn" style="display:none"></button>
-  <div id="githubStatus" style="display:none"></div>
-  <!-- Token UI: overlay handles entry; keep dot + compat buttons hidden -->
-  <div style="display:none;">
-    <input type="password" id="githubToken" autocomplete="off">
-    <button id="githubSaveConfigBtn"></button>
-  </div>
-  <div class="token-row" style="padding:6px 14px; display:flex; align-items:center; gap:8px;">
-    <span id="githubDot" class="github-dot" title="Nicht verbunden"></span>
-    <span id="githubStatusLabel" style="font-size:0.82em;color:var(--muted,#8b949e);flex:1;">Nicht verbunden</span>
-    <button onclick="qualiShowOverlay()" style="background:none;border:none;cursor:pointer;font-size:0.8em;color:var(--muted,#8b949e);">🔑</button>
-  </div>
-</div>
+<div class="container">
 
 <!-- AUDIT AUSWAHL -->
 <div id="auditSelection" class="audit-selection active">
-  <div class="section-label-pp">Audits</div>
-  <div class="audit-buttons">
+  <div class="section-label-pp" style="margin-bottom:20px;">Prüfverfahren auswählen</div>
+
+  <!-- Hauptverfahren: 2x2 Grid -->
+  <div class="audit-buttons" style="grid-template-columns:repeat(2,1fr);margin-bottom:16px;">
     <button class="audit-btn wirbelstrom" data-audit="wirbelstrom">
-      <div class="tile-icon-wrap"><i class="fas fa-wave-square"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">Eddy Current · ET</div>
-        <div class="tile-nm">Wirbelstrom&shy;prüfung</div>
-        <div class="tile-progress" id="wirbelstromProgress">0%</div>
+      <div class="btn-icon"><i class="fas fa-wave-square"></i></div>
+      <div style="position:relative;z-index:1;">
+        <div class="tile-cat-op">Eddy Current · ET</div>
+        <span>Wirbelstrom&shy;prüfung</span>
       </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
+      <div class="btn-progress" id="wirbelstromProgress">0%</div>
+      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn magnetpulver" data-audit="magnetpulver">
-      <div class="tile-icon-wrap"><i class="fas fa-magnet"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">Magnetic Particle · MT</div>
-        <div class="tile-nm">Magnetpulver&shy;prüfung</div>
-        <div class="tile-progress" id="magnetpulverProgress">0%</div>
+      <div class="btn-icon"><i class="fas fa-magnet"></i></div>
+      <div style="position:relative;z-index:1;">
+        <div class="tile-cat-op">Magnetic Particle · MT</div>
+        <span>Magnetpulver&shy;prüfung</span>
       </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
+      <div class="btn-progress" id="magnetpulverProgress">0%</div>
+      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn nital" data-audit="nital">
-      <div class="tile-icon-wrap"><i class="fas fa-flask"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">Nital Etch · NE</div>
-        <div class="tile-nm">Nital-Ätzen</div>
-        <div class="tile-progress" id="nitalProgress">0%</div>
+      <div class="btn-icon"><i class="fas fa-flask"></i></div>
+      <div style="position:relative;z-index:1;">
+        <div class="tile-cat-op">Chemical Etch · NE</div>
+        <span>Nital-Ätzen</span>
       </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
+      <div class="btn-progress" id="nitalProgress">0%</div>
+      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn ultraschall" data-audit="ultraschall">
-      <div class="tile-icon-wrap"><i class="fas fa-broadcast-tower"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">Ultrasonic · UT</div>
-        <div class="tile-nm">Ultraschall&shy;prüfung</div>
-        <div class="tile-progress" id="ultraschallProgress">0%</div>
+      <div class="btn-icon"><i class="fas fa-satellite-dish"></i></div>
+      <div style="position:relative;z-index:1;">
+        <div class="tile-cat-op">Ultrasound · UT</div>
+        <span>Ultraschall&shy;prüfung</span>
       </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
+      <div class="btn-progress" id="ultraschallProgress">0%</div>
+      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
   </div>
-  <div class="audit-buttons audit-buttons-bottom">
-    <button class="audit-btn employee-list-btn" id="employeeListBtn">
-      <div class="tile-icon-wrap"><i class="fas fa-users"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">DGZfP Personal</div>
-        <div class="tile-nm">Qualifikations&shy;matrix</div>
+
+  <!-- Platzhalter: Barkhausenrauschen + Eindringprüfung -->
+  <div class="audit-buttons" style="grid-template-columns:repeat(2,1fr);margin-bottom:16px;">
+    <button class="audit-btn barkhausen disabled" disabled>
+      <span class="construction-badge-op">In Entwicklung</span>
+      <div class="btn-icon"><i class="fas fa-broadcast-tower"></i></div>
+      <div style="position:relative;z-index:1;">
+        <div class="tile-cat-op">Magnetic Noise · BN</div>
+        <span>Barkhausen&shy;rauschen</span>
       </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
+      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
+    <button class="audit-btn eindring disabled" disabled>
+      <span class="construction-badge-op">In Entwicklung</span>
+      <div class="btn-icon"><i class="fas fa-tint"></i></div>
+      <div style="position:relative;z-index:1;">
+        <div class="tile-cat-op">Penetrant Testing · PT</div>
+        <span>Eindring&shy;prüfung</span>
+      </div>
+      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
+    </button>
+  </div>
+
+  <!-- Qualifikationsmatrix: zentriert, gleiche Breite -->
+  <div style="display:flex;justify-content:center;">
+    <div class="audit-buttons" style="grid-template-columns:1fr;max-width:calc(50% - 8px);width:100%;">
+      <button class="audit-btn employee-list-btn" id="employeeListBtn">
+        <div class="btn-icon"><i class="fas fa-users"></i></div>
+        <div style="position:relative;z-index:1;">
+          <div class="tile-cat-op">DGZfP Personal · NDT</div>
+          <span>Qualifikations&shy;matrix</span>
+        </div>
+        <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -2745,42 +2525,30 @@ function loadGitHubConfig() {
       const parsed = JSON.parse(saved);
       githubConfig = { ...githubConfig, ...parsed };
     }
-    // Nur Token-Feld befüllen (andere sind hidden mit Standardwerten)
+    
+    // Felder befüllen
+    document.getElementById('githubOwner').value = githubConfig.owner || '';
+    document.getElementById('githubRepo').value = githubConfig.repo || '';
+    document.getElementById('githubBranch').value = githubConfig.branch || 'main';
+    document.getElementById('githubFilename').value = githubConfig.filename || 'zfp-audit-db.json';
     document.getElementById('githubToken').value = githubConfig.token || '';
+    
     updateGitHubStatus();
   } catch (e) {
     console.error('Fehler beim Laden der GitHub Konfiguration:', e);
   }
 }
 
-async function saveGitHubConfig() {
+function saveGitHubConfig() {
   githubConfig.owner = document.getElementById('githubOwner').value.trim();
   githubConfig.repo = document.getElementById('githubRepo').value.trim();
   githubConfig.branch = document.getElementById('githubBranch').value.trim() || 'main';
   githubConfig.filename = document.getElementById('githubFilename').value.trim() || 'zfp-audit-db.json';
   githubConfig.token = document.getElementById('githubToken').value.trim();
+  
   localStorage.setItem('zfp_github_config', JSON.stringify(githubConfig));
   updateGitHubStatus();
-  if (githubConfig.token) {
-    const statusEl = document.getElementById('githubStatus');
-    const dotEl2 = document.getElementById('githubDot');
-    if (dotEl2) { dotEl2.className = 'github-dot'; dotEl2.title = '⏳ Lade…'; }
-    const syncEl = document.getElementById('cloudSyncIndicator');
-    const syncTxt = document.getElementById('syncIndicatorText');
-    if (syncEl) { syncEl.style.display = 'block'; syncTxt.innerHTML = '⬇️ Synchronisiere…'; }
-    const result = await loadFromGitHub();
-    if (syncEl) syncEl.style.display = 'none';
-    if (result.success) {
-      await loadEmployees(); await loadAuditReviews(); await loadAuditFiles();
-      try { renderEmployeeList(); } catch(e) {}
-      try { updateDepartmentFilterOptions(); } catch(e) {}
-      try { updateProcedureProgress(); } catch(e) {}
-      try { updateAllAuditProgressDisplays(); } catch(e) {}
-      if (dotEl2) { dotEl2.className = 'github-dot connected'; dotEl2.title = 'Verbunden & synchronisiert'; }
-    } else {
-      if (dotEl2) { dotEl2.className = 'github-dot error'; dotEl2.title = '❌ ' + result.message; }
-    }
-  }
+  showInfoModal('✅ GitHub Konfiguration gespeichert');
 }
 
 function clearGitHubToken() {
@@ -2792,19 +2560,21 @@ function clearGitHubToken() {
 }
 
 function updateGitHubStatus() {
-  const dotEl = document.getElementById('githubDot');
+  const statusEl = document.getElementById('githubStatus');
   const cloudStatusEl = document.getElementById('cloudStatus');
   
   if (githubConfig.owner && githubConfig.repo && githubConfig.token) {
     githubConnected = true;
-    if (dotEl) { dotEl.className = 'github-dot connected'; dotEl.title = 'Verbunden'; }
+    statusEl.className = 'github-status success';
+    statusEl.innerHTML = '✅ GitHub verbunden. Repository ist bereit.';
     if (cloudStatusEl) {
       cloudStatusEl.innerHTML = '☁️ GitHub verbunden';
       cloudStatusEl.style.color = '#27ae60';
     }
   } else {
     githubConnected = false;
-    if (dotEl) { dotEl.className = 'github-dot'; dotEl.title = 'Kein Token'; }
+    statusEl.className = 'github-status error';
+    statusEl.innerHTML = '⚠️ Nicht verbunden. Bitte alle Felder ausfüllen.';
     if (cloudStatusEl) {
       cloudStatusEl.innerHTML = '📦 Lokal gespeichert';
       cloudStatusEl.style.color = '#7f8c8d';
@@ -5062,7 +4832,6 @@ function applyTheme(theme) {
   }
   document.body.classList.toggle('dark-mode', theme === 'dark');
   document.body.classList.toggle('light-mode', theme === 'light');
-  qualiApplyTheme(theme);
   updateToggleAppearance();
 }
 
@@ -5079,87 +4848,11 @@ function initThemeToggle() {
   });
 }
 
-
-// ══ QUALI LOGIN OVERLAY ══
-function qualiShowOverlay() {
-  document.getElementById('qualiLoginOverlay').classList.remove('hidden');
-  setTimeout(() => { const i = document.getElementById('qualiTokenInput'); if(i){i.value='';i.focus();} }, 150);
-}
-function qualiHideOverlay() {
-  document.getElementById('qualiLoginOverlay').classList.add('hidden');
-}
-async function qualiValidateToken() {
-  const inp = document.getElementById('qualiTokenInput');
-  const err = document.getElementById('qualiLoginErr');
-  const btn = document.getElementById('qualiLoginBtn');
-  const token = inp ? inp.value.trim() : '';
-  if (!token) { err.textContent = '⚠ Bitte Token eingeben.'; return; }
-  err.textContent = '';
-  btn.disabled = true; btn.textContent = 'Wird geprüft …';
-  try {
-    const r = await fetch(
-      'https://api.github.com/repos/Acendrion1984/ZfP',
-      { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' } }
-    );
-    if (r.status === 200 || r.status === 301 || r.status === 404) {
-      qualiHideOverlay();
-      // Sync token to githubToken hidden input + save config
-      const hiddenInp = document.getElementById('githubToken');
-      if (hiddenInp) hiddenInp.value = token;
-      try {
-        const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
-        cfg.token = token;
-        localStorage.setItem('zfp_github_config', JSON.stringify(cfg));
-        if (typeof loadGitHubConfig === 'function') loadGitHubConfig();
-        if (typeof saveGitHubConfig === 'function') await saveGitHubConfig();
-      } catch(e) {}
-    } else if (r.status === 401) {
-      err.textContent = '❌ Ungültiger Token. Bitte erneut versuchen.';
-      if (inp) { inp.value = ''; inp.focus(); }
-    } else {
-      err.textContent = `❌ Fehler ${r.status}. Bitte Netzwerk prüfen.`;
-    }
-  } catch(e) {
-    err.textContent = '❌ Netzwerkfehler. Verbindung prüfen.';
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten';
-  }
-}
-
-// ══ QUALI THEME (pruefprotokoll-style: dark default) ══
-function qualiApplyTheme(theme) {
-  if (theme === 'light') {
-    document.body.classList.add('light-mode');
-    const btn = document.getElementById('themeToggleBtn');
-    if (btn) btn.textContent = '🌙';
-  } else {
-    document.body.classList.remove('light-mode');
-    const btn = document.getElementById('themeToggleBtn');
-    if (btn) btn.textContent = '☀️';
-  }
-}
-
 document.addEventListener('DOMContentLoaded', async function() {
-  // Apply theme FIRST (dark default)
-  qualiApplyTheme(localStorage.getItem('zfp-theme-preference') || 'dark');
-
+  initThemeToggle();
+  
   // GitHub Config laden
   loadGitHubConfig();
-
-  // Login overlay buttons
-  const qLoginBtn = document.getElementById('qualiLoginBtn');
-  if (qLoginBtn) qLoginBtn.addEventListener('click', qualiValidateToken);
-  const qTokenInp = document.getElementById('qualiTokenInput');
-  if (qTokenInp) qTokenInp.addEventListener('keydown', e => { if(e.key==='Enter') qualiValidateToken(); });
-
-  // Show overlay if no token saved
-  try {
-    const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
-    if (!cfg.token) qualiShowOverlay();
-  } catch(e) { qualiShowOverlay(); }
-
-  initThemeToggle();
   // GitHub Panel ein-/ausblendbar machen
   const githubPanelHeader = document.getElementById('githubPanelHeader');
   const githubPanelContent = document.getElementById('githubPanelContent');
@@ -5675,7 +5368,7 @@ function setupEventListeners() {
 
   document.getElementById('backBtn').addEventListener('click', goBackToSelection);
   document.getElementById('exportBtn').addEventListener('click', exportAudit);
-  document.getElementById('reportBtn').addEventListener('click', printDirect);
+  document.getElementById('reportBtn').addEventListener('click', showReport);
   document.getElementById('resetBtn').addEventListener('click', resetAudit);
 
   document.getElementById('addEmployeeBtn').addEventListener('click', () => showEmployeeModal());
@@ -5770,10 +5463,13 @@ function setupGlobalEventListeners() {
       const section = header.closest('.section');
       section.classList.toggle('expanded');
       const arrow = header.querySelector('span');
+      const sc = section.querySelector('.section-content');
       if (section.classList.contains('expanded')) {
         arrow.style.transform = 'rotate(90deg)';
+        if (sc) sc.style.display = 'block';
       } else {
         arrow.style.transform = 'rotate(0deg)';
+        if (sc) sc.style.display = 'none';
       }
       e.preventDefault();
       e.stopPropagation();
@@ -5994,12 +5690,11 @@ function printFullReport() {
 </html>`);
   
   w.document.close();
+  
   setTimeout(() => {
     w.focus();
-    // Fenster schließt sich automatisch nach Druckdialog
-    w.onafterprint = () => { w.close(); };
     w.print();
-  }, 400);
+  }, 500);
 }
 
 function toggleDesktopHeader() {
@@ -6307,6 +6002,16 @@ function loadCurrentAuditData() {
       localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
     }
     allQuestions = currentAuditData.questions || [];
+    if (!allQuestions.length && STANDARD_QUESTIONS[currentAuditType]) {
+      const sections = STANDARD_QUESTIONS[currentAuditType];
+      allQuestions = sections.flatMap(section =>
+        section.questions.map(q => ({
+          ...q, sectionTitle: section.title, sectionShort: section.short,
+          verdict: null, comment: '', images: []
+        }))
+      );
+      currentAuditData.questions = allQuestions;
+    }
     imageStorage = currentAuditData.images || {};
     if (currentAuditData.headerData) setHeaderData(currentAuditData.headerData);
     uploadedImages.clear();
@@ -6473,7 +6178,7 @@ function renderAuditSections() {
 
   Object.values(sections).forEach(section => {
     const sectionElement = document.createElement('div');
-    sectionElement.className = 'section';
+    sectionElement.className = 'section expanded';
     sectionElement.innerHTML = `
       <div class="section-header">
         <h2>${section.title}</h2>
@@ -6770,11 +6475,6 @@ function checkAndShowFinalResult() {
   }
 }
 
-async function printDirect() {
-  await buildReportContent();
-  printFullReport();
-}
-
 async function showReport() {
   await saveCurrentAuditData();
   ensureReportNumber(currentAuditData);
@@ -6910,22 +6610,6 @@ ${reportHTML}
   setTimeout(() => {
     initEncryptedFields(document.getElementById('reportContainer'));
   }, 100);
-}
-
-// Befüllt reportContainer ohne Overlay anzuzeigen
-async function buildReportContent() {
-  await saveCurrentAuditData();
-  ensureReportNumber(currentAuditData);
-  const headerData = currentAuditData.headerData;
-  const auditInfo = AUDIT_TYPES[currentAuditType];
-  const createdDateDE = formatGermanDate(new Date());
-  const nextDueDateDE = formatGermanDate(new Date(Date.now() + 365 * 24 * 60 * 60 * 1000));
-  const reportNo = headerData.reportNumber;
-  // Re-use the same HTML generation as showReport by calling it silently
-  // We call showReport but then immediately close the overlay
-  await showReport();
-  document.getElementById('reportOverlay').style.display = 'none';
-  document.body.style.overflow = 'auto';
 }
 
 function renderQuestionImagesInReport(question) {
@@ -7279,123 +6963,6 @@ async function deleteEmployee(id) {
  updateDepartmentFilterOptions();
   showInfoModal('✅ Mitarbeiter gelöscht!');
 }
-
-        // ══ TOKEN LOGIN OVERLAY MANAGEMENT ══
-        (function() {
-            const OVERLAY_ID  = 'tokenLoginOverlay';
-            const DOT_ID      = 'githubDot';
-            const LABEL_ID    = 'githubStatusLabel';
-            const TOKEN_INPUT = 'githubToken';     // same ID used by saveGitHubConfig()
-            const LOGIN_BTN   = 'tokenLoginBtn';
-            const LOGIN_ERR   = 'tokenLoginError';
-
-            function showOverlay() {
-                const ov = document.getElementById(OVERLAY_ID);
-                if (ov) {
-                    ov.classList.remove('hidden');
-                    setTimeout(() => {
-                        const inp = document.getElementById(TOKEN_INPUT);
-                        if (inp) inp.focus();
-                    }, 200);
-                }
-            }
-            function hideOverlay() {
-                const ov = document.getElementById(OVERLAY_ID);
-                if (ov) ov.classList.add('hidden');
-            }
-
-            async function handleTokenLogin() {
-                const inp    = document.getElementById(TOKEN_INPUT);
-                const errEl  = document.getElementById(LOGIN_ERR);
-                const btn    = document.getElementById(LOGIN_BTN);
-                const token  = inp ? inp.value.trim() : '';
-                if (!token) { if (errEl) errEl.textContent = '⚠ Bitte Token eingeben.'; return; }
-                if (errEl) errEl.textContent = '';
-                if (btn) { btn.disabled = true; btn.textContent = 'Wird geprüft …'; }
-
-                try {
-                    const owner    = document.getElementById('githubOwner')?.value  || 'Acendrion1984';
-                    const repo     = document.getElementById('githubRepo')?.value   || 'ZfP';
-                    const res = await fetch(
-                        `https://api.github.com/repos/${owner}/${repo}`,
-                        { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' } }
-                    );
-                    if (res.status === 200 || res.status === 301 || res.status === 404) {
-                        // valid token (404 = repo not found but token OK, or wrong repo)
-                        hideOverlay();
-                        // trigger existing save flow which uses same input
-                        if (typeof saveGitHubConfig === 'function') await saveGitHubConfig();
-                    } else if (res.status === 401) {
-                        if (errEl) errEl.textContent = '❌ Ungültiger Token. Bitte erneut versuchen.';
-                        if (inp) { inp.value = ''; inp.focus(); }
-                    } else {
-                        if (errEl) errEl.textContent = `❌ Fehler ${res.status}. Bitte Netzwerk prüfen.`;
-                    }
-                } catch (err) {
-                    if (errEl) errEl.textContent = '❌ Netzwerkfehler. Verbindung prüfen.';
-                } finally {
-                    if (btn) {
-                        btn.disabled = false;
-                        btn.innerHTML = '<i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten';
-                    }
-                }
-            }
-
-            // Hook into existing dot updates: when dot gets 'connected' class → update label
-            const origUpdateDot = window.updateGitHubStatus;
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const btn = document.getElementById(LOGIN_BTN);
-                if (btn) btn.addEventListener('click', handleTokenLogin);
-                const inp = document.getElementById(TOKEN_INPUT);
-                if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') handleTokenLogin(); });
-
-                // Check if token already exists → decide overlay
-                setTimeout(() => {
-                    try {
-                        const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
-                        if (!cfg.token) showOverlay();
-                        // else: loadGitHubConfig() already ran and will try auto-connect
-                    } catch(e) { showOverlay(); }
-                }, 100);
-
-                // Observe dot class changes to update label text
-                const dot = document.getElementById(DOT_ID);
-                const label = document.getElementById(LABEL_ID);
-                if (dot && label) {
-                    const obs = new MutationObserver(() => {
-                        if (dot.classList.contains('connected')) {
-                            label.textContent = '✓ Verbunden';
-                            label.style.color = '#27ae60';
-                        } else if (dot.classList.contains('error')) {
-                            label.textContent = '✗ Verbindungsfehler – 🔑 Token';
-                            label.style.color = '#e74c3c';
-                            label.style.cursor = 'pointer';
-                            label.onclick = showOverlay;
-                        } else {
-                            label.textContent = 'Nicht verbunden';
-                            label.style.color = '#8b949e';
-                        }
-                    });
-                    obs.observe(dot, { attributes: true, attributeFilter: ['class'] });
-                }
-
-                // Show overlay if user clicks on the status label (for re-entry)
-                if (label) {
-                    label.style.cursor = 'pointer';
-                    label.addEventListener('click', showOverlay);
-                }
-            });
-
-            // Dark mode sync for overlay
-            window.addEventListener('storage', function(e) {
-                if (e.key === 'zfp-theme-preference') {
-                    const isDark = e.newValue === 'dark';
-                    document.body.classList.toggle('light-mode', !isDark);
-                }
-            });
-        })();
-
 </script>
 </body>
-
+</html>
