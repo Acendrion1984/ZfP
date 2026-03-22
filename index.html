@@ -877,7 +877,7 @@ display: flex; justify-content: space-between; align-items: center; user-select:
 .section-header h2 { margin: 0; font-size: 1em; font-weight: 600; }
 .section-header span { transition: transform 0.3s; }
 .section.expanded .section-header span { transform: rotate(90deg); }
-.section-content { padding: 10px; display: block; }
+.section-content { padding: 10px; display: none; }
 .section.expanded .section-content { display: block; animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .question {
@@ -1452,206 +1452,12 @@ min-width: 180px !important;
   background: #f8d7da;
   color: #721c24;
 }
-
-/* ===== DESKTOP MAX-WIDTH 1600px ===== */
-.container { max-width: 1600px !important; }
-
-/* ===== RESPONSIVE / MOBILE ===== */
-@media (max-width: 768px) {
-  body { font-size: 14px; }
-  header { padding: 10px 12px !important; }
-  h1 { font-size: 1.3em !important; }
-  .controls-row-audit { flex-wrap: wrap !important; gap: 5px !important; }
-  .controls-row-audit button { padding: 6px 8px !important; font-size: 11px !important; flex: 1 1 auto; }
-  .password-unlock-field { display: none !important; }
-  .header-grid { grid-template-columns: 1fr !important; }
-  .desktop-view#desktopView { display: none !important; }
-  .mobile-view#mobileView { display: block !important; }
-  .op-token-bar { flex-wrap: wrap !important; gap: 6px !important; padding: 8px !important; }
-  .op-token-input-wrap { flex: 1 1 100% !important; }
-  .op-token-connect-btn { width: 100% !important; }
-  .audit-buttons { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
-  .section-header { padding: 10px 12px !important; }
-  .question { padding: 10px !important; }
-  .question-text { font-size: 0.88em !important; }
-  .verdict-options { gap: 5px !important; }
-  .verdict-btn { font-size: 0.8em !important; padding: 6px !important; }
-  .site-header, .app-header { padding: 12px 14px !important; }
-  .container { padding: 8px !important; }
-}
-@media (max-width: 480px) {
-  .audit-buttons { grid-template-columns: 1fr !important; }
-  h1 { font-size: 1.1em !important; }
-}
-
-/* ===== DESKTOP MAX-WIDTH 1600px ===== */
-.main, .main-content, .container, .app-inner, footer, .site-main {
-  max-width: 1600px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* ===== RESPONSIVE / MOBILE ===== */
-@media (max-width: 768px) {
-  body { font-size: 14px; overflow-x: hidden; }
-  .site-header, header { padding: 12px 14px !important; }
-  .site-header-title { font-size: clamp(15px, 5vw, 22px) !important; }
-  .site-header-sub { display: none; }
-  .main, .main-content, .container, .app-inner { padding: 10px 10px 20px !important; }
-  .grid, .tiles-grid, .audit-buttons { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
-  .tile, .audit-btn { min-height: 100px !important; padding: 12px 10px !important; }
-  .header-row, .controls-row, .controls-row-audit { flex-wrap: wrap !important; gap: 5px !important; }
-  .token-input-wrap, .token-input-row, .rev-token-input-wrap, .op-token-input-wrap {
-    max-width: 100% !important; min-width: 0 !important; width: 100% !important; flex: 1 1 100% !important;
-  }
-  .rev-token-bar, .op-token-bar { flex-wrap: wrap !important; gap: 5px !important; padding: 8px !important; }
-  .rev-token-connect-btn, .op-token-connect-btn { width: 100% !important; }
-  .filters { flex-wrap: wrap !important; gap: 6px !important; }
-  .filters select, .filters input { width: 100% !important; min-width: 0 !important; }
-  table { font-size: 11px !important; }
-  th, td { padding: 5px 6px !important; }
-  .login-modal, .login-modal-pp { padding: 22px 14px 18px !important; width: 95% !important; }
-  .btn-back, .btn-export, .btn-report, .btn-danger, .btn-success, .btn-secondary {
-    padding: 6px 8px !important; font-size: 11px !important;
-  }
-}
-@media (max-width: 480px) {
-  .grid, .tiles-grid, .audit-buttons { grid-template-columns: 1fr !important; }
-  .site-header-eyebrow { display: none; }
-}
-
-/* ===== SITE HEADER ===== */
-.site-header {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
-  padding: 20px 28px 18px;
-  background: var(--surface, #242424);
-  border-bottom: 1px solid var(--border, rgba(255,255,255,0.07));
-  margin-bottom: 0;
-}
-.site-header-eyebrow {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase;
-  color: #3498db; margin-bottom: 4px;
-}
-.site-header-title {
-  font-size: clamp(20px, 2.5vw, 28px); font-weight: 900;
-  color: var(--text, #e0e0e0); letter-spacing: -0.5px; line-height: 1.1;
-}
-.site-header-sub { font-size: 13px; color: var(--muted, #8b949e); margin-top: 2px; }
-
-/* ===== AUDIT TILE OVERRIDES (Review-App Style) ===== */
-.audit-btn {
-  position: relative !important;
-  border-radius: 16px !important;
-  padding: 22px 18px 18px !important;
-  min-height: 155px !important;
-  cursor: pointer; color: #fff; border: 1px solid rgba(255,255,255,0.07) !important;
-  text-align: left !important;
-  display: flex !important; flex-direction: column !important;
-  justify-content: space-between !important;
-  overflow: hidden !important;
-  transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
-  opacity: 0; transform: translateY(18px);
-  animation: tileInOp 0.45s ease forwards !important;
-}
-@keyframes tileInOp { to { opacity:1; transform:translateY(0); } }
-.audit-btn:nth-child(1){animation-delay:.04s}
-.audit-btn:nth-child(2){animation-delay:.08s}
-.audit-btn:nth-child(3){animation-delay:.12s}
-.audit-btn:nth-child(4){animation-delay:.16s}
-.audit-btn::before {
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(135deg,rgba(255,255,255,0.13) 0%,transparent 55%);
-  pointer-events:none; z-index:0;
-}
-.audit-btn::after {
-  content:''; position:absolute; right:-30px; bottom:-30px;
-  width:110px; height:110px; border-radius:50%;
-  background:rgba(255,255,255,0.06); pointer-events:none;
-}
-.audit-btn .btn-icon {
-  font-size: 28px !important; color: rgba(255,255,255,0.9) !important;
-  margin-bottom: 10px !important; position: relative; z-index:1;
-}
-.audit-btn span {
-  font-family: 'DM Sans', sans-serif !important;
-  font-size: 15px !important; font-weight: 700 !important;
-  color: #fff !important; line-height: 1.25 !important;
-  letter-spacing: -0.2px !important; position: relative; z-index:1;
-}
-.audit-btn .btn-progress {
-  margin-top: 8px !important; font-size: 11px !important;
-  font-family: 'DM Mono', monospace !important;
-  background: rgba(255,255,255,0.18) !important;
-  padding: 3px 8px !important; border-radius: 20px !important;
-  width: fit-content !important; position: relative; z-index:1;
-}
-.tile-cat-op {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.65); margin-bottom: 4px;
-}
-.tile-arrow-badge {
-  position: absolute; bottom:14px; right:14px;
-  width:28px; height:28px; border-radius:50%;
-  background: rgba(255,255,255,0.15);
-  display:flex; align-items:center; justify-content:center;
-  color:rgba(255,255,255,0.8); font-size:12px;
-  transition: background 0.2s, transform 0.2s; z-index:1;
-}
-.audit-btn:hover .tile-arrow-badge { background:rgba(255,255,255,0.28); transform:translate(2px,-2px); }
-.audit-btn:hover  { transform: translateY(-4px) scale(1.015) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.55) !important; }
-.audit-btn:active { transform: translateY(-1px) scale(1.005) !important; }
-
-/* Tile colors */
-.audit-btn.wirbelstrom  { background: linear-gradient(145deg,#2d7dd2,#1a4d8c); }
-.audit-btn.magnetpulver { background: linear-gradient(145deg,#c44569,#7a2040); }
-.audit-btn.nital        { background: linear-gradient(145deg,#1a936f,#0d5c45); }
-.audit-btn.ultraschall  { background: linear-gradient(145deg,#8e44ad,#5a2d72); }
-.audit-btn.employee-list-btn { background: linear-gradient(145deg,#16a085,#0d5c45); }
-.audit-btn.barkhausen   { background: linear-gradient(145deg,#5d6d7e,#2c3e50); opacity:0.7 !important; cursor:not-allowed !important; }
-.audit-btn.eindring     { background: linear-gradient(145deg,#7f8c8d,#4a5568); opacity:0.7 !important; cursor:not-allowed !important; }
-.audit-btn.disabled     { opacity: 0.65 !important; cursor: not-allowed !important; }
-.audit-btn.disabled:hover { transform: none !important; box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important; }
-
-/* In-Entwicklung Badge */
-.construction-badge-op {
-  position: absolute; top:12px; right:12px; z-index:10;
-  display: flex; align-items:center; gap:5px;
-  background: rgba(0,0,0,0.55);
-  border: 1.5px solid rgba(255,193,7,0.85);
-  border-radius: 20px; padding: 3px 9px 3px 6px;
-  font-family: 'DM Mono', monospace; font-size: 9.5px;
-  font-weight: 500; letter-spacing: 0.5px;
-  color: #ffc107; backdrop-filter: blur(4px);
-  white-space: nowrap; pointer-events:none;
-}
-.construction-badge-op::before { content:'🚧'; font-size:11px; margin-right:3px; }
-
-/* Audit buttons grid */
-.audit-buttons {
-  display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 14px !important;
-}
-
-/* Theme toggle repositioned */
-.theme-toggle {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: var(--surface-2, #2d2d2d);
-  border: 1px solid var(--border, rgba(255,255,255,0.1));
-  color: var(--text, #e0e0e0); font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s; flex-shrink: 0;
-}
 </style>
 
 <!-- Dark Mode Stylesheet -->
 <style id="darkModeStyles" media="(prefers-color-scheme: dark)">
 body { background-color: #121212; color: #e0e0e0 !important; }
-.container { background: #252525; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: #e0e0e0 !important; }
+.container { background: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3); color: #e0e0e0 !important; }
 header { border-bottom-color: #444; }
 h1 { color: #ffffff !important; }
 .subtitle { color: #cccccc !important; }
@@ -2082,126 +1888,91 @@ footer { border-top-color: #444; color: #cccccc !important; }
   </div>
 </div>
 
-<!-- Hidden compat fields for existing JS -->
-<div style="display:none">
-  <input type="text" id="githubOwner" value="Acendrion1984">
-  <input type="text" id="githubRepo" value="ZfP">
-  <input type="text" id="githubBranch" value="main">
-  <input type="text" id="githubFilename" value="zfp-audit-db.json">
-  <input type="password" id="githubToken">
-  <button id="githubTestBtn"></button>
-  <button id="githubSaveConfigBtn"></button>
-  <button id="githubPullBtn"></button>
-  <button id="githubPushBtn"></button>
-  <button id="githubClearConfigBtn"></button>
-  <div id="githubStatus"></div>
-  <div id="githubPanelHeader"></div>
-  <div id="githubPanelContent"></div>
-  <span id="githubPanelToggle"></span>
-  <span id="cloudStatus"></span>
-  <div class="login-err-pp" id="qualiLoginErr"></div>
-</div>
-
-<!-- SITE HEADER -->
-<div class="site-header">
-  <div>
-    <div class="site-header-eyebrow">Schaeffler · ZfP · Schweinfurt</div>
-    <div class="site-header-title">ZfP Operator Audit</div>
-    <div class="site-header-sub">INFSW17008_NDT_Personal</div>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-    <div class="op-token-bar" id="op_token_bar">
-      <div class="op-token-bar-label"><i class="fab fa-github"></i> GitHub Token</div>
-      <div class="op-gh-dot" id="op_gh_dot" title="Nicht verbunden"></div>
-      <div class="op-token-input-wrap">
-        <input type="password" id="qualiTokenInput" placeholder="github_pat_… (Enter zum Verbinden)" autocomplete="off" spellcheck="false">
-      </div>
-      <button class="op-token-connect-btn" id="qualiLoginBtn"><i class="fas fa-plug"></i> Verbinden</button>
-      <span class="op-token-status" id="op_token_status">Bitte Token eingeben</span>
-    </div>
-    <button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
-  </div>
-</div>
-
 <div class="container">
+<header>
+  <h1>ZfP Operator Audit</h1>
+  <div class="subtitle">INFSW17008_NDT_Personal</div>
+  <div style="margin-top: 5px; font-size: 0.8em; color: #3498db; display: flex; align-items: center; justify-content: center; gap: 5px;">
+    <span id="cloudStatus">📦 Lokal gespeichert</span>
+  </div>
+</header>
+<button id="themeToggleBtn" class="theme-toggle" title="Hell/Dunkel umschalten">🌓</button>
+
+<!-- NEU: GitHub Konfigurations-Panel (ausblendbar) -->
+<div class="github-config-panel" id="githubConfigPanel">
+  <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" id="githubPanelHeader">
+    <h3 style="margin:0;">⚙️ GitHub JSON Datenbank Konfiguration</h3>
+    <span id="githubPanelToggle" style="font-size: 1.5em; padding:0 10px;">▼</span>
+  </div>
+  <div id="githubPanelContent">
+    <div class="github-config-row">
+      <label>GitHub Owner:</label>
+      <input type="text" id="githubOwner" placeholder="z.B. Acendrion1984" value="Acendrion1984">
+    </div>
+    <div class="github-config-row">
+      <label>Repository:</label>
+      <input type="text" id="githubRepo" placeholder="z.B. ZfP" value="ZfP">
+    </div>
+    <div class="github-config-row">
+      <label>Branch:</label>
+      <input type="text" id="githubBranch" placeholder="main" value="main">
+    </div>
+    <div class="github-config-row">
+      <label>Dateiname:</label>
+      <input type="text" id="githubFilename" placeholder="zfp-audit-db.json" value="zfp-audit-db.json">
+    </div>
+    <div class="github-config-row">
+      <label>Personal Access Token:</label>
+      <input type="password" id="githubToken" placeholder="ghp_...">
+    </div>
+    <div class="github-config-row">
+      <button id="githubTestBtn" class="secondary">🔌 Verbindung testen</button>
+      <button id="githubSaveConfigBtn">💾 Konfiguration speichern</button>
+      <button id="githubPullBtn">⬇️ Von GitHub laden</button>
+      <button id="githubPushBtn" class="secondary">⬆️ Nach GitHub pushen</button>
+      <button id="githubClearConfigBtn" class="danger">🗑️ Token löschen</button>
+    </div>
+    <div id="githubStatus" class="github-status">
+      ⚠️ Nicht verbunden. Bitte konfigurieren.
+    </div>
+    <div style="font-size: 0.8em; color: #666; margin-top: 8px;">
+      ℹ️ Token wird nur lokal im Browser gespeichert. Erfordert Schreibrechte auf das Repository.
+    </div>
+  </div>
+</div>
 
 <!-- AUDIT AUSWAHL -->
 <div id="auditSelection" class="audit-selection active">
-  <div class="section-label-pp" style="margin-bottom:20px;">Prüfverfahren auswählen</div>
-
-  <!-- Hauptverfahren: 2x2 Grid -->
-  <div class="audit-buttons" style="grid-template-columns:repeat(2,1fr);margin-bottom:16px;">
+  <h2>Prüfverfahren auswählen:</h2>
+  <div class="audit-buttons">
     <button class="audit-btn wirbelstrom" data-audit="wirbelstrom">
-      <div class="btn-icon"><i class="fas fa-wave-square"></i></div>
-      <div style="position:relative;z-index:1;">
-        <div class="tile-cat-op">Eddy Current · ET</div>
-        <span>Wirbelstrom&shy;prüfung</span>
-      </div>
+      <div class="btn-icon">⚡</div>
+      <span>Wirbelstromprüfung</span>
       <div class="btn-progress" id="wirbelstromProgress">0%</div>
-      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn magnetpulver" data-audit="magnetpulver">
-      <div class="btn-icon"><i class="fas fa-magnet"></i></div>
-      <div style="position:relative;z-index:1;">
-        <div class="tile-cat-op">Magnetic Particle · MT</div>
-        <span>Magnetpulver&shy;prüfung</span>
-      </div>
+      <div class="btn-icon">🧲</div>
+      <span>Magnetpulverprüfung</span>
       <div class="btn-progress" id="magnetpulverProgress">0%</div>
-      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn nital" data-audit="nital">
-      <div class="btn-icon"><i class="fas fa-flask"></i></div>
-      <div style="position:relative;z-index:1;">
-        <div class="tile-cat-op">Chemical Etch · NE</div>
-        <span>Nital-Ätzen</span>
-      </div>
+      <div class="btn-icon">🧪</div>
+      <span>Nital-Ätzen</span>
       <div class="btn-progress" id="nitalProgress">0%</div>
-      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
     <button class="audit-btn ultraschall" data-audit="ultraschall">
-      <div class="btn-icon"><i class="fas fa-satellite-dish"></i></div>
-      <div style="position:relative;z-index:1;">
-        <div class="tile-cat-op">Ultrasound · UT</div>
-        <span>Ultraschall&shy;prüfung</span>
-      </div>
+      <div class="btn-icon">📡</div>
+      <span>Ultraschallprüfung</span>
       <div class="btn-progress" id="ultraschallProgress">0%</div>
-      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
     </button>
   </div>
 
-  <!-- Platzhalter: Barkhausenrauschen + Eindringprüfung -->
-  <div class="audit-buttons" style="grid-template-columns:repeat(2,1fr);margin-bottom:16px;">
-    <button class="audit-btn barkhausen disabled" disabled>
-      <span class="construction-badge-op">In Entwicklung</span>
-      <div class="btn-icon"><i class="fas fa-broadcast-tower"></i></div>
-      <div style="position:relative;z-index:1;">
-        <div class="tile-cat-op">Magnetic Noise · BN</div>
-        <span>Barkhausen&shy;rauschen</span>
-      </div>
-      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
+  <div style="margin-top: 5px; text-align: center;">
+    <button class="audit-btn employee-list-btn" id="employeeListBtn">
+      <div class="btn-icon" style="font-size: 1.8em;">👥</div>
+      <span>Qualifikationsmatrix</span>
     </button>
-    <button class="audit-btn eindring disabled" disabled>
-      <span class="construction-badge-op">In Entwicklung</span>
-      <div class="btn-icon"><i class="fas fa-tint"></i></div>
-      <div style="position:relative;z-index:1;">
-        <div class="tile-cat-op">Penetrant Testing · PT</div>
-        <span>Eindring&shy;prüfung</span>
-      </div>
-      <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
-    </button>
-  </div>
-
-  <!-- Qualifikationsmatrix: zentriert, gleiche Breite -->
-  <div style="display:flex;justify-content:center;">
-    <div class="audit-buttons" style="grid-template-columns:1fr;max-width:calc(50% - 8px);width:100%;">
-      <button class="audit-btn employee-list-btn" id="employeeListBtn">
-        <div class="btn-icon"><i class="fas fa-users"></i></div>
-        <div style="position:relative;z-index:1;">
-          <div class="tile-cat-op">DGZfP Personal · NDT</div>
-          <span>Qualifikations&shy;matrix</span>
-        </div>
-        <div class="tile-arrow-badge"><i class="fas fa-arrow-right"></i></div>
-      </button>
+    <div style="font-size: 0.8em; color: #7f8c8d; margin-top: 5px;">
     </div>
   </div>
 </div>
@@ -5463,13 +5234,10 @@ function setupGlobalEventListeners() {
       const section = header.closest('.section');
       section.classList.toggle('expanded');
       const arrow = header.querySelector('span');
-      const sc = section.querySelector('.section-content');
       if (section.classList.contains('expanded')) {
         arrow.style.transform = 'rotate(90deg)';
-        if (sc) sc.style.display = 'block';
       } else {
         arrow.style.transform = 'rotate(0deg)';
-        if (sc) sc.style.display = 'none';
       }
       e.preventDefault();
       e.stopPropagation();
@@ -6002,16 +5770,6 @@ function loadCurrentAuditData() {
       localStorage.setItem(`zfpAudit_${currentAuditType}`, JSON.stringify(currentAuditData));
     }
     allQuestions = currentAuditData.questions || [];
-    if (!allQuestions.length && STANDARD_QUESTIONS[currentAuditType]) {
-      const sections = STANDARD_QUESTIONS[currentAuditType];
-      allQuestions = sections.flatMap(section =>
-        section.questions.map(q => ({
-          ...q, sectionTitle: section.title, sectionShort: section.short,
-          verdict: null, comment: '', images: []
-        }))
-      );
-      currentAuditData.questions = allQuestions;
-    }
     imageStorage = currentAuditData.images || {};
     if (currentAuditData.headerData) setHeaderData(currentAuditData.headerData);
     uploadedImages.clear();
@@ -6178,7 +5936,7 @@ function renderAuditSections() {
 
   Object.values(sections).forEach(section => {
     const sectionElement = document.createElement('div');
-    sectionElement.className = 'section expanded';
+    sectionElement.className = 'section';
     sectionElement.innerHTML = `
       <div class="section-header">
         <h2>${section.title}</h2>
