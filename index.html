@@ -323,6 +323,53 @@ color: #7f8c8d;
 font-size: 0.9em;
 margin-bottom: 8px;
 }
+
+        /* ── TOKEN-BAR IM HEADER (kein Overlay) ── */
+        .op-token-bar {
+          background: var(--surface-2, #21262d);
+          border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+          padding: 7px 32px;
+          display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+          transition: background 0.3s, border-color 0.3s;
+        }
+        .op-token-bar.connected { background: rgba(39,174,96,0.06); border-color: rgba(39,174,96,0.18); }
+        .op-token-bar-label {
+          font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px;
+          text-transform: uppercase; color: var(--muted, #8b949e); white-space: nowrap;
+          display: flex; align-items: center; gap: 6px;
+        }
+        .op-gh-dot {
+          width: 9px; height: 9px; border-radius: 50%;
+          background: var(--muted, #8b949e); flex-shrink: 0;
+          transition: background 0.3s, box-shadow 0.3s;
+        }
+        .op-gh-dot.connected { background: #27ae60; box-shadow: 0 0 0 3px rgba(39,174,96,0.22); }
+        .op-gh-dot.error     { background: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.18); }
+        .op-gh-dot.checking  { background: #f39c12; box-shadow: 0 0 0 3px rgba(243,156,18,0.22); }
+        .op-token-input-wrap {
+          flex: 1; min-width: 160px; max-width: 320px;
+          display: flex; align-items: center;
+          background: var(--surface, #161b22); border: 1px solid var(--border, rgba(255,255,255,0.08));
+          border-radius: 8px; overflow: hidden;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .op-token-input-wrap:focus-within { border-color: var(--accent, #58a6ff); box-shadow: 0 0 0 3px rgba(88,166,255,0.12); }
+        .op-token-input-wrap input {
+          flex: 1; background: transparent; border: none; outline: none;
+          padding: 6px 10px; font-family: 'DM Mono', monospace; font-size: 12px;
+          color: var(--text, #e6edf3);
+        }
+        .op-token-input-wrap input::placeholder { color: var(--muted, #8b949e); }
+        .op-token-connect-btn {
+          padding: 5px 13px; border-radius: 7px; border: none;
+          background: var(--accent, #58a6ff); color: #fff;
+          font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+          cursor: pointer; white-space: nowrap; transition: opacity 0.2s;
+        }
+        .op-token-connect-btn:hover { opacity: 0.85; }
+        .op-token-status { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted, #8b949e); }
+        .op-token-status.ok  { color: #27ae60; font-weight: 600; }
+        .op-token-status.err { color: #e74c3c; }
 /* theme-toggle moved to site-header */
 .custom-modal {
 display: none;
@@ -2320,22 +2367,6 @@ input:focus, select:focus, textarea:focus {
 </div>
 
 <!-- LOGIN OVERLAY – pruefprotokoll-style -->
-<div class="login-overlay hidden" id="qualiLoginOverlay">
-  <div class="login-modal-pp">
-    <div class="login-eyebrow-pp">GitHub · API-Zugang</div>
-    <div class="login-title-pp">Token erforderlich</div>
-    <div class="login-sub-pp">Bitte GitHub Personal Access Token eingeben, um fortzufahren.</div>
-    <label class="field-label-pp" for="qualiTokenInput">Personal Access Token</label>
-    <input class="field-input-pp" id="qualiTokenInput" type="password"
-           placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-    <button class="login-btn-pp" id="qualiLoginBtn">
-      <i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten
-    </button>
-    <div class="login-err-pp" id="qualiLoginErr"></div>
-    <div class="login-footer-note-pp">Schaeffler Technologies AG &amp; Co. KG · ZfP Schweinfurt<br>Nur für autorisierte Benutzer</div>
-  </div>
-</div>
-
 <!-- SITE HEADER -->
 <div class="site-header">
   <div class="site-header-left">
@@ -2347,30 +2378,38 @@ input:focus, select:focus, textarea:focus {
     <button id="themeToggleBtn" class="theme-toggle-btn" title="Dark/Light Mode">🌓</button>
   </div>
 </div>
+<!-- TOKEN BAR – direkt im Header-Bereich, kein Popup -->
+<div class="op-token-bar" id="op_token_bar">
+  <div class="op-token-bar-label"><i class="fab fa-github"></i> GitHub Token</div>
+  <div class="op-gh-dot" id="op_gh_dot" title="Nicht verbunden"></div>
+  <div class="op-token-input-wrap">
+    <input type="password" id="qualiTokenInput" placeholder="github_pat_… (Enter zum Verbinden)" autocomplete="off" spellcheck="false">
+  </div>
+  <button class="op-token-connect-btn" id="qualiLoginBtn"><i class="fas fa-plug"></i> Verbinden</button>
+  <span class="op-token-status" id="op_token_status">Bitte Token eingeben</span>
+</div>
+<!-- Hidden compat inputs for existing JS -->
+<div style="display:none">
+  <div class="login-err-pp" id="qualiLoginErr"></div>
+</div>
 <div class="container">
   <div style="display:none"><span id="cloudStatus"></span></div>
 
-<!-- NEU: GitHub Konfigurations-Panel (ausblendbar) -->
-<div class="github-config-panel" id="githubConfigPanel">
+<!-- GitHub-Config versteckte Felder (für bestehendes JS) -->
+<div style="display:none" id="githubConfigPanel">
   <input type="hidden" id="githubOwner" value="Acendrion1984">
   <input type="hidden" id="githubRepo" value="ZfP">
   <input type="hidden" id="githubBranch" value="main">
   <input type="hidden" id="githubFilename" value="zfp-audit-db.json">
-  <button id="githubTestBtn" style="display:none"></button>
-  <button id="githubPullBtn" style="display:none"></button>
-  <button id="githubPushBtn" style="display:none"></button>
-  <button id="githubClearConfigBtn" style="display:none"></button>
-  <div id="githubStatus" style="display:none"></div>
-  <!-- Token UI: overlay handles entry; keep dot + compat buttons hidden -->
-  <div style="display:none;">
-    <input type="password" id="githubToken" autocomplete="off">
-    <button id="githubSaveConfigBtn"></button>
-  </div>
-  <div class="token-row" style="padding:6px 14px; display:flex; align-items:center; gap:8px;">
-    <span id="githubDot" class="github-dot" title="Nicht verbunden"></span>
-    <span id="githubStatusLabel" style="font-size:0.82em;color:var(--muted,#8b949e);flex:1;">Nicht verbunden</span>
-    <button onclick="qualiShowOverlay()" style="background:none;border:none;cursor:pointer;font-size:0.8em;color:var(--muted,#8b949e);">🔑</button>
-  </div>
+  <button id="githubTestBtn"></button>
+  <button id="githubPullBtn"></button>
+  <button id="githubPushBtn"></button>
+  <button id="githubClearConfigBtn"></button>
+  <div id="githubStatus"></div>
+  <input type="password" id="githubToken" autocomplete="off">
+  <button id="githubSaveConfigBtn"></button>
+  <span id="githubDot" class="github-dot"></span>
+  <span id="githubStatusLabel">Nicht verbunden</span>
 </div>
 
 <!-- AUDIT AUSWAHL -->
@@ -5068,41 +5107,61 @@ function applyTheme(theme) {
 
 function initThemeToggle() {
   const saved = getSavedTheme();
-  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = saved || (systemDark ? 'dark' : 'light');
+  const initial = saved || 'dark';
   applyTheme(initial);
   document.getElementById('themeToggleBtn').addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
     const next = current === 'dark' ? 'light' : 'dark';
     localStorage.setItem('zfp-theme-preference', next);
     applyTheme(next);
   });
+  window.addEventListener('storage', e => {
+    if (e.key === 'zfp-theme-preference') applyTheme(e.newValue || 'dark');
+  });
 }
 
 
-// ══ QUALI LOGIN OVERLAY ══
+// ══ QUALI TOKEN BAR ══
+function opSetDot(state) {
+  const dot = document.getElementById('op_gh_dot');
+  const bar = document.getElementById('op_token_bar');
+  const st  = document.getElementById('op_token_status');
+  const gDot = document.getElementById('githubDot');
+  if (dot) dot.className = 'op-gh-dot' + (state ? ' '+state : '');
+  if (gDot) gDot.className = 'github-dot' + (state ? ' '+state : '');
+  if (bar) bar.className = 'op-token-bar' + (state === 'connected' ? ' connected' : '');
+  if (st) {
+    st.className = 'op-token-status' + (state === 'connected' ? ' ok' : state === 'error' ? ' err' : '');
+    st.textContent = state === 'connected' ? '✅ Verbunden'
+      : state === 'error'   ? '❌ Fehler'
+      : state === 'checking'? 'Wird geprüft …'
+      : 'Bitte Token eingeben';
+  }
+  const lbl = document.getElementById('githubStatusLabel');
+  if (lbl) lbl.textContent = st ? st.textContent : '';
+}
 function qualiShowOverlay() {
-  document.getElementById('qualiLoginOverlay').classList.remove('hidden');
-  setTimeout(() => { const i = document.getElementById('qualiTokenInput'); if(i){i.value='';i.focus();} }, 150);
+  // No overlay anymore – focus token input
+  const i = document.getElementById('qualiTokenInput');
+  if (i) i.focus();
 }
-function qualiHideOverlay() {
-  document.getElementById('qualiLoginOverlay').classList.add('hidden');
-}
+function qualiHideOverlay() { /* no-op – no overlay */ }
 async function qualiValidateToken() {
   const inp = document.getElementById('qualiTokenInput');
-  const err = document.getElementById('qualiLoginErr');
+  const err = document.getElementById('qualiLoginErr') || { textContent: '' };
   const btn = document.getElementById('qualiLoginBtn');
   const token = inp ? inp.value.trim() : '';
-  if (!token) { err.textContent = '⚠ Bitte Token eingeben.'; return; }
-  err.textContent = '';
-  btn.disabled = true; btn.textContent = 'Wird geprüft …';
+  if (!token) { opSetDot('error'); err.textContent = '⚠ Token fehlt'; return; }
+  opSetDot('checking');
+  if (btn) { btn.disabled = true; }
   try {
     const r = await fetch(
       'https://api.github.com/repos/Acendrion1984/ZfP',
       { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' } }
     );
     if (r.status === 200 || r.status === 301 || r.status === 404) {
-      qualiHideOverlay();
+      opSetDot('connected');
+      if (inp) { inp.value = ''; inp.placeholder = 'Token gespeichert ✓'; }
       // Sync token to githubToken hidden input + save config
       const hiddenInp = document.getElementById('githubToken');
       if (hiddenInp) hiddenInp.value = token;
@@ -5114,16 +5173,15 @@ async function qualiValidateToken() {
         if (typeof saveGitHubConfig === 'function') await saveGitHubConfig();
       } catch(e) {}
     } else if (r.status === 401) {
-      err.textContent = '❌ Ungültiger Token. Bitte erneut versuchen.';
+      opSetDot('error'); err.textContent = '❌ Ungültiger Token';
       if (inp) { inp.value = ''; inp.focus(); }
     } else {
-      err.textContent = `❌ Fehler ${r.status}. Bitte Netzwerk prüfen.`;
+      opSetDot('error'); err.textContent = `❌ Fehler ${r.status}`;
     }
   } catch(e) {
-    err.textContent = '❌ Netzwerkfehler. Verbindung prüfen.';
+    opSetDot('error'); err.textContent = '❌ Netzwerkfehler';
   } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-key" style="margin-right:8px;"></i>Zugang freischalten';
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-plug"></i> Verbinden'; }
   }
 }
 
@@ -5147,11 +5205,21 @@ document.addEventListener('DOMContentLoaded', async function() {
   // GitHub Config laden
   loadGitHubConfig();
 
-  // Login overlay buttons
+  // Token bar buttons
   const qLoginBtn = document.getElementById('qualiLoginBtn');
   if (qLoginBtn) qLoginBtn.addEventListener('click', qualiValidateToken);
   const qTokenInp = document.getElementById('qualiTokenInput');
   if (qTokenInp) qTokenInp.addEventListener('keydown', e => { if(e.key==='Enter') qualiValidateToken(); });
+  // Auto-restore from saved config
+  try {
+    const cfg = JSON.parse(localStorage.getItem('zfp_github_config') || '{}');
+    if (cfg.token) {
+      const hiddenInp = document.getElementById('githubToken');
+      if (hiddenInp) hiddenInp.value = cfg.token;
+      opSetDot('connected');
+      if (qTokenInp) qTokenInp.placeholder = 'Token gespeichert ✓';
+    }
+  } catch(e2) {}
 
   // Show overlay if no token saved
   try {
