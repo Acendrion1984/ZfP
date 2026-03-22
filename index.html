@@ -1505,25 +1505,29 @@ min-width: 180px !important;
 }
   
   [data-theme="dark"] .status-valid {
-    background: #d4edda !important;
-    color: #155724 !important;
+    background: #1a6b35 !important;
+    color: #b7f5cc !important;
+    border: 1px solid #2ecc71 !important;
   }
   [data-theme="dark"] .status-expired {
-    background: #f8d7da !important;
-    color: #721c24 !important;
+    background: #7b1a1a !important;
+    color: #ffc8c8 !important;
+    border: 1px solid #e74c3c !important;
   }
   [data-theme="dark"] .status-warning {
-    background: #fff3cd !important;
-    color: #856404 !important;
+    background: #7a5500 !important;
+    color: #ffe9a0 !important;
+    border: 1px solid #f39c12 !important;
   }
   [data-theme="dark"] .status-missing {
-    background: #e2e3e5 !important;
-    color: #383d41 !important;
+    background: #3a3a3a !important;
+    color: #cccccc !important;
+    border: 1px solid #666 !important;
   }
   [data-theme="dark"] .status-needs-confirmation {
-    background: #fff3cd !important;
-    color: #ff9800 !important;
-    border-color: #ff9800 !important;
+    background: #7a4500 !important;
+    color: #ffd0a0 !important;
+    border: 1px solid #e67e22 !important;
   }
   
   [data-theme="dark"] .proc-chip {
@@ -2733,7 +2737,7 @@ input:focus, select:focus, textarea:focus {
     <th style="width: 90px;">Datum Sehtest</th>
     <th style="width: 90px;">Ident.-Nr.</th>
     <th class="col-stamp" style="width: 90px;">Stempel-Nr.</th>
-    <th style="min-width: 150px;">Zertifikat&nbsp;Ablaufdatum</th>
+    <th style="width: 160px;"><div style="display:flex;justify-content:space-between;"><span>Zertifikat</span><span>Ablaufdatum</span></div></th>
     <th style="width: 100px; text-align: center;">Audit-Zyklus</th>
     <th style="width: 150px;">Aktionen</th>
   </tr>
@@ -4229,7 +4233,8 @@ function renderEmployeeList() {
     const lastAuditText = employee.latestAudit ? formatGermanDate(employee.latestAudit.date) : '–';
     const nextAuditText = employee.nextAudit ? formatGermanDate(employee.nextAudit) : '–';
 
-let proceduresHTML = '<div style="display: flex; flex-direction: column; gap: 4px;">';
+let proceduresHTML = '<div style="display:flex; flex-direction:column; gap:3px;">';
+let expiryHTML     = '';
 const pc = employee.procedureCerts || defaultProcedureCerts();
 const order = ['wirbelstrom','magnetpulver','nital','ultraschall'];
 
@@ -4295,26 +4300,11 @@ if (level === 'PW') {
     const practicalData = employee.practicalExperience && employee.practicalExperience[k];
     const totalHours = practicalData ? parseFloat(practicalData.totalHours || 0) : 0;
     const icon = totalHours >= 160 ? '✅' : '📋';
-    
-    proceduresHTML += `
-    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        <span class="pw-cert-link" data-employee-id="${employee.id}" data-procedure="${k}" data-level="${level}" 
-              style="display: inline-block; padding: 3px 5px; background: ${hasCompletedAudit ? '#d4edda' : '#e9ecef'}; color: #3498db; border-radius: 4px; border: 1px solid #3498db; font-weight: bold; font-size: 0.9em; white-space: nowrap; cursor: pointer; text-decoration: underline dotted;">
-            ${short}${levelText} ${icon}
-        </span>
-        <span style="display: inline-block; padding: 3px 5px; background: ${expBg}; color: ${expColor}; border-radius: 4px; border: 1px solid ${expBorder}; font-size: 0.9em; font-weight: bold; margin-left: 8px; white-space: nowrap;">${expStr}</span>
-    </div>
-    `;
+    proceduresHTML += `<div style="display:flex;align-items:center;justify-content:space-between;gap:4px;"><span class="pw-cert-link" data-employee-id="${employee.id}" data-procedure="${k}" data-level="${level}" style="padding:2px 5px;background:${hasCompletedAudit?'#d4edda':'#e9ecef'};color:#3498db;border-radius:4px;border:1px solid #3498db;font-weight:bold;font-size:0.8em;white-space:nowrap;cursor:pointer;text-decoration:underline dotted;">${short}${levelText} ${icon}</span><span style="padding:2px 5px;background:${expBg};color:${expColor};border-radius:4px;border:1px solid ${expBorder};font-size:0.8em;font-weight:bold;white-space:nowrap;">${expStr}</span></div>`;
 } else {
-    proceduresHTML += `
-    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        <span style="display: inline-block; padding: 3px 5px; background: ${hasCompletedAudit ? '#d4edda' : '#e9ecef'}; color: ${hasCompletedAudit ? '#155724' : '#333'}; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; font-size: 0.9em; white-space: nowrap;">
-            ${short}${levelText}
-        </span>
-        <span style="display: inline-block; padding: 3px 5px; background: ${expBg}; color: ${expColor}; border-radius: 4px; border: 1px solid ${expBorder}; font-size: 0.9em; font-weight: bold; margin-left: 8px; white-space: nowrap;">${expStr}</span>
-    </div>
-    `;
+    proceduresHTML += `<div style="display:flex;align-items:center;justify-content:space-between;gap:4px;"><span style="padding:2px 5px;background:${hasCompletedAudit?'#d4edda':'#e9ecef'};color:${hasCompletedAudit?'#155724':'#333'};border-radius:4px;border:1px solid #ccc;font-weight:bold;font-size:0.8em;white-space:nowrap;">${short}${levelText}</span><span style="padding:2px 5px;background:${expBg};color:${expColor};border-radius:4px;border:1px solid ${expBorder};font-size:0.8em;font-weight:bold;white-space:nowrap;">${expStr}</span></div>`;
 }
+
 });
 
 if (!order.some(k => pc[k]?.enabled)) {
@@ -4398,10 +4388,6 @@ if (employeeAudits && employeeAudits.length > 0 && employee.number) {
     nextAuditsHTML += '<div style="color:#999; font-style:italic;">–</div>';
 }
 nextAuditsHTML += '</div>';
-    if (!order.some(k => pc[k]?.enabled)) {
-      proceduresHTML += '<div style="color:#999; font-style:italic;">Keine Verfahren</div>';
-    }
-    proceduresHTML += '</div>';
 
 row.innerHTML = `
 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
@@ -4412,7 +4398,7 @@ row.innerHTML = `
 <td>${employee.eyeTestDate || ''}</td>
 <td>${employee.certNumber || ''}</td>
 <td class="col-stamp">${employee.stampNumber || ''}</td>
-<td>${proceduresHTML}</td>
+<td style="vertical-align:middle;">${proceduresHTML}</td>
 <td style="text-align: center; vertical-align: middle;">${nextAuditsHTML}</td>
 <td>
     <div class="employee-actions" style="display: flex; gap: 4px; flex-wrap: nowrap; overflow-x: auto;">
