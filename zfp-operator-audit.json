@@ -1,0 +1,554 @@
+{
+  "employees": [],
+  "auditReviews": {},
+  "lastSync": "2026-03-22T18:21:45.410Z",
+  "audit_wirbelstrom": {
+    "meta": {
+      "created": "2026-03-22T18:21:30.539Z",
+      "lastModified": "2026-03-22T18:21:41.910Z",
+      "auditType": "wirbelstrom",
+      "title": "Wirbelstromprüfung",
+      "instanceId": "AUD-1774203690540-1vecwz"
+    },
+    "headerData": {
+      "operatorName": "",
+      "operatorNumber": "",
+      "auditorName": "",
+      "approverName": "",
+      "partType": "",
+      "reportNumber": "PR-20260322-KWV92F"
+    },
+    "questions": [
+      {
+        "id": "ET-1.1",
+        "text": "Sehtest gültig (≤12 Monate) und Zertifikat vorgelegt",
+        "english": "Eye test valid (≤12 months) and certificate presented",
+        "sectionTitle": "1. Qualifikation & Dokumentation",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-1.2",
+        "text": "ET Zertifikat ISO/ASNT-konform vorhanden",
+        "english": "ET certificate ISO/ASNT compliant available",
+        "sectionTitle": "1. Qualifikation & Dokumentation",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-1.3",
+        "text": "Kenntnis der Norm S285066 und Arbeitsanweisung nachgewiesen",
+        "english": "Knowledge of standard S285066 and work instruction demonstrated",
+        "sectionTitle": "1. Qualifikation & Dokumentation",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-2.1",
+        "text": "Tägliche Plausibilitätsprüfung korrekt durchgeführt und dokumentiert",
+        "english": "Daily plausibility check correctly performed and documented",
+        "sectionTitle": "2. Geräteeinrichtung & Kalibrierung",
+        "sectionShort": "Geräteprüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-2.2",
+        "text": "Referenzteile gemäß Norm vorhanden und korrekt gelagert",
+        "english": "Reference parts according to standard available and correctly stored",
+        "sectionTitle": "2. Geräteeinrichtung & Kalibrierung",
+        "sectionShort": "Geräteprüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-2.3",
+        "text": "Geräteparameter entsprechend Prüfanweisung eingestellt",
+        "english": "Device parameters set according to inspection instruction",
+        "sectionTitle": "2. Geräteeinrichtung & Kalibrierung",
+        "sectionShort": "Geräteprüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-3.1",
+        "text": "Systematische Prüfung aller definierten Bereiche",
+        "english": "Systematic inspection of all defined areas",
+        "sectionTitle": "3. Prüfdurchführung & Bewertung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-3.2",
+        "text": "Korrekte Erkennung und Bewertung von Fehleranzeigen",
+        "english": "Correct detection and evaluation of defect indications",
+        "sectionTitle": "3. Prüfdurchführung & Bewertung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-3.3",
+        "text": "n.i.O.-Teile korrekt erkannt und als 'nicht i.O.' deklariert",
+        "english": "Rejected parts correctly identified and declared as 'not OK'",
+        "sectionTitle": "3. Prüfdurchführung & Bewertung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-4.1",
+        "text": "Vollständige und lesbare Dokumentation aller Prüfergebnisse",
+        "english": "Complete and legible documentation of all test results",
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-4.2",
+        "text": "Korrekte Anwendung des Zwischenbehälter-Prinzips",
+        "english": "Correct application of intermediate container principle",
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "ET-4.3",
+        "text": "Tätigkeitsnachweis vorhanden und vollständig dokumentiert",
+        "english": "Activity proof available and fully documented",
+        "isActivityProof": true,
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      }
+    ],
+    "images": {}
+  },
+  "audit_magnetpulver": {
+    "meta": {
+      "created": "2026-03-22T18:21:30.540Z",
+      "lastModified": "2026-03-22T18:21:30.540Z",
+      "auditType": "magnetpulver",
+      "title": "Magnetpulverprüfung",
+      "instanceId": "AUD-1774203690540-ul1592"
+    },
+    "headerData": {
+      "reportNumber": "PR-20260322-GQFOPL"
+    },
+    "questions": [
+      {
+        "id": "MT-1.1",
+        "text": "Sehtest gültig (≤12 Monate) und dokumentiert",
+        "english": "Eye test valid (≤12 months) and documented",
+        "sectionTitle": "1. Qualifikation & Normenkenntnis",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-1.2",
+        "text": "MT Zertifikat ISO/ASNT-konform vorhanden",
+        "english": "MT certificate ISO/ASNT compliant available",
+        "sectionTitle": "1. Qualifikation & Normenkenntnis",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-1.3",
+        "text": "Kenntnis Normen und Arbeitsanweisung nachgewiesen",
+        "english": "Knowledge of standards and work instruction demonstrated",
+        "sectionTitle": "1. Qualifikation & Normenkenntnis",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-2.1",
+        "text": "UV-Lampe überprüft (Intensität, Filter) und dokumentiert",
+        "english": "UV lamp checked (intensity, filter) and documented",
+        "sectionTitle": "2. Geräteprüfung & Kalibrierung",
+        "sectionShort": "Geräteprüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-2.2",
+        "text": "Magnetisierung für alle Ausrichtungen geprüft",
+        "english": "Magnetization checked for all orientations",
+        "sectionTitle": "2. Geräteprüfung & Kalibrierung",
+        "sectionShort": "Geräteprüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-2.3",
+        "text": "MTU-Prüfkörper Kontrolle durchgeführt",
+        "english": "MTU test body control performed",
+        "sectionTitle": "2. Geräteprüfung & Kalibrierung",
+        "sectionShort": "Geräteprüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-3.1",
+        "text": "Vollständige Inspektion aller relevanten Oberflächen",
+        "english": "Complete inspection of all relevant surfaces",
+        "sectionTitle": "3. Prüfdurchführung & Fehlererkennung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-3.2",
+        "text": "Korrekte Interpretation von Rissanzeigen",
+        "english": "Correct interpretation of crack indications",
+        "sectionTitle": "3. Prüfdurchführung & Fehlererkennung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-3.3",
+        "text": "n.i.O.-Teile korrekt erkannt und als 'nicht i.O.' deklariert",
+        "english": "Rejected parts correctly identified and declared as 'not OK'",
+        "sectionTitle": "3. Prüfdurchführung & Fehlererkennung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-4.1",
+        "text": "Korrekte Verwendung der Dokumentationsvorlage",
+        "english": "Correct use of documentation template",
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-4.2",
+        "text": "Lesbare Dokumentation aller Indikationen",
+        "english": "Legible documentation of all indications",
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "MT-4.3",
+        "text": "Tätigkeitsnachweis vorhanden und vollständig dokumentiert",
+        "english": "Activity proof available and fully documented",
+        "isActivityProof": true,
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      }
+    ],
+    "images": {}
+  },
+  "audit_nital": {
+    "meta": {
+      "created": "2026-03-22T18:21:30.541Z",
+      "lastModified": "2026-03-22T18:21:30.541Z",
+      "auditType": "nital",
+      "title": "Nital-Ätzen",
+      "instanceId": "AUD-1774203690541-pylrgq"
+    },
+    "headerData": {
+      "reportNumber": "PR-20260322-AUV1CK"
+    },
+    "questions": [
+      {
+        "id": "NE-1.1",
+        "text": "Sehtest gültig (≤12 Monate) und dokumentiert",
+        "english": "Eye test valid (≤12 months) and documented",
+        "sectionTitle": "1. Qualifikation & Sicherheit",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-1.2",
+        "text": "Zertifikat für Nital-Ätzen vorhanden",
+        "english": "Certificate for nital etching available",
+        "sectionTitle": "1. Qualifikation & Sicherheit",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-1.3",
+        "text": "Sicherheitsunterweisung für Säurehandhabung nachgewiesen",
+        "english": "Safety training for acid handling demonstrated",
+        "sectionTitle": "1. Qualifikation & Sicherheit",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-2.1",
+        "text": "Reinigungsprozess entspricht Norm",
+        "english": "Cleaning process complies with standard",
+        "sectionTitle": "2. Prozesskontrolle & Chemikalien",
+        "sectionShort": "Prozesskontrolle",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-2.2",
+        "text": "Ätzmittel korrekt gelagert und überwacht",
+        "english": "Etching agent correctly stored and monitored",
+        "sectionTitle": "2. Prozesskontrolle & Chemikalien",
+        "sectionShort": "Prozesskontrolle",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-2.3",
+        "text": "Ätzparameter entsprechend Arbeitsanweisung eingehalten",
+        "english": "Etching parameters maintained according to work instruction",
+        "sectionTitle": "2. Prozesskontrolle & Chemikalien",
+        "sectionShort": "Prozesskontrolle",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-3.1",
+        "text": "Systematische Inspektion der geätzten Flächen",
+        "english": "Systematic inspection of etched surfaces",
+        "sectionTitle": "3. Prüfung & Bewertung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-3.2",
+        "text": "Korrekte Bewertung von Gefügestrukturen",
+        "english": "Correct evaluation of microstructure",
+        "sectionTitle": "3. Prüfung & Bewertung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-3.3",
+        "text": "n.i.O.-Teile korrekt erkannt und als 'nicht i.O.' deklariert",
+        "english": "Rejected parts correctly identified and declared as 'not OK'",
+        "sectionTitle": "3. Prüfung & Bewertung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-4.1",
+        "text": "Vollständige Dokumentation aller Prozessparameter",
+        "english": "Complete documentation of all process parameters",
+        "sectionTitle": "4. Dokumentation & Nachverfolgbarkeit",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-4.2",
+        "text": "Nachweis der korrekten Ätzung",
+        "english": "Proof of correct etching",
+        "sectionTitle": "4. Dokumentation & Nachverfolgbarkeit",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "NE-4.3",
+        "text": "Tätigkeitsnachweis vorhanden und vollständig dokumentiert",
+        "english": "Activity proof available and fully documented",
+        "isActivityProof": true,
+        "sectionTitle": "4. Dokumentation & Nachverfolgbarkeit",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      }
+    ],
+    "images": {}
+  },
+  "audit_ultraschall": {
+    "meta": {
+      "created": "2026-03-22T18:21:30.541Z",
+      "lastModified": "2026-03-22T18:21:30.541Z",
+      "auditType": "ultraschall",
+      "title": "Ultraschallprüfung",
+      "instanceId": "AUD-1774203690541-h3b9nd"
+    },
+    "headerData": {
+      "reportNumber": "PR-20260322-9TK4LO"
+    },
+    "questions": [
+      {
+        "id": "UT-1.1",
+        "text": "Sehtest gültig (≤12 Monate) und dokumentiert",
+        "english": "Eye test valid (≤12 months) and documented",
+        "sectionTitle": "1. Qualifikation & Normenkenntnis",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-1.2",
+        "text": "UT Zertifikat ISO/ASNT-konform vorhanden",
+        "english": "UT certificate ISO/ASNT compliant available",
+        "sectionTitle": "1. Qualifikation & Normenkenntnis",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-1.3",
+        "text": "Kenntnis Normen und Arbeitsanweisungen nachgewiesen",
+        "english": "Knowledge of standards and work instructions demonstrated",
+        "sectionTitle": "1. Qualifikation & Normenkenntnis",
+        "sectionShort": "Qualifikation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-2.1",
+        "text": "Sensitivitätskalibrierung gemäß Norm durchgeführt",
+        "english": "Sensitivity calibration performed according to standard",
+        "sectionTitle": "2. Kalibrierung & Geräteeinstellung",
+        "sectionShort": "Kalibrierung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-2.2",
+        "text": "Distanzkalibrierung gemäß Norm durchgeführt",
+        "english": "Distance calibration performed according to standard",
+        "sectionTitle": "2. Kalibrierung & Geräteeinstellung",
+        "sectionShort": "Kalibrierung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-2.3",
+        "text": "Geräteeinrichtung korrekt demonstriert",
+        "english": "Device setup correctly demonstrated",
+        "sectionTitle": "2. Kalibrierung & Geräteeinstellung",
+        "sectionShort": "Kalibrierung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-3.1",
+        "text": "Systematische Prüfung aller vorgegebenen Bereiche",
+        "english": "Systematic inspection of all specified areas",
+        "sectionTitle": "3. Prüfdurchführung & Defekterkennung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-3.2",
+        "text": "Korrekte Rückkehr zum größten Defekt für Messung",
+        "english": "Correct return to largest defect for measurement",
+        "sectionTitle": "3. Prüfdurchführung & Defekterkennung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-3.3",
+        "text": "n.i.O.-Teile korrekt erkannt und als 'nicht i.O.' deklariert",
+        "english": "Rejected parts correctly identified and declared as 'not OK'",
+        "sectionTitle": "3. Prüfdurchführung & Defekterkennung",
+        "sectionShort": "Prüfung",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-4.1",
+        "text": "Dokumentation gemäß Arbeitsanweisung korrekt durchgeführt",
+        "english": "Documentation according to work instruction correctly performed",
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-4.2",
+        "text": "Klare Kennzeichnung und Trennung von n.i.O.-Teilen",
+        "english": "Clear marking and separation of rejected parts",
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      },
+      {
+        "id": "UT-4.3",
+        "text": "Tätigkeitsnachweis vorhanden und vollständig dokumentiert",
+        "english": "Activity proof available and fully documented",
+        "isActivityProof": true,
+        "sectionTitle": "4. Dokumentation & Qualitätssicherung",
+        "sectionShort": "Dokumentation",
+        "verdict": null,
+        "comment": "",
+        "images": []
+      }
+    ],
+    "images": {}
+  }
+}
