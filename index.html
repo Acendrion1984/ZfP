@@ -2188,6 +2188,33 @@ input:focus, select:focus, textarea:focus {
   .employee-table-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
   .employee-table-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
   .employee-table { min-width: 900px; width: auto; }
+/* ===== DARK MODE TABELLEN-FIX (Breite + Schrift) ===== */
+[data-theme="dark"] .employee-table-scroll {
+  overflow-x: auto !important;
+  width: 100% !important;
+}
+
+[data-theme="dark"] .employee-table {
+  min-width: 1000px !important;
+  width: 100% !important;
+}
+
+[data-theme="dark"] .employee-table th,
+[data-theme="dark"] .employee-table td {
+  font-size: 1em !important;
+  white-space: nowrap !important;
+}
+
+[data-theme="dark"] .employee-table th {
+  font-size: 0.8em !important;
+  padding: 10px 8px !important;
+}
+
+[data-theme="dark"] .employee-table td {
+  padding: 8px !important;
+}
+
+
 </style>
 </head>
 <body>
