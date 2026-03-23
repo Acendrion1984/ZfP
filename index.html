@@ -155,6 +155,23 @@ transition: background-color 0.3s ease, color 0.3s ease;
         .audit-btn:active { transform: translateY(-1px) scale(1.005) !important; }
         .audit-btn.disabled { opacity: 0.5 !important; cursor: not-allowed !important; }
         .audit-btn.disabled:hover { transform: none !important; }
+        .audit-btn.barkhausen,
+        .audit-btn.eindring {
+            background: linear-gradient(145deg, #4a4a4a, #2e2e2e) !important;
+            opacity: 0.55 !important;
+            cursor: not-allowed !important;
+            pointer-events: none;
+        }
+        .audit-btn.barkhausen:hover,
+        .audit-btn.eindring:hover { transform: none !important; }
+        .dev-badge {
+            position: absolute; top: 10px; right: 10px; z-index: 2;
+            background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.75);
+            font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px;
+            text-transform: uppercase; padding: 3px 7px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.18); white-space: nowrap;
+            pointer-events: none;
+        }
 
         /* Tile inner elements */
         .tile-icon-wrap { font-size: 28px; color: rgba(255,255,255,0.92); margin-bottom: 12px; position: relative; z-index: 1; }
@@ -2510,6 +2527,24 @@ input:focus, select:focus, textarea:focus {
         <div class="tile-progress" id="ultraschallProgress">0%</div>
       </div>
       <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
+    </button>
+    <button class="audit-btn barkhausen" disabled>
+      <div class="dev-badge">🚧 In Entwicklung</div>
+      <div class="tile-icon-wrap"><i class="fas fa-wave-square" style="transform:rotate(90deg);opacity:0.6;"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat" style="color:rgba(255,255,255,0.45);">Barkhausen · BN</div>
+        <div class="tile-nm" style="color:rgba(255,255,255,0.6);">Barkhausen&shy;rauschen</div>
+        <div class="tile-progress" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.35);">–</div>
+      </div>
+    </button>
+    <button class="audit-btn eindring" disabled>
+      <div class="dev-badge">🚧 In Entwicklung</div>
+      <div class="tile-icon-wrap"><i class="fas fa-tint" style="opacity:0.6;"></i></div>
+      <div class="tile-body-wrap">
+        <div class="tile-cat" style="color:rgba(255,255,255,0.45);">Penetrant Testing · PT</div>
+        <div class="tile-nm" style="color:rgba(255,255,255,0.6);">Eindring&shy;prüfung</div>
+        <div class="tile-progress" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.35);">–</div>
+      </div>
     </button>
   </div>
   <div class="audit-buttons audit-buttons-bottom">
