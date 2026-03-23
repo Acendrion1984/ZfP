@@ -109,9 +109,9 @@ transition: background-color 0.3s ease, color 0.3s ease;
         .audit-btn {
             position: relative;
             color: #fff;
-            border-radius: 16px !important;
-            padding: 22px 18px 18px !important;
-            min-height: 160px !important;
+            border-radius: 14px !important;
+            padding: 18px 14px 14px !important;
+            min-height: 140px !important;
             cursor: pointer;
             display: flex !important;
             flex-direction: column !important;
@@ -174,7 +174,7 @@ transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Tile inner elements */
-        .tile-icon-wrap { font-size: 28px; color: rgba(255,255,255,0.92); margin-bottom: 12px; position: relative; z-index: 1; }
+        .tile-icon-wrap { font-size: 24px; color: rgba(255,255,255,0.92); margin-bottom: 8px; position: relative; z-index: 1; }
         .tile-body-wrap { position: relative; z-index: 1; }
         .tile-cat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-bottom: 5px; }
         .tile-nm  { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.25; letter-spacing: -0.2px; }
@@ -740,11 +740,11 @@ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 gap: 8px;
 margin-bottom: 15px;
 }
-/* ===== AUDIT BUTTONS – 5 gleichbreite Kacheln ===== */
+/* ===== AUDIT BUTTONS – 6 gleichbreite Kacheln ===== */
 .audit-buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
   margin-bottom: 14px;
 }
 .audit-buttons-bottom {
@@ -753,8 +753,8 @@ margin-bottom: 15px;
   margin-bottom: 15px;
 }
 .audit-buttons-bottom .employee-list-btn {
-  width: calc(25% - 10.5px);
-  flex: 0 0 calc(25% - 10.5px);
+  width: calc(16.666% - 8.5px);
+  flex: 0 0 calc(16.666% - 8.5px);
 }
 /* audit-btn base style defined above */
 /* gloss replaced by new ::before/::after above */
@@ -1347,7 +1347,7 @@ color: #7f8c8d; font-size: 0.85em;
   .progress-container { min-width: 100%; max-width: 100%; }
   .controls-row-audit { display: flex; gap: 3px; margin-bottom: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; scrollbar-color: #3498db #f0f0f0; }
   .controls-row-audit button { padding: 8px 10px; font-size: 0.7em; height: 32px; min-width: 100px; flex-shrink: 0; }
-  .audit-buttons { grid-template-columns: 1fr !important; gap: 10px; }
+  .audit-buttons { grid-template-columns: repeat(2, 1fr) !important; gap: 8px; }
   .audit-buttons-bottom .employee-list-btn { width: 100% !important; flex: 1 1 100% !important; }
   .audit-btn { min-height: 120px !important; padding: 16px 14px 14px !important; }
   .tile-icon-wrap { font-size: 22px !important; margin-bottom: 8px !important; }
