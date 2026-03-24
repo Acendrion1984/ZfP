@@ -7762,4 +7762,213 @@ html[data-theme="light"] {
   --accent: #1d6fbe;
 }
 </style>
+
+
+<!-- ZFP TOKEN BAR – einheitliches Design alle Apps -->
+<style>
+/* ── Wrapper ── */
+.op-token-bar, .sa-token-bar, .mt-token-bar,
+.token-bar-row, .token-bar, .rev-token-bar {
+  background: var(--surface-2, var(--surface2, #2d2d2d)) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.08)) !important;
+  padding: 7px 40px 7px 120px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  transition: background 0.3s, border-color 0.3s !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+body.light-mode .op-token-bar,
+body.light-mode .sa-token-bar,
+body.light-mode .mt-token-bar,
+body.light-mode .token-bar-row,
+body.light-mode .token-bar,
+body.light-mode .rev-token-bar {
+  background: var(--surface-2, #f0f2f5) !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+.op-token-bar.connected, .sa-token-bar.connected, .mt-token-bar.connected,
+.token-bar-row.connected, .token-bar.connected, .rev-token-bar.connected {
+  background: rgba(39,174,96,0.06) !important;
+  border-color: rgba(39,174,96,0.18) !important;
+}
+
+/* ── Label ── */
+.op-token-bar-label, .sa-token-bar-label, .mt-token-bar-label,
+.token-bar-label, .rev-token-bar-label {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: var(--muted, #8b949e) !important;
+  white-space: nowrap !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-weight: 400 !important;
+}
+body.light-mode .op-token-bar-label,
+body.light-mode .sa-token-bar-label,
+body.light-mode .mt-token-bar-label,
+body.light-mode .token-bar-label,
+body.light-mode .rev-token-bar-label {
+  color: var(--muted, #6b7280) !important;
+}
+
+/* ── Status Dot ── */
+.op-gh-dot, .sa-gh-dot, .mt-gh-dot, .gh-dot, .status-dot, .rev-gh-dot {
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50% !important;
+  background: var(--muted, #8b949e) !important;
+  flex-shrink: 0 !important;
+  transition: background 0.3s, box-shadow 0.3s !important;
+  display: inline-block !important;
+  cursor: default !important;
+  pointer-events: none !important;
+}
+.op-gh-dot.connected, .sa-gh-dot.connected, .mt-gh-dot.connected,
+.gh-dot.connected, .status-dot.online, .rev-gh-dot.connected {
+  background: #27ae60 !important;
+  box-shadow: 0 0 0 3px rgba(39,174,96,0.22) !important;
+}
+.op-gh-dot.error, .sa-gh-dot.error, .mt-gh-dot.error,
+.gh-dot.error, .status-dot.error, .rev-gh-dot.error {
+  background: #e74c3c !important;
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.18) !important;
+}
+.op-gh-dot.checking, .sa-gh-dot.checking, .mt-gh-dot.checking,
+.gh-dot.checking, .status-dot.checking, .rev-gh-dot.checking {
+  background: #f39c12 !important;
+  box-shadow: 0 0 0 3px rgba(243,156,18,0.22) !important;
+}
+
+/* ── Input Wrapper ── */
+.op-token-input-wrap, .sa-token-input-wrap, .mt-token-input-wrap,
+.token-input-row, .token-input-wrap, .rev-token-input-wrap {
+  flex: 1 !important;
+  min-width: 160px !important;
+  max-width: 320px !important;
+  display: flex !important;
+  align-items: center !important;
+  background: var(--surface, #242424) !important;
+  border: 1px solid var(--border, rgba(255,255,255,0.08)) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+body.light-mode .op-token-input-wrap,
+body.light-mode .sa-token-input-wrap,
+body.light-mode .mt-token-input-wrap,
+body.light-mode .token-input-row,
+body.light-mode .token-input-wrap,
+body.light-mode .rev-token-input-wrap {
+  background: #ffffff !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+.op-token-input-wrap:focus-within, .sa-token-input-wrap:focus-within,
+.mt-token-input-wrap:focus-within, .token-input-row:focus-within,
+.token-input-wrap:focus-within, .rev-token-input-wrap:focus-within {
+  border-color: var(--accent, #58a6ff) !important;
+  box-shadow: 0 0 0 3px rgba(88,166,255,0.12) !important;
+}
+.op-token-input-wrap input, .sa-token-input-wrap input,
+.mt-token-input-wrap input, .token-input-row input,
+.token-input-wrap input, .rev-token-input-wrap input {
+  flex: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 6px 10px !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 12px !important;
+  color: var(--text, #e6edf3) !important;
+}
+body.light-mode .op-token-input-wrap input,
+body.light-mode .sa-token-input-wrap input,
+body.light-mode .mt-token-input-wrap input,
+body.light-mode .token-input-row input,
+body.light-mode .token-input-wrap input,
+body.light-mode .rev-token-input-wrap input {
+  color: var(--text, #1a1e24) !important;
+}
+.op-token-input-wrap input::placeholder,
+.sa-token-input-wrap input::placeholder,
+.mt-token-input-wrap input::placeholder,
+.token-input-row input::placeholder,
+.token-input-wrap input::placeholder,
+.rev-token-input-wrap input::placeholder {
+  color: var(--muted, #8b949e) !important;
+}
+
+/* ── Connect Button ── */
+.op-token-connect-btn, .sa-token-connect-btn, .mt-token-connect-btn,
+.token-connect-btn, .token-connect-btn-s, .rev-token-connect-btn {
+  padding: 5px 13px !important;
+  border-radius: 7px !important;
+  border: none !important;
+  background: var(--accent, #58a6ff) !important;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: opacity 0.2s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+#loginBtn {
+  padding: 5px 13px !important;
+  border-radius: 7px !important;
+  border: none !important;
+  background: var(--accent, #58a6ff) !important;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+.op-token-connect-btn:hover, .sa-token-connect-btn:hover,
+.mt-token-connect-btn:hover, .token-connect-btn:hover,
+.token-connect-btn-s:hover, .rev-token-connect-btn:hover,
+#loginBtn:hover { opacity: 0.85 !important; }
+
+/* ── Status Text ── */
+.op-token-status, .sa-token-status, .mt-token-status,
+.token-status-lbl, .token-status-text, .rev-token-status {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  color: var(--muted, #8b949e) !important;
+  white-space: nowrap !important;
+}
+.op-token-status.ok, .sa-token-status.ok, .mt-token-status.ok,
+.token-status-lbl.ok, .token-status-text.ok, .rev-token-status.ok {
+  color: #27ae60 !important;
+  font-weight: 600 !important;
+}
+.op-token-status.err, .sa-token-status.err, .mt-token-status.err,
+.token-status-lbl.err, .token-status-text.err, .rev-token-status.err {
+  color: #e74c3c !important;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .op-token-bar, .sa-token-bar, .mt-token-bar,
+  .token-bar-row, .token-bar, .rev-token-bar {
+    padding: 6px 14px !important;
+    gap: 7px !important;
+  }
+  .op-token-input-wrap, .sa-token-input-wrap, .mt-token-input-wrap,
+  .token-input-row, .token-input-wrap, .rev-token-input-wrap {
+    max-width: 100% !important;
+  }
+}
+</style>
 </body>
