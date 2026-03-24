@@ -109,9 +109,9 @@ transition: background-color 0.3s ease, color 0.3s ease;
         .audit-btn {
             position: relative;
             color: #fff;
-            border-radius: 14px !important;
-            padding: 18px 14px 14px !important;
-            min-height: 140px !important;
+            border-radius: 16px !important;
+            padding: 24px 20px 20px !important;
+            min-height: 160px !important;
             cursor: pointer;
             display: flex !important;
             flex-direction: column !important;
@@ -317,12 +317,12 @@ transition: background-color 0.3s ease, color 0.3s ease;
         .section-label-pp::after { content: ''; flex: 1; height: 1px; background: var(--border, rgba(255,255,255,0.08)); transition: background 0.3s; }
 
 .container {
-max-width: 1200px;
+max-width: 1600px !important;
 margin: 0 auto;
-background: white;
-padding: 10px;
-border-radius: 6px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+background: transparent;
+padding: 24px;
+border-radius: 0;
+box-shadow: none;
 }
 header {
 text-align: center;
@@ -345,7 +345,7 @@ margin-bottom: 8px;
         .op-token-bar {
           background: var(--surface-2, #2d2d2d);
           border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
-          padding: 7px 32px;
+          padding: 7px 40px 7px 120px;
           display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
           transition: background 0.3s, border-color 0.3s;
         }
@@ -1715,7 +1715,7 @@ textarea:focus {
 
 /* Container */
 .container {
-  border-radius: 14px !important;
+  border-radius: 16px !important;
   box-shadow: 0 4px 24px rgba(0,0,0,0.10) !important;
 }
 
@@ -1847,7 +1847,7 @@ h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
 
 /* Modals */
 .custom-modal-content, .employee-modal-content {
-  border-radius: 14px !important;
+  border-radius: 16px !important;
   box-shadow: 0 20px 60px rgba(0,0,0,0.30) !important;
 }
 .custom-modal-btn {
@@ -6439,6 +6439,7 @@ async function startAudit(auditType) {
 
   document.getElementById('auditSelection').classList.remove('active');
   document.getElementById('auditContent').classList.add('active');
+  var _opTb=document.getElementById('op_token_bar');if(_opTb)_opTb.style.display='none';
   document.getElementById('employeeListView').classList.remove('active');
   document.getElementById('finalResult').style.display = 'none';
 
@@ -6615,6 +6616,7 @@ async function goBackToSelection() {
   document.getElementById('auditSelection').classList.add('active');
   document.getElementById('auditContent').classList.remove('active');
   document.getElementById('employeeListView').classList.remove('active');
+  var _opTbS=document.getElementById('op_token_bar');if(_opTbS)_opTbS.style.display='';
 
   document.querySelector('.site-header-title') && (document.querySelector('.site-header-title').textContent = 'ZfP Operator Audit');
   document.querySelector('.site-header-sub').textContent = 'INFSW17008_NDT_Personal';
@@ -7247,6 +7249,7 @@ function loadAuditFromList(audit) {
 
   document.getElementById('auditSelection').classList.remove('active');
   document.getElementById('auditContent').classList.add('active');
+  var _opTb=document.getElementById('op_token_bar');if(_opTb)_opTb.style.display='none';
   document.getElementById('employeeListView').classList.remove('active');
   document.getElementById('finalResult').style.display = 'none';
   const auditInfo = AUDIT_TYPES[currentAuditType];
@@ -7642,4 +7645,122 @@ async function deleteEmployee(id) {
         })();
 
 </script>
+
+<!-- HEADER MOBIL – einheitlich alle Apps -->
+<style>
+@media (max-width: 768px) {
+  .site-header, .site-header { padding: 14px 14px 12px !important; }
+  .header { padding: 14px 14px 12px !important; }
+  .site-header-title, .header-title, .header-left h1 {
+    font-size: clamp(16px, 5vw, 22px) !important;
+    letter-spacing: -0.3px !important;
+  }
+  .site-header-sub, .header-sub, .header-left .sub { display: none !important; }
+  .token-bar, .op-token-bar, .sa-token-bar, .rev-token-bar {
+    padding: 6px 14px !important;
+    gap: 7px !important;
+  }
+  .token-bar-row { padding: 6px 14px !important; gap: 7px !important; }
+}
+@media (max-width: 480px) {
+  .site-header, .header { padding: 10px 12px !important; }
+  .site-header-eyebrow, .header-eyebrow { display: none !important; }
+  .site-header-title, .header-title, .header-left h1 {
+    font-size: clamp(15px, 5vw, 20px) !important;
+  }
+}
+</style>
+
+
+<!-- DESKTOP DESIGN STANDARD – einheitlich alle Apps -->
+<style>
+/* ── Body ── */
+body {
+  background: var(--bg, #1a1a1a) !important;
+  padding-bottom: 60px !important;
+}
+body.light-mode { background: var(--bg, #f0f2f5) !important; }
+
+/* ── Site-Header / Header: volle Breite, einheitliches Padding ── */
+.site-header, .header {
+  background: var(--surface, #242424) !important;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.08)) !important;
+  padding: 24px 32px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+body.light-mode .site-header,
+body.light-mode .header { background: var(--surface, #ffffff) !important; }
+
+.site-header-eyebrow, .header-eyebrow {
+  color: var(--accent, #58a6ff) !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important; letter-spacing: 2px !important;
+  text-transform: uppercase !important; font-weight: 500 !important;
+}
+.site-header-title, .header-title, .header-left h1 {
+  color: var(--text, #e6edf3) !important;
+  font-size: clamp(22px, 3vw, 30px) !important;
+  font-weight: 900 !important; letter-spacing: -0.5px !important;
+}
+.site-header-sub, .header-sub, .header-left .sub {
+  color: var(--muted, #8b949e) !important; font-size: 14px !important;
+}
+.theme-toggle, .theme-toggle-btn, .rev-theme-toggle, .theme-btn {
+  width: 44px !important; height: 44px !important; border-radius: 50% !important;
+  background: var(--surface-2, var(--surface2, #2d2d2d)) !important;
+  border: 1px solid var(--border, rgba(255,255,255,0.08)) !important;
+  color: var(--text, #e6edf3) !important; font-size: 18px !important;
+  cursor: pointer !important; display: flex !important;
+  align-items: center !important; justify-content: center !important;
+  transition: all 0.3s !important; flex-shrink: 0 !important;
+}
+
+/* ── Token Bars ── */
+.op-token-bar, .sa-token-bar, .rev-token-bar, .token-bar, .token-bar-row {
+  background: var(--surface-2, var(--surface2, #2d2d2d)) !important;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.08)) !important;
+  padding: 7px 40px 7px 120px !important;
+  box-sizing: border-box !important;
+}
+body.light-mode .op-token-bar, body.light-mode .sa-token-bar,
+body.light-mode .rev-token-bar, body.light-mode .token-bar,
+body.light-mode .token-bar-row { background: var(--surface-2, #f0f2f5) !important; }
+.op-token-bar.connected, .sa-token-bar.connected, .rev-token-bar.connected,
+.token-bar.connected, .token-bar-row.connected {
+  background: rgba(39,174,96,0.06) !important;
+  border-color: rgba(39,174,96,0.18) !important;
+}
+
+/* ── Container / Main: KEIN sichtbarer Kasten ── */
+.container, .main, .main-content, .app-inner {
+  max-width: 1600px !important;
+  margin-left: auto !important; margin-right: auto !important;
+  padding: 32px 24px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* ── CSS-Variable-Brücke für index__6_ ── */
+:root, html[data-theme="dark"] {
+  --bg: var(--bg-primary, #1a1a1a);
+  --surface: var(--bg-secondary, #242424);
+  --surface-2: var(--bg-tertiary, #2d2d2d);
+  --border: var(--border-color, rgba(255,255,255,0.08));
+  --text: var(--text-primary, #e6edf3);
+  --muted: var(--text-secondary, #8b949e);
+  --accent: #58a6ff;
+}
+html[data-theme="light"] {
+  --bg: var(--bg-primary, #f0f2f5);
+  --surface: var(--bg-secondary, #ffffff);
+  --surface-2: var(--bg-tertiary, #f0f2f5);
+  --border: var(--border-color, rgba(0,0,0,0.1));
+  --text: var(--text-primary, #1a1e24);
+  --muted: var(--text-secondary, #6b7280);
+  --accent: #1d6fbe;
+}
+</style>
 </body>
