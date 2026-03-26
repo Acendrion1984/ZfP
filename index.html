@@ -754,8 +754,8 @@ margin-bottom: 15px;
   gap: 10px;
 }
 .audit-buttons-bottom .employee-list-btn {
-  width: calc(50% - 6px);
-  flex: 0 0 calc(50% - 6px);
+  width: calc(36% - 6px);
+  flex: 0 0 calc(36% - 6px);
 }
 /* audit-btn base style defined above */
 /* gloss replaced by new ::before/::after above */
@@ -1410,6 +1410,48 @@ color: #7f8c8d; font-size: 0.85em;
   .authorization-signature-field { width: 100% !important; margin-bottom: 20px !important; }
   .report-action-buttons { top: 5px; right: 5px; gap: 3px; }
   .report-action-btn { width: 25px; height: 25px; font-size: 14px; }
+  /* 1. Logo kleiner machen */
+  .site-header-right img {
+    height: 24px !important;  /* statt 34px */
+    width: auto;
+  }
+  
+  /* Optional: Abstand zwischen Logo und Theme-Button reduzieren */
+  .site-header-right {
+    gap: 8px !important;
+  }
+  
+  /* 3. Token-Bar kompakter */
+  .op-token-bar {
+    padding: 6px 12px !important;   /* weniger Padding */
+    gap: 6px !important;
+  }
+  
+  /* GitHub-Label ausblenden */
+  .op-token-bar-label {
+    display: none !important;
+  }
+  
+  /* Input-Feld flexibler */
+  .op-token-input-wrap {
+    flex: 2;
+    min-width: 120px;
+  }
+  
+  /* Button kompakter */
+  .op-token-connect-btn {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+  
+  /* Status-Text kürzen/ausblenden (optional) */
+  .op-token-status {
+    font-size: 10px !important;
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 @media (max-width: 360px) {
 .audit-status { font-size: 0.7em; padding: 6px; }
