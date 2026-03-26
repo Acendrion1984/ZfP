@@ -1412,7 +1412,7 @@ color: #7f8c8d; font-size: 0.85em;
   .report-action-btn { width: 25px; height: 25px; font-size: 14px; }
   /* 1. Logo kleiner machen */
   .site-header-right img {
-    height: 24px !important;  /* statt 34px */
+    height: 20px !important;
     width: auto;
   }
   
@@ -8040,12 +8040,12 @@ body.light-mode .rev-token-input-wrap input {
     var right = logo && logo.closest('.site-header-right');
     if (!logo || !right) return;
     var mobile = window.innerWidth <= 768;
-    logo.style.height  = '20px';
-    logo.style.width   = 'auto';
-    logo.style.display = 'block';
-    logo.style.flexShrink = '0';
-    right.style.width          = mobile ? '100%' : '';
-    right.style.justifyContent = mobile ? 'center' : '';
+    logo.style.setProperty('height', '20px', 'important');
+    logo.style.setProperty('width', 'auto', 'important');
+    logo.style.setProperty('display', 'block', 'important');
+    logo.style.setProperty('flex-shrink', '0', 'important');
+    right.style.setProperty('width', mobile ? '100%' : '', 'important');
+    right.style.setProperty('justify-content', mobile ? 'center' : '', 'important');
   }
   document.addEventListener('DOMContentLoaded', applyLogoLayout);
   window.addEventListener('resize', applyLogoLayout);
