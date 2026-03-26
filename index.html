@@ -1350,10 +1350,12 @@ color: #7f8c8d; font-size: 0.85em;
   .controls-row-audit button { padding: 8px 10px; font-size: 0.7em; height: 32px; min-width: 100px; flex-shrink: 0; }
   .audit-buttons { grid-template-columns: repeat(2, 1fr) !important; gap: 8px; }
   .audit-buttons-bottom .employee-list-btn { width: 100% !important; flex: 1 1 100% !important; }
-  .audit-btn { min-height: 120px !important; padding: 16px 14px 14px !important; }
-  .tile-icon-wrap { font-size: 22px !important; margin-bottom: 8px !important; }
-  .tile-nm { font-size: 13px !important; }
-  .tile-arrow-btn { width: 26px !important; height: 26px !important; font-size: 11px !important; bottom: 12px !important; right: 12px !important; }
+  .audit-btn { min-height: 95px !important; padding: 10px 9px 9px !important; }
+  .tile-icon-wrap { font-size: 18px !important; margin-bottom: 4px !important; }
+  .tile-nm { font-size: 11px !important; }
+  .tile-cat { font-size: 8.5px !important; letter-spacing: 1px !important; }
+  .tile-progress { font-size: 8.5px !important; padding: 1px 6px !important; margin-top: 3px !important; }
+  .tile-arrow-btn { width: 22px !important; height: 22px !important; font-size: 10px !important; bottom: 8px !important; right: 8px !important; }
   /* Mitarbeiterliste: horizontales Scrollen auf mobil */
   .employee-table { font-size: 0.72em; width: auto; min-width: 900px; }
   .employee-table th, .employee-table td { padding: 6px 6px; white-space: nowrap; }
@@ -1412,7 +1414,7 @@ color: #7f8c8d; font-size: 0.85em;
 @media (max-width: 360px) {
 .audit-status { font-size: 0.7em; padding: 6px; }
 .controls-row-audit button { padding: 6px 8px; font-size: 0.65em; height: 30px; min-width: 90px; }
-.audit-btn { padding: 8px 6px !important; min-height: 90px !important; font-size: 0.8em; }
+.audit-btn { padding: 6px 5px !important; min-height: 75px !important; font-size: 0.75em; }
 .question-text { font-size: 0.9em; }
 .verdict-btn { padding: 6px 4px; font-size: 0.8em; min-height: 36px; }
 .verdict-btn span { font-size: 0.9em; margin-right: 3px; }
@@ -1917,8 +1919,10 @@ h1 { font-size: 1.5em !important; letter-spacing: -.2px; }
 
 /* ===== RESPONSIVE / MOBILE ===== */
 @media (max-width: 768px) {
-  .site-header, header { padding: 14px 14px 12px !important; }
-  .site-header-title { font-size: clamp(16px, 5vw, 22px) !important; }
+  .site-header, header { padding: 8px 10px 7px !important; }
+  .site-header-title { font-size: clamp(13px, 4vw, 17px) !important; }
+  .site-header-eyebrow { font-size: 9px !important; letter-spacing: 1.5px !important; }
+  .site-header-sub { font-size: 11px !important; margin-top: 1px !important; }
   .main, .main-content, .container, .app-inner { padding: 14px 10px 20px !important; }
   .controls-row-audit { flex-wrap: wrap !important; gap: 6px !important; display: grid !important; grid-template-columns: 1fr 1fr !important; }
   .op-token-bar { flex-wrap: wrap !important; gap: 6px !important; padding: 8px 10px !important; }
@@ -7648,24 +7652,25 @@ async function deleteEmployee(id) {
 <!-- HEADER MOBIL – einheitlich alle Apps -->
 <style>
 @media (max-width: 768px) {
-  .site-header, .site-header { padding: 14px 14px 12px !important; }
-  .header { padding: 14px 14px 12px !important; }
+  .site-header, .site-header { padding: 8px 10px 7px !important; }
+  .header { padding: 8px 10px 7px !important; }
   .site-header-title, .header-title, .header-left h1 {
-    font-size: clamp(16px, 5vw, 22px) !important;
+    font-size: clamp(13px, 4vw, 17px) !important;
     letter-spacing: -0.3px !important;
   }
+  .site-header-eyebrow, .header-eyebrow { font-size: 9px !important; letter-spacing: 1.5px !important; }
   .site-header-sub, .header-sub, .header-left .sub { display: none !important; }
   .token-bar, .op-token-bar, .sa-token-bar, .rev-token-bar {
-    padding: 6px 14px !important;
-    gap: 7px !important;
+    padding: 5px 10px !important;
+    gap: 6px !important;
   }
-  .token-bar-row { padding: 6px 14px !important; gap: 7px !important; }
+  .token-bar-row { padding: 5px 10px !important; gap: 6px !important; }
 }
 @media (max-width: 480px) {
-  .site-header, .header { padding: 10px 12px !important; }
+  .site-header, .header { padding: 6px 8px !important; }
   .site-header-eyebrow, .header-eyebrow { display: none !important; }
   .site-header-title, .header-title, .header-left h1 {
-    font-size: clamp(15px, 5vw, 20px) !important;
+    font-size: clamp(12px, 3.5vw, 15px) !important;
   }
 }
 </style>
