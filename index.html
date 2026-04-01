@@ -8029,7 +8029,7 @@ body.light-mode .rev-token-input-wrap input {
   display:flex; align-items:center; flex-shrink:0; margin-left:auto;
 }
 .schaeffler-logo-wrap img, .schaeffler-logo img {
-  height:20px; width:auto; display:block;
+  height:34px; width:auto; display:block;
 }
 </style>
 
@@ -8040,7 +8040,7 @@ body.light-mode .rev-token-input-wrap input {
     var right = logo && logo.closest('.site-header-right');
     if (!logo || !right) return;
     var mobile = window.innerWidth <= 768;
-    logo.style.setProperty('height', '20px', 'important');
+    logo.style.setProperty('height', mobile ? '20px' : '34px', 'important');
     logo.style.setProperty('width', 'auto', 'important');
     logo.style.setProperty('display', 'block', 'important');
     logo.style.setProperty('flex-shrink', '0', 'important');
