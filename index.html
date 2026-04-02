@@ -7689,10 +7689,7 @@ async function deleteEmployee(id) {
                 }
             });
         })();
-
 </script>
-
-<!-- HEADER MOBIL – einheitlich alle Apps -->
 <style>
 @media (max-width: 768px) {
   .site-header, .site-header { padding: 8px 10px 7px !important; }
@@ -8033,6 +8030,10 @@ body.light-mode .rev-token-input-wrap input {
   height:34px; width:auto; display:block;
 }
 .audit-buttons-bottom .audit-btn.employee-list-btn {
+    display: none !important;
+}
+/* Zurück-Button in der Mitarbeiterliste ausblenden */
+#backFromEmployeesBtn {
     display: none !important;
 }
 </style>
