@@ -78,7 +78,7 @@ transition: background-color 0.3s ease, color 0.3s ease;
         .site-header {
             background: var(--surface, #242424);
             border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
-            padding: 12px 32px 10px 40px;
+            padding: 20px 40px 16px 60px !important;
             display: flex; align-items: center; justify-content: space-between;
             gap: 12px; flex-wrap: wrap;
             transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -89,11 +89,11 @@ transition: background-color 0.3s ease, color 0.3s ease;
             font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
             color: var(--accent, #58a6ff); font-weight: 500;
         }
-        .site-header-title {
-            font-size: clamp(22px, 3vw, 30px); font-weight: 900;
-            color: var(--text, #e6edf3); line-height: 1.1; letter-spacing: -0.5px;
-            transition: color 0.3s ease;
-        }
+.site-header-title {
+    font-size: clamp(22px, 3vw, 30px) !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.5px !important;
+}
         .site-header-sub { font-size: 14px; color: var(--muted, #8b949e); margin-top: 2px; transition: color 0.3s ease; }
         .site-header-right { display: flex; align-items: center; gap: 12px; }
         .theme-toggle-btn {
@@ -7816,10 +7816,10 @@ body.light-mode .header { background: var(--surface, #ffffff) !important; }
   font-size: 11px !important; letter-spacing: 2px !important;
   text-transform: uppercase !important; font-weight: 500 !important;
 }
-.site-header-title, .header-title, .header-left h1 {
-  color: var(--text, #e6edf3) !important;
-  font-size: clamp(22px, 3vw, 30px) !important;
-  font-weight: 900 !important; letter-spacing: -0.5px !important;
+.site-header-title {
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 900;
+    letter-spacing: -0.5px;
 }
 .site-header-sub, .header-sub, .header-left .sub {
   color: var(--muted, #8b949e) !important; font-size: 14px !important;
@@ -8124,7 +8124,12 @@ body.light-mode .rev-token-input-wrap input {
             border: 1px solid rgba(255,255,255,0.6) !important;
         }
         body.light-mode 
-
+.op-token-bar, .rev-token-bar, .sa-token-bar {
+    display: none !important;
+}
+.op-token-bar, .rev-token-bar, .sa-token-bar {
+    display: none !important;
+}
 </style>
 
 <script>
@@ -8145,8 +8150,22 @@ body.light-mode .rev-token-input-wrap input {
   window.addEventListener('resize', applyLogoLayout);
 })();
 </script>
+<script>
+(function() {
+    let tokenBar = document.querySelector('.op-token-bar, .rev-token-bar, .sa-token-bar');
+    function update() {
+        if(!tokenBar) return;
+        let onStart = document.getElementById('auditSelection')?.classList.contains('active');
+        let connected = tokenBar.classList.contains('connected');
+        tokenBar.style.display = (onStart && !connected) ? 'flex' : 'none';
+    }
+    if(tokenBar) {
+        update();
+        new MutationObserver(update).observe(tokenBar, {attributes:true});
+        document.getElementById('backBtn')?.addEventListener('click',()=>setTimeout(update,100));
+        document.querySelectorAll('.audit-btn[data-audit]').forEach(b=>b.addEventListener('click',()=>setTimeout(update,100)));
+    }
+})();
+</script>
 </body>
-
-
-
 
