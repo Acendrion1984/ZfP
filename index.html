@@ -2688,8 +2688,8 @@ input:focus, select:focus, textarea:focus {
       </div>
     </button>
   </div>
- <div class="audit-buttons audit-buttons-bottom" style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
-    <button class="audit-btn employee-list-btn" id="employeeListBtn" style="width: calc(50% - 5px);">
+  <div class="audit-buttons audit-buttons-bottom">
+    <button class="audit-btn employee-list-btn" id="employeeListBtn">
       <div class="tile-icon-wrap"><i class="fas fa-users"></i></div>
       <div class="tile-body-wrap">
         <div class="tile-cat">DGZfP Personal • ZfP Autorisierungen</div>
@@ -2698,29 +2698,7 @@ input:focus, select:focus, textarea:focus {
       <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
     </button>
   </div>
-  
-  <!-- ZWEITE REIHE: Cloud und Abweichungen -->
-  <div class="audit-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-    <button class="audit-btn cloud" id="cloudAuditsBtn" style="background: linear-gradient(145deg, #e67e22, #9a5215) !important;">
-      <div class="tile-icon-wrap"><i class="fas fa-cloud-upload-alt"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">GitHub · Archiv</div>
-        <div class="tile-nm">Abgeschlossene Audits</div>
-        <div class="tile-progress" id="cloudProgress">0 Audits</div>
-      </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
-    </button>
-    
-    <button class="audit-btn deviations" id="deviationsBtn" style="background: linear-gradient(145deg, #c0392b, #7b1e15) !important;">
-      <div class="tile-icon-wrap"><i class="fas fa-exclamation-triangle"></i></div>
-      <div class="tile-body-wrap">
-        <div class="tile-cat">Findings · Befunde</div>
-        <div class="tile-nm">Abweichungen</div>
-        <div class="tile-progress" id="deviationsProgress">0</div>
-      </div>
-      <div class="tile-arrow-btn"><i class="fas fa-arrow-right"></i></div>
-    </button>
-  </div>
+</div>
 
 <!-- AUDIT CONTENT -->
 <div id="auditContent" class="audit-content">
@@ -8153,49 +8131,10 @@ body.light-mode .rev-token-input-wrap input {
         }
         body.light-mode 
 .op-token-bar, .rev-token-bar, .sa-token-bar {
-    display: none;
+    display: none !important;
 }
 .op-token-bar, .rev-token-bar, .sa-token-bar {
     display: none !important;
-}
-/* ===== FIX: LIGHT MODE TOKEN BUTTON ===== */
-body.light-mode .op-token-bar,
-body.light-mode .rev-token-bar,
-body.light-mode .sa-token-bar {
-  background: #f0f2f5 !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-body.light-mode .op-token-input-wrap,
-body.light-mode .rev-token-input-wrap,
-body.light-mode .sa-token-input-wrap {
-  background: #ffffff !important;
-  border-color: #ddd !important;
-}
-
-body.light-mode .op-token-input-wrap input,
-body.light-mode .rev-token-input-wrap input,
-body.light-mode .sa-token-input-wrap input {
-  color: #1a1e24 !important;
-}
-
-body.light-mode .op-token-connect-btn,
-body.light-mode .rev-token-connect-btn,
-body.light-mode .sa-token-connect-btn {
-  background: #1d6fbe !important;
-  color: #ffffff !important;
-}
-
-/* Button selbst im Light Mode */
-body.light-mode #tokenBarToggleBtn {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.2) !important;
-  color: #1a1e24 !important;
-}
-
-body.light-mode #tokenBarToggleBtn.token-bar-active {
-  background: #1d6fbe !important;
-  color: #ffffff !important;
 }
 </style>
 
@@ -8250,5 +8189,4 @@ body.light-mode #tokenBarToggleBtn.token-bar-active {
 })();
 </script>
 </body>
-
 
