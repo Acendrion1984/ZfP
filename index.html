@@ -5346,7 +5346,7 @@ function opSetDot(state) {
   const gDot = document.getElementById('githubDot');
   if (dot) dot.className = 'op-gh-dot' + (state ? ' '+state : '');
   if (gDot) gDot.className = 'github-dot' + (state ? ' '+state : '');
-  if (bar) bar.className = 'op-token-bar' + (state === 'connected' ? ' connected' : '');
+  if (bar) bar.classList.toggle('connected', state === 'connected');
   if (st) {
     st.className = 'op-token-status' + (state === 'connected' ? ' ok' : state === 'error' ? ' err' : '');
     st.textContent = state === 'connected' ? '✅ Verbunden'
@@ -8161,20 +8161,16 @@ body.light-mode .rev-token-input-wrap input {
     let tokenBar = document.querySelector('.op-token-bar, .rev-token-bar, .sa-token-bar');
     function update() {
         if(!tokenBar) return;
-        // Wenn Nutzer die Leiste manuell eingeblendet hat, nicht automatisch verstecken
-        if(tokenBar.classList.contains('token-bar-force-show')) return;
+        if(tokenBar.classList.contains('token-bar-force-show')) {
+            tokenBar.style.display = 'flex'; // immer sichtbar halten
+            return;
+        }
         let onStart = document.getElementById('auditSelection')?.classList.contains('active');
-        let connected = tokenBar.classList.contains('connected');
-        tokenBar.style.display = (onStart && !connected) ? 'flex' : 'none';
+        tokenBar.style.display = onStart ? 'flex' : 'none';
     }
     if(tokenBar) {
         update();
-        new MutationObserver(function(mutations) {
-            // Klassen-Änderungen durch token-bar-force-show ignorieren (kein Loop)
-            let relevant = mutations.some(m => !Array.from(m.target.classList).includes('token-bar-force-show') ||
-                m.oldValue === null || !m.oldValue.includes('token-bar-force-show'));
-            if(relevant) update();
-        }).observe(tokenBar, {attributes:true, attributeOldValue:true});
+        new MutationObserver(update).observe(tokenBar, {attributes:true});
         document.getElementById('backBtn')?.addEventListener('click',()=>setTimeout(update,100));
         document.querySelectorAll('.audit-btn[data-audit]').forEach(b=>b.addEventListener('click',()=>setTimeout(update,100)));
     }
@@ -8185,11 +8181,9 @@ body.light-mode .rev-token-input-wrap input {
         btn.addEventListener('click', function() {
             let isForced = tokenBar.classList.toggle('token-bar-force-show');
             btn.classList.toggle('token-bar-active', isForced);
-            if(!isForced) {
-                // Manuell ausgeblendet → Auto-Logik wieder anwenden
-                tokenBar.style.display = '';
-                update();
-            }
+            // Direkt display setzen (CSS !important als Sicherheitsnetz)
+            tokenBar.style.display = isForced ? 'flex' : '';
+            if(!isForced) update(); // Auto-Logik anwenden wenn manuell ausgeblendet
         });
     }
 })();
