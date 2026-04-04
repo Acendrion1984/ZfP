@@ -752,22 +752,57 @@ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 gap: 8px;
 margin-bottom: 15px;
 }
-/* ===== AUDIT BUTTONS – 6 gleichbreite Kacheln ===== */
-.audit-buttons {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.audit-buttons-bottom {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-  gap: 10px;
-}
-.audit-buttons-bottom .employee-list-btn {
-  width: calc(36% - 6px);
-  flex: 0 0 calc(36% - 6px);
+@media (max-width: 768px) {
+  .audit-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin-bottom: 14px !important;
+  }
+  
+  .audit-btn {
+    min-height: 130px !important;
+    padding: 18px 16px 16px !important;
+    border-radius: 20px !important;
+  }
+  
+  .tile-icon-wrap {
+    font-size: 28px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .tile-nm {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .tile-cat {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+  
+  .tile-progress {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    margin-top: 8px !important;
+  }
+  
+  .tile-arrow-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 14px !important;
+    bottom: 12px !important;
+    right: 12px !important;
+  }
+  
+  .audit-buttons-bottom {
+    margin-top: 8px !important;
+  }
+  
+  .audit-buttons-bottom .employee-list-btn {
+    min-height: 110px !important;
+  }
 }
 /* audit-btn base style defined above */
 /* gloss replaced by new ::before/::after above */
@@ -8136,6 +8171,59 @@ body.light-mode .rev-token-input-wrap input {
 .op-token-bar, .rev-token-bar, .sa-token-bar {
     display: none !important;
 }
+/* ===== ENDE DER CSS-DATEI – GANZ UNTEN EINFÜGEN ===== */
+@media (max-width: 768px) {
+  .audit-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin-bottom: 14px !important;
+  }
+  
+  .audit-btn {
+    min-height: 140px !important;      /* statt 130px – eindeutig größer */
+    padding: 20px 16px 16px !important;
+    border-radius: 20px !important;
+  }
+  
+  .tile-icon-wrap {
+    font-size: 28px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .tile-nm {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .tile-cat {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+  
+  .tile-progress {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    margin-top: 8px !important;
+  }
+  
+  .tile-arrow-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 14px !important;
+    bottom: 12px !important;
+    right: 12px !important;
+  }
+  
+  .audit-buttons-bottom {
+    margin-top: 8px !important;
+  }
+  
+  .audit-buttons-bottom .employee-list-btn {
+    min-height: 120px !important;
+  }
+}
 </style>
 
 <script>
@@ -8189,4 +8277,3 @@ body.light-mode .rev-token-input-wrap input {
 })();
 </script>
 </body>
-
