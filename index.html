@@ -8276,4 +8276,233 @@ body.light-mode .rev-token-input-wrap input {
     }
 })();
 </script>
+<style id="zfp-iphone15">
+/* ═══════════════════════════════════════════════════
+   iPhone 15 Optimierungen – Tiles + Scrollbar + Fragen
+   ═══════════════════════════════════════════════════ */
+
+/* ── Tile-Grösse: Wie Operator App (Goldstandard) ── */
+@media (max-width: 768px) {
+  .audit-buttons {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .audit-btn {
+    min-height: 155px !important;
+    padding: 20px 16px 16px !important;
+    border-radius: 20px !important;
+  }
+  .btn-icon, .tile-icon-wrap {
+    font-size: 26px !important;
+    margin-bottom: 8px !important;
+    margin-right: 0 !important;
+  }
+  .tile-nm, .audit-btn > span:not(.btn-progress):not(.tile-cat):not(.tile-nm) {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+  .tile-cat { font-size: 10px !important; }
+  .btn-progress, .tile-progress {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    margin-top: 8px !important;
+  }
+  .tile-arrow-btn, .tile-arrow-badge {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 13px !important;
+    bottom: 12px !important;
+    right: 12px !important;
+  }
+}
+
+/* ── Scrollbare Button-Leiste (BEIDE Apps) ── */
+@media (max-width: 768px) {
+  /* Operator App */
+  .controls-row-audit {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    grid-template-columns: none !important;
+    scrollbar-width: thin !important;
+  }
+  .controls-row-audit button {
+    flex: 0 0 auto !important;
+    min-width: 105px !important;
+    height: 38px !important;
+    font-size: 12px !important;
+    padding: 0 12px !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+  /* Review App */
+  .controls-scroll {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: thin !important;
+  }
+  .controls-scroll button {
+    flex: 0 0 auto !important;
+    min-width: 95px !important;
+    height: 38px !important;
+    font-size: 12px !important;
+    padding: 0 12px !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* ── Fragen-Ansicht: Vollbild auf iPhone 15 ── */
+@media (max-width: 430px) {
+  .container, .main, .main-content, .app-inner {
+    padding: 12px 12px 50px !important;
+  }
+
+  /* Frage-Karte */
+  .question {
+    padding: 16px 14px !important;
+    margin-bottom: 14px !important;
+    border-radius: 12px !important;
+  }
+  .question-text {
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    font-weight: 600 !important;
+  }
+  .question-id {
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  .english-translation {
+    font-size: 13px !important;
+    margin: 8px 0 12px !important;
+  }
+
+  /* Punkte-Buttons (Review: 0/4/8/10) */
+  .points-options { gap: 6px !important; }
+  .points-option {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 10px 2px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    min-height: 46px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Verdict-Buttons (Operator: OK / Nicht OK) */
+  .verdict-options { gap: 10px !important; }
+  .verdict-btn {
+    padding: 14px 10px !important;
+    font-size: 15px !important;
+    min-height: 50px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Textfelder */
+  .comment, .evidence, .deviation-field, .responsible-field {
+    font-size: 15px !important;
+    padding: 12px !important;
+    min-height: 64px !important;
+    border-radius: 10px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Abweichungs-Sektion */
+  .deviation-section { padding: 12px !important; border-radius: 10px !important; }
+  .deviation-section h4 { font-size: 14px !important; }
+
+  /* Punkte-Anzeige */
+  .points-display {
+    font-size: 14px !important;
+    padding: 8px 10px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Navigation */
+  .mobile-nav { margin-top: 16px !important; }
+  .mobile-nav button, #prevBtn, #nextBtn {
+    min-width: 90px !important;
+    height: 46px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    padding: 0 16px !important;
+  }
+  #mobileCounter { font-size: 14px !important; font-weight: 600 !important; }
+
+  /* Section Buttons */
+  .mobile-section-selector {
+    gap: 6px !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    margin-bottom: 12px !important;
+  }
+  .section-btn {
+    padding: 8px 6px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    min-height: 36px !important;
+  }
+
+  /* Status Bar */
+  .audit-status {
+    font-size: 13px !important;
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+  }
+  .progress-bar, .audit-progress-container { height: 10px !important; }
+
+  /* Header Inputs (Operator) */
+  .header-input {
+    font-size: 15px !important;
+    padding: 10px 12px !important;
+    min-height: 46px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Teilnehmer (Review) */
+  .participants-section { padding: 12px !important; border-radius: 10px !important; }
+  .participant-input {
+    font-size: 15px !important;
+    padding: 10px !important;
+    min-height: 46px !important;
+  }
+  .add-participant {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 46px !important;
+    font-size: 18px !important;
+  }
+
+  /* Upload */
+  .file-input-label {
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+}
+
+/* ── Safe-Area iPhone (Home-Indicator 34px) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom)) !important;
+  }
+}
+</style>
 </body>
+
