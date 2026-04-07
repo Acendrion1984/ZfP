@@ -5065,24 +5065,25 @@ function showAuthorizationFromEmployeeData(employee, headerData, authorizedProce
       <div style="padding:10px;">
         <div style="font-weight:bold; font-size:9.5pt; margin-bottom:${isNdtSupervisor ? '4px' : '6px'}; color:#000 !important; text-align:left;">${werkText}</div>
         ${isNdtSupervisor ? `
-        <div style="font-size:8.5pt; color:#666 !important; margin-bottom:6px; text-align:left; font-style:italic; line-height:1.2;">
-          <i>The named individual is NDT Supervisor in Schweinfurt, authorized to perform the inspection methods and to authorize Level 1 and 2 inspectors.</i>
-        </div>` : `
-        <div style="font-size:8.8pt; color:#666 !important; margin-bottom:8px; text-align:left; font-style:italic;">
-          <i>The above-mentioned employee is authorized to perform the following non-destructive testing procedures!</i>
-        </div>`}
-        <div class="auth-proc-grid" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 10px; align-items:start;">
-          ${authorizedProcedures.map(proc => {
-            return `
-            <div style="padding:6px 8px; margin:0; background:#f0f0f0; border-radius:2px; font-size:9pt; border-left:3px solid #3498db; text-align:left;">
-              • ${proc.title} (${proc.short})
-              <div style="font-size:8.3pt; color:#666; margin-top:2px; font-style:italic;">
-                ${proc.english || proc.title} (${proc.short})
-              </div>
-            </div>`;
-          }).join('')}
-        </div>
-      </div>
+ <div style="display:inline-block; min-width:50mm; border:1.5px solid #2c3e50; border-radius:5px; padding:4px 8px; font-family:Arial, sans-serif; font-size:8pt; color:#2c3e50; background:white; line-height:1.15;">
+  <div style="font-weight:bold; text-align:center; margin-bottom:3px; font-size:9pt;">AUTORISIERUNG ERTEILT</div>
+  <div style="display:flex; justify-content:center; align-items:center; margin-bottom:2px; gap:20px;">
+    <div style="width:32mm; text-align:center;">
+      <div style="font-size:7pt; color:#555; line-height:1.1;">Autorisierungsdatum</div>
+      <div style="font-weight:bold; font-size:8pt; line-height:1.2; margin-top:1px;">${authDateFormatted}</div>
+    </div>
+    <div style="width:32mm; text-align:center;">
+      <div style="font-size:7pt; color:#555; line-height:1.1;">Gültig bis</div>
+      <div style="font-weight:bold; font-size:8pt; line-height:1.2; margin-top:1px;">${expiryDateFormatted}</div>
+    </div>
+  </div>
+  <div style="margin-top:3px; padding:2px 4px; background:#f4f6f8; border-radius:3px; font-size:8pt; text-align:center; line-height:1.2;">
+    Gültigkeit: <strong>12 Monate</strong>
+  </div>
+  <div style="margin-top:3px; font-size:7pt; color:#666; text-align:center; line-height:1.1;">
+    Nur gültig mit Zertifikat
+  </div>
+</div>
     </div>
   </div>
 
