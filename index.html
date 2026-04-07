@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
@@ -5657,125 +5657,111 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // NEU: CSV Export aller Daten (Audits, Mitarbeiter, Reviews)
+// ========== CSV EXPORT (repariert) ==========
 function exportAllDataToCSV() {
-  // Sammle alle relevanten Daten
-  const exportData = {
-    employees: employees,
-    auditReviews: auditReviews,
-    audits: {}
-  };
-  
-  // Sammle alle Audits pro Typ
-  Object.keys(AUDIT_TYPES).forEach(type => {
-    const key = STORAGE_LIST_KEY(type);
-    const savedList = localStorage.getItem(key);
-    if (savedList) {
-      try {
-        exportData.audits[type] = JSON.parse(savedList);
-      } catch (e) {
+  try {
+    // 1. Sammle alle Daten
+    const exportData = {
+      employees: employees,
+      auditReviews: auditReviews,
+      audits: {}
+    };
+    Object.keys(AUDIT_TYPES).forEach(type => {
+      const key = STORAGE_LIST_KEY(type);
+      const savedList = localStorage.getItem(key);
+      if (savedList) {
+        try { exportData.audits[type] = JSON.parse(savedList); }
+        catch(e) { exportData.audits[type] = []; }
+      } else {
         exportData.audits[type] = [];
       }
-    } else {
-      exportData.audits[type] = [];
-    }
-  });
-  
-  // Konvertiere zu CSV (eine Spalte für den Typ, eine für den JSON-String)
-  const rows = [];
-  
-  // Header
-  rows.push(['DataType', 'JSONData']);
-  
-  // Mitarbeiter
-  rows.push(['employees', JSON.stringify(exportData.employees)]);
-  
-  // AuditReviews
-  rows.push(['auditReviews', JSON.stringify(exportData.auditReviews)]);
-  
-  // Audits pro Typ
-  Object.keys(exportData.audits).forEach(type => {
-    rows.push([`audits_${type}`, JSON.stringify(exportData.audits[type])]);
-  });
-  
-  // Erstelle CSV-String
-  const csvContent = rows.map(row => {
-    return row.map(cell => {
-      // Maskiere Anführungszeichen und umschließe mit Anführungszeichen
-      if (typeof cell === 'string') {
-        return `"${cell.replace(/"/g, '""')}"`;
-      }
-      return `"${JSON.stringify(cell).replace(/"/g, '""')}"`;
-    }).join(',');
-  }).join('\n');
-  
-  // Download
-  const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' }); // BOM für Umlaute
-  const link = document.createElement('a');
-  const url = URL.createObjectURL(blob);
-  link.setAttribute('href', url);
-  link.setAttribute('download', `zfp_audit_backup_${new Date().toISOString().slice(0,10)}.csv`);
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-  
-  showInfoModal('✅ CSV Export erfolgreich!');
+    });
+
+    // 2. CSV-Zeilen aufbauen (DataType, Base64(JSON))
+    const rows = [['DataType', 'Base64Data']];
+    rows.push(['employees', b64EncodeUnicode(JSON.stringify(exportData.employees))]);
+    rows.push(['auditReviews', b64EncodeUnicode(JSON.stringify(exportData.auditReviews))]);
+    Object.keys(exportData.audits).forEach(type => {
+      rows.push([`audits_${type}`, b64EncodeUnicode(JSON.stringify(exportData.audits[type]))]);
+    });
+
+    // 3. CSV-String erzeugen (alle Felder in Anführungszeichen)
+    const csvContent = rows.map(row => {
+      return row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',');
+    }).join('\n');
+
+    // 4. UTF‑8 mit BOM speichern und Download starten
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `zfp_audit_backup_${new Date().toISOString().slice(0,10)}.csv`);
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showInfoModal('✅ CSV Export erfolgreich!');
+  } catch (err) {
+    console.error('CSV Export Fehler:', err);
+    showInfoModal(`❌ CSV Export fehlgeschlagen: ${err.message}`);
+  }
 }
 
-// NEU: CSV Import aller Daten
+// ========== CSV IMPORT (repariert) ==========
 function importAllDataFromCSV(event) {
   const file = event.target.files[0];
   if (!file) return;
-  
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
       const csvText = e.target.result;
-      const rows = csvText.split('\n').map(row => row.trim()).filter(row => row.length > 0);
-      if (rows.length === 0) throw new Error('Leere Datei');
-      
-      // Parse CSV (einfaches Parsing, da nur zwei Spalten)
+      // BOM entfernen, falls vorhanden
+      const raw = csvText.replace(/^\uFEFF/, '');
+      const lines = raw.split(/\r?\n/).filter(line => line.trim().length > 0);
+      if (lines.length < 2) throw new Error('Keine Datenzeilen gefunden');
+
       const dataMap = {};
-      
-      for (let i = 1; i < rows.length; i++) { // ab Zeile 1, da Zeile 0 Header
-        const row = rows[i];
-        const match = row.match(/"([^"]*)","(.*)"/);
-        if (!match) continue;
-        
+      // Erste Zeile ist Header, ab Zeile 1 parsen
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        // CSV-Zeile mit zwei Spalten parsen: "DataType","Base64Data"
+        const match = line.match(/^"([^"]+)","(.*)"$/);
+        if (!match) {
+          console.warn('Überspringe ungültige Zeile:', line);
+          continue;
+        }
         const dataType = match[1];
-        let jsonStr = match[2];
-        // Entferne doppelte Anführungszeichen
-        jsonStr = jsonStr.replace(/""/g, '"');
-        
+        let base64 = match[2];
+        // Maskierte doppelte Anführungszeichen zurücksetzen
+        base64 = base64.replace(/""/g, '"');
         try {
+          const jsonStr = b64DecodeUnicode(base64);
           const parsed = JSON.parse(jsonStr);
           dataMap[dataType] = parsed;
-        } catch (jsonErr) {
-          console.warn('Fehler beim Parsen von JSON für', dataType, jsonErr);
+        } catch (parseErr) {
+          console.warn(`Fehler beim Parsen von ${dataType}:`, parseErr);
         }
       }
-      
-      // Daten zurückschreiben in localStorage
+
+      // Daten in localStorage zurückschreiben
       if (dataMap['employees']) {
         employees = dataMap['employees'];
         localStorage.setItem('zfpEmployees', JSON.stringify(employees));
       }
-      
       if (dataMap['auditReviews']) {
         auditReviews = dataMap['auditReviews'];
         localStorage.setItem('zfpAuditReviews', JSON.stringify(auditReviews));
       }
-      
-      // Audits pro Typ
       Object.keys(AUDIT_TYPES).forEach(type => {
         const key = `audits_${type}`;
         if (dataMap[key]) {
           localStorage.setItem(STORAGE_LIST_KEY(type), JSON.stringify(dataMap[key]));
         }
       });
-      
-      // Neu laden
+
+      // UI neu laden
       loadEmployees();
       loadAuditReviews();
       loadAuditFiles();
@@ -5783,9 +5769,7 @@ function importAllDataFromCSV(event) {
       updateDepartmentFilterOptions();
       updateProcedureProgress();
       updateAllAuditProgressDisplays();
-      
       showInfoModal('✅ CSV Import erfolgreich!');
-      
     } catch (error) {
       console.error('CSV Import Fehler:', error);
       showInfoModal(`❌ Fehler beim CSV Import: ${error.message}`);
@@ -5794,6 +5778,23 @@ function importAllDataFromCSV(event) {
     }
   };
   reader.readAsText(file, 'UTF-8');
+}
+
+// Hilfsfunktionen für Base64 mit Unicode
+function b64EncodeUnicode(str) {
+  // Zuerst UTF-8 kodieren, dann Base64
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) => {
+    return String.fromCharCode('0x' + p1);
+  }));
+}
+function b64DecodeUnicode(base64) {
+  // Base64 dekodieren, dann Prozentzeichen wiederherstellen
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return decodeURIComponent(Array.from(bytes, b => '%' + ('0' + b.toString(16)).slice(-2)).join(''));
 }
 
 function initializeApp() {
@@ -8505,5 +8506,3 @@ body.light-mode .rev-token-input-wrap input {
 }
 </style>
 </body>
-
-
